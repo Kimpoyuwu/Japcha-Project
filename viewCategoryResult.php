@@ -39,7 +39,7 @@
           <button type="button" class="close" onclick="closePopup()" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <form action="addCategory.php" method="post" id="formCategory">
+          <form action="controller/addCategory.php" method="post" id="formCategory">
             <div class="form-group-label">
               <label for="c_name">Category Name: </label>
               <input type="text" class="form-control" name="c_name" required>

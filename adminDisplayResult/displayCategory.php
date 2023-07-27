@@ -7,7 +7,7 @@
         exit();
      }
 
-    $query = "SELECT category_id, category_name FROM category";
+    $query = "SELECT category_id, category_name FROM category LIMIT 6";
     $result = mysqli_query($con, $query);
 
     if (mysqli_num_rows($result) > 0) {
