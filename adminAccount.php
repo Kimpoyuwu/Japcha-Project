@@ -66,7 +66,7 @@
                                 <?php
                                     include "config/databaseConnection.php";
                                     $query = "SELECT category_name FROM category";
-                                    $result = mysqli_query($conn, $query);
+                                    $result = mysqli_query($con, $query);
                                    
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $categoryId = $row['category_id'];
@@ -88,9 +88,8 @@
                 </div>
             </div>
     <!-- <script src="adminJS.js"></script> -->
-    <!-- Modal script -->
     <script>
-            let popup = document.getElementById("addAdminPopup");
+                    let popup = document.getElementById("addAdminPopup");
             // let overlay = document.getElementById("modalOverlay");
             function openAddAdmin()
             {
@@ -114,6 +113,8 @@
             // Listen for keydown events to close the modal when "Escape" key is pressed
             document.addEventListener("keydown", closeModal);
     </script>
+    <!-- Modal script -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="aJax.js"></script>
 <?php
