@@ -1,9 +1,9 @@
 <?php
 
-$conn = new mysqli('localhost', 'root', '', 'japcha');
+    $con = new mysqli('localhost', 'root', '', 'japcha');
 
-    if($conn -> connect_error){
-        die('Connection Failed: ' . $conn->connect_error);
+    if($con -> connect_error){
+        die('Connection Failed: ' . $con->connect_error);
         exit();
     }else{
         
@@ -11,28 +11,27 @@ $conn = new mysqli('localhost', 'root', '', 'japcha');
     $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number from the URL parameter
     // Calculate the offset to determine which rows to fetch from the database
     $offset = ($page - 1) * $limit;
-    $query = "SELECT customer_id, username, password, email, customer_address, contact_number FROM customer_account LIMIT $limit OFFSET $offset";
-    $result = mysqli_query($conn, $query);
+    $query = "SELECT admin_id, username, password, email, user_level, contact FROM admin_account LIMIT $limit OFFSET $offset";
+    $result = mysqli_query($con, $query);
 
     // Checking if any rows were returned
     if (mysqli_num_rows($result) > 0) {
         // Looping through each row and displaying the data
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td>" . $row['customer_id'] . "</td>";
+            echo "<td>" . $row['admin_id'] . "</td>";
             echo "<td><img src='image/user.jpg' alt='user image'></td>";
             echo "<td>" . $row['username'] . "</td>";
             echo "<td>" . $row['password'] . "</td>";
             echo "<td>" . $row['email'] . "</td>";
-            echo "<td>" . $row['customer_address'] . "</td>";
-            echo "<td>" . $row['contact_number'] . "</td>";
+            echo "<td>" . $row['user_level'] . "</td>";
+            echo "<td>" . $row['contact'] . "</td>";
             echo "<td><button class='remove'>Remove</button></td>";
-            echo "<td><button class='block'>Block</button></td>";
             echo "</tr>";
         }
             
     } else {
-        echo "<tr><td colspan='6'>No customer accounts found.</td></tr>";
+        echo "<tr><td colspan='6'>No admin accounts found.</td></tr>";
     }
     $con ->close();
     } 

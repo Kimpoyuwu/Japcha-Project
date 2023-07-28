@@ -20,15 +20,18 @@
                   <tr>
                     <th>id</th>
                     <th>Profile</th>
-                    <th>Name</th>
+                    <th>Username</th>
                     <th>Password</th>
                     <th>Email</th>
+                    <th>User Level</th>
                     <th>Contact No.</th>
                     <th>Remove</th>
                   </tr>
                 </thead>
                 <tbody>
-                   
+                   <?php
+                        include "adminDisplayResult/displayAdminAccount.php";
+                   ?>
                 </tbody>
                 <?php
                         
@@ -41,7 +44,7 @@
             <div class="form signup_form" id="addAdminPopup">
                 <button class="form_close" onclick="closeAddAdmin()"><i class="uil uil-times"></i></button>
                 <div class="formBody">
-                    <form action="Connect.php" method="post">
+                    <form action="controller/addAdminAccount.php" method="post">
                         <h2>Signup</h2>
                         <div class="input_box">
                             <label for="username">Username:</label>
@@ -62,16 +65,16 @@
                         <div class="input_box">
                             <label for="user_level">User Level:</label>
                             <select name="user_level" >
-                                <option value="user_level">User Level</option>
+                                <option value="default">User Level</option>
                                 <?php
                                     include "config/databaseConnection.php";
-                                    $query = "SELECT category_name FROM category";
+                                    $query = "SELECT category_id, category_name FROM category";
                                     $result = mysqli_query($con, $query);
                                    
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $categoryId = $row['category_id'];
                                         $categoryName = $row['category_name'];
-                                        echo '<option value="' . $categoryId . '">' . $categoryName . '</option>';
+                                        echo '<option value="' . $categoryName . '">' . $categoryName . '</option>';
                                     }
                                 ?> 
                             </select>
