@@ -34,6 +34,6 @@ $conn = new mysqli('localhost', 'root', '', 'japcha');
     } else {
         echo "<tr><td colspan='6'>No customer accounts found.</td></tr>";
     }
-    $con ->close();
+    $conn ->close();
     } 
 ?>

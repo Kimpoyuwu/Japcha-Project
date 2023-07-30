@@ -7,6 +7,7 @@
     $contact_number = $_POST['contact'];
 
        
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     if (preg_match('/\d/', $username)) {
         echo '<script>alert("Invalid username. Usernames should not contain numbers.");</script>';
@@ -47,7 +48,7 @@
     else{
         $stmt = $conn -> prepare("insert  into customer_account(username, password, confirm_password, email, customer_address, contact_number)
                 values (?,?,?,?,?, ?)");
-        $stmt -> bind_param("sssssi", $username,$password, $confirm_password, $email,$customer_address, $contact_number );
+        $stmt -> bind_param("sssssi", $username,$hashedPassword, $confirm_password, $email,$customer_address, $contact_number );
         $stmt -> execute();
         session_start();
         $_SESSION["flash_message"] = "Registered Successfully";

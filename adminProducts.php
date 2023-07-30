@@ -1,8 +1,8 @@
 <?php
     include "adminHeader.php";
 ?>
-<link rel="stylesheet" href="assets/css/adminProducts.css">
-<div class="main">
+    <!-- <link rel="stylesheet" href="assets/css/adminProducts.css"> -->
+<div class="adminSection">
     <div class="headerSection">
         <p>Product List</p>
         <a href="#">Add new</a>

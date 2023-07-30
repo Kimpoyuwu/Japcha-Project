@@ -56,7 +56,7 @@
                         </a>
                     </li>
                     <li class="nav-link">
-                        <a class="redirecting" href="#">
+                        <a class="redirecting" href="adminProducts.php">
                             <i class="fa fa-th icon"></i>
                             <span class="text nav-text">Products</span>
                         </a>

@@ -35,8 +35,7 @@ body
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid blue;
-    background-color: #EBEBEB;
+    background-color: #eee;
     
 
 }
@@ -760,4 +759,182 @@ flex-direction: column;
     background-color: #EBC749;
     color: #0b0217;
     
+}
+
+/* admin products */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+.table_container .adminSection{
+    display:flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 10px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.headerSection{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    width: 77%;
+    height: 100px;
+    margin-left: 170px;
+}
+.headerSection p{
+    color: #000;
+    font-family: Inter;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: rgb(15, 14, 14);
+}
+
+.headerSection a{
+    color: #0057FF;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    
+}
+
+.searchSection{
+    display: flex;
+    flex-direction: row;
+    width: 77.5%;
+    height: 61px;
+    border-radius: 5px;
+    background: #FAFAFA;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-left: 170px;
+    
+}
+
+.searchSection input{
+    width: 358px;
+    height: 41px; 
+    border-radius: 5px;
+    border: 1px solid #D6D2D2;
+    background: #FAFAFA; 
+    margin-left: 20px;
+    
+}
+.searchSection .Category{
+    width: 156px;
+    height: 41px;
+    border-radius: 5px;
+    border: 1px solid #D6D2D2;
+    background: #FAFAFA;
+    margin-right: 20px;
+}
+
+.productSection{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 75%;
+    height: 370px;
+    border-radius: 5px;
+    background: #FAFAFA;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    overflow: hidden;
+    margin-left: 170px;
+}
+
+.productSection .boxContainer{
+    width: 200px;
+    height: 300px;
+    border-radius: 5px;
+    border: 1px solid #CCC;
+    background: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left:  20px;
+    padding-right: 20px;
+    margin-right: 20px;
+    margin-bottom:20px;
+}
+
+.productSection .boxContainer .productDescription {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.productSection .boxContainer .productDescription span{
+    color: #989578;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 5px;
+}
+
+.productSection .boxContainer .productDescription p{
+    color: #1C1C1C;
+    font-family: Inter;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 10px;
+}
+
+.productAction{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.productAction .editContainer{
+    width: 90px;
+    height: 20px;
+    border:solid 1px gray;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.productAction .editContainer .Edit{
+    text-decoration: none;
+    color: black;
+    margin-right: 25px;
+}
+
+.productAction .editContainer img{
+    margin-left: 10px;
+}
+
+.productAction .removeContainer{
+    width: 90px;
+    height: 20px;
+    border:solid 1px gray;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.productAction .removeContainer .Remove{
+   text-decoration: none;
+   color:red;
+   margin-right: 20px;
+}
+
+.productAction .removeContainer img{
+    margin-left: 15px;
 }
