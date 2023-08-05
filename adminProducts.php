@@ -5,7 +5,7 @@
 <div class="adminSection">
     <div class="headerSection">
         <p>Product List</p>
-        <a href="#">Add new</a>
+            <a href="#">Add new</a>
 
     </div>
 
@@ -167,7 +167,6 @@
 
     </div>
 </div>
-
 
 <?php
     include "adminFooter.php";
