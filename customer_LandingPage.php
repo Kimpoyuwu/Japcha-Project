@@ -54,7 +54,7 @@
                 <form action="signup_query.php" method="post">
                     <h2>Signup</h2>
                     <div class="input_box">
-                        <input type="text" placeholder="Username" name="userName" required />
+                        <input type="text" placeholder="Fullname" name="userName" required />
                         <i class="uil uil-user user" style="color: #707070; left: 0;"></i>
                     </div>
                     <div class="input_box">

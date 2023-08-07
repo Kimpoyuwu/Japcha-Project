@@ -25,7 +25,7 @@
     <div class="btnAddCategory">
          <!-- Trigger the modal with a button -->
         <button type="button" class="btn btn-secondary " onclick="openPopup()" style="height:40px">
-                Add Category</button>
+                Add Userlevel</button>
     </div>
 
     <!--triggers can't click outside element when modal is open -->
@@ -43,7 +43,7 @@
               <input type="text" class="form-control" name="c_name" required>
             </div>
             <div class="form-group-button">
-              <button type="submit" class="btn btn-secondary" style="height:40px">Add Category</button>
+              <button type="submit" style="height:40px">Add user level</button>
             </div>
           </form>
         </div>

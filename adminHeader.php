@@ -104,14 +104,16 @@
                 </li>     
             <li>
                 <div class="profile-details">
+
                     <div class="profile-content">
                         <img src="image/user.jpg" alt="profile">
                     </div>
-                        <div class="name-job">
-                            <div class="profile_name">Adner Devila</div>
-                            <div class="job">Web Developer</div>
-                        </div>
-                        <i class="fa fa-sign-out"></i>
+
+                    <div class="name-job">
+                        <div class="profile_name">Adner Devila</div>
+                        <div class="job">Web Developer</div>
+                    </div>
+                        <i class="fa fa-sign-out signout" style="color: white"></i>
                 </div>
             </li>
         </ul>

@@ -1,3 +1,18 @@
+:root
+{
+    --body-color: #e4e9f7;
+    --sidebar-color: #FFF;
+    --primary-color: #695CFE;
+    --primary-color-light: #F6F5FF;
+    --toggle-color: #DDDD; 
+    --text-color: #707070;
+
+    /* Transition */
+    --tran-02: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.4s ease;
+    --tran-05: all 0.5s ease;
+}
 body{
     font-family: sans-serif;
     margin: 0;
@@ -589,4 +604,157 @@ footer #social-media-footer ul li:hover a .fa-facebook {
 }
 footer #social-media-footer ul li:hover a .fa-instagram {
     color: #f09433;
+}
+
+/* CUSTOMER's SHOP TAB */
+.shopContainer {
+    display: flex;
+    flex-direction: column;
+    height: 200vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.shopContainer .filterContainer{
+    height: 40px;
+    width: 90%;
+    margin-bottom: 30px;
+
+}
+.shopContainer .filterContainer .filter{
+    position: absolute;
+    right: 0;
+    height: 100%;
+    width: 200px;
+    align-items: center;
+    
+}
+.shopContainer .filterContainer h2{
+    font-family: sans-serif;
+    font-size: 18px;
+}
+.shopContainer .productContainer{
+    height: 80%;
+    width: 90%;
+   
+
+}
+.shopContainer .productContainer .itemContainer{
+    display: flex;
+    flex-direction: row;
+    height: 35%;
+    width: 100%;
+    justify-content: space-between;
+}
+.shopContainer .productContainer .itemContainer .product{
+    display: block;
+    margin: 0;
+    height: 90%;
+    width: 20%;
+    border-radius: 21px;
+    background-color: #EFC900;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+   
+}
+
+.product .prodHeader{
+    display: flex;
+    height: 70%;
+    width: 100%;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.product .prodHeader img{
+    height: 80%;
+    width: 60%;
+    transition: var(--tran-04);
+}
+.product .prodHeader:hover img{
+    width: 70%;
+    height: 90%;
+}
+.shopContainer .productContainer .itemContainer .product .prodFooter{
+    display: block;
+    height: 30%;
+    width: 100%;
+    bottom: 0;
+    margin: 0;
+    background-color: #F0F0F0;
+    border-bottom-left-radius: 21px;
+    border-bottom-right-radius: 21px;
+}
+.shopContainer .productContainer .itemContainer .product .prodFooter .nameProd{
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    margin:0;
+    width: 100%;
+    padding: 10px 10px 0 20px;
+    justify-content: center;
+}
+.nameProd .productName{
+    font-size: 20px;
+    font-weight: bold;
+}
+.nameProd .price{
+    font-weight: bold;
+}
+.prodFooter button{
+    margin-left: 12px;
+    text-decoration: underline;
+    font-size: 17px;
+    color: #7d2ae8;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Customer Profile */
+.profileContainer {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background: #333;
+    align-items: center;
+}
+.profileContainer .profile{
+    height: 500px;
+    width: 381px;
+    background: white;
+    border-radius: 21px;
+}
+.profileContainer .profile .profileHeader{
+    display: flex;
+    width: 100%;
+    height: 40%;
+    background: #dd8888;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+
+}
+.profileContainer .profile .profileHeader .profilePic{
+    display: flex;
+    background-color: white; 
+    align-items: center;
+    border-radius: 50%;
+    background-color: black;
+}
+.profileContainer .profile .profileHeader .profilePic img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    margin: 0.3rem;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.profileContainer .profile .profileHeader .username{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }

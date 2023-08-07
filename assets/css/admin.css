@@ -460,6 +460,9 @@ nav
 .sidebar .profile-details .job{
     font-size: 12px;
 }
+.sidebar .profile-details i{
+    color: white;
+}
 
 /* END OF SIDEBAR */
 
