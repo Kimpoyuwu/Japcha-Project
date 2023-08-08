@@ -900,7 +900,7 @@ flex-direction: column;
 }
 
 .productSection .boxContainer{
-    width: 200px;
+    width: 223px;
     height: 300px;
     border-radius: 5px;
     border: 1px solid #CCC;
@@ -914,6 +914,18 @@ flex-direction: column;
     margin-bottom:20px;
 }
 
+.productSection .boxContainer .productCon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    width: 200px;
+    margin-bottom: 5px;
+}
+.productSection .boxContainer .productCon img{
+    height: 70%;
+    width: 70%;
+}
 .productSection .boxContainer .productDescription {
     display: flex;
     flex-direction: column;

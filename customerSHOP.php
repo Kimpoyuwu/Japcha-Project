@@ -29,97 +29,9 @@
                     </div>
                     </a>
                 </div>
-                <div class="product">
-                    <div class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
-                    </div>
-                    <div class="prodFooter">
-                        <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
-                        </div>
-                        <button>Buy Now</button>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
-                    </div>
-                    <div class="prodFooter">
-                        <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
-                        </div>
-                        <button>Buy Now</button>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
-                    </div>
-                    <div class="prodFooter">
-                        <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
-                        </div>
-                        <button>Buy Now</button>
-                    </div>
-                </div>    
+   
             </div>
-            <div id="itemContainer" class="itemContainer">
-                <div id="product" class="product">
-                    <a   href="#" style="text-decoration:none; color: black;">
-                    <div id="prodHeader" class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
-                    </div>
-                    <div id="prodFooter" class="prodFooter">
-                        <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
-                        </div>
-                        <button>Buy Now</button>
-                    </div>
-                    </a>
-                </div>
-                <div class="product">
-                    <div class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
-                    </div>
-                    <div class="prodFooter">
-                        <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
-                        </div>
-                        <button>Buy Now</button>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
-                    </div>
-                    <div class="prodFooter">
-                        <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
-                        </div>
-                        <button>Buy Now</button>
-                    </div>
-                </div>
-                <div class="product">
-                    <div class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
-                    </div>
-                    <div class="prodFooter">
-                        <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
-                        </div>
-                        <button>Buy Now</button>
-                    </div>
-                </div>    
-            </div>
-            
-
+ 
             <!-- <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item"><a class="page-link" href="#">Previous</a></li>

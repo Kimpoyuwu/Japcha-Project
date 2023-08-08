@@ -1,6 +1,7 @@
 <?php
     include "adminHeader.php";
 ?>
+<?php  include "config/databaseConnection.php"; ?>
     <link rel="stylesheet" href="assets/css/admin.css">
 <div class="adminSection">
 
@@ -19,8 +20,15 @@
     </div>
 
     <div class="productSection">
+    <?php
+        $sql = "SELECT * FROM product ORDER BY product_id DESC";
+        $res = mysqli_query($con, $sql);
+
+        if (mysqli_num_rows($res) > 0){
+            while ($images = mysqli_fetch_assoc($res)){ ?>
+
         <div class="boxContainer">
-            <img src="image/sampleimage.png" alt="">
+            <div class="productCon"><img src="upload/<?=$images['image_url']?>" alt=""></div>
             <div class="productDescription">
                 <span>Product Name</span>
                 <p>P100</p>
@@ -39,89 +47,8 @@
                         
                 </div>
         </div>
+    <?php } } ?>
 
-        <div class="boxContainer">
-            <img src="image/sampleimage.png" alt="">
-            <div class="productDescription">
-                <span>Product Name</span>
-                <p>P100</p>
-            </div>
-                <div class="productAction">
-                    <div class="editContainer">
-                        <img src="image/editIcon.png" alt="">
-                        <a href="" class ="Edit">Edit</a>
-
-                    </div>
-                    <div class="removeContainer">
-                        <img src="image/removeIcon.png" alt="">
-                        <a href="" class ="Remove">Remove</a>
-
-                    </div>
-                        
-                </div>
-        </div>
-
-        <div class="boxContainer">
-            <img src="image/sampleimage.png" alt="">
-            <div class="productDescription">
-                <span>Product Name</span>
-                <p>P100</p>
-            </div>
-                <div class="productAction">
-                    <div class="editContainer">
-                        <img src="image/editIcon.png" alt="">
-                        <a href="" class ="Edit">Edit</a>
-
-                    </div>
-                    <div class="removeContainer">
-                        <img src="image/removeIcon.png" alt="">
-                        <a href="" class ="Remove">Remove</a>
-
-                    </div>
-                        
-                </div>
-        </div>
-
-        <div class="boxContainer">
-            <img src="image/sampleimage.png" alt="">
-            <div class="productDescription">
-                <span>Product Name</span>
-                <p>P100</p>
-            </div>
-                <div class="productAction">
-                    <div class="editContainer">
-                        <img src="image/editIcon.png" alt="">
-                        <a href="" class ="Edit">Edit</a>
-
-                    </div>
-                    <div class="removeContainer">
-                        <img src="image/removeIcon.png" alt="">
-                        <a href="" class ="Remove">Remove</a>
-
-                    </div>
-                        
-                </div>
-        </div>
-        <div class="boxContainer">
-            <img src="image/sampleimage.png" alt="">
-            <div class="productDescription">
-                <span>Product Name</span>
-                <p>P100</p>
-            </div>
-                <div class="productAction">
-                    <div class="editContainer">
-                        <img src="image/editIcon.png" alt="">
-                        <a href="" class ="Edit">Edit</a>
-
-                    </div>
-                    <div class="removeContainer">
-                        <img src="image/removeIcon.png" alt="">
-                        <a href="" class ="Remove">Remove</a>
-
-                    </div>
-                        
-                </div>
-        </div>
 
         
 
@@ -134,8 +61,8 @@
 <?php if (isset($_GET['error'])): ?>
 
 <?php $error = $_GET['error'];
-    echo '<script>alert("'.$error.'");</script>'; ?>
-<p><?php echo $_GET['error']; ?></p>
+    // echo '<script>alert("'.$error.'");</script>'; ?>
+<!-- <p><?php echo $_GET['error']; ?></p> -->
 
 <?php endif ?>
 
