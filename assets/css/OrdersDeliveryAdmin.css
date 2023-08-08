@@ -1,0 +1,253 @@
+.orders-delivery-admin-child {
+  position: absolute;
+  top: 68px;
+  left: 275px;
+  background-color: var(--color-whitesmoke);
+  width: 1165px;
+  height: 959px;
+}
+.frame-child15,
+.frame-child16 {
+  position: absolute;
+  top: 1px;
+  border-radius: var(--br-8xs);
+}
+.frame-child15 {
+  width: 100%;
+  right: 0;
+  left: 0;
+  background-color: var(--color-gray-300);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  height: 91px;
+}
+.frame-child16 {
+  width: 24.56%;
+  right: 26.84%;
+  left: 48.6%;
+  background-color: var(--color-lavender);
+  height: 92px;
+}
+.complete3 {
+  position: absolute;
+  width: 10.46%;
+  top: 32px;
+  left: 82.3%;
+  display: inline-block;
+  height: 24px;
+  cursor: pointer;
+}
+.frame-child17 {
+  position: absolute;
+  width: 0.09%;
+  top: 1px;
+  right: 23.58%;
+  left: 76.33%;
+  max-width: 100%;
+  overflow: hidden;
+  height: 61px;
+}
+.preparing3 {
+  width: 13.19%;
+  top: 31px;
+  left: 30.51%;
+  cursor: pointer;
+}
+.delivery3,
+.new3,
+.preparing3 {
+  position: absolute;
+  display: inline-block;
+  height: 24px;
+}
+.new3 {
+  width: 5.32%;
+  top: 34px;
+  left: 9.66%;
+  cursor: pointer;
+}
+.delivery3 {
+  width: 9.26%;
+  top: 32px;
+  left: 56.29%;
+}
+.frame-child18,
+.frame-child19 {
+  position: absolute;
+  width: 0.09%;
+  top: 1px;
+  max-width: 100%;
+  overflow: hidden;
+  height: 61px;
+}
+.frame-child18 {
+  right: 75.78%;
+  left: 24.13%;
+  border-radius: var(--br-8xs);
+}
+.frame-child19 {
+  right: 49.96%;
+  left: 49.96%;
+}
+.group-child37,
+.orders-delivery-admin-item,
+.rectangle-parent33 {
+  position: absolute;
+  width: 79.44%;
+  right: 0.69%;
+  left: 19.86%;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.rectangle-parent33 {
+  top: 169px;
+  height: 92px;
+  color: var(--color-black);
+}
+.group-child37,
+.orders-delivery-admin-item {
+  top: 291px;
+  border-radius: var(--br-8xs);
+  background-color: var(--color-white);
+  height: 736px;
+}
+.group-child37 {
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: var(--color-gray-300);
+  border: 1px solid var(--color-lightgray-400);
+  box-sizing: border-box;
+  height: 103px;
+}
+.b15,
+.order-000013 {
+  position: absolute;
+  width: 7.37%;
+  top: 39px;
+  left: 46.6%;
+  display: inline-block;
+  color: var(--color-gray-500);
+}
+.order-000013 {
+  width: 39.37%;
+  left: 5.66%;
+  color: var(--color-black);
+}
+.group-child38 {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-gray-600);
+  height: 40px;
+}
+.complete4 {
+  position: absolute;
+  width: 64.29%;
+  top: 12px;
+  left: 20%;
+  display: inline-block;
+}
+.group-wrapper,
+.rectangle-parent35 {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 40px;
+}
+.group-wrapper {
+  width: 9.47%;
+  top: 39px;
+  right: 1.72%;
+  left: 88.8%;
+  font-size: var(--font-size-xs);
+}
+.group-child39 {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  border-radius: var(--br-8xs);
+  background-color: var(--color-gray-300);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--color-silver);
+  box-sizing: border-box;
+  height: 103px;
+}
+.group-frame {
+  position: absolute;
+  width: 9.47%;
+  top: 32px;
+  right: 1.72%;
+  left: 88.8%;
+  height: 40px;
+  font-size: var(--font-size-xs);
+}
+.b16,
+.order-000043 {
+  position: absolute;
+  width: 7.37%;
+  top: 37px;
+  left: 46.6%;
+  display: inline-block;
+  color: var(--color-gray-500);
+}
+.order-000043 {
+  width: 39.37%;
+  left: 4.89%;
+  color: var(--color-black);
+  -webkit-text-stroke: 1px #c8c5c5;
+}
+.rectangle-parent36 {
+  position: absolute;
+  width: 100%;
+  top: 369px;
+  right: 0;
+  left: 0;
+  height: 103px;
+}
+.rectangle-parent34 {
+  position: absolute;
+  width: 72.57%;
+  top: 322px;
+  right: 5.83%;
+  left: 21.6%;
+  height: 472px;
+}
+.manage-orders3 {
+  position: absolute;
+  width: 18.89%;
+  top: 94px;
+  left: 21.46%;
+  font-size: var(--font-size-17xl);
+  display: inline-block;
+  color: var(--color-black);
+}
+.rectangle-parent38,
+.rectangle-parent40 {
+  position: absolute;
+  width: 72.57%;
+  top: 445px;
+  right: 5.83%;
+  left: 21.6%;
+  height: 103px;
+}
+.rectangle-parent40 {
+  top: 568px;
+}
+.orders-delivery-admin {
+  position: relative;
+  background-color: var(--color-white);
+  width: 100%;
+  height: 1024px;
+  overflow: hidden;
+  text-align: left;
+  font-size: var(--font-size-5xl);
+  color: var(--color-white);
+  font-family: var(--font-inter);
+}
