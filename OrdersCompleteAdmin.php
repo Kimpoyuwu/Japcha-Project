@@ -3,7 +3,7 @@
 ?>
     <link rel="stylesheet" href="./assets/css/global.css" />
     <link rel="stylesheet" href="./assets/css/OrdersCompleteAdmin.css" />
-    <link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"/>
+
  
     <div class="orders-complete-admin">
       <div class="orders-complete-admin-child"></div>

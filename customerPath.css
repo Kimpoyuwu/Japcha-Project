@@ -616,6 +616,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     align-items: center;
 }
 .shopContainer .filterContainer{
+    position: relative;
     height: 40px;
     width: 90%;
     margin-bottom: 30px;
@@ -623,33 +624,36 @@ footer #social-media-footer ul li:hover a .fa-instagram {
 }
 .shopContainer .filterContainer .filter{
     position: absolute;
+    display: flex;
     right: 0;
     height: 100%;
     width: 200px;
-    align-items: center;
+    align-items: end;
+    justify-content: end;
     
 }
-.shopContainer .filterContainer h2{
-    font-family: sans-serif;
-    font-size: 18px;
+.shopContainer .filterContainer .filterField{
+    height: 70%;
+    width: 50%;
 }
+
 .shopContainer .productContainer{
-    height: 80%;
+    height: 70%;
     width: 90%;
    
 
 }
 .shopContainer .productContainer .itemContainer{
     display: flex;
-    flex-direction: row;
-    height: 35%;
+    height: 30%;
     width: 100%;
     justify-content: space-between;
+    margin-bottom: 20px;
 }
 .shopContainer .productContainer .itemContainer .product{
     display: block;
     margin: 0;
-    height: 90%;
+    height: 100%;
     width: 20%;
     border-radius: 21px;
     background-color: #EFC900;
@@ -657,6 +661,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     cursor: pointer;
    
 }
+
 
 .product .prodHeader{
     display: flex;
@@ -695,12 +700,14 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     padding: 10px 10px 0 20px;
     justify-content: center;
 }
+
 .nameProd .productName{
     font-size: 20px;
     font-weight: bold;
 }
 .nameProd .price{
     font-weight: bold;
+    text-decoration: none;
 }
 .prodFooter button{
     margin-left: 12px;
@@ -710,6 +717,57 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     border: none;
     cursor: pointer;
     font-weight: bold;
+}
+
+.shopContainer .paginationContainer{
+    display: flex;
+    align-items: center;
+    height: 100px;
+    width: 90%;
+    margin-top: 30px;
+    padding: 10px 40px;
+
+}
+.shopContainer .paginationContainer ul{
+    padding: 0;
+    margin: 20px 30px;
+}
+.shopContainer .paginationContainer ul li{
+    display: inline-block;
+    margin: 0 10px;
+    width: 45px;
+    height: 45px;
+    border-radius:50%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 45px;
+    cursor: pointer;
+}
+.shopContainer .paginationContainer ul li.active{
+    color: #fff;
+    background-image: linear-gradient(#ff4568, #ff4568);
+    background-repeat: no-repeat;
+}
+.shopContainer .paginationContainer button{
+    display: inline-flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 500;
+    color: #383838;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.shopContainer .paginationContainer .btnPrev i{
+    width: 24px;
+    margin-right: 15px;
+    transform: rotate(-180deg);
+}
+.shopContainer .paginationContainer .btnNext i{
+    width: 24px;
+    margin-left: 15px;
 }
 
 /* Customer Profile */

@@ -80,7 +80,7 @@
                     </div>
                     <ul class="sub-menu">
                         <li><a class="link_name" href="#">Orders</a></li>
-                        <li><a href="#">Orders</a></li>
+                        <li><a href="ordersNewAdmin.php">Orders</a></li>
                         <li><a href="#">Archive</a></li>
                     </ul>  
                 </li>
