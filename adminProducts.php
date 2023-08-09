@@ -25,13 +25,17 @@
         $res = mysqli_query($con, $sql);
 
         if (mysqli_num_rows($res) > 0){
-            while ($images = mysqli_fetch_assoc($res)){ ?>
+            while ($row = mysqli_fetch_assoc($res)){ 
+                $productName = $row['product_name'];
+                $images = $row['image_url'];
+                $price = $row['price'];
+                ?>
 
         <div class="boxContainer">
-            <div class="productCon"><img src="upload/<?=$images['image_url']?>" alt=""></div>
+            <div class="productCon"><img src="upload/<?=$images?>" alt=""></div>
             <div class="productDescription">
-                <span>Product Name</span>
-                <p>P100</p>
+                <span><?= $productName ?></span>
+                <p>P<?= $price ?></p>
             </div>
                 <div class="productAction">
                     <div class="editContainer">

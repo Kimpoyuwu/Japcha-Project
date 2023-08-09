@@ -13,7 +13,6 @@
                     <th>id</th>
                     <th>Profile</th>
                     <th>Name</th>
-                    <th>Password</th>
                     <th>Email</th>
                     <th>Address</th>
                     <th>Contact No.</th>

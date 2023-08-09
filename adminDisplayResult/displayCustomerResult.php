@@ -22,7 +22,6 @@ $conn = new mysqli('localhost', 'root', '', 'japcha');
             echo "<td>" . $row['customer_id'] . "</td>";
             echo "<td><img src='image/user.jpg' alt='user image'></td>";
             echo "<td>" . $row['username'] . "</td>";
-            echo "<td>" . $row['password'] . "</td>";
             echo "<td>" . $row['email'] . "</td>";
             echo "<td>" . $row['customer_address'] . "</td>";
             echo "<td>" . $row['contact_number'] . "</td>";

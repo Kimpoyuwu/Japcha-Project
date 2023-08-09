@@ -1,5 +1,6 @@
 <?php
     include "c_header.php"; 
+    include "config/databaseConnection.php"; 
 ?>
 
     <div class="shopContainer">
@@ -13,22 +14,33 @@
             </div>
 
         <div class="productContainer">
-            
+
             <div id="itemContainer" class="itemContainer">
+            <?php
+                $sql = "SELECT * FROM product ORDER BY product_id DESC";
+                $res = mysqli_query($con, $sql);
+
+                if (mysqli_num_rows($res) > 0){
+                    while ($row = mysqli_fetch_assoc($res)){ 
+                        $productName = $row['product_name'];
+                        $images = $row['image_url'];
+                        $price = $row['price'];?>
+                        
                 <div id="product" class="product">
                     <a   href="#" style="text-decoration:none; color: black;">
                     <div id="prodHeader" class="prodHeader">
-                        <img src="image/Mango-shake.png" alt="">
+                        <img src="upload/<?=$images?>" alt="">
                     </div>
                     <div id="prodFooter" class="prodFooter">
                         <div class="nameProd">
-                            <div class="productName">Mango Graham</div>
-                            <div class="price">P120.00</div>
+                            <div class="productName"><?=$productName?></div>
+                            <div class="price">P<?=$price?></div>
                         </div>
                         <button>Buy Now</button>
                     </div>
                     </a>
-                </div>
+                </div>   
+                <?php } } ?>      
    
             </div>
  
