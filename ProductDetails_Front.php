@@ -20,7 +20,7 @@
                 <h2 class="prodName">Mango Graham</h2>
                 <h2 class="pprice">₱120.00</h2>
                 <h3 class="desctitle">Details</h3>
-                <p class="prodDesc">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, <br> when an unknown 
+                <p class="prodDesc">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
                     printer took a galley of type and scrambled it to make a type specimen book
                 </p>
 

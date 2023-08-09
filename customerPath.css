@@ -572,7 +572,7 @@ section {
  /* Footer */
 
  footer {
-    background-color: #B4A30D;;
+    background-color: #EFC900;
     width: 100%;
     height: 100px;
     margin: 0;
@@ -830,16 +830,22 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     height: 100vh;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding-top: 100px;
+    
+    
+
   }
   .Pmaincont .PleftCont {
-    width: 20%;
+    
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 50%;
   }
   .Pmaincont .PleftCont .Productbg {
     width: 370px;
     height: 350px;
+    margin: 30px;
     flex-shrink: 0;
     display: flex;
     justify-content: center;
@@ -853,7 +859,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     transition: transform 0.3s ease;
   }
   .Pmaincont .PleftCont .Productbg .mango:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
   
   .Pmaincont .PrightCont .textcont .prodName{
@@ -863,7 +869,139 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     font-size: 48px;
     font-style: normal;
     font-weight: 700;
+    
+   
+    
+ }
+
+ .Pmaincont .PrightCont{
+    display: flex;
+    flex-direction: row;
+ }
+
+ .Pmaincont .PrightCont .textcont{
+    width: 50%;
+    margin-right: 20px;
+   
+ }
+ .Pmaincont .PrightCont .textcont .pprice{
+    color: #518BF7;
+    font-family: Poppins;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+
+    
+    
+ }
+
+ .Pmaincont .PrightCont .textcont .prodDesc{
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    
+    
+    
+ }
+
+ .Pmaincont .PrightCont .textcont .desctitle{
+    color: #000;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    
+    
+   
+ }
+
+ .Pmaincont .PrightCont .textcont .adsTitle{
+    color: #000;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    
+    
+    
+ }
+
+ .Pmaincont .PrightCont .textcont form{
+    color: #000;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    cursor: pointer;
+    
+ }
+
+ .Pmaincont .PrightCont .btncont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ }
+ .Pmaincont .PrightCont .btncont .add{
+    border-radius: 13px;
+    border: 3px solid #D0BC05;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-bottom: 20px;
+
+    color: #2C2B2B;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+    
+
+
+ }
+
+
+ .Pmaincont .PrightCont .btncont .add:hover{
+    background-color: #2C2B2B;
+    color: white;
+    transition: transform 0.3s ease;
+    border: 3px solid #2C2B2B;
+    
+ }
+
+ .Pmaincont .PrightCont .btncont .buy{
+    border-radius: 13px;
+    background: #FFD600;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 11px;
+    padding-bottom: 11px;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+
+    color: #2C2B2B;
+    font-family: Poppins;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
     line-height: normal;
     
-  }
+ }
+
+ .Pmaincont .PrightCont .btncont .buy:hover{
+    background-color: #2C2B2B;
+    color: white;
+    transition: transform 0.3s ease;
+ }
+
+ 
+
   
