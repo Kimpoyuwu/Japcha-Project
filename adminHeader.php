@@ -23,9 +23,9 @@
             </a>
         </div>
     </div>
-            <li>
+            <!-- <li>
             <button class="btnCaretdown" ><i id="caret_down" class="fa fa-caret-down"></i></button>
-            </li>
+            </li> -->
 
 </nav>
     <div class="sidebar" id="mySidebar"> 

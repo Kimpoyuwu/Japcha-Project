@@ -820,7 +820,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
 
 /* Product Details */
 .Pmaincont {
-    height: auto;
+    height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;

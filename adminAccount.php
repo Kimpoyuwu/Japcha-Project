@@ -41,6 +41,7 @@
     </main>
 
     <!--triggers can't click outside element when modal is open -->
+
             <div class="form signup_form" id="addAdminPopup">
                 <button class="form_close" onclick="closeAddAdmin()"><i class="uil uil-times"></i></button>
                 <div class="formBody">

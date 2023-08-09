@@ -31,9 +31,8 @@
     </div>
 
     <!--triggers can't click outside element when modal is open -->
-    <div id="modalOverlay"></div>
-
-     <div class="modal-container" id="popup">
+    <div id="modalOverlay">
+    <div class="modal-container" id="popup">
         <div class="modal-header">
           <h4 class="modal-title">New Category Item</h4>
           <button type="button" class="close" onclick="closePopup()" data-dismiss="modal">&times;</button>
@@ -50,6 +49,7 @@
           </form>
         </div>
      </div>
+    </div>
      <div id="alertContainer"></div>
 
 
