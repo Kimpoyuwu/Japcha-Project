@@ -46,20 +46,29 @@
 
         <p class = "moptitle">Mode of Payment</p>
         <div class="modcont">
-            <div class="mod">
+            <div class="cod">
 
                 <label>
                     <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
                     <img src="image/cod.png" alt="">
                     <p>Cash on Delivery</p>
-
-                    <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
-                    <img src="image/gcash.png" alt="">
-                    <img class="iButton"src="image/iButton.png" alt="">
-                    <p>Gcash</p>
-                    <a href="#" id="gcashCode">Show Gcash Code</a>
                 </label>
-                        
+
+                     
+            </div>
+        
+            <div class="gcash">
+                <label>  
+                    <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
+                        <img src="image/gcash.png" alt="">
+                        <img class="iButton"src="image/iButton.png" alt="">
+                            
+                        <div class="gcashtitle">
+                            <p>Gcash</p>
+                            <a href="#" id="gcashCode">Show Gcash Code</a>
+                        </div>
+                            
+                </label>
             </div>
                         
                         

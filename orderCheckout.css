@@ -179,8 +179,31 @@
     line-height: normal;
 }
 
-.orderMainCont .detailsCont .modcont .mod{
+.orderMainCont .detailsCont .modcont{
     display: flex;
     flex-direction: row;
+}
+
+
+.orderMainCont .detailsCont .modcont .cod{
+    margin-right: 80px;
+
+}
+
+.orderMainCont .detailsCont .modcont .cod label{
+    margin-top: -12px;
+    display: flex;
+    flex-direction: row;
+}
+
+.orderMainCont .detailsCont .modcont .gcash label{
+    margin-top: -12px;
+    display: flex;
+    flex-direction: row;
+}
+
+.orderMainCont .detailsCont .modcont .gcash .gcashtitle{
+    display: flex;
+    flex-direction: column;
 }
 
