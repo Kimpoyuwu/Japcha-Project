@@ -3,39 +3,62 @@
 ?>
 
 <link rel="stylesheet" href="orderCheckout.css">
+
 <!-- Order Checkout -->
 
 <div class="orderMainCont">
+    
+    <div class="title">
+            <h1>USER DETAILS</h1> <br>
+    </div>
+
     <div class="detailsCont">
         <div class="userDetails">
-            <h1>USER DETAILS</h1> <br>
-            <p>Full Name</p><br>
-            <h2>Juan Dela Cruz</h2>
-            <a href="#">Change</a>
+            <div class="name">
 
-            <p>Contact Number</p><br>
-            <h2>09123456789</h2>
-            <a href="#">Change</a>
+                <div class="name1">
+                    <p>Full Name</p>
+                    <h2>Juan Dela Cruz</h2>
+                </div>
+
+                <a href="#">Change</a>
+            </div>
+
+            <div class="contact">
+                <div class="cont">
+                    <p>Contact Number</p>
+                    <h2>09123456789</h2>
+                </div>
+
+                <a href="#">Change</a>
+            </div>
+
         </div>
 
         <div class="deliveryCont">
-            <p>Delivery Address</p><br>
-            <h2>Block 1 Lot 1 Area 1, Dasmarinas, Cavite..</h2>
+            <div class="address">
+                <p>Delivery Address</p>
+                <h2>Block 1 Lot 1 Area 1, Dasmarinas, Cavite..</h2>
+            </div>
             <a href="#">Change</a>
 
-            <p>Mode of Payment</p><br>
 
-            <label>
-                <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
-                <img src="image/cod.png" alt="">
-                <p>Cash on Delivery</p>
+            <p>Mode of Payment</p>
+            
+            <div class="mod">
+                <label>
+                    <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
+                    <img src="image/cod.png" alt="">
+                    <p>Cash on Delivery</p>
 
-                <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
-                    <img src="image/gcash.png" alt="">
-                    <img class="iButton"src="image/iButton.png" alt="">
-                    <p>Gcash</p>
-                    <a href="#" id="gcashCode">Show Gcash Code</a>
-            </label>
+                    <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
+                        <img src="image/gcash.png" alt="">
+                        <img class="iButton"src="image/iButton.png" alt="">
+                        <p>Gcash</p>
+                        <a href="#" id="gcashCode">Show Gcash Code</a>
+                </label>
+            
+            </div>
             
             
             
