@@ -11,7 +11,7 @@
     <div class="title">
         <h1>USER DETAILS</h1> <br>
     </div>
-
+    
     <div class="detailsCont">
         <div class="userDetails">
             <div class="name">
@@ -89,12 +89,12 @@
         </div>
 
         
-            
         
 
     </div>
 
-
+    
+   
 
 </div>
     
