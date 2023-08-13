@@ -125,7 +125,13 @@
     margin-left: 75px;
 }
 
-.orderMainCont .deliveryCont{
+.addcont{
     margin-left: 200px;
-    
+
 }
+
+.addcont .deliveryCont{
+    display: flex;
+    flex-direction: row;
+}
+
