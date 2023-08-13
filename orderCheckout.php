@@ -9,7 +9,7 @@
 <div class="orderMainCont">
     
     <div class="title">
-            <h1>USER DETAILS</h1> <br>
+        <h1>USER DETAILS</h1> <br>
     </div>
 
     <div class="detailsCont">
@@ -34,7 +34,7 @@
             </div>
 
         </div>
-        
+
         <div class="addcont"> 
             <div class="deliveryCont">
                 <div class="address">
@@ -44,38 +44,43 @@
                 <a href="#">Change</a>
             </div>
 
-            
+        <p class = "moptitle">Mode of Payment</p>
+        <div class="modcont">
             <div class="mod">
-                <p>Mode of Payment</p>
+
                 <label>
                     <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
                     <img src="image/cod.png" alt="">
                     <p>Cash on Delivery</p>
 
                     <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
-                        <img src="image/gcash.png" alt="">
-                        <img class="iButton"src="image/iButton.png" alt="">
-                        <p>Gcash</p>
-                        <a href="#" id="gcashCode">Show Gcash Code</a>
+                    <img src="image/gcash.png" alt="">
+                    <img class="iButton"src="image/iButton.png" alt="">
+                    <p>Gcash</p>
+                    <a href="#" id="gcashCode">Show Gcash Code</a>
                 </label>
-            
+                        
             </div>
-            
-            
-            
+                        
+                        
+                        
             <script>
                 function selectOnlyOne(checkbox) {
-                    var checkboxes = document.getElementsByName('group');
+                var checkboxes = document.getElementsByName('group');
 
-                        for (var i = 0; i < checkboxes.length; i++) {
-                            if (checkboxes[i] !== checkbox) {
-                                checkboxes[i].checked = false;
-                            }
-                        }
+                for (var i = 0; i < checkboxes.length; i++) {
+                    if (checkboxes[i] !== checkbox) {
+                        checkboxes[i].checked = false;
+                    }
                 }
+            }
 
             </script>
+            
         </div>
+
+        
+            
         
 
     </div>
