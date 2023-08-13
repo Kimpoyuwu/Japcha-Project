@@ -960,7 +960,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     font-weight: 700;
     line-height: normal;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: transform 0.3s ease;
     
 
 
@@ -985,7 +985,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     padding-top: 11px;
     padding-bottom: 11px;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: transform 0.3s ease;
 
     color: #2C2B2B;
     font-family: Poppins;
