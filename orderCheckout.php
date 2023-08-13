@@ -61,7 +61,6 @@
                 <label>  
                     <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
                         <img src="image/gcash.png" alt="">
-                        <img class="iButton"src="image/iButton.png" alt="">
                             
                         <div class="gcashtitle">
                             <p>Gcash</p>
@@ -87,16 +86,77 @@
             </script>
             
         </div>
-
-        
         
 
     </div>
-
-    
-   
-
+           
+            
 </div>
-    
 
+<!--Container for Product Details -->
+
+<div class="prodDetails">
+
+         <div class="hr">
+            <hr>
+         </div>
+
+         <div class="orderCategory">
+                <p class ="cat1">Price</p>
+                <p class ="cat2">Quantity</p>
+                <p class ="cat3">Item Subtotal</p>
+    
+            </div> 
+    
+    <div class="orderlist">
+
+
+            <div class="productbg">
+                <img src="image/Mango-shake.png" alt="img">
+            </div>
+
+                <div class="prdetails">
+                    <p class= "pr">Product 1</p>
+                    <p class= "pr">₱120.00</p>
+                    <p class= "pr">2</p>
+                    <p class= "pr">₱240.00</p>
+                    <input type="checkbox" name="" id="">
+                </div>
+
+    </div>
+
+    <div class="orderlist1">
+
+            <div class="productbg">
+                <img src="image/Mango-shake.png" alt="img">
+            </div>
+            
+                 <div class="prdetails">
+                    <p class= "pr">Product 2</p>
+                    <p class= "pr">₱120.00</p>
+                    <p class= "pr">2</p>
+                    <p class= "pr">₱240.00</p>
+                    <input type="checkbox" name="" id="">
+                </div>
+    </div>
+
+
+        <div class="remarks">
+             <p>Remarks</p>
+             <input type="text" name="" id="">
+        </div>
+
+        
+        <div class="totalPrice">
+            <p class ="TP">Total Price:</p>
+            <p class ="value">480.00</p>
+            <button onclick="goToPage()">Proceed</button>
+
+            <script>
+                function goToPage(){
+                    window.location.href ="orderStatus.php";
+                }
+            </script>
+        </div>
+</div>
 
