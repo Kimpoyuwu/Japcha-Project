@@ -85,4 +85,47 @@
 
 }
 
+.orderMainCont .detailsCont .userDetails .contact{
+    display: flex;
+    flex-direction: row;
+}
 
+.orderMainCont .detailsCont .userDetails .contact .cont p{
+    color: #000;
+    font-family: Poppins;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.orderMainCont .detailsCont .userDetails .contact .cont h2{
+    color: #000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Poppins;
+    font-size: 39px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    margin-top: -15px;
+}
+
+.orderMainCont .detailsCont .userDetails .contact a{
+    color: #EFC900;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-family: Poppins;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-line: underline;
+
+    margin-top: 30px;
+    margin-left: 75px;
+}
+
+.orderMainCont .deliveryCont{
+    margin-left: 200px;
+    
+}
