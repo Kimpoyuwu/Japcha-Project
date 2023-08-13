@@ -55,7 +55,7 @@
                         <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
                         <img src="image/gcash.png" alt="">
                         <p>Gcash</p>
-                        <img class="iButton"src="image/informationButton.png" alt="">
+                        <img class="iButton"src="image/iButton.png" alt="">
                     
                         </label>
                      </div>

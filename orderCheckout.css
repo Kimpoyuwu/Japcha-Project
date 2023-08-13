@@ -144,7 +144,7 @@
     color: rgb(109, 107, 107);
     font-family: Inter;
     font-size: 20px;
-    margin-left:-350px;
+    margin-left:-345px;
 }
 
 .deliveryCont .deliveryAddress .option2 label .iButton{
@@ -155,8 +155,8 @@
     font-family: Inter;
     font-size:18px;
     text-decoration: underline;
-    padding-left: 595px;
-    margin-top: -18px;
+    padding-left: 735px;
+    margin-top: -20px;
 }
 .deliveryCont .deliveryAddress .MOP .gcashCode a{
     color: rgb(109, 107, 107);
