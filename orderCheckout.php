@@ -34,18 +34,18 @@
             </div>
 
         </div>
-
-        <div class="deliveryCont">
-            <div class="address">
-                <p>Delivery Address</p>
-                <h2>Block 1 Lot 1 Area 1, Dasmarinas, Cavite..</h2>
+        <div class="addcont"> 
+            <div class="deliveryCont">
+                <div class="address">
+                    <p>Delivery Address</p>
+                    <h2>Block 1 Lot 1 Area 1, Dasmarinas, Cavite..</h2>
+                </div>
+                <a href="#">Change</a>
             </div>
-            <a href="#">Change</a>
 
-
-            <p>Mode of Payment</p>
             
             <div class="mod">
+                <p>Mode of Payment</p>
                 <label>
                     <input type="checkbox" name="group" onclick="selectOnlyOne(this)">
                     <img src="image/cod.png" alt="">
@@ -75,6 +75,7 @@
 
             </script>
         </div>
+        
 
     </div>
 
