@@ -832,8 +832,6 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     display: flex;
     align-items: center;
     
-    
-
   }
   .Pmaincont .PleftCont {
     
@@ -841,6 +839,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     justify-content: right;
     align-items: center;
     width: 50%;
+
   }
   .Pmaincont .PleftCont .Productbg {
     width: 370px;
@@ -1003,5 +1002,6 @@ footer #social-media-footer ul li:hover a .fa-instagram {
  }
 
  
+
 
   
