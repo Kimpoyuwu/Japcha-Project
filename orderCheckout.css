@@ -9,7 +9,7 @@
     width: auto;
     display: flex; 
     padding-top:120px;
-    padding-left: 120px;
+    padding-left: 160px;
     
 }
 
@@ -76,35 +76,35 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    padding-left: 200px;
+    padding-left: 350px;
 }
 
 .deliveryCont .deliveryAddress h2{
-    padding-left: 210px;
+    padding-left: 360px;
     margin-top: -25px;
     font-family: Poppins;
-    font-size: 20px;
-    font-weight: lighter;
+    font-size: 19px;
 }
 
 .deliveryCont .deliveryAddress .change3{
     display: flex;
     color: #B4A30D;
-    padding-left: 680px;
+    margin-left: 780px;
     margin-top: -40px;
 }
 
 .deliveryCont .deliveryAddress .MOP p{
     display: flex;
     flex-direction: row;
+    padding-top: 10px;
     font-size: 30px;
+    margin-left: -25px;
 }
 
 .deliveryCont .deliveryAddress .MOP .option1{
     display: flex;
     flex-direction: row;
-
-    padding-left: 200px;
+    padding-left: 360px;
     
 }
 
@@ -120,14 +120,15 @@
     font-family: Inter;
     color: rgb(109, 107, 107);
     font-size: 20px;
-    padding-left: 20px;
+    padding-left: 40px;
+    align-items: center;
     
 }
 .deliveryCont .deliveryAddress .MOP .option2{
     display: flex;
     flex-direction: row;
 
-    padding-left: 500px;
+    padding-left: 650px;
     margin-top:-70px;
 }
 
@@ -143,7 +144,7 @@
     color: rgb(109, 107, 107);
     font-family: Inter;
     font-size: 20px;
-    margin-left:-195px;
+    margin-left:-350px;
 }
 
 .deliveryCont .deliveryAddress .option2 label .iButton{
