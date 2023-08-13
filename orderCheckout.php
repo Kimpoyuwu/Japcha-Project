@@ -73,6 +73,22 @@
                 <p class="category2">Quantity</p>
                 <p class ="category3">Item Subtotal</p>
             </div>
+
+            <div class="orderlist" id = "preparingOrders">
+                <div class="productbg">
+                    <img src="image/Mango-shake.png" alt="img">
+            </div>
+
+             <div class="prdetails">
+                <p class= "pr">Product 1</p>
+                <p class= "pr">₱120.00</p>
+                <p class= "pr">2</p>
+                <p class= "pr">₱270.00</p>
+                <input type="checkbox" name="" id="">
+        </div>
+
+
+    </div>
         </div>
     </div>
 
