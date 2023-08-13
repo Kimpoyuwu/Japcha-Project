@@ -960,7 +960,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     font-weight: 700;
     line-height: normal;
     text-decoration: none;
-    transition: transform 0.3s ease;
+    transition: color 0.3s ease;
     
 
 
@@ -972,6 +972,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     color: white;
     transition: transform 0.3s ease;
     border: 3px solid #2C2B2B;
+    transition: color 0.3s ease;
     
  }
 
@@ -984,7 +985,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     padding-top: 11px;
     padding-bottom: 11px;
     text-decoration: none;
-    transition: transform 0.3s ease;
+    transition: color 0.3s ease;
 
     color: #2C2B2B;
     font-family: Poppins;
@@ -998,7 +999,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
  .Pmaincont .PrightCont .btncont .buy:hover{
     background-color: #2C2B2B;
     color: white;
-    transition: transform 0.3s ease;
+    transition: color 0.3s ease;
  }
 
  

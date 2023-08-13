@@ -42,7 +42,13 @@
             </div>
             <div class="btncont">
                 <a href="#id" class = "add">Add To Card</a>
-                <a href="#id" class = "buy">Buy Now</a>
+                <a href="#id" class = "buy" id = "buynow">Buy Now</a>
+
+                <script>
+                    document.getElementById("buynow").addEventListener("click", function() {
+                    window.location.href = "orderCheckout.php"; 
+                    });
+                </script>
             </div>
 
         </div>
