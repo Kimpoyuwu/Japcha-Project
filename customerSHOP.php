@@ -94,7 +94,9 @@
                 page[currentValue-1].classList.add("active");
             }
         }
-        
+        document.getElementById("itemContainer").addEventListener("click", function() {
+        window.location.href = "ProductDetails_Front.php"; 
+        });
         
         
     </script>
