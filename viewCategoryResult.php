@@ -10,7 +10,6 @@
             <table>
                 <thead>
                   <tr>
-                    <th>S.N.</th>
                     <th>Category Name</th>
                     <th>Action</th>
                   </tr>

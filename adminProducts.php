@@ -75,7 +75,7 @@
         <form class = "formProducts" action="controller/addProducts.php" method="POST" autocomplete="off" enctype="multipart/form-data">
             <div class="titleModal">
             <p>Add Product</p>    
-            <img class ="closeButton" src="image/closeButton.png" alt="">
+            <img class ="closeButton" src="image/close.png" alt="">
             </div>
          
             <div class="secondLayer">

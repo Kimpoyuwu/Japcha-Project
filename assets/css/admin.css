@@ -48,7 +48,7 @@ main.table
     margin-left: 150px;
     backdrop-filter: blur(7px);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border-radius: .8rem;
+    border-radius: .3rem;
     margin-top: 50px;
 
     overflow: hidden;
@@ -286,7 +286,7 @@ nav
     position: fixed;
     top: 60px;
     left: 0;
-    background-color: #e0dede;
+    background-color: #f3efef;
     transition: var(--tran-05);
     z-index: 1;
 }
@@ -300,6 +300,7 @@ nav
     padding: 20px 0 150px 0;
     overflow-y: auto;
     box-sizing: border-box;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .sidebar .nav-links::-webkit-scrollbar{
@@ -311,7 +312,7 @@ nav
     transition: var(--tran-04);
 }
 .sidebar .nav-links li:hover{
-    background-color: #B4A30D;
+    background-color: #d4d4d1;
 }
 .sidebar .nav-links li .icon-link{
     display: flex;
@@ -346,7 +347,7 @@ nav
 }
 .sidebar .nav-links li a .link_name {
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 500;
     color: #0c0c0c;
 }
 .sidebar.close .nav-links li a .link_name{
@@ -356,7 +357,7 @@ nav
 .sidebar .nav-links li .sub-menu{
     padding: 6px 6px 14px 80px;
     margin-top: -10px;
-    background: #B4A30D;
+    /* background: #B4A30D; */
     display: none;
 }
 .sidebar .nav-links li.showMenu .sub-menu{
@@ -364,12 +365,13 @@ nav
 }
 
 .sidebar .nav-links li .sub-menu a{
-   color: #fff;
+   color: #151515;
    font-size: 15px;
    padding: 5px 0;
    white-space: nowrap;
    opacity: 0.6;
    transition: all 0.3 ease;
+   font-weight: 600;
 }
 .sidebar .nav-links li .sub-menu a:hover{
   opacity: 1;
@@ -483,7 +485,7 @@ nav
     margin-left: 150px;
     backdrop-filter: blur(7px);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border-radius: .8rem;
+    border-radius: .3rem;
     margin-top: 50px;
 
     overflow: hidden;
@@ -629,7 +631,7 @@ flex-direction: column;
     margin-left: 150px;
     backdrop-filter: blur(7px);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border-radius: .8rem;
+    border-radius: .3rem;
     overflow: hidden;
     flex-direction: column;
     margin-top: 50px;
@@ -924,8 +926,7 @@ flex-direction: column;
     margin-bottom: 5px;
 }
 .productSection .boxContainer .productCon img{
-    height: 70%;
-    width: 70%;
+    height: 80%;
 }
 .productSection .boxContainer .productDescription {
     display: flex;

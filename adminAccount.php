@@ -66,18 +66,18 @@
                         <div class="input_box">
                             <label for="user_level">User Level:</label>
                             <select name="user_level" >
-                                <option value="default">User Level</option>
-                                <?php
-                                    include "config/databaseConnection.php";
-                                    $query = "SELECT category_id, category_name FROM category";
-                                    $result = mysqli_query($con, $query);
+                                <option value="default">Select user level</option>
+                                <!-- <?php
+                                    // include "config/databaseConnection.php";
+                                    // $query = "SELECT category_id, category_name FROM category";
+                                    // $result = mysqli_query($con, $query);
                                    
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        $categoryId = $row['category_id'];
-                                        $categoryName = $row['category_name'];
-                                        echo '<option value="' . $categoryName . '">' . $categoryName . '</option>';
-                                    }
-                                ?> 
+                                    // while ($row = mysqli_fetch_assoc($result)) {
+                                    //     $categoryId = $row['category_id'];
+                                    //     $categoryName = $row['category_name'];
+                                    //     echo '<option value="' . $categoryName . '">' . $categoryName . '</option>';
+                                    // }
+                                ?>  -->
                             </select>
                         </div>
                         <div class="input_box">

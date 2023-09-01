@@ -24,11 +24,11 @@ signupBtn.addEventListener("click", (e) =>{
 
 function scrolll(){
     var left = document.querySelector(".scroll-images");
-    left.scrollBy(-500, 0);
+    left.scrollBy(-518, 0);
 }
 function scrollr(){
     var right =document.querySelector(".scroll-images");
-    right.scrollBy(500, 0);
+    right.scrollBy(518, 0);
 }
 function showw(){
     var showw = document.getElementsByClassName("paragraph-desc");
@@ -96,6 +96,9 @@ function showw6(){
     }
 
 }
+
+
+
 // Sign up form
 // document.addEventListener("DOMContentLoaded", function() {
 //     // Add an event listener to the form submission

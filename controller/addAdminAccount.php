@@ -23,11 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
        echo '<script>alert("Password should be at least 8 characters long and contain at least one uppercase letter.");</script>';
        exit;
    }
-   if (strcasecmp($userLevel, "default") === 0) {
-        echo '<script>alert("Please select a valid user level.");</script>';
-        exit;
+//    if (strcasecmp($userLevel, "default") === 0) {
+//         echo '<script>alert("Please select a valid user level.");</script>';
+//         exit;
     
-   }
+//    }
 
 
 if($con -> connect_error)

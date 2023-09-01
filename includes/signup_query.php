@@ -52,7 +52,7 @@
         $stmt -> execute();
         session_start();
         $_SESSION["flash_message"] = "Registered Successfully";
-        header("Location:customer_LandingPage.php");
+        header("Location:index.php");
         
     } 
     $stmt ->close();

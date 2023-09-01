@@ -1,4 +1,7 @@
-<!-- 
+<?php
+    include "c_header.php";
+    include_once "config/databaseConnection.php"; 
+?>
 <div class="profileContainer">
     <div class="profile">
         <div class="profileHeader">
@@ -11,12 +14,12 @@
         </div>
         <div class="manageProfile">
             <div class="myprofile">
-                <h2>My Profile</h2>
+                <h2><a href="myProfile.php">My Profile</a></h2>
             </div>
             <div class="editAccount">
                 <ul>
                     <li><a href="customerManageAccount.php">Manage Account</a></li>
-                    <li><a href="">Address Book</a></li>
+                    <li><a href="addressBook.php">Address Book</a></li>
                 </ul>
             </div>
         </div>
@@ -26,14 +29,10 @@
             </div>
             <div class="orderLinks">
                 <ul>
-                    <li>Order History</li>
-                    <li>My Reviews</li>
+                    <li><a href="orderHistory.php">Order History</a></li>
+                    <li><a href="myReviews.php">My Reviews</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    <div class="rightContainer">
-        
-    </div>
-</div>
- -->
+ 

@@ -19,6 +19,9 @@
                     </li>
                 </ul>
             </div>
+            <div class="visitUs">
+                <h3>VISIT AND CONTACT US</h3>
+            </div>
         </div>
      </footer>
      <script src="customer_script.js"></script> 

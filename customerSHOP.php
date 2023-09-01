@@ -1,6 +1,6 @@
 <?php
     include "c_header.php"; 
-    include "config/databaseConnection.php"; 
+    include_once "config/databaseConnection.php"; 
 ?>
 
     <div class="shopContainer">

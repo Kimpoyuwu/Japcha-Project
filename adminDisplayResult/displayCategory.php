@@ -14,7 +14,6 @@
         // Looping through each row and displaying the data
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
-            echo "<td>" . $row['category_id'] . "</td>";
             echo "<td>" . $row['category_name'] . "</td>";
             echo "<td><button class='remove'>Remove</button></td>";
             echo "</tr>";
