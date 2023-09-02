@@ -12,6 +12,8 @@ class Signup extends Dbh {
                 // Execute the query
                 if (!$stmt->execute(array($username, $hashedPwd, $pwdConfirm, $email, $address, $contactNum))) {
                     throw new Exception("User registration failed.");
+                    header("location: ../index.php?error=userregistrationfailed");
+                   
                 }
 
         $stmt = null;
@@ -19,7 +21,7 @@ class Signup extends Dbh {
             } catch (\Throwable $th) {
                 //throw $th;
                 header("location: ../index.php?error=" . urlencode($e->getMessage()));
-                 exit();
+                exit();
             }
         
     }
@@ -31,9 +33,9 @@ class Signup extends Dbh {
             
             // Execute the query
             if (!$stmt->execute(array($username, $email))) {
-                throw new Exception("User existence check failed.");
+                // throw new Exception("User existence check failed.");
                 $stmt = null;
-                header("location: ../index.php?error=somethingwentwrong");
+                header("location: ../index.php?error=Account does not exist");
                 exit();
 
             }
@@ -46,7 +48,55 @@ class Signup extends Dbh {
             exit();
         }
     }
+
+
+    // ADMIN
     
+    protected function setAdmin($username, $email, $pwd, $userLevel, $contactNum) {
+        try {
+
+            $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+            $stmt = $this->connect()->prepare('INSERT INTO admin_account (username, email, password,   user_level,  contact) VALUES (?, ?, ?, ?, ?)');
+
+            // Execute the query
+            if (!$stmt->execute(array($username, $email, $hashedPwd, $userLevel, $contactNum))) {
+                throw new Exception("User registration failed.");
+                header("location: ../adminAccount.php?error=userregistrationfailed");
+               
+            }
+
+            $stmt = null;
+
+        } catch (Throwable $th) {
+            //throw $th;
+            header("location: ../adminAccount.php?error=shettwhathappened");
+            exit();
+        }
+    
+}
+
+    protected function checkAdmin($username, $email) {
+        try {
+            // Prepare the SQL query
+            $stmt = $this->connect()->prepare('SELECT username FROM admin_account WHERE username = ? OR email = ?');
+            
+            // Execute the query
+            if (!$stmt->execute(array($username, $email))) {
+                // throw new Exception("User existence check failed.");
+                $stmt = null;
+                header("location: ../adminAccount.php?error=Account does not exist");
+                exit();
+            }
+            
+            $resultCheck = ($stmt->rowCount() > 0) ? false : true;
+            return $resultCheck;
+        } catch (Exception $e) {
+            // Log the error or handle it appropriately
+            header("location: ../adminAccount.php?error=" . urlencode($e->getMessage()));
+            exit();
+        }
+    }
 
 
 

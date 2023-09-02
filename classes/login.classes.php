@@ -11,15 +11,17 @@ class Login extends Dbh {
     
             // Execute the query
             if (!$stmt->execute()) {
-                throw new Exception("Statement execution failed.");
+                // throw new Exception("Statement execution failed.");
+                header("location: ../index.php?error=somethingwentwrong");
+                exit();
             }
     
             $userData = $stmt->fetch(PDO::FETCH_ASSOC);
     
             // Check if a user with the provided email/username exists
             if ($userData === false) {
-                throw new Exception("User not found.");
-                header("location: ../index.php?error=usernotfoundsssss");
+                // throw new Exception("usernotfound.");
+                header("location: ../index.php?error=usernotfound");
                 exit();
             }
     
@@ -46,6 +48,9 @@ class Login extends Dbh {
             $stmt = null;
         }
     }
+
+
+
     // protected function getUser($email, $pwd) {
     //     $stmt = $this->connect()->prepare('SELECT password FROM customer_account WHERE username = ? or email = ?;');
 

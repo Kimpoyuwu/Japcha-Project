@@ -11,7 +11,7 @@
     $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number from the URL parameter
     // Calculate the offset to determine which rows to fetch from the database
     $offset = ($page - 1) * $limit;
-    $query = "SELECT admin_id, username, password, email, user_level, contact FROM admin_account LIMIT $limit OFFSET $offset";
+    $query = "SELECT admin_id, username, email, user_level, contact FROM admin_account LIMIT $limit OFFSET $offset";
     $result = mysqli_query($con, $query);
 
     // Checking if any rows were returned
@@ -22,7 +22,6 @@
             echo "<td>" . $row['admin_id'] . "</td>";
             echo "<td><img src='image/user.jpg' alt='user image'></td>";
             echo "<td>" . $row['username'] . "</td>";
-            echo "<td>" . $row['password'] . "</td>";
             echo "<td>" . $row['email'] . "</td>";
             echo "<td>" . $row['user_level'] . "</td>";
             echo "<td>" . $row['contact'] . "</td>";

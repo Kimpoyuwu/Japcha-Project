@@ -21,7 +21,6 @@
                     <th>id</th>
                     <th>Profile</th>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Email</th>
                     <th>User Level</th>
                     <th>Contact No.</th>
@@ -30,7 +29,47 @@
                 </thead>
                 <tbody>
                    <?php
-                        include "adminDisplayResult/displayAdminAccount.php";
+                       include "includes/db.inc.php";
+                       $limit = 8; //number of rows to fetch
+                       $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number from the URL parameter
+                       // Calculate the offset to determine which rows to fetch from the database
+                       $offset = ($page - 1) * $limit;
+                       $query = "SELECT admin_id, username, email, user_level, contact FROM admin_account LIMIT $limit OFFSET $offset";
+                       $result = mysqli_query($conn, $query);
+                   
+                       // Checking if any rows were returned
+                       if (mysqli_num_rows($result) > 0) {
+                           // Looping through each row and displaying the data
+                           while ($row = mysqli_fetch_assoc($result)) {
+                            $id = $row['admin_id'];
+                            $uname = $row['username'];
+                            $email = $row['email'];
+                            $userlevel = $row['user_level'];
+                            $contact = $row['contact'];
+                    ?>
+
+                            <tr>
+                            <td><?= $id ?></td>
+                            <td><img src='image/user.jpg' alt='user image'></td>
+                            <td><?= $uname ?></td>
+                            <td><?= $email ?></td>
+                            <td><?= $userlevel ?></td>
+                            <td><?= $contact ?></td>
+                            <td><button class='remove'>Remove</button></td>
+                            </tr>
+
+                     <?php
+                        }
+                               
+                       } 
+                       else 
+                       {
+                    ?>
+
+                         "<tr><td colspan='6'>No admin accounts found.</td></tr>";
+                    <?php
+                       }
+                       $conn ->close();
                    ?>
                 </tbody>
                 <?php
@@ -45,7 +84,7 @@
             <div class="form signup_form" id="addAdminPopup">
                 <button class="form_close" onclick="closeAddAdmin()"><i class="uil uil-times"></i></button>
                 <div class="formBody">
-                    <form action="controller/addAdminAccount.php" method="post">
+                    <form action="includes/signup-admin.inc.php" method="post">
                         <h2>Signup</h2>
                         <div class="input_box">
                             <label for="username">Username:</label>
@@ -75,7 +114,7 @@
                                     // while ($row = mysqli_fetch_assoc($result)) {
                                     //     $categoryId = $row['category_id'];
                                     //     $categoryName = $row['category_name'];
-                                    //     echo '<option value="' . $categoryName . '">' . $categoryName . '</option>';
+                                    //     '<option value="' . $categoryName . '">' . $categoryName . '</option>';
                                     // }
                                 ?>  -->
                             </select>
@@ -87,7 +126,7 @@
                             <!-- <i class="uil uil-eye-slash pw_hide"></i> -->
                         </div>
                         <!-- <input type="submit" class="btnLogin btn-primary"> -->
-                        <button class="btnSignup">Signup</button>
+                        <button class="btnSignup" type="submit" name="submit">Signup</button>
                     </form>
                 </div>
             </div>

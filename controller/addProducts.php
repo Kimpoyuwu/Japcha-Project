@@ -53,15 +53,19 @@
                     mysqli_stmt_bind_param($stmt, "sssssdi", $new_img_name,$productname,$label, $description, $category, $price,$quantity);
                     mysqli_stmt_execute($stmt);
                     if (mysqli_stmt_affected_rows($stmt) > 0) {
+                        
                         echo "successfully inserted";
+                       
                         // header("Location: view.php");   
                     } else {
                         // Insertion failed
                         exit();
                     }
+
+                    
                     mysqli_stmt_close($stmt);
                 }
-               
+                
                 echo "success";
 
                }else{

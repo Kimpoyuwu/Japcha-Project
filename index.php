@@ -43,6 +43,14 @@
                 echo '<script>alert("You have logged in");</script>';
                 unset($_GET["error"]);
             }
+            else if ($_GET["error"] == "usernotfound") {
+                echo '<script>alert("User not found");</script>';
+                unset($_GET["error"]);
+            }
+            else if ($_GET["error"] == "useroremailtaken") {
+                echo '<script>alert("Email already taken");</script>';
+                unset($_GET["error"]);
+            }
         }
 
     ?>
@@ -65,7 +73,7 @@
                 <form action="includes/login.inc.php" method="post">
                     <h2>Login</h2>
                     <div class="input_box">
-                        <input type="email" placeholder="Enter your email" name="email" required/>
+                        <input type="text" placeholder="Enter your email" name="email" required/>
                         <i class="uil uil-envelope-alt email"></i>
                     </div>
                     <div class="input_box">

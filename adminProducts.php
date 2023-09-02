@@ -79,9 +79,9 @@
             </div>
          
             <div class="secondLayer">
-                <div class="leftCont">    
-                    <img src="image/uploadImage.png" alt="">
-                    <input class = "file" type="file" accept ="image/*" name="product_image" required>    
+                <div class="leftCont">  
+                    <img id="imageData" src="" alt="">
+                    <input class = "file" type="file" accept ="image/*" name="product_image" onchange="readURL(this);" required>    
                 </div>
 
                 <div class="rightCont">
@@ -151,7 +151,8 @@
         </form>
     </div>
 
-    <script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" >
         const addNewLink = document.getElementById('addNew');
         const modal = document.querySelector('.modal');
         const closeButton = document.querySelector('.closeButton');
@@ -163,7 +164,19 @@
 
         closeButton.addEventListener('click', function() {
         modal.style.display = 'none';
-    });             
+    });
+    
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imageData').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
     </script> 
 
 <?php
