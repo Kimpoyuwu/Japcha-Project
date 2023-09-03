@@ -38,7 +38,7 @@ include "c_header.php";
 
     </div>
 
-    <div class="orderlist" id = "shippingOrders">
+    <!-- <div class="orderlist" id = "shippingOrders">
         <div class="productbg">
             <img src="image/Mango-shake.png" alt="img">
         </div>
@@ -49,7 +49,7 @@ include "c_header.php";
             <p class= "pr">2</p>
             <p class= "pr">₱270.00</p>
             <a href="#" >Cancel</a>
-        </div>
+        </div> -->
 
 
     </div>

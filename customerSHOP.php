@@ -17,7 +17,8 @@
 
             <div id="itemContainer" class="itemContainer">
             <?php
-                $sql = "SELECT * FROM product ORDER BY product_id DESC";
+                $condition = 'Shake';
+                $sql = "SELECT * FROM product WHERE category = '$condition' ORDER BY product_id DESC";
                 $res = mysqli_query($con, $sql);
 
                 if (mysqli_num_rows($res) > 0){
@@ -55,7 +56,7 @@
             </nav> -->
         </div>
         
-            <div class="paginationContainer">
+            <!-- <div class="paginationContainer">
                 <button class="btnPrev" onclick="backBtn()"><i class="fa fa-angle-right"></i>prev</button>
                 <ul>
                    <li class="page active" value="1" onclick="activeLink()">1</li>
@@ -63,7 +64,7 @@
                    <li class="page" value="3" onclick="activeLink()">3</li>
                 </ul>
                 <button class="btnNext" onclick="nextBtn()">next<i class="fa fa-angle-right"></i></button>
-            </div>
+            </div> -->
     </div>
     <script>
         let page = document.getElementsByClassName("page");

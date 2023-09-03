@@ -792,14 +792,15 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     flex-direction: column;
     height: 200vh;
     width: 100%;
-    justify-content: center;
     align-items: center;
+    background-color: #f4f1ec;
 }
 .shopContainer .filterContainer{
     position: relative;
     height: 40px;
     width: 90%;
     margin-bottom: 30px;
+    margin-top: 120px;
 
 }
 .shopContainer .filterContainer .filter{
@@ -964,6 +965,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     /* align-items: center; */
     gap: 30px;
     justify-content: center;
+    background-color: #f4f1ec;
 }
 .profileContainer .profile{
     display: flex;
@@ -1245,7 +1247,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     display: flex;
     position: relative;
     flex-direction: column;
-    background-color: #fbfdff;
+    background-color: #f4f1ec;
 
     width: 100%;
     max-height: calc(80% - 1.6rem);
@@ -1593,7 +1595,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     display: flex;
     position: relative;
     flex-direction: column;
-    background-color: #fbfdff;
+    background-color: #f4f1ec;
     width: 100%;
     max-height: calc(80% - 1.6rem);
     /* margin-top: 20px; */

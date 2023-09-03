@@ -298,9 +298,10 @@ nav
     margin-top: 0;
     height: 100%;
     padding: 20px 0 150px 0;
-    overflow-y: auto;
+    overflow-y: visible;
     box-sizing: border-box;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
 }
 
 .sidebar .nav-links::-webkit-scrollbar{
@@ -311,9 +312,7 @@ nav
     list-style: none;
     transition: var(--tran-04);
 }
-.sidebar .nav-links li:hover{
-    background-color: #d4d4d1;
-}
+
 .sidebar .nav-links li .icon-link{
     display: flex;
     align-items: center;
@@ -332,12 +331,15 @@ nav
     font-size: 20px;
     transition: var(--tran-03);
     cursor: pointer;
+    font-size: 15px;
 }
 .sidebar .nav-links li.showMenu i.arrow {
     transform: rotate(-90deg);
 }
+
 .sidebar.close .nav-links i.arrow{
    display: none;
+   transition: var(--tran-05);
 }
 .sidebar .nav-links li a {
     display: flex;
@@ -349,15 +351,17 @@ nav
     font-size: 18px;
     font-weight: 500;
     color: #0c0c0c;
+    transition: var(--tran-04);
 }
 .sidebar.close .nav-links li a .link_name{
     opacity: 0;
     pointer-events: none;
+    transition: var(--tran-04);
+    
 }
 .sidebar .nav-links li .sub-menu{
     padding: 6px 6px 14px 80px;
     margin-top: -10px;
-    /* background: #B4A30D; */
     display: none;
 }
 .sidebar .nav-links li.showMenu .sub-menu{
@@ -383,19 +387,21 @@ nav
    margin-top: 0;
    padding: 10px 20px;
    border-radius: 0 6px 6px 0;
-   transition: 0s;
    opacity: 0;
    display: block;
    pointer-events: none;
+   transition: 0s;
 }
 .sidebar.close .nav-links li:hover .sub-menu{
     top: 0;
     opacity: 1;
     pointer-events: auto;
     transition: var(--tran-04);
+    background-color: #f3efef;
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 }
 .sidebar .nav-links li .sub-menu .link_name{
-    display: none;
+    display: block;
 }
 .sidebar.close .nav-links li .sub-menu .link_name{
     font-size: 18px;

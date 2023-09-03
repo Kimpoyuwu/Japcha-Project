@@ -26,7 +26,7 @@
 <body>
     <nav >
         <div id ="logo-img">
-            <a href="#" class="logo__image">
+            <a href="index.php" class="logo__image">
                 <img src="image/japcha_logo.png" alt="Japcha Logo">
             </a>
         </div>
