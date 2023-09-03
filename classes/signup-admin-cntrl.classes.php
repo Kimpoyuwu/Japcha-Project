@@ -93,13 +93,6 @@ class SignupContrAdmin extends Signup{
     // }
     
     private function uidTakenCheck() {
-        $result;
-        if (!$this->checkAdmin(!$this ->username, $this ->email)) {
-            $result = false;
-        }
-        else {
-            $result = true;
-        }
-        return $result;
-     }
+        return $this->checkAdmin($this->username, $this->email);
+    }
 }

@@ -23,7 +23,9 @@ body{
     margin: 0;
     /* position: relative; */
 }
-
+*{
+    box-sizing: border-box;
+}
 h1{
     padding: 8px;
     background: rgba(red, 0, 0, 0);
@@ -36,7 +38,7 @@ h1{
 .home {
     height: 100vh;
     display: flex;
-    background-color: #B4A30D;
+    background-color: #FDE402;
 }
 
 .home #banner{
@@ -54,6 +56,7 @@ h1{
     padding: 0;
     color: white;
     margin-left: 90px;
+    text-shadow: 2px 3px 1px rgba(0, 0, 0, 0.25);
 }
 #banner h2{
     border-radius: 8px;
@@ -62,6 +65,7 @@ h1{
     font-size: 20px;
     color: #444444;
     margin-left: 90px;
+    text-shadow: 2px 5px 4px rgba(0, 0, 0, 0.25);
 
 }
 .home #image-right-side {
@@ -83,6 +87,7 @@ h1{
 /* btn shop now */
 .home .btn-Shopnow {
     margin-left: 90px;
+   
 }
 .btn-Shopnow {
     padding: 8px 24px;
@@ -95,6 +100,7 @@ h1{
     text-decoration: none;
     color: black;
     border-radius: 10px;
+    box-shadow: -1px 2px 4px 1px rgba(0, 0, 0, 0.25);
 }
 .btn-Shopnow:hover {
     background-color: black;
@@ -120,28 +126,26 @@ nav {
     border-radius: 20px;
     top: 50px;
     left: 70px;
-    box-shadow: 5px 5px 10px #6e6b6b;
+    box-shadow: -1px 2px 4px 1px rgba(0, 0, 0, 0.25);
+    /* box-shadow: 5px 5px 10px #6e6b6b; */
 }
 nav a{
+    text-align: center;
     text-decoration: none;
-    padding: 0 20px;
+    padding: 14px 16px;
     color: #000000;
     transition: 0.4;
 }
 
-nav a:hover{
-    text-decoration: none;
-    color: #b0922e;
-}
 
-nav ul{
+
+nav .navigation__main_ul{
     display: flex;
     list-style: none;
     justify-content: center;
     align-items: center;
     height: 100%;
     margin: 0;
-
 }
 
 .active {
@@ -173,6 +177,59 @@ nav ul{
     color: #eee;
     display: none;
     align-items: center;
+}
+.subnav {
+    float: left;
+    overflow: hidden;
+}
+.subnav .subnavbtn{
+    font-size: 20px;
+    color: #141414;
+    padding: 16px 16px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+.subnav .fa {
+    display: inline-block;
+    font-size: 17px;
+    
+}
+.subnav:hover .subnav-content {
+    display: block;
+    
+}
+.subnav-content {
+    display: none;
+    position: absolute;
+    left: 0;
+    /* background-color: #2d291c; */
+    width: 100%;
+    z-index: 1;
+    border-radius: 20px;
+    margin: 0;
+}
+
+.navigation__links_ul{
+    text-align: center;
+    list-style: none;
+    padding-left: 10px;
+    box-sizing: border-box;
+    margin: 10px 0 0 0;
+    overflow: hidden;
+    
+}
+.navigation__links_ul a {
+    padding: 14px 16px;
+    float: left;
+    color: #000000;
+    font-family: Helvetica;
+    font-size: 16px;
+}
+
+nav a:hover, .subnav:hover .subnavbtn{
+    color: #b0922e;
 }
 
 /* Search Icon */
@@ -669,7 +726,7 @@ section {
  /* Footer */
 
  footer {
-    background-color: #B4A30D;
+    background-color: #FDE402;
     width: 100%;
     height: 180px;
     margin: 0;

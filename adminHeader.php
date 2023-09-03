@@ -66,7 +66,7 @@
                     <ul class="sub-menu">
                         <li><a class="link_name" href="#">Products</a></li>
                         <li><a href="adminProducts.php">Products</a></li>
-                        <li><a href="viewCategoryResult.php">Category</a></li>
+                        <li><a href="viewCategory.php">Category</a></li>
                         <li><a href="#">Add-ons</a></li>
                     </ul>  
                 </li>

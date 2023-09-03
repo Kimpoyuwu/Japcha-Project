@@ -14,22 +14,27 @@
         if (isset($_GET["error"])) {
             if ($_GET["error"] == "emptyinput") {
                 echo '<script>alert("Fill in all the fields!");</script>';
+                unset($_GET['error']);
             }
             else if ($_GET["error"] == "invaliduid") {
                 echo '<script>alert("Choose a proper name!");</script>';
-                
+                unset($_GET['error']);
             }
             else if ($_GET["error"] == "invalidemail") {
                 echo '<script>alert("Choose a proper email!");</script>';
+                unset($_GET['error']);
             }
             else if ($_GET["error"] == "passworddoesnotmatch") {
                 echo '<script>alert("Passwords does not match!");</script>';
+                unset($_GET['error']);
             }
             else if ($_GET["error"] == "stmtfailed") {
                 echo '<script>alert("Something went wrong!");</script>';
+                unset($_GET['error']);
             }
             else if ($_GET["error"] == "usernametaken") {
                 echo '<script>alert("Name already taken");</script>';
+                unset($_GET['error']);
             }
             else if ($_GET["error"] == "none") {
                 echo '<script>alert("You have successfully signed up");</script>';

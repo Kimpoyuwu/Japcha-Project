@@ -37,9 +37,8 @@
                        $query = "SELECT admin_id, username, email, user_level, contact FROM admin_account LIMIT $limit OFFSET $offset";
                        $result = mysqli_query($conn, $query);
                    
-                       // Checking if any rows were returned
+                      
                        if (mysqli_num_rows($result) > 0) {
-                           // Looping through each row and displaying the data
                            while ($row = mysqli_fetch_assoc($result)) {
                             $id = $row['admin_id'];
                             $uname = $row['username'];

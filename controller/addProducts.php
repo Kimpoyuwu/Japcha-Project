@@ -19,6 +19,16 @@
         $quantity = $_POST["quantity"];
 
         $img_name = $_FILES['product_image']['name'];
+
+    // Check if the file already exists in the target directory before moving it
+        $target_file = '../upload/' .$img_name;
+        if (file_exists($target_file)) {
+            $em = "Sorry, the file already exists.";
+            error_log("File already exists: $target_file"); // Log the message
+            header("Location: ../adminProducts.php?error=$em");
+            exit();
+        }
+
         $img_size = $_FILES['product_image']['size'];
         $tmp_name = $_FILES['product_image']['tmp_name'];
         $error = $_FILES['product_image']['error'];
@@ -39,7 +49,7 @@
                $allowed_exs = array("jpg", "jpeg", "png");
 
                if(in_array($img_ex_lc,  $allowed_exs)){
-                $new_img_name = uniqid("IMG-", true).'.'.$img_ex_lc;
+                $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
                 $img_upload_path = '../upload/'.$new_img_name;
                 move_uploaded_file($tmp_name, $img_upload_path);
 
@@ -66,7 +76,7 @@
                     mysqli_stmt_close($stmt);
                 }
                 
-                echo "success";
+              
 
                }else{
                 $em = "You can't upload files of this type";
@@ -79,7 +89,6 @@
             $em = "unknown error occured!";
             // header("Location: ../adminProducts.php?error=$em");    
         }
-
         
     }else{
         header("Location: ../adminProducts.php");

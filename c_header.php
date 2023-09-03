@@ -24,22 +24,44 @@
     </style>
 </head>
 <body>
-    <nav>
+    <nav >
         <div id ="logo-img">
-            <a href="#">
+            <a href="#" class="logo__image">
                 <img src="image/japcha_logo.png" alt="Japcha Logo">
             </a>
         </div>
         <div id="menu-icon">
             <i class="fa fa-bars"></i>
         </div>
-        <ul>
+        <ul class="navigation__main_ul">
             <li>
                 <a class="" href="index.php">Home</a>
             </li>
-            <li>
-                <a href="customerSHOP.php">Shop</a>
-            </li>
+            <div class="subnav">
+                <button class="subnavbtn">Shop <i class="fa fa-caret-down"></i></button>
+                <!-- <li>
+                    <a href="customerSHOP.php">Shop</a>
+                </li> -->
+                <div class="subnav-content">
+                    <ul class="navigation__links_ul">
+                        <a href="customerSHOP.php" title>Shake</a>
+                        <a href="" title>Frappe</a>
+                        <a href="" title>Milktea</a>
+                        <a href="" title>Cheesetea</a>
+                        <a href="" title>Fruit Tea</a>
+                        <a href="" title>Lemonade</a>
+                        <a href="" title>Coffee</a>
+                        <a href="" title>Rocksalt CreamCheese</a>
+                        <a href="" title>Wings & Fries</a>
+                        <a href="" title>Rice Meal</a>
+                        <a href="" title>Rice Bowl</a>
+                        <a href="" title>Pasta</a>
+                        <a href="" title>Burger and Sandwiches</a>
+                        <a href="" >Fries and Snacks</a>
+                        <a href="" title>Salad</a>
+                    </ul>
+                </div>
+            </div>
             <li>
                 <a href="#">About</a>
             </li>

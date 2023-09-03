@@ -81,7 +81,7 @@
             <div class="secondLayer">
                 <div class="leftCont">  
                     <img id="imageData" src="" alt="">
-                    <input class = "file" type="file" accept ="image/*" name="product_image" onchange="readURL(this);" required>    
+                    <input class = "file" type="file" accept ="image/*" name="product_image" onchange="readURL(this);" value=""required>    
                 </div>
 
                 <div class="rightCont">
