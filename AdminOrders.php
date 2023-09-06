@@ -1,12 +1,6 @@
 <?php
     include "adminHeader.php";
 ?>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Order</title>
-<link rel="stylesheet" href="/assets/css/AdminOrders.css">
-</head>
-<body>
     <div class="container">
       <div class="manage-order">
         <h2>Manage Order</h2>
