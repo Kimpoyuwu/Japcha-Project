@@ -98,4 +98,9 @@ class SignupContr extends Signup{
     private function uidTakenCheck() {
         return $this->checkUser($this->username, $this->email);
     }
+
+    public function fetchCustomerId($username){
+        $customerId = $this->getCustomerId($username);
+        return $customerId[0]["customer_id"];
+    }
 }

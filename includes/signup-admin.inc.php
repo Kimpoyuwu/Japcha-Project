@@ -1,6 +1,6 @@
 <?php
 
-if(isset($_POST["submit"]))
+if($_SERVER["REQUEST_METHOD"] == "POST")
 {
      // Get the form data
     $username = $_POST['userName'];

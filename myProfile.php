@@ -1,5 +1,12 @@
 <?php
     include "customerProfileHeader.php";
+
+    include "classes/dbh.classes.php";
+    include "classes/profileinfo.classes.php";
+    include "classes/profileinfo-cntrl.classes.php";
+    include "classes/profileinfo-view.classes.php";
+    $profileInfo = new ProfileInfoView();
+
 ?>
 <div class="rightContainer">
     <div class="addressField"><h2>My Profile</h2></div>
@@ -11,9 +18,21 @@
                     <button><a href="">EDIT</a></button>
                 </div>
                 <div class="body_">
-                    <p>Juan Dela Cruz</p>
-                    <p>JuanDela@gmail.com</p>
-                    <p>12345678901</p>
+                    <p>
+                        <?php
+                            echo $_SESSION["username"];
+                        ?>
+                    </p>
+                    <p> 
+                        <?php
+                            echo $_SESSION["email"];
+                        ?>
+                    </p>
+                    <p>
+                        <?php
+                            echo $_SESSION["contact"];
+                        ?>
+                    </p>
                 </div>
             </div>
             <div class="defaultAddressContainer">
@@ -23,7 +42,11 @@
                         <button><a href="">EDIT</a></button>
                     </div>
                     <div class="body_">
-                        <p>Block 1 Lot 1 Phase 1 Paliparan I Dasmarinas Cavity, City</p>
+                        <p>
+                            <?php
+                                echo $_SESSION["address"];
+                            ?>
+                        </p>
                     </div>
             </div>
         </div>

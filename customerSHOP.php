@@ -18,7 +18,7 @@
             <div id="itemContainer" class="itemContainer">
             <?php
                 $condition = 'Shake';
-                $sql = "SELECT * FROM product WHERE category = '$condition' ORDER BY product_id DESC";
+                $sql = "SELECT * FROM product WHERE category = '$condition' ORDER BY price DESC";
                 $res = mysqli_query($con, $sql);
 
                 if (mysqli_num_rows($res) > 0){

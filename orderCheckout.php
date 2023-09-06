@@ -125,7 +125,7 @@
 
     </div>
 
-    <div class="orderlist1">
+    <!-- <div class="orderlist1">
 
             <div class="productbg">
                 <img src="image/Mango-shake.png" alt="img">
@@ -138,7 +138,7 @@
                     <p class= "pr">₱240.00</p>
                     <input type="checkbox" name="" id="">
                 </div>
-    </div>
+    </div> -->
 
 
         <div class="remarks">

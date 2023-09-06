@@ -2,12 +2,7 @@
     include "c_header.php";
 ?>
 
-
-
-
 <!--Product Details-->
-
-
  <div class="Pmaincont">
         <div class="PleftCont">
             <div class="Productbg">
@@ -19,7 +14,7 @@
             <div class="textcont">
                 <h2 class="prodName">Mango Graham</h2>
                 <h2 class="pprice">₱120.00</h2>
-                <h3 class="desctitle">Details</h3>
+                <h3 class="desctitle">Details:</h3>
                 <p class="prodDesc">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
                     printer took a galley of type and scrambled it to make a type specimen book
                 </p>
@@ -41,8 +36,8 @@
 
             </div>
             <div class="btncont">
-                <a href="#id" class = "add">Add To Card</a>
-                <a href="#id" class = "buy" id = "buynow">Buy Now</a>
+                <button class="btnAddtoCart"><a href="#id" class = "add">Add To Card</a></button>
+                <button class="buyNow"><a href="#id" class = "buy" id = "buynow">Buy Now</a></button>
 
                 <script>
                     document.getElementById("buynow").addEventListener("click", function() {

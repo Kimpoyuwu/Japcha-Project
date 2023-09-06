@@ -24,6 +24,6 @@
             </div>
         </div>
      </footer>
-     <script src="customer_script.js"></script> 
+     <script src="customer.js"></script> 
 </body>
 </html>

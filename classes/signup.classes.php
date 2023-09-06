@@ -98,6 +98,27 @@ class Signup extends Dbh {
         }
     }
 
+    protected function getCustomerId($username){
+        $stmt = $this->connect()->prepare('SELECT customer_id FROM customer_account WHERE username = ?;');
+
+        if(!$stmt->execute(array($username))) {
+            $stmt = null;
+            header("location: ../myProfile.php?error=stmtfailed");
+            exit();
+        }
+
+        if($stmt->rowCount() == 0) {
+            $stmt = null;
+            header("location: ../myProfile.php?error=profilenotfoundas");
+            exit();
+        }
+
+        $profileData = $stmt->fetchALL(PDO::FETCH_ASSOC);
+
+        return $profileData;
+
+    }
+
 
 
 

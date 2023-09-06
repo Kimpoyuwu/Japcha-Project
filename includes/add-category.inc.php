@@ -1,10 +1,8 @@
 <?php
 
-print("asdadadadada");
 
-if(isset($_POST["submit"]))
+if($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    print("sddddddddddddd");
      // Get the form data
      $category = $_POST['c_name'];
 

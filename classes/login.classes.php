@@ -5,7 +5,7 @@ class Login extends Dbh {
     protected function getUser($email, $pwd) {
         try {
             // Prepare SQL query using named placeholders
-            $stmt = $this->connect()->prepare('SELECT customer_id, email, password FROM customer_account WHERE username = :username OR email = :email');
+            $stmt = $this->connect()->prepare('SELECT * FROM customer_account WHERE username = :username OR email = :email');
             $stmt->bindParam(':username', $email, PDO::PARAM_STR);
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     
@@ -36,6 +36,10 @@ class Login extends Dbh {
             session_start();
             $_SESSION["userid"] = $userData["customer_id"];
             $_SESSION["email"] = $userData["email"];
+            $_SESSION["username"] = $userData["username"];
+            $_SESSION["contact"]  = $userData["contact_number"];
+            $_SESSION["address"]  = $userData["customer_address"];
+            
     
             // Redirect to a success page or return user data as needed
             return $userData;

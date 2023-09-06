@@ -82,7 +82,7 @@
                 </div>
             </li>
             <?php
-                if (isset($_SESSION["email"])) 
+                if (isset($_SESSION["userid"])) 
                 {
             
             ?>

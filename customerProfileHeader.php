@@ -9,7 +9,11 @@
                 <img src="image/user.jpg" alt="">
             </div>
             <div class="username">
-                <div class="profile_name">Adner Devila</div>
+                <div class="profile_name">
+                    <?php
+                        echo $_SESSION["username"];
+                    ?>
+                </div>
             </div>
         </div>
         <div class="manageProfile">

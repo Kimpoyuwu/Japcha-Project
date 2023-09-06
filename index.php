@@ -75,7 +75,7 @@
         <div class="form-container">
             <i class="uil uil-times form_close"></i>
             <div class="form login_form">
-                <form action="includes/login.inc.php" method="post">
+                <form action="includes/login.inc.php" method="POST">
                     <h2>Login</h2>
                     <div class="input_box">
                         <input type="text" placeholder="Enter your email" name="email" required/>
@@ -103,7 +103,7 @@
           
             <!-- Signup form MODAL -->
             <div class="form signup_form">
-                <form action="includes/signup.inc.php" method="post">
+                <form action="includes/signup.inc.php" method="POST">
                     <h2>Signup</h2>
                     <div class="input_box">
                         <input type="text" placeholder="Fullname" name="userName" required />

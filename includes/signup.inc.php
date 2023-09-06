@@ -1,13 +1,13 @@
 <?php
 
-if(isset($_POST["submit"]))
+if($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    $username = $_POST['userName'];
-    $email = $_POST['email'];
-    $pwd = $_POST['pass'];
-    $pwdConfirm = $_POST['confirm_pass'];
-    $address = $_POST['address'];
-    $contactNum = $_POST['contact'];
+    $username = htmlspecialchars($_POST["userName"], ENT_QUOTES, 'UTF-8');
+    $email = htmlspecialchars($_POST["email"], ENT_QUOTES, 'UTF-8');
+    $pwd = htmlspecialchars($_POST["pass"], ENT_QUOTES, 'UTF-8');
+    $pwdConfirm = htmlspecialchars($_POST["confirm_pass"], ENT_QUOTES, 'UTF-8');
+    $address = htmlspecialchars($_POST["address"], ENT_QUOTES, 'UTF-8');
+    $contactNum = isset($_POST["contact"]) ? intval($_POST["contact"]) : 0;
 
     // instantiate signupContr class
     include "../classes/dbh.classes.php";
@@ -18,6 +18,13 @@ if(isset($_POST["submit"]))
     // Runnig error handlers and user signup
     $signup-> signupUser();
     
+    $customerId = $signup->fetchCustomerId($username);
+    
+    // instantiate ProfileInfoContr class
+    include "../classes/profileinfo.classes.php";
+    include "../classes/profileinfo-cntrl.classes.php";
+    $profileInfo = new ProfileInfoContr($customerId, $username);
+    $profileInfo->defaultProfileInfo();
 
     // Going back to front page
     header("location: ../index.php?error=none");
