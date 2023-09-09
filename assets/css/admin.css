@@ -1312,16 +1312,3 @@ form .second-section-container{
 } 
 
 
-/*Admin Statistics*/
-
-.main--cont{
-    background-color: red;
-    height: 100%;
-    width: 100%;
-}
-
-.Daily{
-    height: 30px;
-    background-color: red;
-    
-}
