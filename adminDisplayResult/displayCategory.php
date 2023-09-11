@@ -13,9 +13,11 @@
     if (mysqli_num_rows($result) > 0) {
         // Looping through each row and displaying the data
         while ($row = mysqli_fetch_assoc($result)) {
+
+            $categoryid = $row['category_id'];
             echo "<tr>";
             echo "<td>" . $row['category_name'] . "</td>";
-            echo "<td><button class='remove'>Remove</button></td>";
+            echo "<td><button class='remove'><a href='controller/remove-category.php?deleteidcat=$categoryid'>Remove</a></button></td>";
             echo "</tr>";
         }
             

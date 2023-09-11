@@ -20,7 +20,7 @@ $conn = new mysqli('localhost', 'root', '', 'japcha');
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>";
             echo "<td>" . $row['customer_id'] . "</td>";
-            echo "<td><img src='image/user.jpg' alt='user image'></td>";
+            echo "<td><img src='../image/user.jpg' alt='user image'></td>";
             echo "<td>" . $row['username'] . "</td>";
             echo "<td>" . $row['email'] . "</td>";
             echo "<td>" . $row['customer_address'] . "</td>";

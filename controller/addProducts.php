@@ -2,15 +2,8 @@
     if(isset($_POST['submit']) && isset($_FILES['product_image'])){
         include "../config/databaseConnection.php";
 
-        echo "success";
-
-
-        echo "<pre>";
-        print_r($_FILES['product_image']);
-        echo "</pre>";
-
         $productname = $_POST["productname"];
-        $label = $_POST["label"];
+        // $label = $_POST["label"];
         // $addons = $_POST['addons'];
         // $addons1 = implode(",", $addons);
         $description = $_POST["description"];
@@ -25,7 +18,7 @@
         if (file_exists($target_file)) {
             $em = "Sorry, the file already exists.";
             error_log("File already exists: $target_file"); // Log the message
-            header("Location: ../adminProducts.php?error=$em");
+            header("Location: ../back-end/adminProducts.php?error=$em");
             exit();
         }
 
@@ -35,7 +28,7 @@
 
         if (preg_match('/\d/', $productname)) {
             $em = "Sorry, bawal yung pangalan";
-            header("Location: ../adminProducts.php?error=$em");
+            header("Location: ../back-end/adminProducts.php?error=$em");
         }
 
         if($error === 0){
@@ -55,18 +48,19 @@
 
                 // insert into database
 
-                $sql = "INSERT INTO product (image_url, product_name, label, description, category, price, quantity) 
-                VALUES (?,?,?,?,?,?,?)";
+                $sql = "INSERT INTO product (image_url, product_name, description, category_id, price, quantity) 
+                VALUES (?,?,?,?,?,?)";
 
                 $stmt = mysqli_prepare($con, $sql);
                 if($stmt){
-                    mysqli_stmt_bind_param($stmt, "sssssdi", $new_img_name,$productname,$label, $description, $category, $price,$quantity);
+                    mysqli_stmt_bind_param($stmt, "sssidi", $new_img_name,$productname, $description, $category, $price,$quantity);
                     mysqli_stmt_execute($stmt);
                     if (mysqli_stmt_affected_rows($stmt) > 0) {
                         
-                        echo "successfully inserted";
+                        // echo "successfully inserted";
                        
-                        // header("Location: view.php");   
+                        header("location: ../back-end/adminProducts.php?error= $productname Successfully Added");
+                        exit();
                     } else {
                         // Insertion failed
                         exit();
@@ -81,7 +75,7 @@
                }else{
                 $em = "You can't upload files of this type";
                 // echo 'You can\'t upload files of this type';
-                header("Location: ../adminProducts.php?error=$em");   
+                header("Location: ../back-end/adminProducts.php?error=$em");   
                }
             }
 
@@ -91,7 +85,7 @@
         }
         
     }else{
-        header("Location: ../adminProducts.php");
+        header("Location: ../back-end/adminProducts.php");
 
     }
 ?>

@@ -20,6 +20,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     
 
     // Going back to front page
-    header("location: ../adminAccount.php?error=none");
+    header("location: ../back-end/adminAccount.php?error=none");
 
 }

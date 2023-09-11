@@ -158,17 +158,16 @@ nav .navigation__main_ul{
     height: 100%;
     background: none;
     padding: 0 34px;
-    align-items: center;
     justify-content: center;
     color: white;
     transition: .4s;
 }
 
 #logo-img img{
-    height: 50px;
+    height: 40px;
     align-self: center;
     justify-content: center;
-    margin-top: 10px;
+
 }
 
 #menu-icon{
@@ -658,11 +657,10 @@ section {
 .paragraph-desc {
     display: none;
     font-family: 'Inter';
+    width: 100%;
 }
 #about-us-container #left-div .container-description .description-japcha.show  .paragraph-desc {
-    width: 100%;
     display: flex;
-   
  }
 
  #about-us-container #right-div {
@@ -712,7 +710,6 @@ section {
 
 
 #about-us-container #right-div .container-description .description-japcha.show  .paragraph-desc {
-    width: 100%;
     display: flex;
    
  }

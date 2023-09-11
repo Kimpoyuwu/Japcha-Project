@@ -24,19 +24,18 @@
                     <th>Email</th>
                     <th>User Level</th>
                     <th>Contact No.</th>
-                    <th>Remove</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                    <?php
-                       include "includes/db.inc.php";
+                       include "../includes/db.inc.php";
                        $limit = 8; //number of rows to fetch
                        $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number from the URL parameter
                        // Calculate the offset to determine which rows to fetch from the database
                        $offset = ($page - 1) * $limit;
                        $query = "SELECT admin_id, username, email, user_level, contact FROM admin_account LIMIT $limit OFFSET $offset";
                        $result = mysqli_query($conn, $query);
-                   
                       
                        if (mysqli_num_rows($result) > 0) {
                            while ($row = mysqli_fetch_assoc($result)) {
@@ -49,12 +48,12 @@
 
                             <tr>
                             <td><?= $id ?></td>
-                            <td><img src='image/user.jpg' alt='user image'></td>
+                            <td><img src='../image/user.jpg' alt='user image'></td>
                             <td><?= $uname ?></td>
                             <td><?= $email ?></td>
                             <td><?= $userlevel ?></td>
                             <td><?= $contact ?></td>
-                            <td><button class='remove'>Remove</button></td>
+                            <td><button class='remove'><a style="text-decoration: none; color:#b30021;" href="controller/remove-admin.php?deleteidadmin=<?php echo $id;?>">Remove</a></button></td>
                             </tr>
 
                      <?php
@@ -83,7 +82,7 @@
             <div class="form signup_form" id="addAdminPopup">
                 <button class="form_close" onclick="closeAddAdmin()"><i class="uil uil-times"></i></button>
                 <div class="formBody">
-                    <form action="includes/signup-admin.inc.php" method="post">
+                    <form action="../includes/signup-admin.inc.php" method="post">
                         <h2>Signup</h2>
                         <div class="input_box">
                             <label for="username">Username:</label>

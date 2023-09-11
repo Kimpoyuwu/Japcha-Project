@@ -15,7 +15,7 @@
                   </tr>
                   <tbody>
                       <?php
-                        include "adminDisplayResult/displayCategory.php";
+                        include "../adminDisplayResult/displayCategory.php";
                       ?>
                   </tbody>
                 </thead>
@@ -37,7 +37,7 @@
           <button type="button" class="close" onclick="closePopup()" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <form action="includes/add-category.inc.php" method="post" id="formCategory">
+          <form action="../includes/add-category.inc.php" method="post" id="formCategory">
             <div class="form-group-label">
               <label for="c_name">Category Name: </label>
               <input type="text" class="form-control" name="c_name" required>

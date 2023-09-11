@@ -17,6 +17,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     
 
     // Going back to front page
-    header("location: ../viewCategory.php?error=none");
+    header("location: ../back-end/viewCategory.php?error=none");
 
 }

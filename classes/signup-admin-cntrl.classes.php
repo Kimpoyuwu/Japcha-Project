@@ -20,17 +20,17 @@ class SignupContrAdmin extends Signup{
     public function signupAdmin(){
         if($this->emptyInput() == false) 
         {
-            header("location: ../adminAccount.php?error=emptyinput");
+            header("location: ../back-end/adminAccount.php?error=emptyinput");
             exit();
         }
         if($this->invalidName() == false) 
         {
-            header("location: ../adminAccount.php?error=invalidname");
+            header("location: ../back-end/adminAccount.php?error=invalidname");
             exit();
         }
         if($this->invalidEmail() == false) 
         {
-            header("location: ../adminAccount.php?error=invalidemail");
+            header("location: ../back-end/adminAccount.php?error=invalidemail");
             exit();
         }
         // if($this->pwdMatch() == false) 
@@ -40,7 +40,7 @@ class SignupContrAdmin extends Signup{
         // }
         if($this->uidTakenCheck() == false) 
         {
-            header("location: ../adminAccount.php?error=usernameoremailtaken");
+            header("location: ../back-end/adminAccount.php?error=usernameoremailtaken");
             exit();
         }
 

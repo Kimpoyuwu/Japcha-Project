@@ -62,7 +62,7 @@ class Signup extends Dbh {
             // Execute the query
             if (!$stmt->execute(array($username, $email, $hashedPwd, $userLevel, $contactNum))) {
                 throw new Exception("User registration failed.");
-                header("location: ../adminAccount.php?error=userregistrationfailed");
+                header("location: ../back-end/adminAccount.php?error=userregistrationfailed");
                
             }
 
@@ -70,7 +70,7 @@ class Signup extends Dbh {
 
         } catch (Throwable $th) {
             //throw $th;
-            header("location: ../adminAccount.php?error=shettwhathappened");
+            header("location: ../back-end/adminAccount.php?error=shettwhathappened");
             exit();
         }
     
@@ -93,7 +93,7 @@ class Signup extends Dbh {
             return $resultCheck;
         } catch (Exception $e) {
             // Log the error or handle it appropriately
-            header("location: ../adminAccount.php?error=" . urlencode($e->getMessage()));
+            header("location: ../back-end/adminAccount.php?error=" . urlencode($e->getMessage()));
             exit();
         }
     }

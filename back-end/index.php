@@ -22,11 +22,11 @@
                 </thead>
                 <tbody id="userTable">
                     <?php
-                        include "adminDisplayResult/displayCustomerResult.php"; 
+                        include "../adminDisplayResult/displayCustomerResult.php"; 
                     ?>
                 </tbody>
                 <?php
-                        include "pagination/pagination.php";
+                        include "../pagination/pagination.php";
                 ?>
               </table>
         </section>

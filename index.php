@@ -1,5 +1,11 @@
 <?php
     include_once "c_header.php";
+
+    include "classes/dbh.classes.php";
+    include "classes/cms.classes.php";
+    include "classes/cms-cntrl.classes.php";
+    include "classes/cms-view-classes.php";
+    $cmsinfo = new CmsInfoView();
 ?>
 
 <?php 
@@ -63,8 +69,16 @@
     <!-- HOME -->
     <div class="home">
         <div id="banner">
-            <h1>YOUR ONE-STOP FLAVORFUL SHOP</h1>
-            <h2>MILK TEA • FRUIT TEA • MANGO GRAHAM SHAKE • FRAPPE • ETC</h2>
+            <h1>
+                <?php
+                    $cmsinfo->fetchTitle();
+                 ?>
+             </h1>
+            <h2>
+                <?php
+                    $cmsinfo->fetchSubtitle();
+                 ?>
+            </h2>
             <a href="#" class="btn-Shopnow">SHOP NOW</a>
         </div>
         <div id="image-right-side">
@@ -239,7 +253,7 @@
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
                             <div class="paragraph-desc">
-                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id reprehenderit cupiditate est mollitia magni voluptatibus animi totam fugit doloribus quia, perspiciatis quidem excepturi obcaecati quisquam fugiat veniam. Cumque, accusamus?</textarea>
+                                    <textarea name="" id="" cols="10" rows="5" > <?php  $cmsinfo->fetchJapcha();?> </textarea>
                             </div>
                         </div>
                     </div>
@@ -249,9 +263,8 @@
                             <h2>How to Order</h2>
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
-                            <div class="paragraph-desc">
-                                    
-                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id reprehenderit cupiditate est mollitia magni voluptatibus animi totam fugit doloribus quia, perspiciatis quidem excepturi obcaecati quisquam fugiat veniam. Cumque, accusamus?</textarea>
+                            <div class="paragraph-desc">         
+                                <textarea name="" id="" cols="10" rows="5" > <?php  $cmsinfo->fetchHowToOrder();?> </textarea>
                             </div>
                         </div>
                     </div>
@@ -263,7 +276,7 @@
                             </div>
                             <div class="paragraph-desc">
                                 
-                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id reprehenderit cupiditate est mollitia magni voluptatibus animi totam fugit doloribus quia, perspiciatis quidem excepturi obcaecati quisquam fugiat veniam. Cumque, accusamus?</textarea>
+                                    <textarea name="" id="" cols="10" rows="5" > <?php  $cmsinfo->fetchSocials();?> </textarea>
                             </div>
                         </div>
                     </div>
@@ -276,7 +289,7 @@
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
                             <div class="paragraph-desc">
-                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id reprehenderit cupiditate est mollitia magni voluptatibus animi totam fugit doloribus quia, perspiciatis quidem excepturi obcaecati quisquam fugiat veniam. Cumque, accusamus?</textarea>
+                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit   </textarea>
                             </div>
                         </div>
                     </div>

@@ -1,18 +1,18 @@
 <?php
 
-class AddCategoryContr extends addCategory{
+class AddSizeContr extends addSize{
 
-    private $category;
+    private $size;
 
-    public function __construct($category){
-        $this ->category = $category;
+    public function __construct($size){
+        $this ->size = $size;
         
     }
 
-    public function addCategory(){
+    public function addSize(){
         if($this->emptyInput() == false) 
         {
-            header("location: ../back-end/viewCategory.php?error=emptyinput");
+            header("location: ../back-end/admin-sizes.php?error=emptyinput");
             exit();
         }
         // if($this->invalidName() == false) 
@@ -20,18 +20,18 @@ class AddCategoryContr extends addCategory{
         //     header("location: ../viewCategory.php?error=invalidname");
         //     exit();
         // }
-        if($this->categoryTaken() == false) 
+        if($this->SizeTaken() == false) 
         {
-            header("location: ../back-end/viewCategory.php?error=categoryalreadyexist");
+            header("location: ../back-end/admin-sizes.php?error=categoryalreadyexist");
             exit();
         }
 
-        $this->setCategory($this ->category );
+        $this->setSize($this ->size );
     }
 
     private function emptyInput(){
         $result;
-        if(empty($this ->category)) 
+        if(empty($this ->size)) 
         {
             $result = false;
         }
@@ -52,7 +52,7 @@ class AddCategoryContr extends addCategory{
     //     // return $result;
     // }
 
-    private function categoryTaken() {
-        return $this->checkCategory($this->category);
+    private function SizeTaken() {
+        return $this->checkSize($this->size);
     }
 }

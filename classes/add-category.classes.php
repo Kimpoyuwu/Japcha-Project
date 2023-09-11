@@ -10,7 +10,7 @@ class addCategory extends Dbh {
                 // Execute the query
                 if (!$stmt->execute(array($category))) {
                     throw new Exception("Failed to Add Category");
-                    header("location: ../viewCategory.php?error=addingcategoryfailed");
+                    header("location: ../back-end/viewCategory.php?error=addingcategoryfailed");
                    
                 }
 
@@ -18,7 +18,7 @@ class addCategory extends Dbh {
 
             } catch (\Throwable $th) {
                 //throw $th;
-                header("location: ../viewCategory.php?error=" . urlencode($e->getMessage()));
+                header("location: ../back-end/viewCategory.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         
@@ -33,7 +33,7 @@ class addCategory extends Dbh {
             if (!$stmt->execute(array($category))) {
                 // throw new Exception("User existence check failed.");
                 $stmt = null;
-                header("location: ../viewCategory.php?error=categorydoesnotexist");
+                header("location: ../back-end/viewCategory.php?error=categorydoesnotexist");
                 exit();
 
             }
@@ -42,7 +42,7 @@ class addCategory extends Dbh {
             return $resultCheck;
         } catch (Exception $e) {
             // Log the error or handle it appropriately
-            header("location: ../viewCategory.php?error=" . urlencode($e->getMessage()));
+            header("location: ../back-end/viewCategory.php?error=" . urlencode($e->getMessage()));
             exit();
         }
     }
