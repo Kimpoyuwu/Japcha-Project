@@ -30,7 +30,7 @@
     <div id="modalOverlay">
     <div class="modal-container" id="popup">
         <div class="modal-header">
-          <h4 class="modal-title">New Category Item</h4>
+          <h4 class="modal-title">New Size Item</h4>
           <button type="button" class="close" onclick="closePopup()" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
