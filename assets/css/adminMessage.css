@@ -3,25 +3,33 @@
 .mainContainer{
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 .mainContainer .leftCont{
-    width: 475px;
-    height: 730px;
+    width: 30%;
+    height: 100%;
     border: 1px solid rgba(0, 0, 0, 0.28);
     background: #FFF;   
+    display: flex;
+    flex-direction: column;
     margin-left: 252px;
 }
 
 .mainContainer .leftCont .searchCont{
-    margin-bottom: 530px;
+    margin-top: -320px;
     margin-right: 30px;
     align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left:45px;
+    
 }
 
 
-
-::placeholder{
+.mainContainer .leftCont .searchCont ::placeholder{
     color: rgba(0, 0, 0, 0.57);
     font-family: Inter;
     font-size: 20px;
@@ -29,15 +37,115 @@
     font-weight: 600;
     line-height: normal;
 }
-input[type=text]{
+.mainContainer .leftCont .searchCont input[type=text]{
     width: 323px;
     height: 42px;
     padding:10px;
     background-color: #D9D9D9;
     border:1px solid rgba(255, 255, 255, 0.28);
     border-radius: 11px;
+    margin-right: 20px;
  
 }
+
+.chatCont{
+   display: flex;
+   flex-direction: row;  
+   width: 100%;
+   height: 110px;
+   justify-content: center;
+   align-items: center;
+   margin-top: 60px;
+}
+
+.chatCont .profileCont{
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin-left: 50px;
+    
+}
+
+.chatCont .messageCont{
+    text-align: center;
+    width: 100%;
+    flex-direction: column;
+} 
+
+
+.chatCont .messageCont .name{
+    color: #000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 5px;
+
+}
+
+.chatCont .messageCont .message{
+    color: rgba(0, 0, 0, 0.62);
+    font-family: Inter;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 5px;
+}
+
+.chatCont .timeCont{
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.62);
+    font-family: Inter;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+.mainContainer .rightCont{
+    display: flex;
+    width: 70%;
+    height: 100%;
+    
+}
+
+.mainContainer .rightCont .inputCont{
+        display: flex;
+        flex-direction: row;  
+        width: 100%;
+        height: auto;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: 60px;
+        margin-left: 70px;
+        margin-bottom: 25px;
+        
+     
+}
+
+.mainContainer .rightCont .inputCont ::placeholder{
+    color: rgba(0, 0, 0, 0.57);
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+.mainContainer .rightCont .inputCont input[type=text]{
+    width: 640px;
+    height: 49px;
+    border-radius: 9px;
+    border: 1px solid rgba(0, 0, 0, 0.26);
+    background: #FFF;
+}
+
+.mainContainer .rightCont .inputCont img{
+    margin-bottom: 12px;
+}
+
 
 
 
