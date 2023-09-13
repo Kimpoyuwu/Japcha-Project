@@ -37,21 +37,37 @@
         </div>
 
         <div class="rightCont">
+
+
             <div class="inputCont">
                 <input type="text" placeholder="Type here..." name=""id="">
-                <img src="../image/clipButton.png" alt="">
-                <img src="../image/sendButton.png" alt="">
             </div>
 
-            <div class="convoCont">
-                <div class="messCont">
+
+           <div class="convoCont">
+                <div class="sampleMessageCont">
+                <p class = sampleMess>Sample Message</p>
+                </div>
+
+                <div class="chat-profile-Container">
+                    <img src="../image/chatLogo.png" alt="">
+                </div>
+            </div>
+
+            <div class="client-chat-Container">
+
+                <div class="client-profile-Container">
+                    <img src="../image/clientChatImage.png" alt="">
+                </div>
+
+                <div class="clientMessageCont">
                     <p>Sample Message</p>
                 </div>
+                
+                
             </div>
         </div>
 
-
-        
 
 </div>
 </body>
