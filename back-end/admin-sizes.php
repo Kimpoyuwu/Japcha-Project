@@ -1,5 +1,7 @@
 <?php
     include "adminHeader.php";
+
+    include_once "../config/databaseConnection.php"; 
 ?>
     <main class="table_category">
         <section class="table_header">
@@ -14,6 +16,22 @@
                     <th>Action</th>
                   </tr>
                   <tbody>
+                  <?php
+                     $sql = "SELECT * FROM size ORDER BY size_id DESC";
+                     $res = mysqli_query($con, $sql);
+
+                     if (mysqli_num_rows($res) > 0){
+                      while ($row = mysqli_fetch_assoc($res)){ 
+                          $sizeName = $row['size_name'];
+                          $sizeid = $row['size_id'];
+                          
+                  ?>
+                  <tr>
+                    <td><?=$sizeName?></td>
+                    <td><button class="remove"><a href="">Remove</a></button></td>
+                  </tr>
+
+                  <?php } } ?>  
                   </tbody>
                 </thead>
             </table>

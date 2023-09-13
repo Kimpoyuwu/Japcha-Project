@@ -4,7 +4,6 @@
     <main class="table_category">
         <section class="table_header">
             <h1>Category </h1>
-            <input type="search" class="search" placeholder="Search....">
         </section>
         <section class="table_body">
             <table>

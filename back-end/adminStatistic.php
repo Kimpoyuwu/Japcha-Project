@@ -1,9 +1,6 @@
 <?php
     include "adminHeader.php";
 ?>
-
-<link rel="stylesheet" href="../assets/css/adminStatistics.css">
-
     <div class="main--cont">
         
         <div class="drop-cont">

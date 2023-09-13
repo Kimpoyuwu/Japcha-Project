@@ -4,7 +4,6 @@
     <main class="table_category">
         <section class="table_header">
             <h1>Add-ons </h1>
-            <input type="search" class="search" placeholder="Search....">
         </section>
         <section class="table_body">
             <table>
@@ -35,7 +34,7 @@
           <button type="button" class="close" onclick="closePopup()" data-dismiss="modal">&times;</button>
         </div>
         <div class="modal-body">
-          <form action="" method="post" id="formCategory">
+          <form action="../includes/add-ons.inc.php" method="post" id="formCategory">
             <div class="form-group-label">
               <label for="addons">Add-Ons Name: </label>
               <input type="text" class="form-control" name="addons" required>

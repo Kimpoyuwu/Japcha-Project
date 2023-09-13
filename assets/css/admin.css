@@ -37,6 +37,7 @@ body
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: auto;
 
 }
 
@@ -286,7 +287,7 @@ nav
     position: fixed;
     top: 60px;
     left: 0;
-    background-color: #f3efef;
+    background-color: #fff5;
     transition: var(--tran-05);
     z-index: 1;
 }
@@ -351,7 +352,7 @@ nav
 
 }
 .sidebar .nav-links li a .link_name {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 500;
     color: #0c0c0c;
     transition: var(--tran-04);
@@ -373,7 +374,7 @@ nav
 
 .sidebar .nav-links li .sub-menu a{
    color: #151515;
-   font-size: 15px;
+   font-size: 13px;
    padding: 5px 0;
    white-space: nowrap;
    opacity: 0.6;

@@ -1,5 +1,5 @@
 <?php
-    include "adminHeader.php"
+    include "../back-end/adminHeader.php"
 ?>
 
 <!DOCTYPE html>

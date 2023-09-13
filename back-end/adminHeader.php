@@ -63,7 +63,7 @@
                 </li>
                 <li>
                     <div class="icon-link">
-                        <a href="#">
+                        <a href="AdminOrders.php">
                             <i class="fa fa-list"></i>
                             <span class="link_name">Orders</span>
                         </a>
@@ -71,7 +71,7 @@
                     </div>
                     <ul class="sub-menu">
                         <li><a class="link_name" href="#">Orders</a></li>
-                        <li><a href="#">Orders</a></li>
+                        <li><a href="AdminOrders.php">Orders</a></li>
                         <li><a href="#">Archive</a></li>
                     </ul>  
                 </li>

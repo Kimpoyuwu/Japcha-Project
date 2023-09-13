@@ -10,7 +10,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     include "../classes/dbh.classes.php";
     include "../classes/add-addons.classes.php";
     include "../classes/add-addons-cntrl.classes.php";
-    $addons = new AddSizeContr($addons);
+    $addons = new AddAddonsContr($addons);
 
     // Runnig error handlers and user signup
     $addons-> addAddons();
