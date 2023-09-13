@@ -2,7 +2,7 @@
     include "adminHeader.php";
 ?>
 
-<link rel="stylesheet" href="..assets/css/Admindashboard.css">
+<link rel="stylesheet" href="../assets/css/Admindashboard.css">
     <title>Dashboard</title>
     
 <div class="dashboard-container">
@@ -10,7 +10,7 @@
     <div class="dashboard">
         <div class="daily-sales">
             <div class="img-container-daily-sales">
-                <img src="image/₱.png" alt="Daily Sales Image">
+                <img src="../image/₱.png" alt="Daily Sales Image">
             </div>
             <div>
                 <h2>Daily Sales</h2>
@@ -19,7 +19,7 @@
         </div>
         <div class="total-orders">
             <div class="img-container-total-orders ">
-                <img src="image/undefined11.png" alt="Total Orders Image">
+                <img src="../image/undefined11.png" alt="Total Orders Image">
             </div>
             <div>
                 <h2>Total Orders</h2>
@@ -28,7 +28,7 @@
         </div>
         <div class="total-products">
             <div class="img-container-total-products">
-                <img src="image/undefined8.png" alt="Total Products Image">
+                <img src="../image/undefined8.png" alt="Total Products Image">
             </div>
             <div>
                 <h2>Total Products</h2>
@@ -39,7 +39,7 @@
 </div>
 <div class="Product-Sales">
     <div class="img-container-Sales-Product">
-        <img src="image/Sales-Product.png" alt="Total Products Image">
+        <img src="../image/Sales-Product.png" alt="Total Products Image">
     </div>
 </div>
 </div>
@@ -58,13 +58,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><img src="image/sampleimage.png" alt="Product 1 Image"></td>
+                    <td><img src="../image/sampleimage.png" alt="Product 1 Image"></td>
                     <td>Product Name</td>
                     <td>₱100</td>
                     <td>100</td>
                 </tr>
                 <tr>
-                    <td><img src="image/sampleimage.png" alt="Product 2 Image"></td>
+                    <td><img src="../image/sampleimage.png" alt="Product 2 Image"></td>
                     <td>Product Name</td>
                     <td>₱100</td>
                     <td>100</td>
@@ -88,14 +88,14 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><img src="image/man.png" alt="Product 1 Image"> </td>
+                    <td><img src="../image/man.png" alt="Product 1 Image"> </td>
                     <td>Cruz</td>
                     <td>100</td>
                     <td>Tuesday</td>
                     <td>10:49am </td>
                 </tr>
                 <tr>
-                    <td><img src="image/Profile.png" alt="Product 2 Image"></td>
+                    <td><img src="../image/Profile.png" alt="Product 2 Image"></td>
                     <td>Juan</td>
                     <td>100</td>
                     <td>Wednesday</td>
@@ -103,14 +103,14 @@
                 </tr>
                 </tr>
                 <tr>
-                    <td><img src="image/Man (1).png" alt="Product 2 Image"></td>
+                    <td><img src="../image/Man (1).png" alt="Product 2 Image"></td>
                     <td>Cruz</td>
                     <td>100</td>
                     <td>Friday</td>
                     <td>10:49am </td>
                 </tr>
                 <tr>
-                    <td><img src="image/Boy.png" alt="Product 2 Image"></td>
+                    <td><img src="../image/Boy.png" alt="Product 2 Image"></td>
                     <td>Cruz</td>
                     <td>100</td>
                     <td>Monday</td>
