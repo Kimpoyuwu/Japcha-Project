@@ -18,6 +18,7 @@
             echo "<tr>";
             echo "<td>" . $row['category_name'] . "</td>";
             echo "<td><button class='remove'><a href='controller/remove-category.php?deleteidcat=$categoryid'>Remove</a></button></td>";
+            echo "<td><button class='update' data-id='$categoryid'><a href='#' >Update</a></button></td>";
             echo "</tr>";
         }
             

@@ -1,7 +1,8 @@
 <?php
-    include "adminHeader.php";
-
-    include_once "../config/databaseConnection.php"; 
+    require_once ("adminHeader.php");
+    // require_once("../classes/add-size-cntrl.classes.php");  
+    // $obj = new AddSizeContr;
+    include_once "../config/databaseConnection.php";
 ?>
     <main class="table_category">
         <section class="table_header">
@@ -13,34 +14,36 @@
                 <thead>
                   <tr>
                     <th>Sizes</th>
-                    <th>Action</th>
+                    <th colspan="2">Action</th>
                   </tr>
                   <tbody>
-                  <?php
-                     $sql = "SELECT * FROM size ORDER BY size_id DESC";
-                     $res = mysqli_query($con, $sql);
-
-                     if (mysqli_num_rows($res) > 0){
-                      while ($row = mysqli_fetch_assoc($res)){ 
+                    <?php
+                     $query = "SELECT * FROM size LIMIT 6";
+                     $result = mysqli_query($con, $query);
+                 
+                     if (mysqli_num_rows($result) > 0) {
+                         // Looping through each row and displaying the data
+                         while ($row = mysqli_fetch_assoc($result)) {
                           $sizeName = $row['size_name'];
-                          $sizeid = $row['size_id'];
-                          
-                  ?>
-                  <tr>
-                    <td><?=$sizeName?></td>
-                    <td><button class="remove"><a href="">Remove</a></button></td>
-                  </tr>
-
-                  <?php } } ?>  
+                          $sizeID = $row['size_id'];
+                     ?>
+                    <tr>
+                      <td><?=$sizeName?></td>
+                      <td><button class='remove'><a href=''>Remove</a></button></td>
+                      <td><button class='update' data-id="<?= $sizeID ?>"><a href='#'>update</a></button></td>
+                    </tr>
+                    <?php } } ?>      
                   </tbody>
                 </thead>
             </table>
+            
     </main>
-
+    
+    
 
     <div class="btnAddCategory">
          <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-secondary " onclick="openPopup()" style="height:40px">
+        <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
                 Add Size</button>
     </div>
 
@@ -58,7 +61,7 @@
               <input type="text" class="form-control" name="size" required>
             </div>
             <div class="form-group-button">
-              <button type="submit" class="btn btn-secondary" style="height:40px" name="submit">Add Size</button>
+              <button type="submit" class="btn1" style="height:40px" name="submit">Add Size</button>
             </div>
           </form>
         </div>
@@ -66,8 +69,29 @@
     </div>
      <div id="alertContainer"></div>
 
-
-
+  <!-- ################################################################################# -->
+  <div id="modalupdate">
+    <div class="modal-container2" id="popup2">
+        <div class="modal-header">
+          <h4 class="modal-title">New Add-Ons Item</h4>
+          <button type="button" class="close2" onclick="closePopup()" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form action="../includes/update-sizes.inc.php" method="post" id="formCategory">
+            <div class="form-group-label">
+              <label for="size">Add-Ons Name: </label>
+              <input type="hidden" class="form-control" name="sizeid" id="sizeid" >
+              <input type="text" class="form-control" name="sizename" id="sizename" required>
+            </div>
+            <div class="form-group-button">
+              <button type="submit" class="btn1" style="height:40px" name="submit">Update</button>
+            </div>
+          </form>
+        </div>
+     </div>
+    </div>
+    <!-- ################################################################################# -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     let popup = document.getElementById("popup");
     let overlay = document.getElementById("modalOverlay");
@@ -93,8 +117,9 @@ modalOverlay.addEventListener("click", closeModal);
 // Listen for keydown events to close the modal when "Escape" key is pressed
 document.addEventListener("keydown", closeModal);
   </script>
+  <script src="../assets/js/size.js"></script>
     
 <?php
-    include "adminFooter.php";
+    include_once "adminFooter.php";
 
 ?>

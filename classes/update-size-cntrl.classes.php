@@ -1,18 +1,18 @@
 <?php
-    
-    // require_once("add-size.classes.php");
 
-class AddSizeContr extends addSize{
+class UpdateSizeContr extends addSize{
 
     private $size;
-    public $res;
+    private $sizeID;
 
-    public function __construct($size){
+    public function __construct($size, $sizeID){
+        $this ->sizeID = $sizeID;
         $this ->size = $size;
+       
         
     }
 
-    public function addSize(){
+    public function updateSize(){
         if($this->emptyInput() == false) 
         {
             header("location: ../back-end/admin-sizes.php?error=emptyinput");
@@ -25,11 +25,10 @@ class AddSizeContr extends addSize{
         // }
         if($this->SizeTaken() == false) 
         {
-            header("location: ../back-end/admin-sizes.php?error=categoryalreadyexist");
+            header("location: ../back-end/admin-sizes.php?error=addonsalreadyexist");
             exit();
         }
-
-        $this->setSize($this ->size );
+        $this->updateNewSize($this ->size, $this ->sizeID );
     }
 
     private function emptyInput(){
@@ -57,12 +56,5 @@ class AddSizeContr extends addSize{
 
     private function SizeTaken() {
         return $this->checkSize($this->size);
-    }
-    public function fetchSize(){
-        $sql = "SELECT * FROM size ORDER BY size_id DESC";
-        $res = mysqli_query($con, $sql);
-        if (mysqli_num_rows($res) > 0){
-            return mysqli_fetch_assoc($res);
-        }
     }
 }

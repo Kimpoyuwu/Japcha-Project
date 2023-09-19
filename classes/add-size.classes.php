@@ -1,4 +1,5 @@
 <?php
+    // require_once("dbh.classes.php");
 
 class addSize extends Dbh {
 
@@ -24,6 +25,27 @@ class addSize extends Dbh {
         
     }
 
+    protected function updateNewSize($size, $sizeID) {
+        try {
+
+            $stmt = $this->connect()->prepare('UPDATE size SET size_name = ? WHERE size_id = ?');
+    
+            // Execute the query
+            if (!$stmt->execute(array($size, $sizeID))) {
+                throw new Exception("Failed to update size");
+            }
+    
+            // Close the prepared statement
+            $stmt = null;
+
+        } catch (Exception $e) {
+            //throw $th;
+            header("location: ../back-end/admin-add-ons.php?error=" . urlencode($e->getMessage()));
+            exit();
+        }
+    
+    }
+
     protected function checkSize($size) {
         try {
             // Prepare the SQL query
@@ -45,5 +67,27 @@ class addSize extends Dbh {
             header("location: ../back-end/admin-sizes.php?error=" . urlencode($e->getMessage()));
             exit();
         }
+    }
+
+        protected function getSize($size_name) {
+            try {
+
+                $stmt = $this->connect()->prepare('SELECT size_name FROM size WHERE size_name = ?');
+
+                // Execute the query
+                if (!$stmt->execute(array($size))) {
+                    throw new Exception("Failed to Add Size");
+                    header("location: ../back-end/admin-sizes.php?error=addingcategoryfailed");
+                
+                }
+
+        $stmt = null;
+
+            } catch (\Throwable $th) {
+                //throw $th;
+                header("location: ../back-end/admin-sizes.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        
     }
 }

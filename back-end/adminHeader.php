@@ -33,12 +33,12 @@
     <div class="sidebar" id="mySidebar"> 
          <ul class="nav-links">
                 <li>
-                    <a href="#">
+                    <a href="AdminDashBoard.php">
                         <i class="fa fa-home icon"></i>
                         <span class="link_name">Dashboard</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Dashboard</a></li>
+                        <li><a class="link_name" href="AdminDashBoard.php">Dashboard</a></li>
                     </ul> 
                 </li>
                         
@@ -56,6 +56,7 @@
                         <li><a href="adminAccount.php">Admin</a></li>
                         <li><a href="userLevel.php">User Level</a></li>
                         <li><a href="adminProducts.php">Products</a></li>
+                        <li><a href="admin-ProductSizes.php">Product Sizes</a></li>
                         <li><a href="viewCategory.php">Category</a></li>
                         <li><a href="admin-add-ons.php">Add-ons</a></li>
                         <li><a href="admin-sizes.php">Sizes</a></li>
@@ -85,12 +86,12 @@
                     </ul> 
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="adminMessage.php">
                         <i class="fa fa-comment"></i>
                         <span class="link_name">Message</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="#">Message</a></li>
+                        <li><a class="link_name" href="adminMessage.php">Message</a></li>
                     </ul> 
                 </li>   
                 <li>

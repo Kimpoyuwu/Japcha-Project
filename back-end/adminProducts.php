@@ -12,13 +12,15 @@
             
 ?>
     <link rel="stylesheet" href="../assets/css/admin.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../assets/css/boostrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <div class="adminSection">
 
     <div class="headerSection">
         <p>Product List</p>
-            <a href="#" id="addNew">Add new</a>
-
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</button>
+            <!-- <a href="#" id="addNew">Add new</a> -->
     </div>
 
     <div class="searchSection">
@@ -62,26 +64,16 @@
                 </div>
         </div>
     <?php } } ?>
-
-
-        
-
-        
-
-        
-
     </div>
 </div>
+
 <?php if (isset($_GET['error'])): ?>
 
 <?php $error = $_GET['error'];
-    // echo '<script>alert("'.$error.'");</script>'; ?>
-<!-- <p><?php echo $_GET['error']; ?></p> -->
-
+    echo '<script>alert("'.$error.'");</script>'; ?>
+    <p><?php echo $_GET['error']; ?></p>
 <?php endif ?>
-
-
-    <div class="modal"> 
+    <div class="modal1"> 
         <form class = "formProducts" action="../controller/addProducts.php" method="POST" autocomplete="off" enctype="multipart/form-data">
             <div class="titleModal">
             <p>Add Product</p>    
@@ -91,7 +83,8 @@
             <div class="secondLayer">
                 <div class="leftCont">  
                     <img id="imageData" src="" alt="">
-                    <input class = "file" type="file" accept ="image/*" name="product_image" onchange="readURL(this);" value=""required>    
+                    <video id="videoData" src=""></video>
+                    <input class = "file" type="file" accept ="image/*, video/*" name="product_image" onchange="readURL(this);" multiple required>    
                 </div>
 
                 <div class="rightCont">
@@ -136,12 +129,30 @@
             <button name="submit" type="submit">Submit</button>
         </form>
     </div>
+    <!-- Button trigger modal -->
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-light" id="addNew" data-bs-dismiss="modal">Drinks</button>
+        <button type="button" class="btn btn-light">Rice Meals</button>
+        <button type="button" class="btn btn-light">Snacks</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Vertically centered scrollable modal -->
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" >
         const addNewLink = document.getElementById('addNew');
-        const modal = document.querySelector('.modal');
+        const modal = document.querySelector('.modal1');
         const closeButton = document.querySelector('.closeButton');
         const modalupdate = document.querySelector('.modalupdate');
         const updateButton = document.querySelector('.Edit');
@@ -150,6 +161,7 @@
         addNewLink.addEventListener('click', function(event) {
         event.preventDefault();
         modal.style.display = 'flex';
+        modal.style.transition = 'all 0.5s ease';
     });
 
         closeButton.addEventListener('click', function() {
@@ -157,15 +169,27 @@
     });
     
     function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+         if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
-            reader.onload = function (e) {
+        reader.onload = function (e) {
+            var fileType = input.files[0].type;
+
+            if (fileType.startsWith('image/')) {
+                // Handle image
                 $('#imageData').attr('src', e.target.result);
+            } else if (fileType.startsWith('video/')) {
+                // Handle video
+                // Replace '#videoData' with the appropriate video element or container
+                $('#videoData').attr('src', e.target.result);
+            } else {
+                // Handle other types or display an error message
+                console.log('Unsupported file type: ' + fileType);
             }
-
-            reader.readAsDataURL(input.files[0]);
         }
+
+        reader.readAsDataURL(input.files[0]);
+    }
     }
     </script> 
 

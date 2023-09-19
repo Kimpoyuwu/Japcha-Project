@@ -47,4 +47,24 @@ class addAddons extends Dbh {
             exit();
         }
     }
+    protected function updateNewAddons($addons, $addonsID) {
+        try {
+
+            $stmt = $this->connect()->prepare('UPDATE addons SET addons_name = ? WHERE addons_id = ?');
+    
+            // Execute the query
+            if (!$stmt->execute(array($addons, $addonsID))) {
+                throw new Exception("Failed to update addons");
+            }
+    
+            // Close the prepared statement
+            $stmt = null;
+
+        } catch (Exception $e) {
+            //throw $th;
+            header("location: ../back-end/admin-add-ons.php?error=" . urlencode($e->getMessage()));
+            exit();
+        }
+    
+}
 }

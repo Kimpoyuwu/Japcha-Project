@@ -3,6 +3,7 @@
 include '../classes/dbh.classes.php';
 
 class CategroyCtrl extends Dbh{
+
     public function deleteCategory() {
         if (isset($_GET['deleteidcat'])){
             $id = $_GET['deleteidcat'];
@@ -19,6 +20,7 @@ class CategroyCtrl extends Dbh{
         }
         
     }
+    
 }
 
 // Create an object of the class and call the method

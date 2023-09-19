@@ -1,5 +1,16 @@
 <?php
     include "adminHeader.php";
+    include_once "../config/databaseConnection.php";
+
+?>
+<?php
+   if (isset($_GET["error"])) {
+    if ($_GET["error"] == "categoryalreadyexist") {
+        echo '<script>alert("Category already exist!");</script>';
+        unset($_GET['error']);
+    }
+  }
+
 ?>
     <main class="table_category">
         <section class="table_header">
@@ -10,12 +21,27 @@
                 <thead>
                   <tr>
                     <th>Category Name</th>
-                    <th>Action</th>
+                    <th colspan="2">ACtion</th>
                   </tr>
                   <tbody>
-                      <?php
-                        include "../adminDisplayResult/displayCategory.php";
-                      ?>
+                  <?php
+                     $query = "SELECT * FROM category LIMIT 6";
+                     $result = mysqli_query($con, $query);
+                 
+                     if (mysqli_num_rows($result) > 0) {
+                         // Looping through each row and displaying the data
+                         while ($row = mysqli_fetch_assoc($result)) {
+                          $categoryname = $row['category_name'];
+                          $categoryid = $row['category_id'];
+                          $ategorytime = $row['time'];
+
+                     ?>
+                    <tr>
+                      <td><?=$categoryname?></td>
+                      <td><button class='remove'><a href='#'>Remove</a></button></td>
+                      <td><button class='update' data-id="<?= $categoryid ?>"><a href='#'>update</a></button></td>
+                    </tr>
+                    <?php } } ?>
                   </tbody>
                 </thead>
             </table>
@@ -24,7 +50,7 @@
 
     <div class="btnAddCategory">
          <!-- Trigger the modal with a button -->
-        <button type="button" class="btn btn-secondary " onclick="openPopup()" style="height:40px">
+        <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
                 Add Category</button>
     </div>
 
@@ -42,7 +68,7 @@
               <input type="text" class="form-control" name="c_name" required>
             </div>
             <div class="form-group-button">
-              <button type="submit" class="btn btn-secondary" style="height:40px" name="submit">Add Category</button>
+              <button type="submit" class="btn1" style="height:40px" name="submit">Add Category</button>
             </div>
           </form>
         </div>
@@ -50,9 +76,30 @@
     </div>
      <div id="alertContainer"></div>
 
-
-
-  <script>
+      <!-- ################################################################################# -->
+    <div id="modalupdate">
+    <div class="modal-container2" id="popup2">
+        <div class="modal-header">
+          <h4 class="modal-title">New Add-Ons Item</h4>
+          <button type="button" class="close2" onclick="closePopup()" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form action="../includes/update-category.inc.php" method="post" id="formCategory">
+            <div class="form-group-label">
+              <label for="addons">Add-Ons Name: </label>
+              <input type="hidden" class="form-control" name="categoryid" id="categoryid" >
+              <input type="text" class="form-control" name="categoryname" id="categoryname" required>
+            </div>
+            <div class="form-group-button">
+              <button type="submit" class="btn1" style="height:40px" name="submit">Update</button>
+            </div>
+          </form>
+        </div>
+     </div>
+    </div>
+    <!-- ################################################################################# -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>  
     let popup = document.getElementById("popup");
     let overlay = document.getElementById("modalOverlay");
     function openPopup()
@@ -77,6 +124,7 @@ modalOverlay.addEventListener("click", closeModal);
 // Listen for keydown events to close the modal when "Escape" key is pressed
 document.addEventListener("keydown", closeModal);
   </script>
+  <script src="../assets/js/update.js"></script>
     
 <?php
     include "adminFooter.php";

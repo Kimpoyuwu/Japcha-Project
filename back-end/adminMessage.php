@@ -2,18 +2,8 @@
     include "adminHeader.php"
 ?>
 
-<!DOCTYPE html>
+<link rel="stylesheet" href="../assets../css/AdminMessage.css">
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets../css/adminMessage.css">
-    <title>Document</title>
-</head>
-
-
-<body>
 <div class="mainContainer">
         <div class="leftCont">
             <div class="searchCont">
@@ -37,7 +27,7 @@
         </div>
 
         <div class="rightCont">
-            <div class="inputCont">
+        <div class="inputCont">
                 <input type="text" placeholder="Type here..." name=""id="">
                 <img src="../image/clipButton.png" alt="">
                 <img src="../image/sendButton.png" alt="">
@@ -45,17 +35,34 @@
 
             <div class="convoCont">
                 <div class="messCont">
-                    <p>Sample Message</p>
+
+           <div class="convoCont">
+                <div class="sampleMessageCont">
+                <p class = sampleMess>Sample Message</p>
+                </div>
+
+                <div class="chat-profile-Container">
+                    <img src="../image/chatLogo.png" alt="">
                 </div>
             </div>
+
+            <div class="client-chat-Container">
+
+                <div class="client-profile-Container">
+                    <img src="../image/clientChatImage.png" alt="">
+                </div>
+
+                <div class="clientMessageCont">
+                    <p>Sample Message</p>
+                </div>
+
+
+            </div>
         </div>
-
-
-        
-
 </div>
-</body>
-</html>
 
+<?php
+    include "adminFooter.php"
+?>
    
 

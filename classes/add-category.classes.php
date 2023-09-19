@@ -23,6 +23,26 @@ class addCategory extends Dbh {
             }
         
     }
+    protected function updateNewCategory($category, $categoryID) {
+        try {
+
+            $stmt = $this->connect()->prepare('UPDATE category SET category_name = ? WHERE category_id = ?');
+    
+            // Execute the query
+            if (!$stmt->execute(array($category, $categoryID))) {
+                throw new Exception("Failed to update category");
+            }
+    
+            // Close the prepared statement
+            $stmt = null;
+
+        } catch (Exception $e) {
+            //throw $th;
+            header("location: ../back-end/viewCategory.php?error=" . urlencode($e->getMessage()));
+            exit();
+        }
+    
+}
 
     protected function checkCategory($category) {
         try {

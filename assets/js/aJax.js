@@ -38,3 +38,25 @@ function showCategory(){
         }
     });
 }
+
+
+function variationEdit(id){
+    console.log(id);
+        $.ajax({
+            url:'../back-end/EditProductSizes.php',
+            method:"post",
+            data:{var:id},
+            success:function(data){
+                // alert('Successfully Updated');
+                // $('.allContent-section').html(data);
+
+                $('.tableAdmin').html(data);
+            },
+            error: function() {
+                console.log('Error fetching content.');
+            }
+        });
+}
+function closeVariationModal(){
+    document.getElementById('updateVar').classList.remove("open-formUpdate");
+}

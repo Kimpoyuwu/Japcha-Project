@@ -1,6 +1,7 @@
 <?php
     include "adminHeader.php";
 ?>
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
 <div class="cms-container">
     <div class="header">
         <div class="header-text">Manage Content</div>
@@ -86,7 +87,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+<script type="text/javascript">
     function showLogo(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -120,6 +121,14 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    window.onload = () => {
+        CKEDITOR.replace("japcha");
+      };
+
+      function sendText() {
+        window.parent.postMessage(CKEDITOR.instances.CK1.getData(), "*");
+      }
 </script>
 <?php
     include "adminFooter.php";

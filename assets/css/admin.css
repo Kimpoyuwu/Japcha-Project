@@ -506,7 +506,7 @@ nav
     margin-left: 150px;
 }
 
-.btn{
+.btn1{
     padding: 8px 16px;
     background-color: #191a19;
     border: 1px solid #2f2f2f;
@@ -515,7 +515,7 @@ nav
     cursor: pointer;
     border-radius: 7px;
 }
-.btn:hover{
+.btn1:hover{
     background-color: #EBC749;
     color: #0b0b0b;
     border: #0000000b;
@@ -524,6 +524,42 @@ nav
     border-radius: 7px;
     font-weight: bold;
 }
+
+
+/* MODAL UPDATE  */
+#modalupdate{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2; /* Set the z-index higher than the modal */
+}
+.modal-container2 {
+    display: flex;
+    width: 400px;
+    height: 260px;
+    background-color: #fff;
+    border-radius: 6px;
+    position: absolute;
+    top:0;
+    left: 50%;
+    transform: translate(-30%, -50%) scale(0.1);
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 2px #6e6b6b;
+    transition: transform 0.4s, top 0.4s;
+    visibility: hidden;
+    z-index: 3;
+}
+.open-modal-container2{
+    visibility: visible;
+    top: 50%;
+    transform: translate(-30%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+
 /* overlay */
 #modalOverlay {
     display: none;
@@ -535,7 +571,7 @@ nav
   }
   
 
-/* Modal */
+/* Modal */ 
 .modal-container {
     display: flex;
     width: 400px;
@@ -584,7 +620,21 @@ nav
     font-family: sans-serif;
     
 }
-button.close:hover{
+.modal-header button.close2{
+    position:absolute;
+    right: 0;
+    top: 0;
+    height: 35px;
+    font-size: 20px;
+    opacity: 0, 7;
+    cursor: pointer;
+    background:none;
+    border: none;
+    font-family: sans-serif;
+    
+}
+button.close:hover,
+button.close2:hover{
     background-color: #EBC749;
     border-radius: 6px;
 }
@@ -811,6 +861,7 @@ flex-direction: column;
     width: 100%;
     padding: 10px 0;
     border-radius: 5px;
+    cursor: pointer;
 }
 .form .btnSignup:hover{
     background-color: #EBC749;
@@ -853,11 +904,7 @@ flex-direction: column;
 }
 
 .headerSection a{
-    color: #0057FF;
-    font-family: Inter;
-    font-size: 20px;
     font-style: normal;
-    font-weight: 400;
     line-height: normal;
     text-decoration: none;
     
@@ -950,6 +997,7 @@ flex-direction: column;
 .productSection .boxContainer .productDescription {
     display: flex;
     flex-direction: column;
+    padding: 5px
     
 }
 
@@ -959,7 +1007,7 @@ flex-direction: column;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
-    line-height: 5px;
+    line-height: 20px;
 }
 
 .productSection .boxContainer .productDescription p{
@@ -968,7 +1016,8 @@ flex-direction: column;
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: 10px;
+    line-height: 15px;
+    margin: 0;
 }
 
 .productAction{
@@ -1032,8 +1081,8 @@ flex-direction: column;
     margin-left: 15px;
 }
 
-.modal{
-  z-index: 2;
+.modal1{
+  z-index: 5;
   height: 100%;
   width: 100%;
   position: fixed;
@@ -1065,6 +1114,7 @@ flex-direction: column;
   width: 550px;
   padding: 20px;
   border-radius: 10px;
+  transition: var(--tran-03);
 }
 
 .titleModal{
@@ -1104,10 +1154,9 @@ flex-direction: column;
 
 .leftCont{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     align-self: center;
-    flex-direction: column;
     padding: 4px;
     cursor: pointer;
      border: 3px dashed #000000;
@@ -1119,6 +1168,10 @@ flex-direction: column;
 }
 
 .leftCont img{
+    height: 80%;
+    
+}
+.leftCont video{
     height: 80%;
     
 }
@@ -1283,6 +1336,7 @@ flex-direction: column;
     flex-direction: column;
     width: 100%;
     height: 100vh;
+    overflow: auto;
 }
 .cms-container .header{
     display: flex;
@@ -1315,7 +1369,7 @@ flex-direction: column;
 
 .cms-container form .third-section-container{
     width: 100%;
-    height: 60%;
+    height: auto;
     padding: 10px 0;
     display: flex;
     justify-content: center;   
@@ -1454,7 +1508,7 @@ flex-direction: column;
 
 .cms-container form .third-section-container .about-us-con{
     background-color: #FFFFFF;
-    width: 70%;
+    width: 100%;
     height: 100%;
     margin-left: 270px;
     border-radius: 14px;
@@ -1462,6 +1516,7 @@ flex-direction: column;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    gap: 10px;
 }
 
 .cms-container form .third-section-container .about-us-con .header-about{
@@ -1476,17 +1531,16 @@ flex-direction: column;
     display: flex;
     justify-content: start;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
     overflow: hidden;
 }
 
 .cms-container form .third-section-container .about-us-con .abou-us-info-con .edit-info{
     position: relative;
-    width: 32.1%;
+    width: 100%;
 
 }
 .edit-info label{
-    position: absolute;
     font-weight: bold;
     left: 10px;
     top: 5px;
@@ -1495,22 +1549,9 @@ flex-direction: column;
     resize: none;
     width: 100%;
     height: 100%;
-    padding: 25px 5px 0 10px;
     border-radius: 6px;
     overflow: auto;
     background-color: #D9D9D9;
     outline: none;
 }
 
-.cms-container form .third-section-container .top-sellers-con{
-    width: 30%;
-    height: 100%;
-    border-radius: 14px;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    background-color: #FFFFFF;
-    margin-right: 20px;
-
-}

@@ -1,5 +1,7 @@
 <?php
 
+include "../config/databaseConnection.php";
+
 function emptyInputSignup($username , $email, $password,  $confirm_password, $customer_address,  $contact_number) {
     $result;
     if (empty($username) || empty($email) || empty($password) || empty($confirm_password) || empty($customer_address) || empty($contact_number) ) {
@@ -121,4 +123,18 @@ function loginUser($conn, $email, $pass) {
         header("location: ../index.php");
         exit();
     } 
+
+    function get_record(){
+        $addonsID = $_POST['AddonsId'];
+        $query = "SELECT * FROM addons WHERE addons_id = '$addonsID'";
+        $result = mysqli_query($con, $query);
+
+        while ($row = mysqli_fetch_assoc($result))
+        {
+            $addons_data = "ss";
+            $addons_data [0] = $row['addons_id'];
+            $addons_data [1] = $row['addons_name'];
+        }
+        echo json_encode($addons_data);
+    }
 }
