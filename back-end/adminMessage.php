@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets../css/adminMessage.css">
+    <link rel="stylesheet" href="../assets/css/adminMessage.css">
     <title>Document</title>
 </head>
 
@@ -40,13 +40,16 @@
 
 
             <div class="inputCont">
+                <img class = "clipButton" src="../image/clipButton.png" alt="">
                 <input type="text" placeholder="Type here..." name=""id="">
+                <img class = "sendButton" src="../image/sendButton.png" alt="">
             </div>
 
 
            <div class="convoCont">
                 <div class="sampleMessageCont">
-                <p class = sampleMess>Sample Message</p>
+                <p class = sampleMess>Sample Message
+                </p>
                 </div>
 
                 <div class="chat-profile-Container">
@@ -61,7 +64,7 @@
                 </div>
 
                 <div class="clientMessageCont">
-                    <p>Sample Message</p>
+                    <p>Sample Message </p>
                 </div>
                 
                 
