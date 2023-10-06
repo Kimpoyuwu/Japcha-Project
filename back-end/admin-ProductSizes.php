@@ -19,12 +19,17 @@
                     <th>Size</th>
                     <th>Price</th>
                     <th>Quantity</th>
-                    <th colspan="2">Action</th>
+                    <?php
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1 && isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
+                                echo'<th colspan="2">Action</th>';
+                            }
+                    ?>
+                    
                   </tr>
                 </thead>
                 <tbody>
                 <?php
-                     $query = "SELECT ps.ProductSizes_id, p.product_name, s.size_name, ps.price, ps.quantity FROM product_sizes ps INNER JOIN product p ON ps.product_id = p.product_id  INNER JOIN size s ON ps.size_id = s.size_id";
+                     $query = "SELECT ps.ProductSizes_id, p.product_name, s.size_name, ps.price, ps.quantity FROM product_sizes ps INNER JOIN product p ON ps.product_id = p.product_id  INNER JOIN size s ON ps.size_id = s.size_id ORDER BY p.product_name ASC";
                      $result = mysqli_query($con, $query);
                      $count = 1;
                      if (mysqli_num_rows($result) > 0) {
@@ -44,8 +49,15 @@
                         <td><?=$sizeName?></td>
                         <td><?=$price?></td>
                         <td><?=$quantity?></td>
-                        <td><button class='remove'><a style="text-decoration: none; color:#b30021;" href="#">Remove</a></button></td>
-                        <td><button class='edit' onclick="variationEdit(<?=$prodVariationID?>)">Edit</button></td>
+                        <?php
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                                echo '<td><button class="remove"><a style="text-decoration: none; color:#b30021;" href="#">Remove</a></button></td>';
+                            }
+                            if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
+                                echo "<td><button class='edit' onclick=\"variationEdit($prodVariationID)\">Edit</button></td>";
+                            }
+                        ?>
+                        
                     </tr>
                     <?php $count=$count+1;} } ?>
                 </tbody>

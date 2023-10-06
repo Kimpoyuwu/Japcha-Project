@@ -1,11 +1,5 @@
 <?php
     include_once "c_header.php";
-
-    include "classes/dbh.classes.php";
-    include "classes/cms.classes.php";
-    include "classes/cms-cntrl.classes.php";
-    include "classes/cms-view-classes.php";
-    $cmsinfo = new CmsInfoView();
 ?>
 
 <?php 
@@ -100,13 +94,13 @@
                         <i class="uil uil-lock password"></i>
                         <i class="uil uil-eye-slash pw_hide"></i>
                     </div>
-                    <div class="option_field">
+                    <!-- <div class="option_field">
                         <span class="checkbox">
                             <input type="checkbox" id="check">
                             <label for="check">Remember me</label>
                         </span>
                         <a href="#" class="forgot_pw">Forgot Password?</a>
-                    </div>
+                    </div> -->
                     <button class="btnLogin" type="submit" name="submit">Login Now</button>
 
                     <div class="login_signup">

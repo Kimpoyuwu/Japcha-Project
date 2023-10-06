@@ -1,3 +1,7 @@
+<?php
+    session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +12,7 @@
     <link rel="stylesheet" href="../assets/css/adminStat.css">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-    
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <title>Document</title>
     
 </head>
@@ -32,17 +36,46 @@
 </nav>
     <div class="sidebar" id="mySidebar"> 
          <ul class="nav-links">
-                <li>
-                    <a href="AdminDashBoard.php">
-                        <i class="fa fa-home icon"></i>
-                        <span class="link_name">Dashboard</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="AdminDashBoard.php">Dashboard</a></li>
-                    </ul> 
-                </li>
+            <?php
+                if(isset($_SESSION["adminID"])){
+                
+                    if(isset($_SESSION["dashboardview"]) && $_SESSION["dashboardview"] == 1){
+                        echo '<li>
+                            <a href="AdminDashBoard.php">
+                                <i class="fa fa-home icon"></i>
+                                <span class="link_name">Dashboard</span>
+                            </a>
+                            <ul class="sub-menu blank">
+                                <li><a class="link_name" href="AdminDashBoard.php">Dashboard</a></li>
+                            </ul> 
+                        </li>';
+                    }
+
+                    if(isset($_SESSION["appointmentManagement_view"]) && $_SESSION["appointmentManagement_view"] == 1){
+                            echo '<li>
+                                        <div class="icon-link">
+                                            <a href="#">
+                                                <i class="fa fa-users icon"></i>
+                                                <span class="link_name">File Manager</span>
+                                            </a>
+                                            <i class="fa fa-caret-down arrow"></i>
+                                        </div>
+                                        <ul class="sub-menu">
+                                            <li><a class="link_name" href="#">File Manager</a></li>
+                                            <li><a href="CustomerAccount.php">Customer</a></li>
+                                            <li><a href="adminAccount.php">Admin</a></li>
+                                            <li><a href="userLevel.php">User Level</a></li>
+                                            <li><a href="adminProducts.php">Products</a></li>
+                                            <li><a href="admin-ProductSizes.php">Product Sizes</a></li>
+                                            <li><a href="viewCategory.php">Category</a></li>
+                                            <li><a href="admin-add-ons.php">Add-ons</a></li>
+                                            <li><a href="admin-sizes.php">Sizes</a></li>
+                                        </ul> 
+                                 </li>';
+                    }
+            ?>
                         
-                <li>
+                <!-- <li>
                     <div class="icon-link">
                         <a href="#">
                             <i class="fa fa-users icon"></i>
@@ -52,7 +85,7 @@
                     </div>
                     <ul class="sub-menu">
                         <li><a class="link_name" href="#">File Manager</a></li>
-                        <li><a href="index.php">Customer</a></li>
+                        <li><a href="CustomerAccount.php">Customer</a></li>
                         <li><a href="adminAccount.php">Admin</a></li>
                         <li><a href="userLevel.php">User Level</a></li>
                         <li><a href="adminProducts.php">Products</a></li>
@@ -61,7 +94,7 @@
                         <li><a href="admin-add-ons.php">Add-ons</a></li>
                         <li><a href="admin-sizes.php">Sizes</a></li>
                     </ul> 
-                </li>
+                </li> -->
                 <li>
                     <div class="icon-link">
                         <a href="AdminOrders.php">
@@ -93,8 +126,21 @@
                     <ul class="sub-menu blank">
                         <li><a class="link_name" href="adminMessage.php">Message</a></li>
                     </ul> 
-                </li>   
-                <li>
+                </li>
+               <?php
+                if(isset($_SESSION["contentManagement_view"]) && $_SESSION["contentManagement_view"] == 1){
+                    echo '<li>
+                                <a href="admin-cms.php">
+                                    <i class="fa fa-tasks"></i>
+                                    <span class="link_name">Content Management</span>
+                                </a>
+                                <ul class="sub-menu blank">
+                                    <li><a class="link_name" href="admin-cms.php">Content Management</a></li>
+                                </ul> 
+                         </li>  ';
+                 }
+               ?>
+                <!-- <li>
                     <a href="admin-cms.php">
                         <i class="fa fa-tasks"></i>
                         <span class="link_name">Content Management</span>
@@ -102,7 +148,8 @@
                     <ul class="sub-menu blank">
                         <li><a class="link_name" href="admin-cms.php">Content Management</a></li>
                     </ul> 
-                </li>    
+                </li>   -->
+
             <li>
                 <div class="profile-details">
 
@@ -111,13 +158,17 @@
                     </div>
 
                     <div class="name-job">
-                        <div class="profile_name">Adner Devila</div>
-                        <div class="job">Web Developer</div>
+                        <div class="profile_name"><?php echo $_SESSION["username"];?></div>
+                        <div class="job"><?php echo $_SESSION["userlvlname"];?></div>
                     </div>
+                    <a href="../includes/logout.inc.php">
                         <i class="fa fa-sign-out signout" style="color: white"></i>
+                    </a>
                 </div>
             </li>
-            
+            <?php
+                }
+             ?>
         </ul>
     </div>
 <div class="table_container">

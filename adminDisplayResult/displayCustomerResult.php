@@ -25,8 +25,9 @@ $conn = new mysqli('localhost', 'root', '', 'japcha');
             echo "<td>" . $row['email'] . "</td>";
             echo "<td>" . $row['customer_address'] . "</td>";
             echo "<td>" . $row['contact_number'] . "</td>";
-            echo "<td><button class='remove'>Remove</button></td>";
-            echo "<td><button class='block'>Block</button></td>";
+            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                 echo "<td><button class='remove'>Remove</button></td>";
+            }
             echo "</tr>";
         }
             

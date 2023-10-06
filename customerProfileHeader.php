@@ -1,6 +1,7 @@
 <?php
     include "c_header.php";
-    include_once "config/databaseConnection.php"; 
+    // include_once "config/databaseConnection.php";
+
 ?>
 <div class="profileContainer">
     <div class="profile">
@@ -11,7 +12,7 @@
             <div class="username">
                 <div class="profile_name">
                     <?php
-                        echo $_SESSION["username"];
+                        // echo $_SESSION["username"];
                     ?>
                 </div>
             </div>

@@ -57,7 +57,7 @@ class Signup extends Dbh {
 
             $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-            $stmt = $this->connect()->prepare('INSERT INTO admin_account (username, email, password,   user_level,  contact) VALUES (?, ?, ?, ?, ?)');
+            $stmt = $this->connect()->prepare('INSERT INTO admin_account (username, email, password,   userLevel_id,  contact) VALUES (?, ?, ?, ?, ?)');
 
             // Execute the query
             if (!$stmt->execute(array($username, $email, $hashedPwd, $userLevel, $contactNum))) {
@@ -119,6 +119,25 @@ class Signup extends Dbh {
 
     }
 
+    public function getAdminData(){
+        $stmt = $this->connect()->prepare('SELECT ac.username, ac.email, ac.contact, usl.user_level FROM admin_account ac INNER JOIN user_level usl ON ac.userLevel_id = usl.userLevel_id ORDER BY ac.admin_id;');
+    
+            if(!$stmt->execute()) {
+                $stmt = null;
+                header("location: ../back-end/adminProducts.php?error=stmtfailed");
+                exit();
+            }
+    
+            if($stmt->rowCount() == 0) {
+                $stmt = null;
+                header("location: ../back-end/adminProducts.php?error=nocmsfound");
+                exit();
+            }
+    
+            $productData = $stmt->fetchALL(PDO::FETCH_ASSOC);
+            return $productData;
+    }
+    
 
 
 

@@ -10,14 +10,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     include "../classes/dbh.classes.php";
     include "../classes/login.classes.php";
     include "../classes/login-cntrl.classes.php";
-    $login = new LoginContr($email, $pwd);
+    $login = new Login();
 
     // Runnig error handlers and user signup
-    $login-> loginUser();
-    
+    $customerData = $login->getUser($email, $pwd);
+    if ($customerData) {
+        // Redirect customer to the customer dashboard
+        header("location: ../index.php?error=nonelogin");
+        exit();
+    }
+
+    $adminData = $login->adminLogin($email, $pwd);
+    if($adminData){
+        header("location: ../back-end/AdminDashBoard.php?error=nonelogin");
+        exit();
+    }
 
     // Going back to front page
-    header("location: ../index.php?error=nonelogin");
+    header("location: ../index.php?error=authenticationfailed");
+    exit();
 
 }
 

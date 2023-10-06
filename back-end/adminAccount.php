@@ -1,12 +1,22 @@
 <?php
     include "adminHeader.php";
+    include "../classes/dbh.classes.php";
+    include "../classes/user-level-Model.php";
+    include "../classes/signup.classes.php";
+    $UserLevel = new UserLevel();
+    $adminData = new Signup();
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <main class="tableAdmin">
         <div class="card-option">
             <div class="cardHeader">
                 <h6>Admin Account</h6>
-                <button type="button" onclick="openAddAdmin()" class="btnAddAdmin">Add Account</button>
+                <?php
+                            if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+                                echo'<button type="button" onclick="openAddAdmin()" class="btnAddAdmin">Add Account</button>';
+                            }
+                ?>
+                
             </div>
         </div>
 
@@ -15,7 +25,7 @@
             <input type="search" class="adminSearch" id="live_search" placeholder="Search....">
         </section>
         <section class="table_body">
-            <table action="Admin_user_management.php"  >
+            <table action="Admin_user_management.php">
                 <thead>
                   <tr>
                     <th>id</th>
@@ -24,55 +34,47 @@
                     <th>Email</th>
                     <th>User Level</th>
                     <th>Contact No.</th>
-                    <th>Action</th>
+                    <?php
+                            if(isset($_SESSION["appointmentManagement_delete"]) && $_SESSION["appointmentManagement_delete"] == 1){
+                                echo'<th>Action</th>';
+
+                            }
+                    ?>
                   </tr>
                 </thead>
                 <tbody>
-                   <?php
-                       include "../includes/db.inc.php";
-                       $limit = 8; //number of rows to fetch
-                       $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number from the URL parameter
-                       // Calculate the offset to determine which rows to fetch from the database
-                       $offset = ($page - 1) * $limit;
-                       $query = "SELECT admin_id, username, email, user_level, contact FROM admin_account LIMIT $limit OFFSET $offset";
-                       $result = mysqli_query($conn, $query);
-                      
-                       if (mysqli_num_rows($result) > 0) {
-                           while ($row = mysqli_fetch_assoc($result)) {
-                            $id = $row['admin_id'];
-                            $uname = $row['username'];
-                            $email = $row['email'];
-                            $userlevel = $row['user_level'];
-                            $contact = $row['contact'];
-                    ?>
+                        <?php
+                        $data = $adminData->getAdminData();
+                        $count = 1;
 
+                        // Check if there are admin accounts
+                        if (empty($data)) {
+                            echo "<tr><td colspan='6'>No admin accounts found.</td></tr>";
+                        } else {
+                            foreach ($data as $admin):
+                        ?>
                             <tr>
-                            <td><?= $id ?></td>
-                            <td><img src='../image/user.jpg' alt='user image'></td>
-                            <td><?= $uname ?></td>
-                            <td><?= $email ?></td>
-                            <td><?= $userlevel ?></td>
-                            <td><?= $contact ?></td>
-                            <td><button class='remove'><a style="text-decoration: none; color:#b30021;" href="controller/remove-admin.php?deleteidadmin=<?php echo $id;?>">Remove</a></button></td>
+                                <td><?= $count ?></td>
+                                <td><img src='../image/user.jpg' alt='user image'></td>
+                                <td><?= $admin['username'] ?></td>
+                                <td><?= $admin['email'] ?></td>
+                                <td><?= $admin['user_level'] ?></td>
+                                <td><?= $admin['contact'] ?></td>
+                                <?php
+                                     if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                                        echo '<td><button class="remove"><a style="text-decoration: none; color:#b30021;" href="controller/remove-admin.php?deleteidadmin=' . $id . '">Remove</a></button></td>';
+
+                                     }
+                                ?>
+                                
                             </tr>
-
-                     <?php
+                        <?php
+                            $count++;
+                            endforeach;
                         }
-                               
-                       } 
-                       else 
-                       {
-                    ?>
+                        ?>
 
-                         "<tr><td colspan='6'>No admin accounts found.</td></tr>";
-                    <?php
-                       }
-                       $conn ->close();
-                   ?>
                 </tbody>
-                <?php
-                        
-                ?>
               </table>
         </section>
     </main>
@@ -103,18 +105,15 @@
                         <div class="input_box">
                             <label for="user_level">User Level:</label>
                             <select name="user_level" >
-                                <option value="default">Select user level</option>
-                                <!-- <?php
-                                    // include "config/databaseConnection.php";
-                                    // $query = "SELECT category_id, category_name FROM category";
-                                    // $result = mysqli_query($con, $query);
-                                   
-                                    // while ($row = mysqli_fetch_assoc($result)) {
-                                    //     $categoryId = $row['category_id'];
-                                    //     $categoryName = $row['category_name'];
-                                    //     '<option value="' . $categoryName . '">' . $categoryName . '</option>';
-                                    // }
-                                ?>  -->
+                                <option value="default" selected disabled style="font-style: italic; color:gray;">Select user level</option>
+                                <?php
+                                    $userlevels = $UserLevel->getUserlevel();
+                                    foreach ($userlevels as $userlevel):
+                                ?>
+                                <option value="<?= $userlevel['userLevel_id']?>"><?= $userlevel['user_level']?></option>
+                                <?php 
+                                    endforeach;
+                                ?>
                             </select>
                         </div>
                         <div class="input_box">

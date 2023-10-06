@@ -17,25 +17,26 @@
 
             <div id="itemContainer" class="itemContainer">
             <?php
-                $condition = '17';
-                $sql = "SELECT * FROM product WHERE category_id = '$condition' ORDER BY price DESC";
+                $condition = '00017';
+                $sql = "SELECT * FROM product ORDER BY product_id DESC";
                 $res = mysqli_query($con, $sql);
 
                 if (mysqli_num_rows($res) > 0){
                     while ($row = mysqli_fetch_assoc($res)){ 
                         $productName = $row['product_name'];
                         $images = $row['image_url'];
-                        $price = $row['price'];?>
+            ?>
                         
                 <div id="product" class="product">
                     <a   href="#" style="text-decoration:none; color: black;">
                     <div id="prodHeader" class="prodHeader">
                         <img src="upload/<?=$images?>" alt="">
+                        
                     </div>
                     <div id="prodFooter" class="prodFooter">
                         <div class="nameProd">
                             <div class="productName"><?=$productName?></div>
-                            <div class="price">P<?=$price?></div>
+                            <div class="price">P</div>
                         </div>
                         <button>Buy Now</button>
                     </div>

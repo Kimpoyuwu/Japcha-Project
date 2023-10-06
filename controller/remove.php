@@ -11,7 +11,7 @@ class RemoveProductCtr extends Dbh{
 
             if (!$stmt->execute(array($id))) {
                 $stmt = null;
-                header("location: ../adminProducts.php?error=stmtfailed");
+                header("location: ../back-end/adminProducts.php?error=stmtfailed");
                 exit();
             }
 
@@ -20,15 +20,9 @@ class RemoveProductCtr extends Dbh{
            
     }
    
-   
-    // public function update(){
-
-    // }
-
-    // Other methods and properties of the class...
 }
 
 // Create an object of the class and call the method
 $controller = new RemoveProductCtr();
 $controller->deleteProduct();
-header("location: ../adminProducts.php?error=deletedsuccessfully");
+header("location: ../back-end/adminProducts.php?error=deletedsuccessfully");

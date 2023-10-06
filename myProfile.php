@@ -1,11 +1,7 @@
 <?php
     include "customerProfileHeader.php";
-
-    include "classes/dbh.classes.php";
     include "classes/profileinfo.classes.php";
     include "classes/profileinfo-cntrl.classes.php";
-    include "classes/profileinfo-view.classes.php";
-    $profileInfo = new ProfileInfoView();
 
 ?>
 <div class="rightContainer">

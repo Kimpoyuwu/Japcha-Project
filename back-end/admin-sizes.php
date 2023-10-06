@@ -14,7 +14,11 @@
                 <thead>
                   <tr>
                     <th>Sizes</th>
-                    <th colspan="2">Action</th>
+                    <?php
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1 && isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
+                                echo'<th colspan="2">Action</th>';
+                            }
+                    ?>
                   </tr>
                   <tbody>
                     <?php
@@ -29,8 +33,18 @@
                      ?>
                     <tr>
                       <td><?=$sizeName?></td>
-                      <td><button class='remove'><a href=''>Remove</a></button></td>
-                      <td><button class='update' data-id="<?= $sizeID ?>"><a href='#'>update</a></button></td>
+                      <?php
+                            if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
+                              echo '<td><button class="remove"><a href="#">Remove</a></button></td>';
+
+                            }
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                              echo '<td><button class="update" data-id="' . $sizeID . '"><a href="#">update</a></button></td>';
+
+                            }
+                      ?>
+                      
+                     
                     </tr>
                     <?php } } ?>      
                   </tbody>
@@ -40,12 +54,14 @@
     </main>
     
     
-
-    <div class="btnAddCategory">
-         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
-                Add Size</button>
-    </div>
+<?php
+    if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+      echo' <div class="btnAddCategory">
+                <button type="button" class="btn1" onclick="openPopup()" style="height:40px">Add Size</button>
+            </div>';
+    }
+?>
+   
 
     <!--triggers can't click outside element when modal is open -->
     <div id="modalOverlay">

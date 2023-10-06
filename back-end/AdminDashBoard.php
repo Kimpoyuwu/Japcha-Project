@@ -1,128 +1,109 @@
 <?php
     include "adminHeader.php";
 ?>
-
 <link rel="stylesheet" href="../assets/css/Admindashboard.css">
-    <title>Dashboard</title>
-    
-<div class="dashboard-container">
-    <h1 class="dashboard-title">Dashboard</h1>
-    <div class="dashboard">
-        <div class="daily-sales">
-            <div class="img-container-daily-sales">
-                <img src="../image/₱.png" alt="Daily Sales Image">
-            </div>
-            <div>
-                <h2>Daily Sales</h2>
-                <p>₱30,000.00</p>
-            </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<!-- <link rel="stylesheet" href="adminDashboard.css"> -->
+<div class="main--cont">
+    <div class="dashboard-name">
+       Dashboard
+    </div>
+
+    <div class="tile-cont">
+        <!-- First row of tiles -->
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-boxes-stacked fa-xl"></i> TOTAL PRODUCTS</p>
+                    <h2 class = "data">40</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More Info</a>
+                </div>
+            <!-- Content for the first tile -->
         </div>
-        <div class="total-orders">
-            <div class="img-container-total-orders ">
-                <img src="../image/undefined11.png" alt="Total Orders Image">
-            </div>
-            <div>
-                <h2>Total Orders</h2>
-                <p>80</p>
-            </div>
+
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-users fa-xl"></i> TOTAL USERS</p>
+                    <h2 class = "data">200</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More Info</a>
+                </div>
+            <!-- Content for the second tile -->
         </div>
-        <div class="total-products">
-            <div class="img-container-total-products">
-                <img src="../image/undefined8.png" alt="Total Products Image">
-            </div>
-            <div>
-                <h2>Total Products</h2>
-                <p>300</p>
-            </div>
+
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-chart-line fa-xl"></i> TOTAL SALES</p>
+                    <h2 class = "data">30,000</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More Info</a>
+                </div>
+            <!-- Content for the third tile -->
+        </div>
+
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-cart-shopping fa-xl"></i> TOTAL ORDERS</p>
+                    <h2 class = "data">200</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More Info</a>
+                </div>
+            <!-- Content for the fourth tile -->
+        </div>
+
+        <!-- Second row of tiles -->
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-cart-plus fa-xl"></i> ACTIVE ORDERS</p>
+                    <h2 class = "data">20</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More Info</a>
+                </div>
+            <!-- Content for the fifth tile -->
+        </div>
+
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-truck fa-xl"></i> TOTAL DELIVERIES</p>
+                    <h2 class = "data">30</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More Info</a>
+                </div>
+            <!-- Content for the sixth tile -->
+        </div>
+
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-cart-plus fa-xl"></i> TOTAL ADD-ONS</p>
+                    <h2 class = "data">6</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More info</a>
+                </div>
+            <!-- Content for the seventh tile -->
+        </div>
+
+        <div class="tiles">
+                <div class="text-cont">
+                <p class="label"> <i class="fa-solid fa-table-columns fa-xl"></i> TOTAL CATEGORIES</p>
+                    <h2 class = "data">9</h2>
+                </div>
+                <div class="more-info">
+                    <a href="" id = "#">More Info</a>
+                </div>
+            <!-- Content for the eighth tile -->
         </div>
     </div>
-</div>
-<div class="Product-Sales">
-    <div class="img-container-Sales-Product">
-        <img src="../image/Sales-Product.png" alt="Total Products Image">
-    </div>
-</div>
 </div>
 
-<div class="Top-Selling">
-    <div class="img-container-Sales-Product">
-        <h3>Top Selling Products</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Image</th>
-                    <th>Product Name</th>
-                    <th>Cost</th>
-                    <th>Orders</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="../image/sampleimage.png" alt="Product 1 Image"></td>
-                    <td>Product Name</td>
-                    <td>₱100</td>
-                    <td>100</td>
-                </tr>
-                <tr>
-                    <td><img src="../image/sampleimage.png" alt="Product 2 Image"></td>
-                    <td>Product Name</td>
-                    <td>₱100</td>
-                    <td>100</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<div class="Inquiry-And-Messages">
-    <div class="img-container-Sales-Product">
-        <h3>Inquiries&Messages</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><img src="../image/man.png" alt="Product 1 Image"> </td>
-                    <td>Cruz</td>
-                    <td>100</td>
-                    <td>Tuesday</td>
-                    <td>10:49am </td>
-                </tr>
-                <tr>
-                    <td><img src="../image/Profile.png" alt="Product 2 Image"></td>
-                    <td>Juan</td>
-                    <td>100</td>
-                    <td>Wednesday</td>
-                    <td>10:49am </td>
-                </tr>
-                </tr>
-                <tr>
-                    <td><img src="../image/Man (1).png" alt="Product 2 Image"></td>
-                    <td>Cruz</td>
-                    <td>100</td>
-                    <td>Friday</td>
-                    <td>10:49am </td>
-                </tr>
-                <tr>
-                    <td><img src="../image/Boy.png" alt="Product 2 Image"></td>
-                    <td>Cruz</td>
-                    <td>100</td>
-                    <td>Monday</td>
-                    <td>10:49am </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="Active-Orders">
-    <h3>Active Orders </h3>
-</div>
+
 
 <?php
     include "adminFooter.php";

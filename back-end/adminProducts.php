@@ -1,7 +1,12 @@
 <?php
     include "adminHeader.php";
 ?>
-<?php  include "../config/databaseConnection.php"; ?>
+<?php  
+        include "../config/databaseConnection.php";
+        include "../classes/dbh.classes.php";
+        include "../classes/ProductsModel.php";
+        
+?>
 <?php
         if (isset($_GET["error"])){
             if ($_GET["error"] == "deletedsuccessfully") {
@@ -12,7 +17,7 @@
             
 ?>
     <link rel="stylesheet" href="../assets/css/admin.css">
-    <link rel="stylesheet" href="../assets/css/boostrap.css">
+    <link rel="stylesheet" href="../assets/css/AdminProductBootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <div class="adminSection">
@@ -25,45 +30,71 @@
 
     <div class="searchSection">
         <input type="text" placeholder = "Search">
-
         <select name="Category" class = "Category" id="Category">
-            <option value="selectCategory">Category</option>
+            <option value="" selected >All Products</option>
+                    <?php
+                        $query = "SELECT category_id, category_name FROM category";
+                        $result = mysqli_query($con, $query);
+                                   
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        $categoryId = $row['category_id'];
+                        $categoryName = $row['category_name'];
+                        echo '<option value="' . $categoryId . '">' . $categoryName . '</option>';
+                    }
+            ?> 
         </select>
     </div>
 
     <div class="productSection">
-    <?php
-        $sql = "SELECT * FROM product ORDER BY product_id DESC";
-        $res = mysqli_query($con, $sql);
-
-        if (mysqli_num_rows($res) > 0){
-            while ($row = mysqli_fetch_assoc($res)){ 
-                $productId = $row['product_id'];
-                $productName = $row['product_name'];
-                $images = $row['image_url'];
-                $price = $row['price'];
-                ?>
-
-        <div class="boxContainer">
-            <div class="productCon"><img src="../upload/<?=$images?>" alt=""></div>
-            <div class="productDescription">
-                <span><?= $productName ?></span>
-                <p>P<?= $price ?></p>
-            </div>
-                <div class="productAction">
-                    <div class="editContainer" >
-                        <img src="image/editIcon.png" alt="">
-                        <a href="#" class ="Edit" data-product-id="<?php echo $productId;?>">Edit</a>
-                    </div>
-                    <div class="removeContainer">
-                        <img src="image/removeIcon.png" alt="">
-                        <a href="controller/remove.php?deleteid=<?php echo $productId; ?>" class ="Remove">Remove</a>
-
-                    </div>
-                        
+        <?php       
+               $productModel = new ProductModel();
+               $products = $productModel->getAllProducts();
+               foreach ($products as $product):
+        ?>
+            <div class="boxContainer">
+                <div class="productCon"><?php
+                    // Assuming $images contains the file path to the image or video
+                    if (strpos($product['image_url'], '.mp4') !== false) {
+                        // If $images contains '.mp4', it's a video
+                        ?>
+                        <video controls>
+                        <source src="../upload/<?= $product['image_url']?>" type="video/mp4">
+                        <p>Your browser does not support the video tag</p>
+                        </video>
+                    <?php
+                        } else {
+                    ?>
+                    <img src="../upload/<?= $product['image_url']?>" alt="">
+                    <?php
+                        }
+                    ?>
                 </div>
-        </div>
-    <?php } } ?>
+                <div class="productDescription">
+                    <span><?= $product['product_name']?></span>
+                    <p>₱</p>
+                </div>
+                    <div class="productAction">
+                    <?php
+                               if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
+                                    echo'<div class="editContainer" >
+                                            <img src="../image/editIcon.png" alt="">
+                                            <a href="#" class ="Edit" data-product-id=' . $product['product_id'] . '>Edit</a>
+                                        </div>';
+                               }
+                   
+                               if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                                    echo '<div class="removeContainer">
+                                            <img src="../image/removeIcon.png" alt="">
+                                            <a href="../controller/remove.php?deleteid=' . $product['product_id'] . '" class="Remove">Remove</a>
+                                         </div>';
+                            
+                                }
+                        ?> 
+                    </div>
+            </div>
+            <?php 
+            endforeach;
+        ?>
     </div>
 </div>
 
@@ -73,29 +104,31 @@
     echo '<script>alert("'.$error.'");</script>'; ?>
     <p><?php echo $_GET['error']; ?></p>
 <?php endif ?>
-    <div class="modal1"> 
-        <form class = "formProducts" action="../controller/addProducts.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+    <div class="modal1" id="modal1"> 
+        <form class = "formProducts" id="formProducts" action="../controller/addProducts.php" method="POST" autocomplete="off" enctype="multipart/form-data">
             <div class="titleModal">
             <p>Add Product</p>    
             <img class ="closeButton" src="../image/close.png" alt="">
             </div>
          
             <div class="secondLayer">
-                <div class="leftCont">  
-                    <img id="imageData" src="" alt="">
-                    <video id="videoData" src=""></video>
-                    <input class = "file" type="file" accept ="image/*, video/*" name="product_image" onchange="readURL(this);" multiple required>    
+                <div class="leftCont" id="imageCon">  
+                    <!-- <img id="imageData" src="" alt=""> -->
+                    <!-- <video>
+                        <source id="videoData" src="">
+                    </video> -->
+                    <input class = "file" type="file" accept ="image/*, video/*" name="product_image" onchange="readURL(this);" required>    
                 </div>
+            </div>
 
-                <div class="rightCont">
-                    <label for="productName">Product Name</label>
+            <div class="rightCont">
+                    <label for="productName">Product Name:</label>
                     <input type="text"id ="productName" name="productname" require>
                     
                     <div class="descriptionContainer">
                         <label for="description">Description:</label>
-                        <textarea name="description" id="" cols="30" rows="10"></textarea>
+                        <textarea name="description" id="" cols="30" rows="2"></textarea>
                     </div>
-                </div>
             </div>
             
             <div class="categoryContainer">
@@ -103,7 +136,6 @@
                             <select name="category" required>
                                 <option value="default">Category</option>
                                 <?php
-                                    include "config/databaseConnection.php";
                                     $query = "SELECT category_id, category_name FROM category";
                                     $result = mysqli_query($con, $query);
                                    
@@ -115,84 +147,57 @@
                                 ?> 
                             </select>
             </div>
-            <div class="containerForPQ">
-                <div class="priceContainer">
-                    <label for="price">Price:</label>
-                    <input type="number" id="currency" name="price" step="0.01" min="0" placeholder="0.00" required>         
-                </div>
-                
-                <div class="quantityContainer">
-                    <label for="quantity">Quantity:</label>
-                    <input type="number" id="currency" name="quantity" step="0" min="0" placeholder="0" required>
-                </div>
-            </div>
             <button name="submit" type="submit">Submit</button>
         </form>
     </div>
-    <!-- Button trigger modal -->
+    <!-- modal for drinks-->
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add New</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <button type="button" class="btn btn-light" id="addNew" data-bs-dismiss="modal">Drinks</button>
-        <button type="button" class="btn btn-light">Rice Meals</button>
-        <button type="button" class="btn btn-light">Snacks</button>
+        <button type="button" class="btn btn-light" id="addNew" data-bs-dismiss="modal">Product</button>
+        <button type="button" class="btn btn-light" id="btnMeals" data-bs-dismiss="modal">Combo</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Vertically centered scrollable modal -->
 
+
+
+<!-- MODAL FOR MEALS -->
+<div class="modal2" id="modal2"> 
+       <?php
+            include "ProductModal2.php";
+       ?>
+</div>
+<!--END MODAL FOR MEALS -->
+<?php
+if (isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1) {
+    $showRemove = true;
+} else {
+    $showRemove = false;
+}
+
+if (isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1) {
+    $showEdit = true;
+} else {
+    $showEdit = false;
+}
+?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" >
-        const addNewLink = document.getElementById('addNew');
-        const modal = document.querySelector('.modal1');
-        const closeButton = document.querySelector('.closeButton');
-        const modalupdate = document.querySelector('.modalupdate');
-        const updateButton = document.querySelector('.Edit');
-        const closeupdate = document.querySelector('.closeButton-update');
-
-        addNewLink.addEventListener('click', function(event) {
-        event.preventDefault();
-        modal.style.display = 'flex';
-        modal.style.transition = 'all 0.5s ease';
-    });
-
-        closeButton.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
-    
-    function readURL(input) {
-         if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            var fileType = input.files[0].type;
-
-            if (fileType.startsWith('image/')) {
-                // Handle image
-                $('#imageData').attr('src', e.target.result);
-            } else if (fileType.startsWith('video/')) {
-                // Handle video
-                // Replace '#videoData' with the appropriate video element or container
-                $('#videoData').attr('src', e.target.result);
-            } else {
-                // Handle other types or display an error message
-                console.log('Unsupported file type: ' + fileType);
-            }
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-    }
+    <script src="../assets/js/admin-products.js">
     </script> 
-
+    <script>
+    var showRemove = <?php echo json_encode($showRemove); ?>;
+    var showEdit = <?php echo json_encode($showEdit); ?>;
+    </script>
 <?php
     include "adminFooter.php";
 

@@ -32,7 +32,7 @@ class ProductSizesController extends addProductSizes{
             exit();
         }
 
-        $this->setProductSizes($this ->product, $this ->size, $this ->price, $this ->quantity );
+        $this->setComboProduct($this ->product, $this ->size, $this ->price, $this ->quantity );
     }
 
     private function emptyInput(){

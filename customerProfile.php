@@ -1,4 +1,4 @@
-<!-- 
+
 <div class="profileContainer">
     <div class="profile">
         <div class="profileHeader">
@@ -36,4 +36,3 @@
         
     </div>
 </div>
- -->

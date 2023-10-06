@@ -3,14 +3,8 @@
         include "../config/databaseConnection.php";
 
         $productname = $_POST["productname"];
-        // $label = $_POST["label"];
-        // $addons = $_POST['addons'];
-        // $addons1 = implode(",", $addons);
         $description = $_POST["description"];
         $category = $_POST["category"];
-        $price = $_POST["price"];
-        $quantity = $_POST["quantity"];
-
         $img_name = $_FILES['product_image']['name'];
 
     // Check if the file already exists in the target directory before moving it
@@ -32,14 +26,14 @@
         }
 
         if($error === 0){
-            if($img_size > 1250000){
+            if($img_size > 49085778){
                 $em = "Sorry, your file is too large.";
-                // header("Location: ../adminProducts.php?error=$em");    
+                header("Location: ../back-end/adminProducts.php?error=$em");    
             } else{
                $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
                $img_ex_lc = strtolower($img_ex);
 
-               $allowed_exs = array("jpg", "jpeg", "png");
+               $allowed_exs = array("jpg", "jpeg", "png", "mp4");
 
                if(in_array($img_ex_lc,  $allowed_exs)){
                 $new_img_name = uniqid("IMG-", true) . '.' . $img_ex_lc;
@@ -48,12 +42,12 @@
 
                 // insert into database
 
-                $sql = "INSERT INTO product (image_url, product_name, description, category_id, price, quantity) 
-                VALUES (?,?,?,?,?,?)";
+                $sql = "INSERT INTO product (image_url, product_name, description, category_id) 
+                VALUES (?,?,?,?)";
 
                 $stmt = mysqli_prepare($con, $sql);
                 if($stmt){
-                    mysqli_stmt_bind_param($stmt, "sssidi", $new_img_name,$productname, $description, $category, $price,$quantity);
+                    mysqli_stmt_bind_param($stmt, "sssi", $new_img_name,$productname, $description, $category);
                     mysqli_stmt_execute($stmt);
                     if (mysqli_stmt_affected_rows($stmt) > 0) {
                         

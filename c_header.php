@@ -1,7 +1,13 @@
 <?php
     session_start();
 ?>
-
+<?php
+   include "classes/dbh.classes.php";
+   include "classes/cms.classes.php";
+   include "classes/cms-cntrl.classes.php";
+   include "classes/cms-view-classes.php";
+   $cmsinfo = new CmsInfoView();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,7 +33,7 @@
     <nav >
         <div id ="logo-img">
             <a href="index.php" class="logo__image">
-                <img src="image/japcha_logo.png" alt="Japcha Logo">
+                <img src="upload-content/<?php $cmsinfo->fetchLogo();?>" alt="Japcha Logo">
             </a>
         </div>
         <div id="menu-icon">
