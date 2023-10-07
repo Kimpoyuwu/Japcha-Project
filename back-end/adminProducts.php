@@ -24,7 +24,12 @@
 
     <div class="headerSection">
         <p>Product List</p>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</button>
+        <?php
+          if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+                echo'<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</button>';
+          }
+        ?>
+       
             <!-- <a href="#" id="addNew">Add new</a> -->
     </div>
 

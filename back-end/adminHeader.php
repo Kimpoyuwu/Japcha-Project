@@ -75,26 +75,6 @@
                     }
             ?>
                         
-                <!-- <li>
-                    <div class="icon-link">
-                        <a href="#">
-                            <i class="fa fa-users icon"></i>
-                            <span class="link_name">File Manager</span>
-                        </a>
-                        <i class="fa fa-caret-down arrow"></i>
-                    </div>
-                    <ul class="sub-menu">
-                        <li><a class="link_name" href="#">File Manager</a></li>
-                        <li><a href="CustomerAccount.php">Customer</a></li>
-                        <li><a href="adminAccount.php">Admin</a></li>
-                        <li><a href="userLevel.php">User Level</a></li>
-                        <li><a href="adminProducts.php">Products</a></li>
-                        <li><a href="admin-ProductSizes.php">Product Sizes</a></li>
-                        <li><a href="viewCategory.php">Category</a></li>
-                        <li><a href="admin-add-ons.php">Add-ons</a></li>
-                        <li><a href="admin-sizes.php">Sizes</a></li>
-                    </ul> 
-                </li> -->
                 <li>
                     <div class="icon-link">
                         <a href="AdminOrders.php">

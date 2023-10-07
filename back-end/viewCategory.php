@@ -60,12 +60,15 @@
             </table>
     </main>
 
-
-    <div class="btnAddCategory">
-         <!-- Trigger the modal with a button -->
-        <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
-                Add Category</button>
-    </div>
+    <?php
+        if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+            echo' <div class="btnAddCategory">
+                      <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
+                              Add Category</button>
+                  </div>';
+        }
+    ?>
+   
 
     <!--triggers can't click outside element when modal is open -->
     <div id="modalOverlay">

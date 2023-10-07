@@ -51,7 +51,7 @@
                     <th>Name</th>
                     <?php
                             if(isset($_SESSION["appointmentManagement_delete"]) && $_SESSION["appointmentManagement_delete"] == 1){
-                                echo '<th>Action</th>';
+                                echo '<td><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
                             }
                         
                         ?>
@@ -83,14 +83,14 @@
             </table>
     </div>
     <?php
-          if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
-            echo '<div class="btnAddCategory">
-        <button type="button" class="btn1" data-toggle="modal" data-target="#myModal">Add Userlevel</button>
-    </div>';
-          }
+        if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+            echo'<div class="btnAddCategory">
+                    <button type="button" class="btn1"  data-toggle="modal" data-target="#myModal" >
+                            Add Userlevel</button>
+                </div>';
+        }
     ?>
-   
-
+    
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -320,4 +320,7 @@ modalOverlay.addEventListener("click", closeModal);
 // Listen for keydown events to close the modal when "Escape" key is pressed
 document.addEventListener("keydown", closeModal);
   </script>
-a
+<?php
+    include "adminFooter.php";
+
+?>

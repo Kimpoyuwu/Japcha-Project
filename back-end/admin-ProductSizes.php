@@ -7,7 +7,12 @@
         <div class="card-option">
             <div class="cardHeader">
                 <h6>Product Sizing and Pricing</h6>
-                <button type="button" onclick="openAddAdmin()" class="btnAddAdmin">Add Variation</button>
+                <?php
+                    if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+                        echo'<button type="button" onclick="openAddAdmin()" class="btnAddAdmin">Add Variation</button>';
+                    }
+                ?>
+                
             </div>
         </div>
         <section class="table_body">
@@ -114,7 +119,6 @@
                             <label for="quantity">Quantity:</label>
                             <input type="number"  name="quantity" step="0" min="0" placeholder="0" required />
                         </div>
-                        <!-- <input type="submit" class="btnLogin btn-primary"> -->
                         <button class="btnSignup" type="submit" name="submit">Add Variation</button>
                     </form>
                 </div>
