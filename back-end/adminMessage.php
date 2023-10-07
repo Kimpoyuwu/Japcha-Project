@@ -1,8 +1,19 @@
 <?php
     include_once "adminHeader.php"
 ?>
-<link rel="stylesheet" href="../assets/css/AdminMessage.css">
 
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets../css/adminMessage.css">
+    <title>Document</title>
+</head>
+
+
+<body>
 <div class="mainContainer">
         <div class="leftCont">
             <div class="searchCont">
@@ -36,31 +47,15 @@
                 <img class = "sendButton" src="../image/sendButton.png" alt="">
             </div>
 
-
-           <div class="convoCont">
-                <div class="sampleMessageCont">
-                <p class = sampleMess>Sample Message</p>
+            <div class="convoCont">
+                <div class="messCont">
+                    <p>Sample Message</p>
                 </div>
-
-                <div class="chat-profile-Container">
-                    <img src="../image/japcha_logo.png" alt="">
-                </div>
-            </div>
-
-            <div class="client-chat-Container">
-
-                <div class="client-profile-Container">
-                    <img src="../image/sample1.png" alt="">
-                </div>
-
-                <div class="clientMessageCont">
-                    <p>Sample Message </p>
-                </div>
-                
-                
             </div>
         </div>
 
+
+        
 
 </div>
 
