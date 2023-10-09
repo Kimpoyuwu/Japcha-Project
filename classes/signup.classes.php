@@ -15,6 +15,7 @@ class Signup extends Dbh {
                     header("location: ../index.php?error=userregistrationfailed");
                    
                 }
+                
 
         $stmt = null;
 
@@ -120,7 +121,7 @@ class Signup extends Dbh {
     }
 
     public function getAdminData(){
-        $stmt = $this->connect()->prepare('SELECT ac.username, ac.email, ac.contact, usl.user_level FROM admin_account ac INNER JOIN user_level usl ON ac.userLevel_id = usl.userLevel_id ORDER BY ac.admin_id;');
+        $stmt = $this->connect()->prepare('SELECT ac.admin_id, ac.username, ac.email, ac.contact, usl.user_level_name FROM admin_account ac INNER JOIN user_level usl ON ac.userlevel_id = usl.userlevel_id ORDER BY ac.admin_id;');
     
             if(!$stmt->execute()) {
                 $stmt = null;

@@ -37,7 +37,10 @@
     <div class="sidebar" id="mySidebar"> 
          <ul class="nav-links">
             <?php
-                if(isset($_SESSION["adminID"])){
+                if(isset($_SESSION["adminID"]) ){
+                    
+
+                   
                 
                     if(isset($_SESSION["dashboardview"]) && $_SESSION["dashboardview"] == 1){
                         echo '<li>
@@ -50,8 +53,8 @@
                             </ul> 
                         </li>';
                     }
-
-                    if(isset($_SESSION["appointmentManagement_view"]) && $_SESSION["appointmentManagement_view"] == 1){
+                
+                    if(isset($_SESSION["file_view"]) && $_SESSION["file_view"] == 1){
                             echo '<li>
                                         <div class="icon-link">
                                             <a href="#">
@@ -120,15 +123,15 @@
                          </li>  ';
                  }
                ?>
-                <!-- <li>
-                    <a href="admin-cms.php">
-                        <i class="fa fa-tasks"></i>
-                        <span class="link_name">Content Management</span>
+               <li>
+                    <a href="AdminRating.php">
+                        <i class="fa fa-star-o"></i>
+                        <span class="link_name">Ratings Management</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="admin-cms.php">Content Management</a></li>
+                        <li><a class="link_name" href="AdminRating.php">Ratings Management</a></li>
                     </ul> 
-                </li>   -->
+                </li>
 
             <li>
                 <div class="profile-details">
@@ -138,8 +141,11 @@
                     </div>
 
                     <div class="name-job">
-                        <div class="profile_name"><?php echo $_SESSION["username"];?></div>
-                        <div class="job"><?php echo $_SESSION["userlvlname"];?></div>
+                        <div class="profile_name"><?php echo $_SESSION["uname"];?></div>
+                      
+                         <div class="job"><?php echo $_SESSION["userlvl"]; ?></div>
+                           
+                        
                     </div>
                     <a href="../includes/logout.inc.php">
                         <i class="fa fa-sign-out signout" style="color: white"></i>
@@ -147,6 +153,7 @@
                 </div>
             </li>
             <?php
+            
                 }
              ?>
         </ul>

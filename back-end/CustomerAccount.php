@@ -17,7 +17,7 @@
                     <th>Address</th>
                     <th>Contact No.</th>
                     <?php
-                            if(isset($_SESSION["appointmentManagement_delete"]) && $_SESSION["appointmentManagement_delete"] == 1){
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
                                 echo'<th>Remove</th>';
 
                             }

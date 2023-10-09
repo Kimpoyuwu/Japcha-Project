@@ -24,5 +24,7 @@ class adminctrl extends Dbh{
 // Create an object of the class and call the method
 $controller = new adminctrl();
 $controller->deleteAdmin();
-header("location: ../adminAccount.php?error=deletedsuccessfully");
+session_start();
+$_SESSION["DeletedSuccess"] = "Deleted Successfully";
+header("location: ../back-end/adminAccount.php?error=deletedsuccessfully");
 

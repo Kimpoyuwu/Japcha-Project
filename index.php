@@ -1,5 +1,9 @@
 <?php
-    include_once "c_header.php";
+    include "c_header.php";
+    include "classes/user-level-Model.php";
+    include "classes/signup.classes.php";
+    $UserLevel = new UserLevel();
+    $adminData = new Signup();
 ?>
 
 <?php 
@@ -64,14 +68,10 @@
     <div class="home">
         <div id="banner">
             <h1>
-                <?php
-                    $cmsinfo->fetchTitle();
-                 ?>
-             </h1>
+               
+            </h1>
             <h2>
-                <?php
-                    $cmsinfo->fetchSubtitle();
-                 ?>
+                
             </h2>
             <a href="#" class="btn-Shopnow">SHOP NOW</a>
         </div>
@@ -247,7 +247,7 @@
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
                             <div class="paragraph-desc">
-                                    <textarea name="" id="" cols="10" rows="5" > <?php  $cmsinfo->fetchJapcha();?> </textarea>
+                                    <textarea name="" id="" cols="10" rows="5" >  </textarea>
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
                             <div class="paragraph-desc">         
-                                <textarea name="" id="" cols="10" rows="5" > <?php  $cmsinfo->fetchHowToOrder();?> </textarea>
+                                <textarea name="" id="" cols="10" rows="5" >  </textarea>
                             </div>
                         </div>
                     </div>
@@ -270,7 +270,7 @@
                             </div>
                             <div class="paragraph-desc">
                                 
-                                    <textarea name="" id="" cols="10" rows="5" > <?php  $cmsinfo->fetchSocials();?> </textarea>
+                                    <textarea name="" id="" cols="10" rows="5" >  </textarea>
                             </div>
                         </div>
                     </div>
@@ -328,5 +328,5 @@
      </script>
      
 <?php
-    include_once "c_footer.php";
+    include "c_footer.php";
 ?>

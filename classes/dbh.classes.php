@@ -7,7 +7,7 @@ class Dbh {
     
             $username = "root";
             $password = "";
-            $dbh = new PDO('mysql:host=localhost;dbname=japcha', $username, $password);
+            $dbh = new PDO('mysql:host=localhost;dbname=japcha-new', $username, $password);
             return $dbh;    
         } 
         catch (PDOException $e) {

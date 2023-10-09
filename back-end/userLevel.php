@@ -1,6 +1,13 @@
 <?php
     include "adminHeader.php";
 ?>
+<style>
+    .btnCon{
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+    }
+</style>
  <div class="table_category">
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
@@ -50,8 +57,8 @@
                     <th>S.N.</th>
                     <th>Name</th>
                     <?php
-                            if(isset($_SESSION["appointmentManagement_delete"]) && $_SESSION["appointmentManagement_delete"] == 1){
-                                echo '<td><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                                echo '<th>Action</th>';
                             }
                         
                         ?>
@@ -66,10 +73,14 @@
                   ?>
                       <tr>
                         <td><?= $count?></td>
-                        <td><?= $userlevel['user_level']?></td>
+                        <td><?= $userlevel['user_level_name']?></td>
                         <?php
-                            if(isset($_SESSION["appointmentManagement_delete"]) && $_SESSION["appointmentManagement_delete"] == 1){
-                                echo '<td><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>';
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                                echo '<td><div class="btnCon">
+                                <button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button class="btn btn-secondary"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                                <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></div></td>';
+                                
                             }
                         
                         ?>
@@ -129,7 +140,7 @@
                           </div>
 
                           <!-- Appointment Management Permissions -->
-                          <label for="permissions"><b>Order Management Permissions</b></label>
+                          <!-- <label for="permissions"><b>Order Management Permissions</b></label>
                           <div class="form-group" id="appointmentManagementPermissions">
 
                               <div class="form-check form-check-inline">
@@ -155,10 +166,10 @@
                                       name="permissions[appointmentManagement][delete]" >
                                   <label class="form-check-label" for="appointmentManagement_delete">Delete</label>
                               </div>
-                          </div>
+                          </div> -->
 
                           <!-- Account Management Permissions -->
-                          <label for="permissions"><b>File Management Permissions</b></label>
+                          <!-- <label for="permissions"><b>File Management Permissions</b></label>
                           <div class="form-group" id="accountManagementPermissions">
 
                               <div class="form-check form-check-inline">
@@ -196,7 +207,7 @@
                                       name="permissions[accountManagement][ban]" >
                                   <label class="form-check-label" for="accountManagement_ban">Ban</label>
                               </div>
-                          </div>
+                          </div> -->
 
                           <!-- Content Management Permissions -->
                           <label for="permissions"><b>Content Management Permissions</b></label>

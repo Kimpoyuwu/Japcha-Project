@@ -38,7 +38,7 @@
         <select name="Category" class = "Category" id="Category">
             <option value="" selected >All Products</option>
                     <?php
-                        $query = "SELECT category_id, category_name FROM category";
+                        $query = "SELECT category_id, category_name FROM categories";
                         $result = mysqli_query($con, $query);
                                    
                         while ($row = mysqli_fetch_assoc($result)) {
@@ -69,7 +69,7 @@
                     <?php
                         } else {
                     ?>
-                    <img src="../upload/<?= $product['image_url']?>" alt="">
+                        <img src="../upload/<?= $product['image_url']?>" alt="">
                     <?php
                         }
                     ?>
@@ -141,7 +141,7 @@
                             <select name="category" required>
                                 <option value="default">Category</option>
                                 <?php
-                                    $query = "SELECT category_id, category_name FROM category";
+                                    $query = "SELECT category_id, category_name FROM categories";
                                     $result = mysqli_query($con, $query);
                                    
                                     while ($row = mysqli_fetch_assoc($result)) {

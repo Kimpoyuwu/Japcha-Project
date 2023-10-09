@@ -6,15 +6,18 @@
     $UserLevel = new UserLevel();
     $adminData = new Signup();
 ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 <main class="tableAdmin">
         <div class="card-option">
             <div class="cardHeader">
                 <h6>Admin Account</h6>
                 <?php
-                            if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
-                                echo'<button type="button" onclick="openAddAdmin()" class="btnAddAdmin">Add Account</button>';
-                            }
+                    if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+                        echo'<button type="button" onclick="openAddAdmin()" class="btnAddAdmin">Add Account</button>';
+                    }
                 ?>
                 
             </div>
@@ -24,6 +27,7 @@
             <!-- <h1>Admin Account</h1> -->
             <input type="search" class="adminSearch" id="live_search" placeholder="Search....">
         </section>
+       
         <section class="table_body">
             <table action="Admin_user_management.php">
                 <thead>
@@ -35,7 +39,7 @@
                     <th>User Level</th>
                     <th>Contact No.</th>
                     <?php
-                            if(isset($_SESSION["appointmentManagement_delete"]) && $_SESSION["appointmentManagement_delete"] == 1){
+                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
                                 echo'<th>Action</th>';
 
                             }
@@ -52,17 +56,19 @@
                             echo "<tr><td colspan='6'>No admin accounts found.</td></tr>";
                         } else {
                             foreach ($data as $admin):
+                                $id = $admin['admin_id'];
                         ?>
                             <tr>
                                 <td><?= $count ?></td>
                                 <td><img src='../image/user.jpg' alt='user image'></td>
                                 <td><?= $admin['username'] ?></td>
                                 <td><?= $admin['email'] ?></td>
-                                <td><?= $admin['user_level'] ?></td>
+                                <td><?= $admin['user_level_name'] ?></td>
                                 <td><?= $admin['contact'] ?></td>
                                 <?php
                                      if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
-                                        echo '<td><button class="remove"><a style="text-decoration: none; color:#b30021;" href="controller/remove-admin.php?deleteidadmin=' . $id . '">Remove</a></button></td>';
+                                        
+                                        echo '<td><button class="btn btn-danger"><a style="text-decoration: none; color:#b30021;" href="../controller/remove-admin.php?deleteidadmin=' . $id . '"><i class="fa fa-trash" aria-hidden="true"></i></a></button></td>';
 
                                      }
                                 ?>
@@ -76,7 +82,20 @@
 
                 </tbody>
               </table>
+             
         </section>
+        <?php
+            foreach (["DeletedSuccess", "AddedSuccess"] as $key) {
+                if (isset($_SESSION[$key])) {
+                    echo '<div class="alert alert-success" role="alert">';
+                    echo $_SESSION[$key];
+                    echo '</div>';
+                    unset($_SESSION[$key]);
+                }
+            }
+        ?>
+
+
     </main>
 
     <!--triggers can't click outside element when modal is open -->
@@ -110,7 +129,7 @@
                                     $userlevels = $UserLevel->getUserlevel();
                                     foreach ($userlevels as $userlevel):
                                 ?>
-                                <option value="<?= $userlevel['userLevel_id']?>"><?= $userlevel['user_level']?></option>
+                                <option value="<?= $userlevel['userlevel_id']?>"><?= $userlevel['user_level_name']?></option>
                                 <?php 
                                     endforeach;
                                 ?>

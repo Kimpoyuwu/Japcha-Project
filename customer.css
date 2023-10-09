@@ -24,9 +24,11 @@ body{
     background: #f4f1ec;
     /* position: relative; */
 }
+
 *{
     box-sizing: border-box;
 }
+
 h1{
     padding: 8px;
     background: rgba(red, 0, 0, 0);

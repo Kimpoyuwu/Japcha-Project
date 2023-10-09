@@ -1,4 +1,5 @@
 <?php
+    require_once 'classes/dbh.classes.php';
      require 'classes/save_note_Model.php';
      require_once 'classes/save_note_View.php';
      $AboutUsInfo = new SampleView();
@@ -8,17 +9,17 @@
             <div id="social-media-footer">
                 <ul>
                     <li>
-                        <a href="<?= $AboutUsInfo->fetchFbLinks(); ?>">
+                        <a href="#">
                             <i class="fa fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= $AboutUsInfo->fetchYtLinks(); ?>">
+                        <a href="#">
                             <i class="fa fa-youtube"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= $AboutUsInfo->fetchIgLinks(); ?>">
+                        <a href="#">
                             <i class="fa fa-instagram"></i>
                         </a>
                     </li>

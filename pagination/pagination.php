@@ -1,6 +1,6 @@
 <?php
     
-    $con = mysqli_connect('localhost', 'root', '', 'japcha');
+    $con = mysqli_connect('localhost', 'root', '', 'japcha-new');
     
 // Check connection
 if (mysqli_connect_error()) {

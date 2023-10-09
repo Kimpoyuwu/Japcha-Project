@@ -5,7 +5,7 @@ class addProductSizes extends Dbh {
     protected function setProductSizes($product, $size, $price, $quantity) {
             try {
 
-                $stmt = $this->connect()->prepare('INSERT INTO product_sizes (product_id, size_id, price, quantity) VALUES (?,?,?,?)');
+                $stmt = $this->connect()->prepare('INSERT INTO product_variation (product_id, sizes_id, price, quantity) VALUES (?,?,?,?)');
 
                 // Execute the query
                 if (!$stmt->execute(array($product, $size, $price, $quantity))) {
@@ -47,7 +47,7 @@ class addProductSizes extends Dbh {
     protected function checkProductSize($product, $size) {
         try {
             // Prepare the SQL query
-            $stmt = $this->connect()->prepare('SELECT product_id FROM product_sizes WHERE product_id=? AND size_id = ?');
+            $stmt = $this->connect()->prepare('SELECT product_id FROM product_variation WHERE product_id=? AND sizes_id = ?');
             
             // Execute the query
             if (!$stmt->execute(array($product, $size))) {

@@ -1,7 +1,6 @@
 // function openNav(){
 //     var sidebar = document.getElementById("mySidebar");
-    
-    
+
 //   if (sidebar.classList.contains("active")) {
 //     sidebar.classList.remove("active");
 //   } else {
@@ -10,8 +9,8 @@
 // }
 
 let arrow = document.querySelectorAll(".arrow");
-for (var i = 0; i< arrow.length; i++){
-  arrow[i].addEventListener("click", (e)=>{
+for (var i = 0; i < arrow.length; i++) {
+  arrow[i].addEventListener("click", (e) => {
     console.log(e);
     let arrowParent = e.target.parentElement.parentElement;
     console.log(arrowParent);
@@ -23,7 +22,7 @@ let sidebar = document.querySelector(".sidebar");
 let sidebarBtn = document.querySelector(".menu");
 let profileDetails = document.querySelector(".profile-details");
 
-sidebarBtn.addEventListener("click", ()=>{
+sidebarBtn.addEventListener("click", () => {
   sidebar.classList.toggle("close");
   // profileDetails.classList.toggle("close");
 });

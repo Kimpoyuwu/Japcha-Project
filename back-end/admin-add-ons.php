@@ -2,9 +2,6 @@
     include_once "adminHeader.php";
     include_once "../config/databaseConnection.php";
 ?>
-
-
-
     <main class="table_category">
         <section class="table_header">
             <h1>Add-ons </h1>
@@ -14,6 +11,8 @@
                 <thead>
                   <tr>
                     <th>Add-ons</th>
+                    <th>Price</th>
+                    <th>Created At</th>
                     <?php
                             if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1 && isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
                                 echo'<th colspan="2">Action</th>';
@@ -29,11 +28,15 @@
                          // Looping through each row and displaying the data
                          while ($row = mysqli_fetch_assoc($result)) {
                           $addonsName = $row['addons_name'];
+                          $price = $row['price'];
+                          $timeCreate = $row['created_at'];
                           $addonsid = $row['addons_id'];
 
                      ?>
                     <tr>
                       <td><?=$addonsName?></td>
+                      <td><?=$price?></td>
+                      <td><?=$timeCreate?></td>
                       <?php
                             if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
                                 echo '<td><button class="remove"><a href="#">Remove</a></button></td>';

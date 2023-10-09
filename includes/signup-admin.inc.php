@@ -18,7 +18,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     // Runnig error handlers and user signup
     $signup-> signupAdmin();
     
-
+    session_start();
+    $_SESSION["AddedSuccess"] = "Added Successfully";
     // Going back to front page
     header("location: ../back-end/adminAccount.php?error=none");
 

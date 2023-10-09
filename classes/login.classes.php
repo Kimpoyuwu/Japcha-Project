@@ -37,7 +37,6 @@ class Login extends Dbh {
             $_SESSION["username"] = $userData["username"];
             $_SESSION["contact"]  = $userData["contact_number"];
             $_SESSION["address"]  = $userData["customer_address"];
-            
     
             // Redirect to a success page or return user data as needed
             return $userData;
@@ -53,7 +52,10 @@ class Login extends Dbh {
     public function adminLogin($email, $pwd) {
         try {
             // Prepare SQL query using named placeholders
-            $stmt = $this->connect()->prepare('SELECT ac.admin_id, ac.email, ac.username, ac.contact, ac.password, ac.userlevel_id,  usl.userLevel_id, usl.dashboard_view, usl.user_level, usl.appointmentManagement_view, usl.appointmentManagement_delete, usl.contentManagement_view, usl.fileManagement_view, usl.fileManagement_create, usl.fileManagement_edit, usl.fileManagement_delete FROM admin_account ac INNER JOIN user_level usl ON ac.userlevel_id = usl.userlevel_id WHERE username = :username');
+            $stmt = $this->connect()->prepare('SELECT a.admin_id, a.email, a.username, a.contact, a.password, a.userlevel_id,  ul.userlevel_id, ul.dashboard_view, ul.user_level_name, ul.contentManagement_view, ul.fileManagement_view, ul.fileManagement_create, ul.fileManagement_edit, ul.fileManagement_delete FROM admin_account a INNER JOIN user_level ul ON a.userlevel_id = ul.userlevel_id WHERE username = :username');
+
+            // $stmt = $this->connect()->prepare('SELECT ac.admin_id, ac.email, ac.username, ac.contact, ac.password, ac.userlevel_id,  usl.userlevel_id, usl.dashboard_view, usl.user_level, usl.contentManagement_view, usl.fileManagement_view, usl.fileManagement_create, usl.fileManagement_edit, usl.fileManagement_delete FROM admin_account ac INNER JOIN user_level usl ON ac.userlevel_id = usl.userlevel_id WHERE username = :username');
+
             $stmt->bindParam(':username', $email, PDO::PARAM_STR);
     
             // Execute the query
@@ -70,30 +72,34 @@ class Login extends Dbh {
                 // throw new Exception("usernotfound.");
                 return false;
             }
-    
+            
             // Verify the password
             $isPasswordValid = password_verify($pwd, $userData['password']);
             
             if (!$isPasswordValid) {
-                throw new Exception("Wrong password.");
+                throw new Exception("Password: " . $_SESSION['file_view']);
             }
     
             // Set session variables
             session_start();
             $_SESSION["adminID"] = $userData["admin_id"];
             $_SESSION["email"] = $userData["email"];
-            $_SESSION["username"] = $userData["username"];
-            $_SESSION["contact"]  = $userData["contact"];
-            $_SESSION["userlevel"]  = $userData["userLevel_id"];
-            $_SESSION["userlvlname"]  = $userData["user_level"];
-
+            $_SESSION["uname"] = $userData["username"];
+            // $_SESSION["contact"]  = $userData["contact"];
+            // $_SESSION["userlevel"]  = $userData["userLevel_id"];
+            // Before setting $_SESSION["userlvl"]
+            $_SESSION["userlvl"] = $userData["user_level_name"];
+            // After setting $_SESSION["userlvl"]
+            // $_SESSION["pass"]  = $userData["password"];
             $_SESSION["dashboardview"]  = $userData["dashboard_view"];
-            $_SESSION["appointmentManagement_view"] = $userData["appointmentManagement_view"];
-            $_SESSION["appointmentManagement_delete"] = $userData["appointmentManagement_delete"];
+            // $_SESSION["appointmentManagement_view"] = $userData["appointmentManagement_view"];
+            // $_SESSION["appointmentManagement_delete"] = $userData["appointmentManagement_delete"];
             $_SESSION["contentManagement_view"] = $userData["contentManagement_view"];
 
             // File management 
-            $_SESSION["fileManagement_view"] = $userData["fileManagement_view"];
+           // Assuming $userData["fileManagement_view"] contains the boolean value from the database
+           $_SESSION["file_view"] = $userData["fileManagement_view"];
+
             $_SESSION["fileManagement_create"] = $userData["fileManagement_create"];
             $_SESSION["fileManagement_edit"] = $userData["fileManagement_edit"];
             $_SESSION["fileManagement_delete"] = $userData["fileManagement_delete"];

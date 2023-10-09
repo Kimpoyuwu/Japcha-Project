@@ -40,7 +40,7 @@ class LoginContr extends Login{
     private function isAdminLogin() {
         try {
             // Prepare SQL query to check if the user has a non-empty userLevel_id
-            $stmt = $this->connect()->prepare('SELECT userLevel_id FROM admin_account WHERE email = :email');
+            $stmt = $this->connect()->prepare('SELECT userlevel_id FROM admin_account WHERE email = :email');
             $stmt->bindParam(':email', $this->email, PDO::PARAM_STR);
     
             // Execute the query
@@ -52,7 +52,7 @@ class LoginContr extends Login{
             $userData = $stmt->fetch(PDO::FETCH_ASSOC);
     
             // Check if userLevel_id exists and is not empty
-            if ($userData && !empty($userData['userLevel_id'])) {
+            if ($userData && !empty($userData['userlevel_id'])) {
                 return true; // It's an admin login
             } else {
                 return false; // It's not an admin login

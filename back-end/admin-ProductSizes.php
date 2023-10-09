@@ -34,13 +34,13 @@
                 </thead>
                 <tbody>
                 <?php
-                     $query = "SELECT ps.ProductSizes_id, p.product_name, s.size_name, ps.price, ps.quantity FROM product_sizes ps INNER JOIN product p ON ps.product_id = p.product_id  INNER JOIN size s ON ps.size_id = s.size_id ORDER BY p.product_name ASC";
+                     $query = "SELECT ps.prodsizes_id, p.product_name, s.size_name, ps.price, ps.quantity FROM product_variation ps INNER JOIN product p ON ps.product_id = p.product_id  INNER JOIN product_sizes s ON ps.sizes_id = s.sizes_id ORDER BY p.product_name ASC";
                      $result = mysqli_query($con, $query);
                      $count = 1;
                      if (mysqli_num_rows($result) > 0) {
                          // Looping through each row and displaying the data
                          while ($row = mysqli_fetch_assoc($result)) {
-                          $prodVariationID = $row['ProductSizes_id'];
+                          $prodVariationID = $row['prodsizes_id'];
                           $productName = $row['product_name'];
                           $sizeName = $row['size_name'];
                           $price = $row['price'];
@@ -100,11 +100,11 @@
                             <select name="size">
                                 <option value="default" selected disabled style="font-style: italic; color:gray;">Select Size</option>
                                     <?php
-                                        $query = "SELECT size_id, size_name FROM size";
+                                        $query = "SELECT sizes_id, size_name FROM product_sizes";
                                         $result = mysqli_query($con, $query);
                                     
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            $SizeId = $row['size_id'];
+                                            $SizeId = $row['sizes_id'];
                                             $SizeName = $row['size_name'];
                                             echo '<option value="' . $SizeId . '">' . $SizeName . '</option>';
                                         }

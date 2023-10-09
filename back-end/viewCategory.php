@@ -29,7 +29,7 @@
                   </tr>
                   <tbody>
                   <?php
-                     $query = "SELECT * FROM category LIMIT 6";
+                     $query = "SELECT * FROM categories LIMIT 6";
                      $result = mysqli_query($con, $query);
                  
                      if (mysqli_num_rows($result) > 0) {
@@ -37,7 +37,7 @@
                          while ($row = mysqli_fetch_assoc($result)) {
                           $categoryname = $row['category_name'];
                           $categoryid = $row['category_id'];
-                          $ategorytime = $row['time'];
+                          // $categorytime = $row['time'];
 
                      ?>
                     <tr>

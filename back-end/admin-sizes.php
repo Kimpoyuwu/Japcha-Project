@@ -22,14 +22,14 @@
                   </tr>
                   <tbody>
                     <?php
-                     $query = "SELECT * FROM size LIMIT 6";
+                     $query = "SELECT * FROM product_sizes LIMIT 6";
                      $result = mysqli_query($con, $query);
                  
                      if (mysqli_num_rows($result) > 0) {
                          // Looping through each row and displaying the data
                          while ($row = mysqli_fetch_assoc($result)) {
                           $sizeName = $row['size_name'];
-                          $sizeID = $row['size_id'];
+                          $sizeID = $row['sizes_id'];
                      ?>
                     <tr>
                       <td><?=$sizeName?></td>

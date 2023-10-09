@@ -6,37 +6,45 @@
     $AboutUsInfo = new SampleView();
     // $summerCon = $summerNote->getContent();
 ?>
-<div class="CmsAboutUs-Container">
-    <div class="headerAboutUs">About Us</div>
-    <div class="EditFieldCon">
-        <label for="japcha">What is Japcha?</label>
-        <textarea name="whatisjapcha" id="japcha"><?= $AboutUsInfo->fetchJapcha(); ?></textarea>
-        <button class="saveJapcha" id="saveJapcha">Save</button>
-    </div>
-    <div class="EditFieldCon">
-        <label for="japcha">How to Order?</label>
-        <textarea name="whatisjapcha" id="order"><?= $AboutUsInfo->fetchOrderNote(); ?></textarea>
-        <button class="saveJapcha" id="saveOrder">Save</button>
-    </div>
-    <div class="EditFieldCon">
-        <label for="japcha">Our Socials</label>
-        <textarea name="whatisjapcha" id="socials"><?= $AboutUsInfo->fetchSocials(); ?></textarea>
-        <button class="saveJapcha" id="saveSocials">Save</button>
-    </div>
-    <div class="EditFieldCon">
-        <label for="japcha">Our Policy</label>
-        <textarea name="whatisjapcha" id="policy"><?= $AboutUsInfo->fetchPolicy(); ?></textarea>
-        <button class="saveJapcha" id="savePolicy">Save</button>
-    </div>
-    <div class="EditFieldCon">
-        <label for="japcha">Our Location</label>
-        <textarea name="whatisjapcha" id="location"><?= $AboutUsInfo->fetchLocation(); ?></textarea>
-        <button class="saveJapcha" id="saveLocation">Save</button>
-    </div>
-    <div class="EditFieldCon">
-        <label for="japcha">Contact Us</label>
-        <textarea name="whatisjapcha" id="contact"><?= $AboutUsInfo->fetchContact(); ?></textarea>
-        <button class="saveJapcha" id="saveContact">Save</button>
+<?php
+    include_once "CmsHeader.php";
+?>
+<div class="CmsBodyContainer">
+    <div class="CmsAboutUs-Container">
+        <form action="">
+            <div class="headerAboutUs">About Us</div>
+            <div class="EditFieldCon">
+                <label for="japcha">What is Japcha?</label>
+                <textarea name="whatisjapcha" id="japcha"></textarea>
+                <button class="saveJapcha" id="saveJapcha">Save</button>
+            </div>
+            <!-- <div class="EditFieldCon">
+                <label for="japcha">How to Order?</label>
+                <textarea name="whatisjapcha" id="order"></textarea>
+                <button class="saveJapcha" id="saveOrder">Save</button>
+            </div>
+            <div class="EditFieldCon">
+                <label for="japcha">Our Socials</label>
+                <textarea name="whatisjapcha" id="socials"></textarea>
+                <button class="saveJapcha" id="saveSocials">Save</button>
+            </div>
+            <div class="EditFieldCon">
+                <label for="japcha">Our Policy</label>
+                <textarea name="whatisjapcha" id="policy"></textarea>
+                <button class="saveJapcha" id="savePolicy">Save</button>
+            </div>
+            <div class="EditFieldCon">
+                <label for="japcha">Our Location</label>
+                <textarea name="whatisjapcha" id="location"></textarea>
+                <button class="saveJapcha" id="saveLocation">Save</button>
+            </div>
+            <div class="EditFieldCon">
+                <label for="japcha">Contact Us</label>
+                <textarea name="whatisjapcha" id="contact"></textarea>
+                <button class="saveJapcha" id="saveContact">Save</button>
+            </div> -->
+        </form>
+   
     </div>
 </div>
 <script>
@@ -50,3 +58,6 @@
         });
 </script>
 <script src="../assets/js/summerNote.js"></script>
+<?php
+    include_once "CmsFooter.php";
+?>

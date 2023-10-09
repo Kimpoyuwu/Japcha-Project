@@ -9,13 +9,13 @@
                             //     echo "connected";
                                 $variationID = htmlspecialchars($_POST["var"], ENT_QUOTES, 'UTF-8');
                                 
-                                $query = "SELECT * FROM product_sizes WHERE ProductSizes_id = '$variationID'";
+                                $query = "SELECT * FROM product_variation WHERE prodsizes_id = '$variationID'";
                                 $result = mysqli_query($con, $query);
 
                                     while ($row1 = mysqli_fetch_assoc($result)) {
-                                        $vID=$row1['ProductSizes_id'];
+                                        $vID=$row1['prodsizes_id'];
                                         $pID=$row1["product_id"];
-                                        $sID=$row1["size_id"];
+                                        $sID=$row1["sizes_id"];
                                         $price=$row1["price"];
                                         $quantity=$row1["quantity"];
 
@@ -58,11 +58,11 @@
                             <select name="size">
                                 <?php
 
-                                $sql="SELECT size_id, size_name from size where size_id=$sID";
+                                $sql="SELECT sizes_id, size_name from product_sizes where sizes_id=$sID";
                                 $result = mysqli_query($con, $sql);
 
                                 while($row = mysqli_fetch_assoc($result)){
-                                    $sizeID = $row['size_id'];
+                                    $sizeID = $row['sizes_id'];
                                     $sizeName = $row['size_name'];
                                     ?>
                                     <option value="<?= $sizeID?>" selected disabled style="font-style: italic; color:gray;"><?= $sizeName?></option>
@@ -70,11 +70,11 @@
                                         }
                                 ?>
                                     <?php
-                                        $query = "SELECT size_id, size_name FROM size where size_id!=$sID";
+                                        $query = "SELECT sizes_id, size_name FROM product_sizes where sizes_id!=$sID";
                                         $result = mysqli_query($con, $query);
                                     
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            $SizeId = $row['size_id'];
+                                            $SizeId = $row['sizes_id'];
                                             $SizeName = $row['size_name'];
                                             echo '<option value="' . $SizeId . '">' . $SizeName . '</option>';
                                         }
