@@ -139,7 +139,52 @@ class Signup extends Dbh {
             return $productData;
     }
     
-
+    public function getCustomerData() {
+        $limit = 8; // Number of rows to fetch per page
+        $page = isset($_GET['page']) ? $_GET['page'] : 1; // Get the current page number from the URL parameter
+        // Calculate the offset to determine which rows to fetch from the database
+        $offset = ($page - 1) * $limit;
+        
+        try {
+            // Calculate the total number of rows
+            $countStmt = $this->connect()->query('SELECT COUNT(*) FROM customer_account');
+            $total_rows = $countStmt->fetchColumn();
+    
+            $stmt = $this->connect()->prepare('SELECT customer_id, username, password, email, customer_address, contact_number FROM customer_account LIMIT :limit OFFSET :offset');
+            $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+            
+            if (!$stmt->execute()) {
+                // Handle database error here
+                header("location: ../back-end/adminProducts.php?error=stmtfailed");
+                exit();
+            }
+            
+            if ($stmt->rowCount() == 0) {
+                // Handle no records found here
+                header("location: ../back-end/adminProducts.php?error=nocmsfound");
+                exit();
+            }
+            
+            $productData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            // Return data along with pagination variables
+            return [
+                'data' => $productData,
+                'page' => $page,
+                'total_rows' => $total_rows,
+                'limit' => $limit,
+            ];
+        } catch (PDOException $e) {
+            // Handle database exception here
+            header("location: ../back-end/adminProducts.php?error=databaseerror");
+            exit();
+        }
+    }
+    
+    
+    
+    
 
 
     // protected function setUser($username, $pwd, $pwdConfirm, $email, $address, $contactNum) {

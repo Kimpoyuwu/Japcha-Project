@@ -3,13 +3,20 @@
     include_once "../config/databaseConnection.php";
 ?>
 <link rel="stylesheet" href="../assets/css/AdminProductSizes.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+ <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 <main class="tableAdmin">
         <div class="card-option">
             <div class="cardHeader">
                 <h6>Product Sizing and Pricing</h6>
                 <?php
                     if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
-                        echo'<button type="button" onclick="openAddAdmin()" class="btnAddAdmin">Add Variation</button>';
+                ?>
+                        <button type="button" class="btnAddAdmin"  data-tooltip="tooltip" data-placement="top" title="Edit"
+                        data-toggle="modal" data-target="#edit" >Add Variation</button>
+                <?php
                     }
                 ?>
                 
@@ -56,10 +63,21 @@
                         <td><?=$quantity?></td>
                         <?php
                             if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
-                                echo '<td><button class="remove"><a style="text-decoration: none; color:#b30021;" href="#">Remove</a></button></td>';
+                        ?>
+                                <!-- <td><button class='edit' onclick="variationEdit($prodVariationID)">Edit</button></td> -->
+                                <td><div class="btnCon">
+                                    <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"
+                                    data-toggle="modal" data-target="#edit" ><i class="fa fa-edit" aria-hidden="true"></i></button>
+                                
+                        <?php
                             }
+            
                             if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
-                                echo "<td><button class='edit' onclick=\"variationEdit($prodVariationID)\">Edit</button></td>";
+                        ?>
+                                    <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete"
+                                        data-toggle="modal" data-target="#confirm<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td></div>
+                        <?php
                             }
                         ?>
                         
@@ -72,59 +90,9 @@
     </main>
 
     <!--triggers can't click outside element when modal is open -->
-
-            <div class="form signup_form" id="addAdminPopup">
-                <button class="form_close" onclick="closeAddAdmin()"><i class="uil uil-times"></i></button>
-                <div class="formBody">
-                    <form action="../includes/ProductSizes.inc.php" method="post">
-                        <h2>Product Size and Price Variation</h2>
-                        <div class="input_box">
-                            <label for="product">Product:</label>
-                            <select name="product" >
-                                <option value="default" selected disabled style="font-style: italic; color:gray;">Select Product</option>
-                                    <?php
-                                      
-                                        $query = "SELECT product_id, product_name FROM product";
-                                        $result = mysqli_query($con, $query);
-                                    
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $ProductId = $row['product_id'];
-                                            $ProductName = $row['product_name'];
-                                            echo '<option value="' . $ProductId . '">' . $ProductName . '</option>';
-                                        }
-                                    ?> 
-                            </select>
-                        </div>
-                        <div class="input_box">
-                            <label for="size">Size:</label>
-                            <select name="size">
-                                <option value="default" selected disabled style="font-style: italic; color:gray;">Select Size</option>
-                                    <?php
-                                        $query = "SELECT sizes_id, size_name FROM product_sizes";
-                                        $result = mysqli_query($con, $query);
-                                    
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $SizeId = $row['sizes_id'];
-                                            $SizeName = $row['size_name'];
-                                            echo '<option value="' . $SizeId . '">' . $SizeName . '</option>';
-                                        }
-                                    ?> 
-                            </select>
-                        </div>
-                        <div class="input_box">
-                            <label for="price">Price:</label>
-                            <input type="number"  name="price" step="0.01" min="0" placeholder="0.00" required />            
-                        </div>
-                        <div class="input_box">
-                            <label for="quantity">Quantity:</label>
-                            <input type="number"  name="quantity" step="0" min="0" placeholder="0" required />
-                        </div>
-                        <button class="btnSignup" type="submit" name="submit">Add Variation</button>
-                    </form>
-                </div>
-            </div>
-
-
+ 
+    <?php include "AddProductSize.php" ?>
+    <?php include "EditProductSize.php" ?>
 
     <script>
                     let popup = document.getElementById("addAdminPopup");

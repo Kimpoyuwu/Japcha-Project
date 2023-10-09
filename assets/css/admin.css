@@ -1359,3 +1359,10 @@ flex-direction: column;
     width: 82.7%;
     margin-left: 17.3%;
 }
+
+/* Global CSS */
+.btnCon{
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
