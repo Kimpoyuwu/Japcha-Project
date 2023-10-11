@@ -5,10 +5,7 @@
     
 </style>
  <div class="table_category">
- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
 <style>
 .scrollable-form {
     max-height: 400px; /* Set the desired height */
@@ -42,13 +39,21 @@
    include "../classes/user-level-Model.php";
    $UserLevel = new UserLevel();
 ?>
-        <section class="table_header">
-            <h1>User Level</h1>
+        <section class="table_header d-flex p-3" style="gap: 10px;">
+            <h2>User Level</h2>   
+            <?php
+                if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+            ?>
+                <div class="btnAddCategory">
+                    <button type="button" class="btn1"  data-toggle="modal" data-target="#myModal" >Add Userlevel</button>
+                </div>
+            <?php
+                }
+            ?>
         </section>
         <section class="table_body">
             <table>
                 <thead>
-                 
                   <tr>
                     <th>S.N.</th>
                     <th>Name</th>
@@ -58,8 +63,6 @@
                             }
                         
                         ?>
-                    
-                   
                   </tr>
                   <tbody>
                   <?php
@@ -71,7 +74,7 @@
                         <td><?= $count?></td>
                         <td><?= $userlevel['user_level_name']?></td>
                         <?php
-                            if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                            if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
                         ?>
                                 <td><div class="btnCon">
                                     <button class="btn btn-info" data-tooltip="tooltip" data-placement="top" title="View Userlevel"
@@ -80,8 +83,11 @@
                                     <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
                                     data-toggle="modal" data-target="#edit<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
 
+                                    <button class="btn btn-warning" data-tooltip="tooltip" data-placement="top" title="Archive Userlevel"
+                                    data-toggle="modal" data-target="#archive<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-archive" aria-hidden="true"></i></button>
+
                                     <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete Userlevel"
-                                    data-toggle="modal" data-target="#confirm<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    data-toggle="modal" data-target="#delete<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 </div></td>
                                 
                         <?php    
@@ -95,21 +101,29 @@
                   </tbody>
                 </thead>
             </table>
+           
+        </section>
+        <?php
+            foreach (["DeletedSuccess", "AddedSuccess", "cantdelete", "cantarchive", "archiveSucess"] as $key) {
+              if (isset($_SESSION[$key])) {
+                  $alertClass = in_array($key, ["cantdelete", "cantarchive"]) ? "alert-danger" : "alert-success";
+                  echo '<div class="alert ' . $alertClass . '" role="alert">';
+                  echo $_SESSION[$key];
+                  echo '</div>';
+                  unset($_SESSION[$key]);
+              }
+          }          
+        ?>
     </div>
-    <?php
-        if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
-    ?>
-                <div class="btnAddCategory">
-                    <button type="button" class="btn1"  data-toggle="modal" data-target="#myModal" >Add Userlevel</button>
-                </div>
-    <?php
-        }
-    ?>
+
+
+
     
     
     <?php include "../back-end/AddUserLevel.php"?>
     <?php include "../back-end/ViewUserLevel.php" ?>
     <?php include "../back-end/EditUserLevel.php" ?>
+    <?php include "../back-end/ArchiveUserLevel.php" ?>
     <?php include "../back-end/DeleteUserLevel.php" ?>
     
             <!--triggers can't click outside element when modal is open -->
@@ -132,40 +146,40 @@
           </form>
         </div>
      </div> -->
-     <div id="alertContainer"></div>
-
-
 
   <script>
 
     $(function () {
     $('[data-toggle="tooltip"]').tooltip()
     })
-    let popup = document.getElementById("popup");
-    let overlay = document.getElementById("modalOverlay");
-    function openPopup()
-    { 
-        popup.classList.add("open-modal-container");
-       modalOverlay.style.display = "block";
-    }
-    function closePopup()
-    {
-      popup.classList.remove("open-modal-container");
-      modalOverlay.style.display = "none";
-    }
-    function closeModal(event) {
-  if (event.target === modalOverlay || event.key === "Escape") {
-    closePopup();
-  }
-}
+//     let popup = document.getElementById("popup");
+//     let overlay = document.getElementById("modalOverlay");
+//     function openPopup()
+//     { 
+//         popup.classList.add("open-modal-container");
+//        modalOverlay.style.display = "block";
+//     }
+//     function closePopup()
+//     {
+//       popup.classList.remove("open-modal-container");
+//       modalOverlay.style.display = "none";
+//     }
+//     function closeModal(event) {
+//   if (event.target === modalOverlay || event.key === "Escape") {
+//     closePopup();
+//   }
+// }
 
-// Listen for clicks on the modal overlay
-modalOverlay.addEventListener("click", closeModal);
+// // Listen for clicks on the modal overlay
+// modalOverlay.addEventListener("click", closeModal);
 
-// Listen for keydown events to close the modal when "Escape" key is pressed
-document.addEventListener("keydown", closeModal);
+// // Listen for keydown events to close the modal when "Escape" key is pressed
+// document.addEventListener("keydown", closeModal);
   </script>
+
+
 <?php
     include "adminFooter.php";
 
 ?>
+

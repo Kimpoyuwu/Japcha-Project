@@ -67,12 +67,8 @@
     <!-- HOME -->
     <div class="home">
         <div id="banner">
-            <h1>
-               
-            </h1>
-            <h2>
-                
-            </h2>
+            <h1>YOUR ONE-STOP FLAVORFUL SHOP</h1>
+            <h2>MILK TEA • FRUIT TEA • MANGO GRAHAM CAKE • FRAPPE • ETC </h2>
             <a href="#" class="btn-Shopnow">SHOP NOW</a>
         </div>
         <div id="image-right-side">

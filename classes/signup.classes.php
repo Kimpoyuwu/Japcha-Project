@@ -13,7 +13,7 @@ class Signup extends Dbh {
                 if (!$stmt->execute(array($username, $hashedPwd, $pwdConfirm, $email, $address, $contactNum))) {
                     throw new Exception("User registration failed.");
                     header("location: ../index.php?error=userregistrationfailed");
-                   
+                    exit();
                 }
                 
 
@@ -64,7 +64,7 @@ class Signup extends Dbh {
             if (!$stmt->execute(array($username, $email, $hashedPwd, $userLevel, $contactNum))) {
                 throw new Exception("User registration failed.");
                 header("location: ../back-end/adminAccount.php?error=userregistrationfailed");
-               
+                exit();
             }
 
             $stmt = null;
@@ -121,17 +121,17 @@ class Signup extends Dbh {
     }
 
     public function getAdminData(){
-        $stmt = $this->connect()->prepare('SELECT ac.admin_id, ac.username, ac.email, ac.contact, usl.user_level_name FROM admin_account ac INNER JOIN user_level usl ON ac.userlevel_id = usl.userlevel_id ORDER BY ac.admin_id;');
+        $stmt = $this->connect()->prepare('SELECT ac.admin_id, ac.username, ac.email, ac.contact, usl.user_level_name FROM admin_account ac INNER JOIN user_level usl ON ac.userlevel_id = usl.userlevel_id WHERE ac.isDeleted != 1 ORDER BY ac.admin_id;');
     
             if(!$stmt->execute()) {
                 $stmt = null;
-                header("location: ../back-end/adminProducts.php?error=stmtfailed");
+                header("location: ../back-end/adminAccount.php?error=stmtfailed");
                 exit();
             }
     
             if($stmt->rowCount() == 0) {
                 $stmt = null;
-                header("location: ../back-end/adminProducts.php?error=nocmsfound");
+                header("location: ../back-end/adminAccount.php?error=nocmsfound");
                 exit();
             }
     

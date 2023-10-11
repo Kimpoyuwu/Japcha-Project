@@ -30,7 +30,7 @@
 
                               <div class="form-check form-check-inline">
                                   <input type="checkbox" class="form-check-input" id="dashboard_edit"
-                                      name="permissions[dashboard][edit]" >
+                                      name="permissions[dashboard][edit]" disabled>
                                   <label class="form-check-label" for="dashboard_edit">Edit</label>
                               </div>
                           </div>
@@ -117,20 +117,20 @@
 
                               <div class="form-check form-check-inline">
                                   <input type="checkbox" class="form-check-input" id="contentManagement_create"
-                                      name="permissions[contentManagement][create]" >
-                                  <label class="form-check-label" for="contentManagement_create">Create</label>
+                                      name="permissions[contentManagement][create]" disabled >
+                                  <label class="form-check-label" for="contentManagement_create" >Create</label>
                               </div>
 
                               <div class="form-check form-check-inline">
                                   <input type="checkbox" class="form-check-input" id="contentManagement_edit"
-                                      name="permissions[contentManagement][edit]" >
-                                  <label class="form-check-label" for="contentManagement_edit">Edit</label>
+                                      name="permissions[contentManagement][edit]" disabled>
+                                  <label class="form-check-label" for="contentManagement_edit" >Edit</label>
                               </div>
 
                               <div class="form-check form-check-inline">
                                   <input type="checkbox" class="form-check-input" id="contentManagement_delete"
-                                      name="permissions[contentManagement][delete]" >
-                                  <label class="form-check-label" for="contentManagement_delete">Delete</label>
+                                      name="permissions[contentManagement][delete]" disabled>
+                                  <label class="form-check-label" for="contentManagement_delete" >Delete</label>
                               </div>
                           </div>
 
@@ -146,20 +146,20 @@
 
                               <div class="form-check form-check-inline">
                                   <input type="checkbox" class="form-check-input" id="fileManagement_create"
-                                      name="permissions[fileManagement][create]" >
-                                  <label class="form-check-label" for="fileManagement_create">Create</label>
+                                      name="permissions[fileManagement][create]" disabled>
+                                  <label class="form-check-label" for="fileManagement_create" >Create</label>
                               </div>
 
                               <div class="form-check form-check-inline">
                                   <input type="checkbox" class="form-check-input" id="fileManagement_edit"
-                                      name="permissions[fileManagement][edit]" >
-                                  <label class="form-check-label" for="fileManagement_edit">Edit</label>
+                                      name="permissions[fileManagement][edit]" disabled>
+                                  <label class="form-check-label" for="fileManagement_edit" >Edit</label>
                               </div>
 
                               <div class="form-check form-check-inline">
                                   <input type="checkbox" class="form-check-input" id="fileManagement_delete"
-                                      name="permissions[fileManagement][delete]" >
-                                  <label class="form-check-label" for="fileManagement_delete">Delete</label>
+                                      name="permissions[fileManagement][delete]" disabled>
+                                  <label class="form-check-label" for="fileManagement_delete" >Delete</label>
                               </div>
                           </div>
                           
@@ -176,3 +176,88 @@
             </div>
         </div>
     </div>
+
+    <script>
+   function togglePermissions(section, viewId, createId, editId, deleteId, archiveId, banId) {
+    const viewCheckbox = document.getElementById(viewId);
+    const createCheckbox = document.getElementById(createId);
+    const editCheckbox = document.getElementById(editId);
+    const deleteCheckbox = document.getElementById(deleteId);
+    const archiveCheckbox = document.getElementById(archiveId);
+    const banCheckbox = document.getElementById(banId);
+
+    viewCheckbox.addEventListener("change", function () {
+        createCheckbox.disabled = !this.checked;
+        if (!this.checked) {
+            createCheckbox.checked = false;
+            editCheckbox.checked = false;
+            deleteCheckbox.checked = false;
+            
+            createCheckbox.disabled = true;
+            editCheckbox.disabled = true;
+            deleteCheckbox.disabled = true;
+        }
+        createCheckbox.addEventListener("change", function () {
+            editCheckbox.disabled = !this.checked;
+            if (!this.checked) {
+                editCheckbox.checked = false;
+                deleteCheckbox.disabled = true;
+            }
+        });
+
+        editCheckbox.addEventListener("change", function () {
+            deleteCheckbox.disabled = !this.checked;
+            if (!this.checked) {
+                deleteCheckbox.checked = false;
+            }
+        });
+    });
+
+ 
+    // 
+}
+
+
+    // Dashboard Permissions
+    togglePermissions("dashboard", "dashboard_view", "dashboard_edit");
+
+    // Appointment Management Permissions
+    // togglePermissions(
+    //     "appointmentManagement",
+    //     "appointmentManagement_view",
+    //     "appointmentManagement_create",
+    //     "appointmentManagement_edit",
+    //     "appointmentManagement_delete"
+    // );
+
+    // // Account Management Permissions
+    // togglePermissions(
+    //     "accountManagement",
+    //     "accountManagement_view",
+    //     "accountManagement_create",
+    //     "accountManagement_edit",
+    //     "accountManagement_delete",
+    //     "accountManagement_archive",
+    //     "accountManagement_ban"
+    // );
+
+    // Content Management Permissions
+    togglePermissions(
+        "contentManagement",
+        "contentManagement_view",
+        "contentManagement_create",
+        "contentManagement_edit",
+        "contentManagement_delete"
+    );
+
+    // File Management Permissions
+    togglePermissions(
+        "fileManagement",
+        "fileManagement_view",
+        "fileManagement_create",
+        "fileManagement_edit",
+        "fileManagement_delete"
+    );
+</script>
+
+    

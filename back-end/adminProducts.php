@@ -1,6 +1,9 @@
 <?php
     include "adminHeader.php";
 ?>
+<?php
+    if(isset($_SESSION["adminID"]) ){
+ ?>
 <?php  
         include "../config/databaseConnection.php";
         include "../classes/dbh.classes.php";
@@ -103,58 +106,21 @@
     </div>
 </div>
 
-<?php if (isset($_GET['error'])): ?>
+<?php 
 
-<?php $error = $_GET['error'];
-    echo '<script>alert("'.$error.'");</script>'; ?>
-    <p><?php echo $_GET['error']; ?></p>
-<?php endif ?>
-    <div class="modal1" id="modal1"> 
-        <form class = "formProducts" id="formProducts" action="../controller/addProducts.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-            <div class="titleModal">
-            <p>Add Product</p>    
-            <img class ="closeButton" src="../image/close.png" alt="">
-            </div>
-         
-            <div class="secondLayer">
-                <div class="leftCont" id="imageCon">  
-                    <!-- <img id="imageData" src="" alt=""> -->
-                    <!-- <video>
-                        <source id="videoData" src="">
-                    </video> -->
-                    <input class = "file" type="file" accept ="image/*, video/*" name="product_image" onchange="readURL(this);" required>    
-                </div>
-            </div>
+if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+    echo '<script>alert("' . $error . '");</script>';
+    echo '<p>' . $error . '</p>';
+    unset($_GET['error']); // Optionally unset the parameter if needed
+    $_SESSION['error'] = $error; // Store the error message in a session variable
+}
 
-            <div class="rightCont">
-                    <label for="productName">Product Name:</label>
-                    <input type="text"id ="productName" name="productname" require>
-                    
-                    <div class="descriptionContainer">
-                        <label for="description">Description:</label>
-                        <textarea name="description" id="" cols="30" rows="2"></textarea>
-                    </div>
-            </div>
-            
-            <div class="categoryContainer">
-                <label for="category">Category:</label>
-                            <select name="category" required>
-                                <option value="default">Category</option>
-                                <?php
-                                    $query = "SELECT category_id, category_name FROM categories";
-                                    $result = mysqli_query($con, $query);
-                                   
-                                    while ($row = mysqli_fetch_assoc($result)) {
-                                        $categoryId = $row['category_id'];
-                                        $categoryName = $row['category_name'];
-                                        echo '<option value="' . $categoryId . '">' . $categoryName . '</option>';
-                                    }
-                                ?> 
-                            </select>
-            </div>
-            <button name="submit" type="submit">Submit</button>
-        </form>
-    </div>
+// To clear the error message from the session after displaying it:
+if (isset($_SESSION['error'])) {
+    unset($_SESSION['error']);
+}?>
+    
     <!-- modal for drinks-->
 
 <!-- Modal -->
@@ -166,8 +132,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <button type="button" class="btn btn-light" id="addNew" data-bs-dismiss="modal">Product</button>
-        <button type="button" class="btn btn-light" id="btnMeals" data-bs-dismiss="modal">Combo</button>
+        <button type="button" class="btn btn-light" id="#" data-bs-dismiss="modal" data-toggle="modal" data-target="#modal1">Product</button>
+        <button type="button" class="btn btn-light"  id="#" data-bs-dismiss="modal" data-toggle="modal" data-target="#modal2">Combo</button>
       </div>
     </div>
   </div>
@@ -177,11 +143,13 @@
 
 
 <!-- MODAL FOR MEALS -->
-<div class="modal2" id="modal2"> 
+    <?php
+            include "ProductModal1.php";
+       ?>
        <?php
             include "ProductModal2.php";
        ?>
-</div>
+
 <!--END MODAL FOR MEALS -->
 <?php
 if (isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1) {
@@ -203,6 +171,10 @@ if (isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] 
     var showRemove = <?php echo json_encode($showRemove); ?>;
     var showEdit = <?php echo json_encode($showEdit); ?>;
     </script>
+    <?php
+            
+        }
+     ?>
 <?php
     include "adminFooter.php";
 

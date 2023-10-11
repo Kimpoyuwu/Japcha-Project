@@ -9,18 +9,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/Admin.css">
     <link rel="stylesheet" href="../assets/css/AdminOrders.css">  
-    <link rel="stylesheet" href="../assets/css/adminStat.css">    
+    <link rel="stylesheet" href="../assets/css/adminStat.css">
+    <link rel="stylesheet" href="../assets/css/Global-CSS.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <title>Document</title>
     
 </head>
+<?php
+    if(isset($_SESSION["adminID"]) ){
+ ?>
 <body>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+
 <nav>
     <div class="menu_logo">
     <div id="menu-icon">
@@ -40,12 +45,7 @@
 </nav>
     <div class="sidebar" id="mySidebar"> 
          <ul class="nav-links">
-            <?php
-                if(isset($_SESSION["adminID"]) ){
-                    
-
-                   
-                
+         <?php
                     if(isset($_SESSION["dashboardview"]) && $_SESSION["dashboardview"] == 1){
                         echo '<li>
                             <a href="AdminDashBoard.php">
@@ -107,11 +107,20 @@
                 </li>
                 <li>
                     <a href="adminMessage.php">
-                        <i class="fa fa-comment"></i>
+                        <i class="fa fa-commenting" aria-hidden="true"></i>
                         <span class="link_name">Message</span>
                     </a>
                     <ul class="sub-menu blank">
                         <li><a class="link_name" href="adminMessage.php">Message</a></li>
+                    </ul> 
+                </li>
+                <li>
+                    <a href="ChatbotManagement.php">
+                        <i class="fa fa-comments" aria-hidden="true"></i>
+                        <span class="link_name">Chatbot</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="adminMessage.php">Chatbot</a></li>
                     </ul> 
                 </li>
                <?php
@@ -136,6 +145,15 @@
                         <li><a class="link_name" href="AdminRating.php">Ratings Management</a></li>
                     </ul> 
                 </li>
+                <li>
+                    <a href="CouponManagement.php">
+                        <i class="fa fa-ticket" aria-hidden="true"></i>
+                        <span class="link_name">Coupon Management</span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="AdminRating.php">Coupon Management</a></li>
+                    </ul> 
+                </li>
 
             <li>
                 <div class="profile-details">
@@ -156,10 +174,11 @@
                     </a>
                 </div>
             </li>
-            <?php
             
-                }
-             ?>
         </ul>
     </div>
+    <?php
+            
+        }
+     ?>
 <div class="table_container">

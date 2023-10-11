@@ -2,14 +2,22 @@
 
 include '../classes/dbh.classes.php';
 
-class adminctrl extends Dbh{
+class adminctrl extends Dbh {
     public function deleteAdmin() {
-        if (isset($_GET['deleteidadmin'])){
+        if (isset($_GET['deleteidadmin'])) {
             $id = $_GET['deleteidadmin'];
 
-            $stmt = $this->connect()->prepare('DELETE FROM admin_account WHERE admin_id = ?');
+            // Modify the SQL query to perform a soft delete by updating the isDeleted column
+            $stmt = $this->connect()->prepare('UPDATE admin_account SET isDeleted = 1 WHERE admin_id = ?');
+
+            if (!$stmt) {
+                // Handle SQL query preparation error
+                header("location: ../adminProducts.php?error=stmtpreparefailed");
+                exit();
+            }
 
             if (!$stmt->execute(array($id))) {
+                // Handle SQL query execution error
                 $stmt = null;
                 header("location: ../adminProducts.php?error=stmtfailed");
                 exit();
@@ -17,7 +25,6 @@ class adminctrl extends Dbh{
 
             $stmt = null;
         }
-        
     }
 }
 
@@ -25,6 +32,15 @@ class adminctrl extends Dbh{
 $controller = new adminctrl();
 $controller->deleteAdmin();
 session_start();
-$_SESSION["DeletedSuccess"] = "Deleted Successfully";
-header("location: ../back-end/adminAccount.php?error=deletedsuccessfully");
 
+if (isset($_GET["error"])) {
+    if ($_GET["error"] === "stmtpreparefailed") {
+        $_SESSION["ErrorMessage"] = "Statement preparation failed.";
+    } elseif ($_GET["error"] === "stmtfailed") {
+        $_SESSION["ErrorMessage"] = "Statement execution failed.";
+    }
+}
+$_SESSION["DeletedSuccess"] = "Deleted Successfully";
+
+header("location: ../back-end/adminAccount.php");
+exit();

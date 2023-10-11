@@ -25,7 +25,7 @@ class UserLevel extends Dbh {
     }
 
     public function getUserlevel(){
-        $stmt = $this->connect()->prepare('SELECT * FROM user_level ORDER BY userlevel_id ASC;');
+        $stmt = $this->connect()->prepare('SELECT * FROM user_level WHERE isDeleted != 1 AND archive != 1 ORDER BY userlevel_id ASC LIMIT 7;');
 
         if(!$stmt->execute()) {
             $stmt = null;

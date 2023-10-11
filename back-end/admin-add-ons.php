@@ -3,8 +3,17 @@
     include_once "../config/databaseConnection.php";
 ?>
     <main class="table_category">
-        <section class="table_header">
-            <h1>Add-ons </h1>
+        <section class="table_header d-flex p-3" style="gap: 10px;">
+            <h2>Add-ons </h2>
+            <?php
+                  if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+                      echo'  <div class="btnAddCategory">
+                                  <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
+                                        Add Add-Ons</button>
+                            </div>';
+                  }
+            ?>
         </section>
         <section class="table_body">
             <table>
@@ -39,11 +48,20 @@
                       <td><?=$timeCreate?></td>
                       <?php
                             if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
-                                echo '<td><button class="remove"><a href="#">Remove</a></button></td>';
+                      ?>
+                               <td><div class="btnCon">
+                                    <button class='update' data-id='$addonsid'><a href='#'><i class="fa fa-edit" aria-hidden="true"></i></a></button>
+                      <?php      
                             }
                             if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
-                              echo "<td><button class='update' data-id='$addonsid'><a href='#'>update</a></button></td>";
+                      ?> 
+                      
+                              
 
+                              <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete Userlevel"
+                                    data-toggle="modal" data-target="#delete<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                              </div></td>
+                      <?php 
                           }
                       ?> 
                     </tr>
@@ -53,15 +71,7 @@
             </table>
     </main>
 
-    <?php
-          if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
-              echo'  <div class="btnAddCategory">
-                          <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
-                                Add Add-Ons</button>
-                    </div>';
-          }
-    ?>
+   
   
 
     <!--triggers can't click outside element when modal is open -->

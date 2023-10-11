@@ -13,7 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <div class="cms-container">
-    <div class="header">
+    <div class="header mt-5">
         <div class="header-text">Manage Content</div>
     </div>
 

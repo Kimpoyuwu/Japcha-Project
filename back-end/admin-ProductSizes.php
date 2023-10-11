@@ -1,12 +1,12 @@
 <?php
     include "adminHeader.php";
     include_once "../config/databaseConnection.php";
+    include_once "../classes/dbh.classes.php";
+    include_once "../classes/ProductSizes-Model.php";
+    $prodvar = new addProductSizes();
+    $data = $prodvar->getProductVar();
 ?>
 <link rel="stylesheet" href="../assets/css/AdminProductSizes.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
 <main class="tableAdmin">
         <div class="card-option">
             <div class="cardHeader">
@@ -15,7 +15,7 @@
                     if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
                 ?>
                         <button type="button" class="btnAddAdmin"  data-tooltip="tooltip" data-placement="top" title="Edit"
-                        data-toggle="modal" data-target="#edit" >Add Variation</button>
+                        data-toggle="modal" data-target="#add" >Add Variation</button>
                 <?php
                     }
                 ?>
@@ -41,19 +41,14 @@
                 </thead>
                 <tbody>
                 <?php
-                     $query = "SELECT ps.prodsizes_id, p.product_name, s.size_name, ps.price, ps.quantity FROM product_variation ps INNER JOIN product p ON ps.product_id = p.product_id  INNER JOIN product_sizes s ON ps.sizes_id = s.sizes_id ORDER BY p.product_name ASC";
-                     $result = mysqli_query($con, $query);
-                     $count = 1;
-                     if (mysqli_num_rows($result) > 0) {
-                         // Looping through each row and displaying the data
-                         while ($row = mysqli_fetch_assoc($result)) {
-                          $prodVariationID = $row['prodsizes_id'];
-                          $productName = $row['product_name'];
-                          $sizeName = $row['size_name'];
-                          $price = $row['price'];
-                          $quantity = $row['quantity'];
 
-
+                     $count = 1;      
+                     foreach ($data as $productVariation):
+                          $prodVariationID = $productVariation['prodsizes_id'];
+                          $productName = $productVariation['product_name'];
+                          $sizeName = $productVariation['size_name'];
+                          $price = $productVariation['price'];
+                          $quantity = $productVariation['quantity'];
                      ?>
                     <tr>
                         <td><?=$count?></td>
@@ -67,22 +62,29 @@
                                 <!-- <td><button class='edit' onclick="variationEdit($prodVariationID)">Edit</button></td> -->
                                 <td><div class="btnCon">
                                     <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"
-                                    data-toggle="modal" data-target="#edit" ><i class="fa fa-edit" aria-hidden="true"></i></button>
+                                    data-toggle="modal" data-target="#edit<?= $productVariation['prodsizes_id']; ?>" ><i class="fa fa-edit" aria-hidden="true"></i></button>
                                 
                         <?php
                             }
             
                             if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
                         ?>
+                                    <button class="btn btn-warning" data-tooltip="tooltip" data-placement="top" title="Archive Userlevel"
+                                    data-toggle="modal" data-target="#archive<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-archive" aria-hidden="true"></i></button>
+
                                     <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete"
-                                        data-toggle="modal" data-target="#confirm<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    data-toggle="modal" data-target="#confirm<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                
                                 </td></div>
                         <?php
                             }
                         ?>
                         
                     </tr>
-                    <?php $count=$count+1;} } ?>
+                    <?php  
+                            $count++;
+                            endforeach;
+                     ?>
                 </tbody>
                 
               </table>

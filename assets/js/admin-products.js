@@ -67,93 +67,93 @@ $(document).on('click', '.closeButton2', function(){
 var currentImage = null; // Variable to keep track of the currently displayed image
 
 function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+    // if (input.files && input.files[0]) {
+    //     var reader = new FileReader();
    
-        reader.onload = function (e) {
-            var fileType = input.files[0].type;
-            var $imageCon = $('#imageCon'); // Cache the container element
+    //     reader.onload = function (e) {
+    //         var fileType = input.files[0].type;
+    //         var $imageCon = $('#imageCon'); // Cache the container element
 
-            // Remove the currently displayed image or video
-            if (currentImage) {
-                currentImage.remove();
-            }
+    //         // Remove the currently displayed image or video
+    //         if (currentImage) {
+    //             currentImage.remove();
+    //         }
 
-            if (fileType.startsWith('image/')) {
-                // Handle image
-                var imageElement = $('<img>').attr('src', e.target.result);
-                $imageCon.append(imageElement);
-                currentImage = imageElement; // Set the current image
-            } else if (fileType.startsWith('video/')) {
-                // Handle video
-                var videoElement = $('<video controls>').attr('src', e.target.result);
-                $imageCon.append(videoElement); 
-                currentImage = videoElement; // Set the current video
-            } else {
-                // Handle other types or display an error message
-                console.log('Unsupported file type: ' + fileType);
-            }
-        }
+    //         if (fileType.startsWith('image/')) {
+    //             // Handle image
+    //             var imageElement = $('<img>').attr('src', e.target.result);
+    //             $imageCon.append(imageElement);
+    //             currentImage = imageElement; // Set the current image
+    //         } else if (fileType.startsWith('video/')) {
+    //             // Handle video
+    //             var videoElement = $('<video controls>').attr('src', e.target.result);
+    //             $imageCon.append(videoElement); 
+    //             currentImage = videoElement; // Set the current video
+    //         } else {
+    //             // Handle other types or display an error message
+    //             console.log('Unsupported file type: ' + fileType);
+    //         }
+    //     }
    
-        reader.readAsDataURL(input.files[0]);
-    }
+    //     reader.readAsDataURL(input.files[0]);
+    // }
 }
 
 
 let selectMenu = document.querySelector("#Category");
 let container = document.querySelector(".productSection");
 
-selectMenu.addEventListener("change", function(){
+// selectMenu.addEventListener("change", function(){
 
-    let categoryName = this.value;
-    console.log(categoryName);
-    let http = new XMLHttpRequest();
+//     let categoryName = this.value;
+//     console.log(categoryName);
+//     let http = new XMLHttpRequest();
 
-    http.onload = function(){
-        if(this.readyState == 4 && this.status == 200){
-            let response = JSON.parse(this.responseText);
-            let out = "";
-            for(let item of response){
-                out += `
-                    <div class="boxContainer">
-                        <div class="productCon">
-                            ${item.image_url.includes('.mp4') ? 
-                                `<video controls>
-                                    <source src="../upload/${item.image_url}" type="video/mp4">
-                                    Your browser does not support the video tag
-                                </video>` : 
-                                `<img src="../upload/${item.image_url}" alt="">`
-                            }
-                        </div>
-                        <div class="productDescription">
-                            <span>${item.product_name}</span>
-                            <p>₱</p>
-                        </div>
-                        <div class="productAction">
-                        ${showEdit ? 
-                                `<div class="editContainer">
-                                    <img src="../image/editIcon.png" alt="">
-                                    <a href="#" class ="Edit" data-product-id="${item.product_id}">Edit</a>
-                                </div>` 
-                            : ''}
+//     http.onload = function(){
+//         if(this.readyState == 4 && this.status == 200){
+//             let response = JSON.parse(this.responseText);
+//             let out = "";
+//             for(let item of response){
+//                 out += `
+//                     <div class="boxContainer">
+//                         <div class="productCon">
+//                             ${item.image_url.includes('.mp4') ? 
+//                                 `<video controls>
+//                                     <source src="../upload/${item.image_url}" type="video/mp4">
+//                                     Your browser does not support the video tag
+//                                 </video>` : 
+//                                 `<img src="../upload/${item.image_url}" alt="">`
+//                             }
+//                         </div>
+//                         <div class="productDescription">
+//                             <span>${item.product_name}</span>
+//                             <p>₱</p>
+//                         </div>
+//                         <div class="productAction">
+//                         ${showEdit ? 
+//                                 `<div class="editContainer">
+//                                     <img src="../image/editIcon.png" alt="">
+//                                     <a href="#" class ="Edit" data-product-id="${item.product_id}">Edit</a>
+//                                 </div>` 
+//                             : ''}
                             
-                            ${showRemove ? 
-                                `<div class="removeContainer">
-                                    <img src="../image/removeIcon.png" alt="">
-                                    <a href="controller/remove.php?deleteid=${item.product_id}" class="Remove">Remove</a>
-                                </div>` 
-                                : ''}
-                        </div>
-                    </div>
-                `;
-            }
-            container.innerHTML =out;
-        }
-    }
+//                             ${showRemove ? 
+//                                 `<div class="removeContainer">
+//                                     <img src="../image/removeIcon.png" alt="">
+//                                     <a href="controller/remove.php?deleteid=${item.product_id}" class="Remove">Remove</a>
+//                                 </div>` 
+//                                 : ''}
+//                         </div>
+//                     </div>
+//                 `;
+//             }
+//             container.innerHTML =out;
+//         }
+//     }
 
 
-    http.open('POST', "../classes/SortByCategoryFunction.php");
-    http.setRequestHeader("content-type", "application/x-www-form-urlencoded");
-    http.send("category="+categoryName);
+//     http.open('POST', "../classes/SortByCategoryFunction.php");
+//     http.setRequestHeader("content-type", "application/x-www-form-urlencoded");
+//     http.send("category="+categoryName);
 
-});
+// });

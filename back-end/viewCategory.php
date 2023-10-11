@@ -1,7 +1,10 @@
 <?php
     include "adminHeader.php";
     include_once "../config/databaseConnection.php";
-
+    include_once "../classes/dbh.classes.php";
+    include_once "../classes/add-category.classes.php";
+    $data = new addCategory();
+    $category = $data->getCategory();
 ?>
 <?php
    if (isset($_GET["error"])) {
@@ -13,8 +16,17 @@
 
 ?>
     <main class="table_category">
-        <section class="table_header">
-            <h1>Category </h1>
+        <section class="table_header d-flex p-3" style="gap: 10px;">
+            <h2>Category </h2>
+            <?php
+        if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
+            echo' <div class="btnAddCategory">
+                      <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
+                              Add Category</button>
+                  </div>';
+        }
+    ?>
+   
         </section>
         <section class="table_body">
             <table>
@@ -44,11 +56,18 @@
                       <td><?=$categoryname?></td>
                       <?php
                           if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
-                              echo '<td><button class="remove"><a href="#">Remove</a></button></td>';
-                          }
-                          if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
-                            echo '<td><button class="update" data-id="' . $categoryid . '"><a href="#">update</a></button></td>';
-
+                      ?>
+                            <td><div class="btnCon">
+                              <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
+                                    data-toggle="modal" data-target="#edit<?= $row['category_id'] ?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                            
+                     <?php  
+                        }if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                      ?>
+                               <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete"
+                                        data-toggle="modal" data-target="#confirm<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </div></td>
+                      <?php 
                         }
                       ?>
                       
@@ -60,15 +79,7 @@
             </table>
     </main>
 
-    <?php
-        if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
-            echo' <div class="btnAddCategory">
-                      <button type="button" class="btn1" onclick="openPopup()" style="height:40px">
-                              Add Category</button>
-                  </div>';
-        }
-    ?>
-   
+    
 
     <!--triggers can't click outside element when modal is open -->
     <div id="modalOverlay">
@@ -93,7 +104,10 @@
      <div id="alertContainer"></div>
 
       <!-- ################################################################################# -->
-    <div id="modalupdate">
+    <?php
+      include_once "EditCategory.php";
+    ?>
+    <!-- <div id="modalupdate">
     <div class="modal-container2" id="popup2">
         <div class="modal-header">
           <h4 class="modal-title">New Add-Ons Item</h4>
@@ -112,8 +126,9 @@
           </form>
         </div>
      </div>
-    </div>
+    </div> -->
     <!-- ################################################################################# -->
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>  
     let popup = document.getElementById("popup");

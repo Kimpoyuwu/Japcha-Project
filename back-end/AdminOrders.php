@@ -1,7 +1,7 @@
 <?php
     include "adminHeader.php";
 ?>
-    <div class="container">
+    <div class="container" style="margin-left: 300px;">
       <div class="manage-order">
         <h2>Manage Order</h2>
       </div>
