@@ -3,6 +3,9 @@
     require '../classes/dbh.classes.php';
     require '../classes/save_note_Model.php';
     require_once '../classes/save_note_View.php';
+    require_once '../classes/cms.classes.php';
+    $cmsData = new Cms();
+    $cms = $cmsData->getCms();
     $AboutUsInfo = new SampleView();
 ?>
 <?php
@@ -28,6 +31,10 @@
         text-shadow: 2px 5px 4px rgba(0, 0, 0, 0.25);
     }
 </style>
+
+<?php
+    foreach($cms as $infoCMS):
+?>
 <div class="CmsBodyContainer" >
     <div class="CmsAboutUs-Container d-flex flex-column" style="background-color: #FDE402;">
         <div class="headerAboutUs p-3">Landing Page</div>
@@ -36,11 +43,11 @@
                 <div class="label-con">
                     <label for="Title">Title:</label>
                     <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
-                    data-toggle="modal" data-target="#edit<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
                 
                 </div>
             <div class="text-center">
-                <h1>Your One Stop Flavor-Ful Shop</h1>
+                <h1><?= $cms['title_data']?></h1>
             </div>
             <!-- <textarea name="title" id="title"></textarea>
             <button class="saveJapcha" id="saveTitle">Save</button> -->
@@ -49,11 +56,11 @@
                 <div class="label-con">
                     <label for="subtitle">Subtitle:</label>
                     <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
-                    data-toggle="modal" data-target="#edit<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
                 
                 </div>
                 <div class="text-center">
-                    <h2>MILK TEA • FRUIT TEA • MANGO GRAHAM CAKE • FRAPPE • ETC</h2>
+                    <h2><?= $cms['subtitle']?></h2>
                 </div>
             <!-- <textarea name="Subtitle" id="Subtitle"></textarea>
             <button class="saveJapcha" id="saveSubtitle">Save</button> -->
@@ -63,12 +70,12 @@
                 <div class="label-con">
                     <label for="Logo">Logo:</label>
                     <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
-                    data-toggle="modal" data-target="#edit<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
                 
                 </div>
 
                 <div class="text-center">
-                    <img src="../image/japcha_logo.png" alt="japcha_logo.png" class="img-fluid">
+                    <img src="../image/<?= $cms['logo_url']?>" alt="japcha_logo.png" class="img-fluid">
                 </div>         
                 <!-- <input type="file" id="file-input" name="file" accept ="image/*" >
                 <button class="saveJapcha" id="saveLogo" type="submit">Save</button> -->
@@ -80,11 +87,11 @@
                 <div class="label-con">
                     <label for="landingPage">Landing Page Image:</label>
                     <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
-                    data-toggle="modal" data-target="#edit<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
                 
                 </div>
                 <div class="text-center">
-                    <img src="../image/image-hand.png" alt="japcha_logo.png" class="img-fluid">
+                    <img src="../image/<?= $cms['landing_image_url']?>" alt="image hand" class="img-fluid">
                 </div>
                 <!-- <input type="file" id="file-input" name="file" accept ="image/*" >
                 <button class="saveJapcha" id="saveImage" type="submit">Save</button> -->
@@ -93,6 +100,9 @@
         </div>
     </div>
 </div>
+<?php
+    endforeach;
+?>
 <script>
     $(document).ready(function () {
             initializeSummernote('#title');

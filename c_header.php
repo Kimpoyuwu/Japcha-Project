@@ -2,7 +2,11 @@
     session_start();
 ?>
 <?php
-   require_once "classes/dbh.classes.php";
+    require "classes/dbh.classes.php";
+    require "classes/cms.classes.php";
+    $cms = new Cms();
+    $data = $cms->getCms();
+
 
 ?>
 <!DOCTYPE html>
@@ -30,7 +34,7 @@
     <nav >
         <div id ="logo-img">
             <a href="index.php" class="logo__image">
-              <img src="image/japcha_logo.png" alt="sss">
+              <img src="image/<?php echo $data['logo_url']; ?>" alt="sss">
             </a>
         </div>
         <div id="menu-icon">

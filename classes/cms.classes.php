@@ -2,25 +2,25 @@
 
 class Cms extends Dbh {
 
-    protected function getCms(){
-        $stmt = $this->connect()->prepare('SELECT * FROM cms ORDER BY cms_id DESC LIMIT 1;');
-
-        if(!$stmt->execute()) {
-            $stmt = null;
-            header("location: ../back-end/admin-cms.php?error=stmtfailed");
-            exit();
+    public function getCms() {
+        try {
+            $stmt = $this->connect()->prepare('SELECT * FROM cms ORDER BY cms_id DESC LIMIT 1;');
+            $stmt->execute();
+            $profileData = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($profileData === false) {
+                // Handle the case when no data is found
+                return null;
+            }
+    
+            return $profileData;
+        } catch (PDOException $e) {
+            // Handle any database connection or query errors
+            // You can log the error or throw an exception for higher-level error handling
+            return null;
         }
-
-        if($stmt->rowCount() == 0) {
-            $stmt = null;
-            header("location: ../back-end/admin-cms.php?error=nocmsfound");
-            exit();
-        }
-
-        $profileData = $stmt->fetchALL(PDO::FETCH_ASSOC);
-        return $profileData;
-
     }
+    
 
     protected function setNewCms($cmsLogo, $cmsImage, $cms_bg, $cms_title, $cms_subtitle, $cms_japcha, $cms_how_to_order, $cms_socials, $cms_policy, $cms_location, $cms_contact){
         $stmt = $this->connect()->prepare('UPDATE cms SET cms_logo_url = ?, cms_image_url = ?, cms_bg_url = ?, cms_title = ?, cms_subtitle = ?, cms_japcha = ?, cms_how_to_order = ?, cms_socials = ?, cms_policy = ?, cms_location = ?, cms_contact_us = ? ;');

@@ -9,17 +9,17 @@
             <div id="social-media-footer">
                 <ul>
                     <li>
-                        <a href="#">
+                        <a href="<?php echo $data['fbLink']; ?>">
                             <i class="fa fa-facebook"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="<?php echo $data['ytLink']; ?>">
                             <i class="fa fa-youtube"></i>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="<?php echo $data['instagramLink']; ?>">
                             <i class="fa fa-instagram"></i>
                         </a>
                     </li>

@@ -14,157 +14,106 @@
                     <div class="modal-body">
                         <form action="#" enctype="multipart/form-data" method="POST"
                             id="userLevelForm">
-                            <div class="scrollable-form">
+                            <div class="scrollable-forms">
         
                             <div class="form-group">
                                 <label for="usname"><b>Name</b></label>
                                 <input type="text" class="form-control" value="<?= $userlevel['user_level_name'] ?>" disabled>
                             </div>
 
-                            <!-- Dashboard Permissions -->
-                            <label for="permissions"><b>Dashboard Permissions</b></label>
-                            <div class="form-group" id="dashboardPermissions">
-
-                                <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input" id="dashboard_view" name="permissions[dashboard][view]"<?php if ($userlevel['dashboard_view'] == true) echo 'checked'; ?>>
-
-                                    <label class="form-check-label" for="dashboard_view">View</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="dashboard_edit"
-                                        name="permissions[dashboard][edit]" <?php if ($userlevel['dashboard_edit'] == true) echo 'checked'; ?>>
-                                    <label class="form-check-label" for="dashboard_edit">Edit</label>
-                                </div>
+                            <div class="body d-flex form-check mb-2 p-0" style="flex-direction: row;">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Permissions</th>
+                                        <th scope="col">View</th>
+                                        <th scope="col">Create</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                        <th scope="col">Archive</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr>
+                                    <th scope="row">Dashboard</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="dashboard_view"
+                                            name="permissions[dashboard][view]" <?php if ($userlevel['dashboard_view'] == true) echo 'checked'; ?>></td>
+                                        <td></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="dashboard_edit"
+                                            name="permissions[dashboard][edit]" <?php if ($userlevel['dashboard_edit'] == true) echo 'checked'; ?> ></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Order Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="orderManagement_view"
+                                            name="permissions[orderManagement][view]" <?php if ($userlevel['orderManagement_view'] == true) echo 'checked'; ?>></td>
+                                        <td><input type="checkbox" class="form-check-input" id="orderManagement_create"
+                                            name="permissions[orderManagement][create]" <?php if ($userlevel['orderManagement_create'] == true) echo 'checked'; ?> ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Content Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_view"
+                                            name="permissions[contentManagement][view]" <?php if ($userlevel['contentManagement_view'] == true) echo 'checked'; ?>></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_create"
+                                            name="permissions[contentManagement][create]" <?php if ($userlevel['contentManagement_create'] == true) echo 'checked'; ?>  ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_edit"
+                                            name="permissions[contentManagement][edit]"<?php if ($userlevel['contentManagement_edit'] == true) echo 'checked'; ?>  ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_delete"
+                                            name="permissions[contentManagement][delete]" <?php if ($userlevel['contentManagement_delete'] == true) echo 'checked'; ?> ></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">File Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_view"
+                                            name="permissions[fileManagement][view]"<?php if ($userlevel['fileManagement_view'] == true) echo 'checked'; ?>></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_create"
+                                            name="permissions[fileManagement][create]" <?php if ($userlevel['fileManagement_create'] == true) echo 'checked'; ?> ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_edit"
+                                            name="permissions[fileManagement][edit]" <?php if ($userlevel['fileManagement_edit'] == true) echo 'checked'; ?> ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_delete"
+                                            name="permissions[fileManagement][delete]" <?php if ($userlevel['fileManagement_delete'] == true) echo 'checked'; ?> ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_archive"
+                                                    name="permissions[fileManagement][archive]"<?php if ($userlevel['fileManagement_archive'] == true) echo 'checked'; ?> ></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Statistics Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="statisticsManagement_view"
+                                            name="permissions[statisticsManagement][view]" <?php if ($userlevel['statisticsManagement_view'] == true) echo 'checked'; ?>></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="statisticsManagement_create"
+                                            name="permissions[statisticsManagement][create]" <?php if ($userlevel['statisticsManagement_create'] == true) echo 'checked'; ?>  ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <th scope="row">Chat Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="chatManagement_view"
+                                            name="permissions[chatManagement][view]" <?php if ($userlevel['chatManagement_view'] == true) echo 'checked'; ?>></td>
+                                        <td> <input type="checkbox" class="form-check-input position-static" id="chatManagement_create"
+                                            name="permissions[chatManagement][create]" <?php if ($userlevel['chatManagement_create'] == true) echo 'checked'; ?>  ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <th scope="row">Marketing Management</th>
+                                        <td> <input type="checkbox" class="form-check-input position-static" id="marketingManagement_view"
+                                                    name="permissions[marketingManagement][view]"<?php if ($userlevel['marketingManagement_view'] == true) echo 'checked'; ?>></td>
+                                        <td> <input type="checkbox" class="form-check-input position-static" id="marketingManagement_create"
+                                                    name="permissions[marketingManagement][create]" <?php if ($userlevel['marketingManagement_create'] == true) echo 'checked'; ?>  ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="marketingManagement_edit"
+                                                    name="permissions[marketingManagement][edit]" <?php if ($userlevel['marketingManagement_edit'] == true) echo 'checked'; ?> ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="marketingManagement_delete"
+                                                    name="permissions[marketingManagement][delete]" <?php if ($userlevel['marketingManagement_delete'] == true) echo 'checked'; ?> ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="marketingManagement_archive"
+                                                    name="permissions[marketingManagement][archive]" <?php if ($userlevel['marketingManagement_archive'] == true) echo 'checked'; ?> ></td>
+                                    </tr>
+                                </tbody>
+                                </table> 
                             </div>
-
-                            <!-- Appointment Management Permissions -->
-                            <!-- <label for="permissions"><b>Order Management Permissions</b></label>
-                            <div class="form-group" id="appointmentManagementPermissions">
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="appointmentManagement_view"
-                                        name="permissions[appointmentManagement][view]">
-                                    <label class="form-check-label" for="appointmentManagement_view">View</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="appointmentManagement_create"
-                                        name="permissions[appointmentManagement][create]" >
-                                    <label class="form-check-label" for="appointmentManagement_create">Create</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="appointmentManagement_edit"
-                                        name="permissions[appointmentManagement][edit]" >
-                                    <label class="form-check-label" for="appointmentManagement_edit">Edit</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="appointmentManagement_delete"
-                                        name="permissions[appointmentManagement][delete]" >
-                                    <label class="form-check-label" for="appointmentManagement_delete">Delete</label>
-                                </div>
-                            </div> -->
-
-                            <!-- Account Management Permissions -->
-                            <!-- <label for="permissions"><b>File Management Permissions</b></label>
-                            <div class="form-group" id="accountManagementPermissions">
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="accountManagement_view"
-                                        name="permissions[accountManagement][view]">
-                                    <label class="form-check-label" for="accountManagement_view">View</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="accountManagement_create"
-                                        name="permissions[accountManagement][create]" >
-                                    <label class="form-check-label" for="accountManagement_create">Create</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="accountManagement_edit"
-                                        name="permissions[accountManagement][edit]" >
-                                    <label class="form-check-label" for="accountManagement_edit">Edit</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="accountManagement_delete"
-                                        name="permissions[accountManagement][delete]" >
-                                    <label class="form-check-label" for="accountManagement_delete">Delete</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="accountManagement_archive"
-                                        name="permissions[accountManagement][archive]" >
-                                    <label class="form-check-label" for="accountManagement_archive">Archive</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="accountManagement_ban"
-                                        name="permissions[accountManagement][ban]" >
-                                    <label class="form-check-label" for="accountManagement_ban">Ban</label>
-                                </div>
-                            </div> -->
-
-                            <!-- Content Management Permissions -->
-                            <label for="permissions"><b>Content Management Permissions</b></label>
-                            <div class="form-group" id="contentManagementPermissions">
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="contentManagement_view"
-                                        name="permissions[contentManagement][view]"<?php if ($userlevel['contentManagement_view'] == true) echo 'checked'; ?>>
-                                    <label class="form-check-label" for="contentManagement_view">View</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="contentManagement_create"
-                                        name="permissions[contentManagement][create]" <?php if ($userlevel['contentManagement_create'] == true) echo 'checked'; ?>>
-                                    <label class="form-check-label" for="contentManagement_create">Create</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="contentManagement_edit"
-                                        name="permissions[contentManagement][edit]"<?php if ($userlevel['contentManagement_edit'] == true) echo 'checked'; ?> >
-                                    <label class="form-check-label" for="contentManagement_edit">Edit</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="contentManagement_delete"
-                                        name="permissions[contentManagement][delete]"<?php if ($userlevel['contentManagement_delete'] == true) echo 'checked'; ?> >
-                                    <label class="form-check-label" for="contentManagement_delete">Delete</label>
-                                </div>
-                            </div>
-
-                            <!-- File Management Permissions -->
-                            <label for="permissions"><b>File Management Permissions</b></label>
-                            <div class="form-group" id="fileManagementPermissions">
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="fileManagement_view"
-                                        name="permissions[fileManagement][view]"<?php if ($userlevel['fileManagement_view'] == true) echo 'checked'; ?>>
-                                    <label class="form-check-label" for="fileManagement_view">View</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="fileManagement_create"
-                                        name="permissions[fileManagement][create]"<?php if ($userlevel['fileManagement_create'] == true) echo 'checked'; ?> >
-                                    <label class="form-check-label" for="fileManagement_create">Create</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="fileManagement_edit"
-                                        name="permissions[fileManagement][edit]"<?php if ($userlevel['fileManagement_edit'] == true) echo 'checked'; ?> >
-                                    <label class="form-check-label" for="fileManagement_edit">Edit</label>
-                                </div>
-
-                                <div class="form-check form-check-inline">
-                                    <input type="checkbox" class="form-check-input" id="fileManagement_delete"
-                                        name="permissions[fileManagement][delete]"<?php if ($userlevel['fileManagement_delete'] == true) echo 'checked'; ?> >
-                                    <label class="form-check-label" for="fileManagement_delete">Delete</label>
-                                </div>
-                            </div>
+                           
                             
                         
                             </div>

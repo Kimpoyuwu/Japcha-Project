@@ -1,3 +1,15 @@
+<style>
+    .modal-dialog{
+        max-width: 800px !important;
+    }
+    .table{
+        text-align: left !important;
+    }
+    .form-check-input{
+        position: none !important;
+    }
+</style>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -11,159 +23,106 @@
                 <div class="modal-body">
                     <form action="../includes/user_level.inc.php" enctype="multipart/form-data" method="POST"
                         id="userLevelForm">
-                        <div class="scrollable-form">
+                        <div class="scrollable-forms">
       
                           <div class="form-group">
                               <label for="usname"><b>Name</b></label>
                               <input type="text" class="form-control" placeholder="Enter Name" name="usname" required>
                           </div>
 
-                          <!-- Dashboard Permissions -->
-                          <label for="permissions"><b>Dashboard Permissions</b></label>
-                          <div class="form-group" id="dashboardPermissions">
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="dashboard_view"
-                                      name="permissions[dashboard][view]">
-                                  <label class="form-check-label" for="dashboard_view">View</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="dashboard_edit"
-                                      name="permissions[dashboard][edit]" disabled>
-                                  <label class="form-check-label" for="dashboard_edit">Edit</label>
-                              </div>
-                          </div>
-
-                          <!-- Appointment Management Permissions -->
-                          <!-- <label for="permissions"><b>Order Management Permissions</b></label>
-                          <div class="form-group" id="appointmentManagementPermissions">
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="appointmentManagement_view"
-                                      name="permissions[appointmentManagement][view]">
-                                  <label class="form-check-label" for="appointmentManagement_view">View</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="appointmentManagement_create"
-                                      name="permissions[appointmentManagement][create]" >
-                                  <label class="form-check-label" for="appointmentManagement_create">Create</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="appointmentManagement_edit"
-                                      name="permissions[appointmentManagement][edit]" >
-                                  <label class="form-check-label" for="appointmentManagement_edit">Edit</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="appointmentManagement_delete"
-                                      name="permissions[appointmentManagement][delete]" >
-                                  <label class="form-check-label" for="appointmentManagement_delete">Delete</label>
-                              </div>
-                          </div> -->
-
-                          <!-- Account Management Permissions -->
-                          <!-- <label for="permissions"><b>File Management Permissions</b></label>
-                          <div class="form-group" id="accountManagementPermissions">
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="accountManagement_view"
-                                      name="permissions[accountManagement][view]">
-                                  <label class="form-check-label" for="accountManagement_view">View</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="accountManagement_create"
-                                      name="permissions[accountManagement][create]" >
-                                  <label class="form-check-label" for="accountManagement_create">Create</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="accountManagement_edit"
-                                      name="permissions[accountManagement][edit]" >
-                                  <label class="form-check-label" for="accountManagement_edit">Edit</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="accountManagement_delete"
-                                      name="permissions[accountManagement][delete]" >
-                                  <label class="form-check-label" for="accountManagement_delete">Delete</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="accountManagement_archive"
-                                      name="permissions[accountManagement][archive]" >
-                                  <label class="form-check-label" for="accountManagement_archive">Archive</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="accountManagement_ban"
-                                      name="permissions[accountManagement][ban]" >
-                                  <label class="form-check-label" for="accountManagement_ban">Ban</label>
-                              </div>
-                          </div> -->
-
-                          <!-- Content Management Permissions -->
-                          <label for="permissions"><b>Content Management Permissions</b></label>
-                          <div class="form-group" id="contentManagementPermissions">
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="contentManagement_view"
-                                      name="permissions[contentManagement][view]">
-                                  <label class="form-check-label" for="contentManagement_view">View</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="contentManagement_create"
-                                      name="permissions[contentManagement][create]" disabled >
-                                  <label class="form-check-label" for="contentManagement_create" >Create</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="contentManagement_edit"
-                                      name="permissions[contentManagement][edit]" disabled>
-                                  <label class="form-check-label" for="contentManagement_edit" >Edit</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="contentManagement_delete"
-                                      name="permissions[contentManagement][delete]" disabled>
-                                  <label class="form-check-label" for="contentManagement_delete" >Delete</label>
-                              </div>
-                          </div>
-
-                          <!-- File Management Permissions -->
-                          <label for="permissions"><b>File Management Permissions</b></label>
-                          <div class="form-group" id="fileManagementPermissions">
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="fileManagement_view"
-                                      name="permissions[fileManagement][view]">
-                                  <label class="form-check-label" for="fileManagement_view">View</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="fileManagement_create"
-                                      name="permissions[fileManagement][create]" disabled>
-                                  <label class="form-check-label" for="fileManagement_create" >Create</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="fileManagement_edit"
-                                      name="permissions[fileManagement][edit]" disabled>
-                                  <label class="form-check-label" for="fileManagement_edit" >Edit</label>
-                              </div>
-
-                              <div class="form-check form-check-inline">
-                                  <input type="checkbox" class="form-check-input" id="fileManagement_delete"
-                                      name="permissions[fileManagement][delete]" disabled>
-                                  <label class="form-check-label" for="fileManagement_delete" >Delete</label>
-                              </div>
-                          </div>
-                          
-                      
+                            <div class="body d-flex form-check mb-2 p-0" style="flex-direction: row;">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Permissions</th>
+                                        <th scope="col">View</th>
+                                        <th scope="col">Create</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                        <th scope="col">Archive</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr>
+                                    <th scope="row">Dashboard</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="dashboard_view"
+                                            name="permissions[dashboard][view]"></td>
+                                        <td></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="dashboard_edit"
+                                            name="permissions[dashboard][edit]" disabled></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Order Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="orderManagement_view"
+                                            name="permissions[orderManagement][view]"></td>
+                                        <td><input type="checkbox" class="form-check-input" id="orderManagement_create"
+                                            name="permissions[orderManagement][create]" disabled></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Content Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_view"
+                                            name="permissions[contentManagement][view]"></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_create"
+                                            name="permissions[contentManagement][create]" disabled ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_edit"
+                                            name="permissions[contentManagement][edit]" disabled></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="contentManagement_delete"
+                                            name="permissions[contentManagement][delete]" disabled></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">File Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_view"
+                                            name="permissions[fileManagement][view]"></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_create"
+                                            name="permissions[fileManagement][create] position-static" disabled></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_edit"
+                                            name="permissions[fileManagement][edit]" disabled></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_delete"
+                                            name="permissions[fileManagement][delete]" disabled></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="fileManagement_archive"
+                                                    name="permissions[fileManagement][archive]" disabled></td>
+                                    </tr>
+                                    <tr>
+                                    <th scope="row">Statistics Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="statisticsManagement_view"
+                                            name="permissions[statisticsManagement][view]"></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="statisticsManagement_create"
+                                            name="permissions[statisticsManagement][create]" disabled ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <th scope="row">Chat Management</th>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="chatManagement_view"
+                                            name="permissions[chatManagement][view]"></td>
+                                        <td> <input type="checkbox" class="form-check-input position-static" id="chatManagement_create"
+                                            name="permissions[chatManagement][create]" disabled ></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <th scope="row">Marketing Management</th>
+                                        <td> <input type="checkbox" class="form-check-input position-static" id="marketingManagement_view"
+                                                    name="permissions[marketingManagement][view]"></td>
+                                        <td> <input type="checkbox" class="form-check-input position-static" id="marketingManagement_create"
+                                                    name="permissions[marketingManagement][create]" disabled ></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="marketingManagement_edit"
+                                                    name="permissions[marketingManagement][edit]" disabled></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="marketingManagement_delete"
+                                                    name="permissions[marketingManagement][delete]" disabled></td>
+                                        <td><input type="checkbox" class="form-check-input position-static" id="marketingManagement_archive"
+                                                    name="permissions[marketingManagement][archive]" disabled></td>
+                                    </tr>
+                                </tbody>
+                                </table> 
+                            </div>
+                            
                         </div>
 
                         <div class="form-group mt-3 d-flex justify-content-center text-center">
@@ -192,10 +151,12 @@
             createCheckbox.checked = false;
             editCheckbox.checked = false;
             deleteCheckbox.checked = false;
-            
+            archiveCheckbox.checked = false;
+
             createCheckbox.disabled = true;
             editCheckbox.disabled = true;
             deleteCheckbox.disabled = true;
+            archiveCheckbox.disabled = true;
         }
         createCheckbox.addEventListener("change", function () {
             editCheckbox.disabled = !this.checked;
@@ -211,6 +172,13 @@
                 deleteCheckbox.checked = false;
             }
         });
+
+        deleteCheckbox.addEventListener("change", function () {
+            archiveCheckbox.disabled = !this.checked;
+            if (!this.checked) {
+                archiveCheckbox.checked = false;
+            }
+        });
     });
 
  
@@ -220,26 +188,6 @@
 
     // Dashboard Permissions
     togglePermissions("dashboard", "dashboard_view", "dashboard_edit");
-
-    // Appointment Management Permissions
-    // togglePermissions(
-    //     "appointmentManagement",
-    //     "appointmentManagement_view",
-    //     "appointmentManagement_create",
-    //     "appointmentManagement_edit",
-    //     "appointmentManagement_delete"
-    // );
-
-    // // Account Management Permissions
-    // togglePermissions(
-    //     "accountManagement",
-    //     "accountManagement_view",
-    //     "accountManagement_create",
-    //     "accountManagement_edit",
-    //     "accountManagement_delete",
-    //     "accountManagement_archive",
-    //     "accountManagement_ban"
-    // );
 
     // Content Management Permissions
     togglePermissions(
@@ -256,7 +204,32 @@
         "fileManagement_view",
         "fileManagement_create",
         "fileManagement_edit",
-        "fileManagement_delete"
+        "fileManagement_delete",
+        "fileManagement_archive"
+    );
+    togglePermissions(
+        "orderManagement",
+        "orderManagement_view",
+        "orderManagement_create"
+    );
+
+    togglePermissions(
+        "statisticsManagement",
+        "statisticsManagement_view",
+        "statisticsManagement_create"
+    );
+    togglePermissions(
+        "chatManagement",
+        "chatManagement_view",
+        "chatManagement_create"
+    );
+    togglePermissions(
+        "marketingManagement",
+        "marketingManagement_view",
+        "marketingManagement_create",
+        "marketingManagement_edit",
+        "marketingManagement_delete",
+        "marketingManagement_archive"
     );
 </script>
 

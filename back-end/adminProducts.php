@@ -8,7 +8,8 @@
         include "../config/databaseConnection.php";
         include "../classes/dbh.classes.php";
         include "../classes/ProductsModel.php";
-        
+        $productModel = new ProductModel();
+        $products = $productModel->getAllProducts();
 ?>
 <?php
         if (isset($_GET["error"])){
@@ -19,6 +20,7 @@
         }
             
 ?>
+
     <link rel="stylesheet" href="../assets/css/admin.css">
     <link rel="stylesheet" href="../assets/css/AdminProductBootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -55,51 +57,73 @@
 
     <div class="productSection">
         <?php       
-               $productModel = new ProductModel();
-               $products = $productModel->getAllProducts();
+               
                foreach ($products as $product):
         ?>
-            <div class="boxContainer">
-                <div class="productCon"><?php
+            
+                <div class="card p-2" style="width: 18rem; height: 350px">
+                    <div class="header d-flex justify-content-center p-2" style="height: 60%">
+                    <?php
                     // Assuming $images contains the file path to the image or video
                     if (strpos($product['image_url'], '.mp4') !== false) {
                         // If $images contains '.mp4', it's a video
                         ?>
-                        <video controls>
+                        <video controls style="max-width: 100%">
                         <source src="../upload/<?= $product['image_url']?>" type="video/mp4">
                         <p>Your browser does not support the video tag</p>
                         </video>
                     <?php
                         } else {
                     ?>
-                        <img src="../upload/<?= $product['image_url']?>" alt="">
+                        <img src="../upload/<?= $product['image_url']?>" alt="" style="max-width: 100%" >
                     <?php
                         }
                     ?>
-                </div>
-                <div class="productDescription">
-                    <span><?= $product['product_name']?></span>
-                    <p>₱</p>
-                </div>
-                    <div class="productAction">
-                    <?php
-                               if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
-                                    echo'<div class="editContainer" >
-                                            <img src="../image/editIcon.png" alt="">
-                                            <a href="#" class ="Edit" data-product-id=' . $product['product_id'] . '>Edit</a>
-                                        </div>';
-                               }
-                   
-                               if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
-                                    echo '<div class="removeContainer">
-                                            <img src="../image/removeIcon.png" alt="">
-                                            <a href="../controller/remove.php?deleteid=' . $product['product_id'] . '" class="Remove">Remove</a>
-                                         </div>';
+                    </div>
+                    <div class="card-body" style="height:40%">
+                        <div class="body" style="height:50%">
+                            <h5 class="card-title"><?= $product['product_name']?></h5>
+
+                        </div>
                             
+                        <div class="card-footer d-flex justify-content-center gap-2" style="background-color: transparent; height:50%;">
+                        <?php
+                            //    if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
+                            //         echo'<div class="editContainer" >
+                            //                 <img src="../image/editIcon.png" alt="">
+                            //                 <a href="#" class ="Edit" data-product-id=' . $product['product_id'] . '>Edit</a>
+                            //             </div>';
+                            //    }
+                   
+                            //    if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
+                            //         echo '<div class="removeContainer">
+                            //                 <img src="../image/removeIcon.png" alt="">
+                            //                 <a href="../controller/remove.php?deleteid=' . $product['product_id'] . '" class="Remove">Remove</a>
+                            //              </div>';
+                            
+                            //     }
+                        ?> 
+                        <?php
+                               if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
+                        ?>
+                        <button class="btn btn-info" data-tooltip="tooltip" data-placement="top" title="View Userlevel"
+                                    data-toggle="modal" data-target="#viewProd<?= $product['product_id']?>"><i class="fa fa-eye" aria-hidden="true"></i></button>
+
+                                    <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
+                                    data-toggle="modal" data-target="#edit<?= $product['product_id']?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
+
+                                    <button class="btn btn-warning" data-tooltip="tooltip" data-placement="top" title="Archive Userlevel"
+                                    data-toggle="modal" data-target=""><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+
+                                    <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete Userlevel"
+                                    data-toggle="modal" data-target=""><i class="fa fa-trash" aria-hidden="true"></i></button>
+                        <?php
                                 }
                         ?> 
+                        </div>
                     </div>
-            </div>
+                </div>
+            
             <?php 
             endforeach;
         ?>
@@ -144,11 +168,26 @@ if (isset($_SESSION['error'])) {
 
 <!-- MODAL FOR MEALS -->
     <?php
+            include "ViewProduct.php";
+            include "EditProduct.php";
+       ?>
+       
+    <?php
             include "ProductModal1.php";
        ?>
        <?php
             include "ProductModal2.php";
        ?>
+
+<!-- <div class="container mt-4 d-flex" style="flex-direction: column;">
+    <div class="header">
+         <h1>Add Div Containers Horizontally</h1>
+        <button class="btn btn-primary" id="addButton">Add</button>
+    </div>
+    <div class="body">
+        <div class="container-list" id="containerList"></div>
+    </div>
+</div> -->
 
 <!--END MODAL FOR MEALS -->
 <?php
@@ -170,7 +209,28 @@ if (isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] 
     <script>
     var showRemove = <?php echo json_encode($showRemove); ?>;
     var showEdit = <?php echo json_encode($showEdit); ?>;
+
+   
     </script>
+
+<script>
+$(document).ready(function() {
+    $("#Category").change(function() {
+        var selectedCategory = $(this).val();
+
+        // Make an AJAX request to fetch content based on the selected category
+        $.ajax({
+            url: '../classes/SortByCategoryFunction.php', // Replace with the actual URL to fetch data
+            method: 'POST',
+            data: { category: selectedCategory },
+            success: function(response) {
+                $(".productSection").html(response);
+            }
+        });
+    });
+});
+</script>
+
     <?php
             
         }

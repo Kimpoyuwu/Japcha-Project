@@ -2,13 +2,13 @@
 
 class UserLevel extends Dbh {
 
-    public function setUserLevel($name, $dashboard_view, $dashboard_edit, $contentManagement_view, $contentManagement_create, $contentManagement_edit,$contentManagement_delete,  $fileManagement_view, $fileManagement_create,  $fileManagement_edit, $fileManagement_delete) {
+    public function setUserLevel($name, $dashboard_view, $dashboard_edit,$orderManagement_view ,  $orderManagement_create, $contentManagement_view, $contentManagement_create, $contentManagement_edit,$contentManagement_delete,  $fileManagement_view, $fileManagement_create,  $fileManagement_edit, $fileManagement_delete, $fileManagement_archive, $statisticsManagement_view, $statisticsManagement_create, $chatManagement_view, $chatManagement_create,   $marketingManagement_view,  $marketingManagement_create,  $marketingManagement_edit, $marketingManagement_delete,  $marketingManagement_archive ) {
             try {
 
-                $stmt = $this->connect()->prepare('INSERT INTO user_level (user_level_name,  dashboard_view, dashboard_edit, contentManagement_view  ,  contentManagement_create  ,  contentManagement_edit ,  contentManagement_delete, fileManagement_view, fileManagement_create ,  fileManagement_edit ,  fileManagement_delete ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                $stmt = $this->connect()->prepare('INSERT INTO user_level (user_level_name,  dashboard_view, dashboard_edit, orderManagement_view, orderManagement_create, contentManagement_view  ,  contentManagement_create  ,  contentManagement_edit ,  contentManagement_delete, fileManagement_view, fileManagement_create ,  fileManagement_edit ,  fileManagement_delete, fileManagement_archive, statisticsManagement_view, statisticsManagement_create, chatManagement_view, chatManagement_create,  marketingManagement_view,  marketingManagement_create,  marketingManagement_edit, marketingManagement_delete,  marketingManagement_archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)');
 
                 // Execute the query
-                if (!$stmt->execute(array($name, $dashboard_view, $dashboard_edit, $contentManagement_view, $contentManagement_create, $contentManagement_edit,$contentManagement_delete,  $fileManagement_view, $fileManagement_create,  $fileManagement_edit, $fileManagement_delete))) {
+                if (!$stmt->execute(array($name, $dashboard_view, $dashboard_edit,$orderManagement_view ,  $orderManagement_create, $contentManagement_view, $contentManagement_create, $contentManagement_edit,$contentManagement_delete,  $fileManagement_view, $fileManagement_create,  $fileManagement_edit, $fileManagement_delete, $fileManagement_archive, $statisticsManagement_view, $statisticsManagement_create, $chatManagement_view, $chatManagement_create,   $marketingManagement_view,  $marketingManagement_create,  $marketingManagement_edit, $marketingManagement_delete,  $marketingManagement_archive ))) {
                     throw new Exception("User registration failed.");
                     header("location: ../back-end/userLevel.php?error=userregistrationfailed");
                    

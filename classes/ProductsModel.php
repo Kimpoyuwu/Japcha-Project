@@ -6,7 +6,7 @@
             try {
                 $products = array();
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('SELECT * FROM product ORDER BY product_id DESC');
+                $stmt = $this->connect()->prepare('SELECT p.*, c.* FROM product p INNER JOIN categories c ON p.category_id = c.category_id ORDER BY product_id DESC');
                 
                 // Execute the query
                 if ($stmt->execute()) {
@@ -22,26 +22,48 @@
                 exit();
             }
         }
+        public function getSizeVariation($product_id){
+            try {
+                $products = array();
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT v.*, ps.* FROM variation v INNER JOIN product_sizes ps ON v.size_id = ps.sizes_id WHERE v.product_id = ?');
+        
+                // Execute the query
+                if ($stmt->execute([$product_id])) { // Pass the product_id as an array
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $products[] = $row;
+                    }
+                }
+                return $products;
+        
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+        
         public function getProductsByCategory($category){
             try {
                 $products = array();
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare("SELECT * FROM product WHERE category_id = '$category' ORDER BY product_id DESC");
-                
-                // Execute the query
-                if ($stmt->execute()) {
+                $stmt = $this->connect()->prepare("SELECT * FROM product WHERE category_id = ? ORDER BY product_id DESC");
+        
+                // Execute the query with the category ID wrapped in an array
+                if ($stmt->execute([$category])) {
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         $products[] = $row;
                     }
                 }
                 return $products;
-
+        
             } catch (Exception $e) {
                 // Log the error or handle it appropriately
                 header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
+        
         public function getProductName(){
             $stmt = $this->connect()->prepare('SELECT product_id, product_name FROM product;');
     

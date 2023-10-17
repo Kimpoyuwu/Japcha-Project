@@ -67,12 +67,12 @@
     <!-- HOME -->
     <div class="home">
         <div id="banner">
-            <h1>YOUR ONE-STOP FLAVORFUL SHOP</h1>
-            <h2>MILK TEA • FRUIT TEA • MANGO GRAHAM CAKE • FRAPPE • ETC </h2>
+            <h1><?php echo $data['title_data']; ?></h1>
+            <h2><?php echo $data['subtitle']; ?></h2>
             <a href="#" class="btn-Shopnow">SHOP NOW</a>
         </div>
         <div id="image-right-side">
-                <img src="image/image-hand.png" alt="Hand holding JapCha">
+                <img src="image/<?php echo $data['landing_image_url']; ?>" alt="Hand holding JapCha">
         </div>
 
         <!-- LOGIN FORM MODAL -->

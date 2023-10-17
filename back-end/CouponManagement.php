@@ -66,7 +66,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <form>
+              <form action="" method="" >
                 <div class="form-group">
                   <label for="couponCode">Coupon Code</label>
                   <input type="text" class="form-control" id="couponCode" placeholder="Enter coupon code">

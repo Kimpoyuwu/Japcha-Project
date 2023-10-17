@@ -6,7 +6,7 @@ class addSize extends Dbh {
     protected function setSize($size) {
             try {
 
-                $stmt = $this->connect()->prepare('INSERT INTO size (size_name) VALUES (?)');
+                $stmt = $this->connect()->prepare('INSERT INTO product_sizes (size_name) VALUES (?)');
 
                 // Execute the query
                 if (!$stmt->execute(array($size))) {
@@ -28,7 +28,7 @@ class addSize extends Dbh {
     protected function updateNewSize($size, $sizeID) {
         try {
 
-            $stmt = $this->connect()->prepare('UPDATE size SET size_name = ? WHERE size_id = ?');
+            $stmt = $this->connect()->prepare('UPDATE product_sizes SET size_name = ? WHERE size_id = ?');
     
             // Execute the query
             if (!$stmt->execute(array($size, $sizeID))) {
@@ -49,7 +49,7 @@ class addSize extends Dbh {
     protected function checkSize($size) {
         try {
             // Prepare the SQL query
-            $stmt = $this->connect()->prepare('SELECT size_name FROM size WHERE size_name = ?');
+            $stmt = $this->connect()->prepare('SELECT size_name FROM product_sizes WHERE size_name = ?');
             
             // Execute the query
             if (!$stmt->execute(array($size))) {
@@ -72,7 +72,7 @@ class addSize extends Dbh {
         protected function getSize($size_name) {
             try {
 
-                $stmt = $this->connect()->prepare('SELECT size_name FROM size WHERE size_name = ?');
+                $stmt = $this->connect()->prepare('SELECT size_name FROM product_sizes WHERE size_name = ?');
 
                 // Execute the query
                 if (!$stmt->execute(array($size))) {

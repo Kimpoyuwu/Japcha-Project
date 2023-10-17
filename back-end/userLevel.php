@@ -104,9 +104,9 @@
            
         </section>
         <?php
-            foreach (["DeletedSuccess", "AddedSuccess", "cantdelete", "cantarchive", "archiveSucess"] as $key) {
+            foreach (["DeletedSuccess", "AddedSuccess", "cantdelete", "cantarchive", "archiveSucess", "ErrorMessage"] as $key) {
               if (isset($_SESSION[$key])) {
-                  $alertClass = in_array($key, ["cantdelete", "cantarchive"]) ? "alert-danger" : "alert-success";
+                  $alertClass = in_array($key, ["cantdelete", "cantarchive", "ErrorMessage"]) ? "alert-danger" : "alert-success";
                   echo '<div class="alert ' . $alertClass . '" role="alert">';
                   echo $_SESSION[$key];
                   echo '</div>';

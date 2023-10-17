@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="../assets/css/admindashboard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <!-- <link rel="stylesheet" href="adminDashboard.css"> -->
+<?php
+        if(isset($_SESSION["dashboardview"]) && $_SESSION["dashboardview"] == 1){                 
+?>    
 <div class="container mt-4 mr-0 mb-0 pd-0 pl-0  float: right;" >
     <p class="Dashboard text-left">Dashboard</p>
       <div class="row">
@@ -97,7 +100,9 @@
       <!-- Add similar card elements for other tiles -->
     
 </div>
-
+<?php
+      }
+?>
 
 
 

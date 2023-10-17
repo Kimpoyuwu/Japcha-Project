@@ -70,10 +70,10 @@
                             if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
                         ?>
                                     <button class="btn btn-warning" data-tooltip="tooltip" data-placement="top" title="Archive Userlevel"
-                                    data-toggle="modal" data-target="#archive<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-archive" aria-hidden="true"></i></button>
+                                    data-toggle="modal" data-target="#archive<?= $productVariation['prodsizes_id'] ?>"><i class="fa fa-archive" aria-hidden="true"></i></button>
 
                                     <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete"
-                                    data-toggle="modal" data-target="#confirm<?= $userlevel['userlevel_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    data-toggle="modal" data-target="#confirm<?= $productVariation['prodsizes_id'] ?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
                                 
                                 </td></div>
                         <?php
@@ -95,6 +95,7 @@
  
     <?php include "AddProductSize.php" ?>
     <?php include "EditProductSize.php" ?>
+    <?php include "ArchiveProductVariation.php" ?>
 
     <script>
                     let popup = document.getElementById("addAdminPopup");

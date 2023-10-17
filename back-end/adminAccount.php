@@ -32,9 +32,7 @@
                     <th>id</th>
                     <th>Profile</th>
                     <th>Username</th>
-                    <th>Email</th>
                     <th>User Level</th>
-                    <th>Contact No.</th>
                     <?php
                             if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
                                 echo'<th>Action</th>';
@@ -59,14 +57,18 @@
                                 <td><?= $count ?></td>
                                 <td><img src='../image/user.jpg' alt='user image'></td>
                                 <td><?= $admin['username'] ?></td>
-                                <td><?= $admin['email'] ?></td>
                                 <td><?= $admin['user_level_name'] ?></td>
-                                <td><?= $admin['contact'] ?></td>
                                 <?php
                                      if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
                                         
                                         ?>
                                         <td>
+                                            <button class="btn btn-info" data-tooltip="tooltip" data-placement="top" title="View Userlevel"
+                                            data-toggle="modal" data-target=""><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                            
+                                            <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
+                                            data-toggle="modal" data-target=""><i class="fa fa-edit" aria-hidden="true"></i></button>
+                                            
                                             <button class="btn btn-danger" onclick="window.location.href='../controller/remove-admin.php?deleteidadmin=<?= $id ?>'">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </button>

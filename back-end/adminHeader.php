@@ -17,15 +17,15 @@
     <title>Document</title>
     
 </head>
-<?php
-    if(isset($_SESSION["adminID"]) ){
- ?>
+
 <body>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
-
+<?php
+    if(isset($_SESSION["adminID"]) ){
+ ?>
 <nav>
     <div class="menu_logo">
     <div id="menu-icon">
@@ -47,7 +47,9 @@
          <ul class="nav-links">
          <?php
                     if(isset($_SESSION["dashboardview"]) && $_SESSION["dashboardview"] == 1){
-                        echo '<li>
+                       
+            
+        ?>              <li>
                             <a href="AdminDashBoard.php">
                                 <i class="fa fa-home icon"></i>
                                 <span class="link_name">Dashboard</span>
@@ -55,14 +57,18 @@
                             <ul class="sub-menu blank">
                                 <li><a class="link_name" href="AdminDashBoard.php">Dashboard</a></li>
                             </ul> 
-                        </li>';
-                    }
-                
+                        </li>
+        <?php
+            }
+        ?>
+
+        <?php   
                     if(isset($_SESSION["file_view"]) && $_SESSION["file_view"] == 1){
-                            echo '<li>
+                    
+        ?>                      <li>
                                         <div class="icon-link">
                                             <a href="#">
-                                                <i class="fa fa-users icon"></i>
+                                                <i class="fa fa-folder" aria-hidden="true"></i>
                                                 <span class="link_name">File Manager</span>
                                             </a>
                                             <i class="fa fa-caret-down arrow"></i>
@@ -78,10 +84,13 @@
                                             <li><a href="admin-add-ons.php">Add-ons</a></li>
                                             <li><a href="admin-sizes.php">Sizes</a></li>
                                         </ul> 
-                                 </li>';
-                    }
-            ?>
-                        
+                                 </li>
+        <?php
+            }
+        ?>
+        <?php
+                if(isset($_SESSION["orderManagement_view"]) && $_SESSION["orderManagement_view"] == 1){
+        ?>       
                 <li>
                     <div class="icon-link">
                         <a href="AdminOrders.php">
@@ -96,6 +105,13 @@
                         <li><a href="#">Archive</a></li>
                     </ul>  
                 </li>
+        <?php
+            }
+        ?>
+
+        <?php
+                if(isset($_SESSION["statisticsManagement_view"]) && $_SESSION["statisticsManagement_view"] == 1){
+        ?>  
                 <li>
                     <a href="adminStatistic.php">
                         <i class="fa fa-bar-chart"></i>
@@ -123,9 +139,14 @@
                         <li><a class="link_name" href="adminMessage.php">Chatbot</a></li>
                     </ul> 
                 </li>
+        <?php
+            }
+        ?>
+
                <?php
                 if(isset($_SESSION["contentManagement_view"]) && $_SESSION["contentManagement_view"] == 1){
-                    echo '<li>
+                  ?>
+                        <li>
                                 <a href="admin-cms.php">
                                     <i class="fa fa-tasks"></i>
                                     <span class="link_name">Content Management</span>
@@ -133,27 +154,33 @@
                                 <ul class="sub-menu blank">
                                     <li><a class="link_name" href="admin-cms.php">Content Management</a></li>
                                 </ul> 
-                         </li>  ';
+                         </li>  
+                <?php
                  }
                ?>
-               <li>
-                    <a href="AdminRating.php">
-                        <i class="fa fa-star-o"></i>
-                        <span class="link_name">Ratings Management</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="AdminRating.php">Ratings Management</a></li>
-                    </ul> 
-                </li>
+
+                <?php
+                if(isset($_SESSION["marketingManagement_view"]) && $_SESSION["marketingManagement_view"] == 1){
+                  ?>
+
                 <li>
-                    <a href="CouponManagement.php">
-                        <i class="fa fa-ticket" aria-hidden="true"></i>
-                        <span class="link_name">Coupon Management</span>
-                    </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="AdminRating.php">Coupon Management</a></li>
-                    </ul> 
+                    <div class="icon-link">
+                        <a href="#">
+                            <i class="fa fa-bullhorn" aria-hidden="true"></i>
+                            <span class="link_name">Marketing</span>
+                        </a>
+                        <i class="fa fa-caret-down arrow"></i>
+                    </div>
+                    <ul class="sub-menu">
+                        <li><a class="link_name" href="#">Marketing</a></li>
+                        <li><a href="AdminRating.php">Ratings Management</a></li>
+                        <li><a href="CouponManagement.php">Coupon Management</a></li>
+                        <li><a href="AnnouncementManagement.php">Announcement</a></li>
+                    </ul>  
                 </li>
+                <?php
+                 }
+               ?>
 
             <li>
                 <div class="profile-details">
@@ -177,6 +204,7 @@
             
         </ul>
     </div>
+
     <?php
             
         }
