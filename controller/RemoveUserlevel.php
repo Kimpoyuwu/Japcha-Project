@@ -38,10 +38,85 @@ class userlvlController extends Dbh {
         header("location: ../back-end/userLevel.php");
         exit();
     }
+    public function deleteProduct() {
+        if (isset($_GET['deleteidproduct'])) {
+            $id = (int)$_GET['deleteidproduct'];
+    
+            try {
+                $stmt = $this->connect()->prepare('UPDATE product SET isDeleted = 1 WHERE product_id = ?');
+    
+                if (!$stmt) {
+                    // Handle SQL query preparation error
+                    header("location: ../adminProducts.php?error=stmtpreparefailed");
+                    exit();
+                }
+    
+                if (!$stmt->execute(array($id))) {
+                    // Handle SQL query execution error
+                    $stmt = null;
+                    header("location: ../adminProducts.php?error=stmtfailed");
+                    exit();
+                }
+    
+                $stmt = null;
+            } catch (Exception $e) {
+                // Handle any exceptions that occur
+                header("location: ../adminProducts.php?error=" . $e->getMessage());
+                exit();
+            }
+        }
+    
+        header("location: ../back-end/adminProducts.php");
+        exit();
+    }
+
+    public function archiveProduct() {
+        if (isset($_GET['archiveidproduct'])) {
+            $id = (int)$_GET['archiveidproduct'];
+    
+            try {
+                $stmt = $this->connect()->prepare('UPDATE product SET isHide = 1 WHERE product_id = ?');
+    
+                if (!$stmt) {
+                    // Handle SQL query preparation error
+                    header("location: ../adminProducts.php?error=stmtpreparefailed");
+                    exit();
+                }
+    
+                if (!$stmt->execute(array($id))) {
+                    // Handle SQL query execution error
+                    $stmt = null;
+                    header("location: ../adminProducts.php?error=stmtfailed");
+                    exit();
+                }
+    
+                $stmt = null;
+            } catch (Exception $e) {
+                // Handle any exceptions that occur
+                header("location: ../adminProducts.php?error=" . $e->getMessage());
+                exit();
+            }
+        }
+    
+        header("location: ../back-end/adminProducts.php");
+        exit();
+    }
+    
     
     
 }
 
 // Create an object of the class and call the method
 $controller = new userlvlController();
-$controller->deleteUl();
+
+if (isset($_GET['deleteidul'])) {
+    $controller->deleteUl();
+}
+
+if (isset($_GET['deleteidproduct'])) {
+    $controller->deleteProduct();
+}
+
+if (isset($_GET['archiveidproduct'])) {
+    $controller->archiveProduct();
+}

@@ -2,12 +2,12 @@
     include "adminHeader.php";
 ?>
 <style>
-    .graph-container2{
+    /* .graph-container2{
         display: none;
     }
     .graph-container2.hidden{
         display: block;
-    }
+    } */
 </style>
 
 <div class="stat-main">
@@ -82,7 +82,7 @@
             </script>
 
             
-            <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+            <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script> -->
 
 
                 <div class="graph-container2">

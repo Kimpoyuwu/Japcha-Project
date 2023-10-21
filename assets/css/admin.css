@@ -1331,22 +1331,19 @@ flex-direction: column;
     display: flex;
     height: 7%;
     width: 82.7%;
-    align-items: center;
     margin-left: 17.3%;
     gap: 20px;
     padding-left: 20px;
-    padding-bottom: 5px;
     border-bottom: 1px solid black;
 }
-.buttonContainer button{
+/* .buttonContainer button{
     padding: 8px 16px;
-    background-color: #191a19;
-    border: 1px solid #2f2f2f;
+    border: none;
     text-decoration: none;
-    color: white;
+    color: rgb(23, 23, 23);
     cursor: pointer;
     border-radius: 7px;
-}
+} */
 
 .buttonContainer button:hover{
     background-color: #EBC749;

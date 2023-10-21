@@ -97,7 +97,7 @@
             }
         }
         document.getElementById("itemContainer").addEventListener("click", function() {
-        window.location.href = "ProductDetails_Front.php"; 
+        window.location.href = "ProductDetails.php"; 
         });
         
         

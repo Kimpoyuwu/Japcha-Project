@@ -1,17 +1,19 @@
 <?php
-
     class SampleModel extends Dbh{
 
-        public function setContent($content){
+        public function setContent($japcha){
             try {
               
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE about_us SET japcha = ? ');
+                $stmt = $this->connect()->prepare('UPDATE cms SET japcha = ? ');
                 
                 // Execute the query
-                if(!$stmt->execute(array($content))) {
+                if(!$stmt->execute(array($japcha))) {
                     $stmt = null;
                     header("location: ../myProfile.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
                     exit();
                 }
                 $stmt = null;
@@ -26,12 +28,15 @@
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE about_us SET order_note = ? ');
+                $stmt = $this->connect()->prepare('UPDATE cms SET order_note = ? ');
                 
                 // Execute the query
                 if(!$stmt->execute(array($order))) {
                     $stmt = null;
                     header("location: ../myProfile.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
                     exit();
                 }
                 $stmt = null;
@@ -46,12 +51,15 @@
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE about_us SET socials = ? ');
+                $stmt = $this->connect()->prepare('UPDATE cms SET socials = ? ');
                 
                 // Execute the query
                 if(!$stmt->execute(array($social))) {
                     $stmt = null;
                     header("location: ../myProfile.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
                     exit();
                 }
                 $stmt = null;
@@ -66,12 +74,15 @@
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE about_us SET policy = ? ');
+                $stmt = $this->connect()->prepare('UPDATE cms SET policy = ? ');
                 
                 // Execute the query
                 if(!$stmt->execute(array($policy))) {
                     $stmt = null;
                     header("location: ../myProfile.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
                     exit();
                 }
                 $stmt = null;
@@ -86,12 +97,15 @@
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE about_us SET location = ? ');
+                $stmt = $this->connect()->prepare('UPDATE cms SET location = ? ');
                 
                 // Execute the query
                 if(!$stmt->execute(array($loc))) {
                     $stmt = null;
                     header("location: ../myProfile.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
                     exit();
                 }
                 $stmt = null;
@@ -105,18 +119,21 @@
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE about_us SET contact = ? ');
+                $stmt = $this->connect()->prepare('UPDATE cms SET contact = ? ');
                 
                 // Execute the query
                 if(!$stmt->execute(array($contact))) {
                     $stmt = null;
-                    header("location: ../myProfile.php?error=stmtfailed");
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
                     exit();
                 }
                 $stmt = null;
             } catch (Exception $e) {
                 // Log the error or handle it appropriately
-                header("location: ../back-end/admin-ProductSizes.php?error=" . urlencode($e->getMessage()));
+                header("location: ../back-end/admin-cms.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
@@ -125,18 +142,21 @@
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE cms_landing_page SET title = ?');
+                $stmt = $this->connect()->prepare('UPDATE cms SET title_data = ?');
                 
                 // Execute the query
                 if(!$stmt->execute(array($title_data))) {
                     $stmt = null;
-                    header("location: ../myProfile.php?error=stmtfailed");
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
                     exit();
                 }
                 $stmt = null;
             } catch (Exception $e) {
                 // Log the error or handle it appropriately
-                header("location: ../back-end/admin-ProductSizes.php?error=" . urlencode($e->getMessage()));
+                header("location: ../back-end/admin-cms.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
@@ -145,12 +165,59 @@
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE cms_landing_page SET subtitle = ?');
+                $stmt = $this->connect()->prepare('UPDATE cms SET subtitle = ?');
                 
                 // Execute the query
                 if(!$stmt->execute(array($subtitle))) {
                     $stmt = null;
-                    header("location: ../myProfile.php?error=stmtfailed");
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
+                    exit();
+                }
+                $stmt = null;
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location: ../back-end/admin-cms.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+
+        public function setFbLink($fbLink, $igLink, $ytLink){
+            try {
+                
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('UPDATE cms SET fbLink = ?, instagramLink = ?, ytLink = ?');
+                
+                // Execute the query
+                if(!$stmt->execute(array($fbLink, $igLink, $ytLink))) {
+                    $stmt = null;
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
+                    exit();
+         
+                }
+                $stmt = null;
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location: ../back-end/admin-ProductSizes.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+
+        public function setYtLink($ytLink){
+            try {
+                
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('UPDATE cms SET ytLink = ?');
+                
+                // Execute the query
+                if(!$stmt->execute(array($ytLink))) {
+                    $stmt = null;
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
                     exit();
                 }
                 $stmt = null;
@@ -161,37 +228,16 @@
             }
         }
 
-        public function setFbLink($fbLink){
+        public function setIgLink($igLink){
             try {
                 
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE social_media_links SET fb_link = ?');
+                $stmt = $this->connect()->prepare('UPDATE cms SET instagramLink = ?');
                 
                 // Execute the query
-                if(!$stmt->execute(array($fbLink))) {
+                if(!$stmt->execute(array($igLink))) {
                     $stmt = null;
-                    header("location: ../myProfile.php?error=stmtfailed");
-                    exit();
-                }
-                $stmt = null;
-            } catch (Exception $e) {
-                // Log the error or handle it appropriately
-                header("location: ../back-end/admin-ProductSizes.php?error=" . urlencode($e->getMessage()));
-                exit();
-            }
-        }
-
-     
-        public function setYtLink($fbLink){
-            try {
-                
-                // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE cms_landing_page SET subtitle = ?');
-                
-                // Execute the query
-                if(!$stmt->execute(array($fbLink))) {
-                    $stmt = null;
-                    header("location: ../myProfile.php?error=stmtfailed");
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
                     exit();
                 }
                 $stmt = null;

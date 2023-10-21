@@ -52,12 +52,13 @@
                     <div class="modal-body" style="max-height: 70vh; overflow-y: auto;">
                         <div class="form-group">
                             <label for="productname<?= $prodid ?>">Product Name:</label>
+                            <input type="hidden" name ="prodId" value="<?= $prodid ?>">
                             <input type="text" class="form-control" id="productname<?= $prodid ?>" name="productname" required value="<?= $product['product_name'] ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="category">Category:</label>
-                            <select class="form-control" name="category" required>
+                            <select class="form-control" name="categoryid" required>
                                 <option value="<?= $product['category_id'] ?>" selected disabled style="font-style: italic; color: gray;"><?= $product['category_name'] ?></option>
                                 <?php
                                 $query = "SELECT category_id, category_name FROM categories WHERE category_id != " . $product['category_id'];
@@ -75,26 +76,13 @@
                             <label for="product_image<?= $prodid ?>">Product Image:</label>
                             <input class="form-control-file" type="file" accept="image/*, video/*" name="product_image" id="product_image<?= $prodid ?>">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group mb-0">
+                            <input type="hidden" name="PrevMedia" value="<?= $product['image_url']?>">
+                            <input type="hidden" name="PrevCat" value="<?= $product['category_id']?>">
+                            <input type="hidden" name="PrevProdName" value="<?= $product['product_id']?>">
+                            <input type="hidden" name="PrevDescription" value="<?= $product['description']?>">
                             <div id="mediaPreview<?= $prodid ?>" class="mediaPreview" style="max-width: 100%;"></div>
-                            <?php
-        if (strpos($image, '.mp4') !== false) {
-            // If $image contains '.mp4', it's a video
-            ?>
-                    <video id="productVideo<?= $prodid ?>" class="productVideo" controls style="max-width: 100%">
-                        <source src="../upload/<?= $product['image_url']?>" type="video/mp4">
-                        <p>Your browser does not support the video tag</p>
-                    </video>
-        <?php
-        } else {
-        ?>
-            <img id="productImage<?= $prodid ?>" class="productImage" src="../upload/<?= $image ?>" alt="Product Image">
-        <?php
-        }
-        ?>
-                            
                           
-
                         </div>
 
                         <div class="form-group">
@@ -111,10 +99,15 @@
                                     
                                     $getSize =  $productModel->getSizeVariation($prodid);
                                     $count=0;
-                                    foreach($getSize as $varSize):                                    
+                                    foreach($getSize as $varSize):  
+                                      $varid =  $varSize['variation_id'];        
+                                      $PrevSize =  $varSize['size_id'];
+                                      $PrevPrice =  $varSize['price'];                   
                                     ?>
                             <div class="container-list d-flex flex-row gap-2" id="containerList"> 
-                                    
+                                    <input type="hidden" name="varID[]" value="<?= $varSize['variation_id']?>">
+                                    <input type="hidden" name="prevSize[]" value="<?= $varSize['size_id']?>">
+                                    <input type="hidden" name="prevPrice[]" value="<?= $varSize['price']?>">
                                 <div class="con">
                                    
                                     <select class="form-control" name="sizes[]">
@@ -243,8 +236,11 @@ $(document).ready(function() {
 
                         $('#dynamic<?= $prodid ?>').append(
                             '<div class="container-list d-flex flex-row gap-2" id="containerList' + i + '">' +
-                            '<div class="con"><select class="form-control" name="sizes[]">' + selectOptions + '</select></div>' +
-                            '<div><input type="number" name="prices[]" class="form-control" required></div>' +
+                            '<input type="hidden" name="varID[]" value="<?= $varid ?>">'+
+                            '<input type="hidden" name="prevSize[]" value="<?=  $PrevSize ?>">'+
+                            '<input type="hidden" name="prevPrice[]" value="<?= $PrevPrice ?>">'+
+                            '<div class="con"><select class="form-control" name="sizess[]">' + selectOptions + '</select></div>' +
+                            '<div><input type="number" name="pricess[]" class="form-control" required></div>' +
                             '<div><i class="fa fa-minus-circle delete" id="' + i + '" style="cursor:pointer;" aria-hidden="true"></i></div>' +
                             '</div>'
                         );

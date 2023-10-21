@@ -11,11 +11,11 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                 </div>
-                <div class="modal-body">
+               
                     <div class="alert alert-danger mb-0" role="alert">
                         Do you want to delete <?= $userlevel['user_level_name'] ?> userlevel?
                     </div>
-                </div>
+      
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger"><a style="text-decoration: none; color:#ffffff;" href="../controller/RemoveUserlevel.php?deleteidul=<?=$userlevel['userlevel_id']?>">Yes</a></button>
                 </div>

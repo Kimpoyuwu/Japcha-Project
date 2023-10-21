@@ -6,7 +6,7 @@
             try {
                 $products = array();
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('SELECT p.*, c.* FROM product p INNER JOIN categories c ON p.category_id = c.category_id ORDER BY product_id DESC');
+                $stmt = $this->connect()->prepare('SELECT p.*, c.* FROM product p INNER JOIN categories c ON p.category_id = c.category_id WHERE p.isDeleted != 1 AND isHide != 1 ORDER BY product_id DESC');
                 
                 // Execute the query
                 if ($stmt->execute()) {

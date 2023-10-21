@@ -1,12 +1,12 @@
 
 <?php
-    require '../classes/dbh.classes.php';
-    require '../classes/save_note_Model.php';
-    require_once '../classes/save_note_View.php';
+    require_once '../classes/dbh.classes.php';
+    // require '../classes/save_note_Model.php';
+    // require_once '../classes/save_note_View.php';
     require_once '../classes/cms.classes.php';
     $cmsData = new Cms();
     $cms = $cmsData->getCms();
-    $AboutUsInfo = new SampleView();
+    // $AboutUsInfo = new SampleView();
 ?>
 <?php
     include_once "CmsHeader.php";
@@ -30,14 +30,14 @@
         margin-left: 90px;
         text-shadow: 2px 5px 4px rgba(0, 0, 0, 0.25);
     }
+  
 </style>
 
 <?php
     foreach($cms as $infoCMS):
 ?>
-<div class="CmsBodyContainer" >
-    <div class="CmsAboutUs-Container d-flex flex-column" style="background-color: #FDE402;">
-        <div class="headerAboutUs p-3">Landing Page</div>
+<div class="tab-pane fade show active CmsBodyContainer"  id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+    <div class="CmsAboutUs-Container d-flex flex-column">
         <div class="EditFieldCon mt-5 mb-5">
         <form id="upload-form" enctype="multipart/form-data">
                 <div class="label-con">
@@ -71,7 +71,7 @@
                     <label for="Logo">Logo:</label>
                     <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
                     data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                
+                    
                 </div>
 
                 <div class="text-center">
@@ -103,11 +103,13 @@
 <?php
     endforeach;
 ?>
+
 <script>
     $(document).ready(function () {
             initializeSummernote('#title');
             initializeSummernote('#Subtitle');
         });
+   
 </script>
 
 <?php

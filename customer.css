@@ -792,10 +792,11 @@ footer #social-media-footer ul li:hover a .fa-instagram {
 .shopContainer {
     display: flex;
     flex-direction: column;
-    height: 200vh;
+    max-height: 200vh;
     width: 100%;
     align-items: center;
     background-color: #f4f1ec;
+    overflow: auto;
 }
 .shopContainer .filterContainer{
     position: relative;
@@ -838,7 +839,7 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     flex-wrap: wrap;
     justify-content: flex-start;
     border-radius: 5px;
-    gap: 91px;
+    gap: 81px;
 }
 .shopContainer .productContainer .itemContainer .product{
     display: block;

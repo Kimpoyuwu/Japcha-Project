@@ -9,7 +9,7 @@
 <?php
     include_once "CmsHeader.php";
 ?>
-<div class="CmsBodyContainer">
+<div class="tab-pane fade CmsBodyContainer" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
     <div class="CmsAboutUs-Container">
         <form action="">
             <div class="headerAboutUs">About Us</div>
@@ -57,7 +57,7 @@
             initializeSummernote('#contact');
         });
 </script>
-<script src="../assets/js/summerNote.js"></script>
+<!-- <script src="../assets/js/summerNote.js"></script> -->
 <?php
     include_once "CmsFooter.php";
 ?>

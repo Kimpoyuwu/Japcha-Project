@@ -113,10 +113,10 @@
                                     data-toggle="modal" data-target="#edit<?= $product['product_id']?>"><i class="fa fa-edit" aria-hidden="true"></i></button>
 
                                     <button class="btn btn-warning" data-tooltip="tooltip" data-placement="top" title="Archive Userlevel"
-                                    data-toggle="modal" data-target=""><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                                    data-toggle="modal" data-target="#archiveProduct<?= $product['product_id']?>"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
 
                                     <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete Userlevel"
-                                    data-toggle="modal" data-target=""><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                    data-toggle="modal" data-target="#deleteProduct<?= $product['product_id']?>"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         <?php
                                 }
                         ?> 
@@ -170,6 +170,7 @@ if (isset($_SESSION['error'])) {
     <?php
             include "ViewProduct.php";
             include "EditProduct.php";
+            include "DeleteProduct.php";
        ?>
        
     <?php
