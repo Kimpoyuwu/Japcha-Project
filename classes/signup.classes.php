@@ -27,7 +27,7 @@ class Signup extends Dbh {
         
     }
 
-    protected function checkUser($username, $email) {
+    protected function checkUser($email) {
         try {
             // Prepare the SQL query
             $stmt = $this->connect()->prepare('SELECT username FROM customer_account WHERE username = ? OR email = ?');

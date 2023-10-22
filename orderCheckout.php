@@ -81,18 +81,32 @@
     .modal-gcash{
         text-align: center;
     }
+    td{
+        vertical-align: middle !important;
+    }
+    h3{
+        font-size: 1rem !important;
+    }
     </style>
-    
+<?php
+    if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        $prodID = $_POST['prdID'];
+        $prodname = $_POST['prdname'];
+        $image = $_POST['prodImage'];
+        $sizeid = $_POST['sizes'];
+?> 
 <div class="container orderMainCont">
-       
+    <form action="includes/OrderInc.php" method ="POST">
 
+ 
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="detailsCont">
                     <div class="userDetails">
                         <div class="name">
                             <div class="name1">
-                            <h3 class="mt">User Details</h3>
+                 
                                 <p>Full Name</p>
                                 <h4>Juan Dela Cruz</h4>
                             </div>
@@ -217,44 +231,70 @@
             <tr>
                 <th scope="col">Image</th>
                 <th scope="col">Product Name</th>
+                <th scope="col">Size</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
                 <th scope="col">Subtotal</th>
-                <th scope="col">Action</th>
+                <!-- <th scope="col">Action</th> -->
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
-                <td class="center-content">Product 1</td>
-                <td class="center-content">₱100.00</td>
-                <td class="center-content">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+                <td class="center-content"><?php
+                    // Assuming $images contains the file path to the image or video
+                    if (strpos($image, '.mp4') !== false) {
+                        // If $images contains '.mp4', it's a video
+                        ?>
+                        <video controls="false" style="max-width: 100px; max-height: 100px;">
+                        <source src="upload/<?= $image?>" type="video/mp4">
+                        <p>Your browser does not support the video tag</p>
+                        </video>
+                    <?php
+                        } else {
+                    ?>
+                        <img src="upload/<?= $image ?>" alt="" style="max-width: 100px; max-height: 100px;" >
+                    <?php
+                        }
+                    ?>
                 </td>
-                <td class="center-content">₱100.00</td>
-                <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td>
-            </tr>
-            <tr>
-                <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap " style="max-width: 100px; max-height: 100px;"></td>
-                <td class="center-content">Product 2</td>
-                <td class="center-content">₱100.00</td>
+                <td class="center-content"><?=  $prodname ?></td>
+                <?php
+                    $getSizeName =  $productModel->getOneSize($sizeid);
+                    if ($getSizeName !== false) {
+                        $sizename = $getSizeName;
+                ?>
+                <td class="center-content"><?=  $sizename ?></td>
+                <?php
+                    }
+                ?>
+                <?php
+                 $getprice =  $productModel->getPrice($sizeid);
+                
+                 if ($getprice !== false) {
+                    $price = $getprice;
+                ?>
+                <td class="center-content">₱<span id="price"><?= $price ?></span></td>
+                <?php
+                 }
+                ?>
                 <td class="center-content">
-                    <select class="form-control" id="exampleFormControlSelect1">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
+               
+                       <input type="number" name="quantity" id="quantity" min="1" step="1" value="1" required style="width:20%;">
+                       
+                 
                 </td>
-                <td class="center-content">₱100.00</td>
-                <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td>
+                <?php
+                 $getprice =  $productModel->getPrice($sizeid);
+                
+                 if ($getprice !== false) {
+                    $price = $getprice;
+                ?>
+                <td class="center-content" >₱<span id="subtotal"><?= $price ?></span></td>
+                <input type="hidden" name="subtotal1" id="subtotalInput" value="<?= $price ?>">
+                <?php
+                 }
+                ?>
+                <!-- <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td> -->
             </tr>
         </tbody>
     </table>
@@ -267,21 +307,37 @@
             </div>
 
             <div class="totalPrice mt-3">
+                <span id="shippingFee" style="display: none">Shipping Fee: $10.00</span>
                 <h2 class="TP">Total Price:</h2>
-                <h3 class="value">₱480.00</h3>
-                <button class="btn btn-primary" onclick="goToPage()">Proceed</button>
+                <h3 class="value">₱<span id="total"><?= $price ?></span></h3>
+                <button class="btn btn-primary" type ="submit">Proceed</button>
             </div>
         </div>
-    </div>
+</form>
 
+</div>
+
+    <?php
+    include "OrderCheckoutModal.php";
+    ?>
     <script>
     function selectOnlyOne(checkbox) {
         var checkboxes = document.getElementsByName('group');
-
+        const shippingFeeElement = document.getElementById("shippingFee");
+        
+        // Iterate through the checkboxes
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i] !== checkbox) {
+                // Uncheck other checkboxes
                 checkboxes[i].checked = false;
             }
+        }
+        
+        // Update the visibility of the shipping fee based on the selected checkbox
+        if (checkbox.checked) {
+            shippingFeeElement.style.display = "inline";
+        } else {
+            shippingFeeElement.style.display = "none";
         }
     }
 
@@ -294,28 +350,40 @@
         // Proceed to orderStatus.php
         window.location.href = "orderStatus.php";
     }
-</script>
+ // Get references to the quantity input, price, and subtotal elements
+ const quantityInput = document.getElementById("quantity");
+  const priceElement = document.getElementById("price");
+  const subtotalElement = document.getElementById("subtotal");
+  const totalElement = document.getElementById("total");
+  
+  // Function to calculate subtotal
+  function calculateSubtotal() {
+    const quantity = parseInt(quantityInput.value, 10);
 
-<!-- Add this modal to your HTML -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">Confirm Proceeding</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to proceed to order status?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" onclick="proceedToOrderStatus()">Yes, Proceed</button>
-            </div>
-        </div>
-    </div>
-</div>
+    // Check if quantity is less than 1 or empty
+    if (quantity < 1 || isNaN(quantity)) {
+      quantityInput.value = 1; // Reset to 1 if less than 1 or empty
+    }
+
+    const price = parseFloat(priceElement.innerText);
+    const subtotal = (quantity * price).toFixed(2);
+    subtotalElement.innerText = subtotal;
+    totalElement.innerText = subtotal;
+    document.getElementById("subtotalInput").value = subtotal;
+  }
+
+  // Calculate and display subtotal when the page loads
+  calculateSubtotal();
+
+  // Add an event listener to listen for changes to the input
+  quantityInput.addEventListener("input", calculateSubtotal);
+    </script>
+
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<?php
+
+}
+?>

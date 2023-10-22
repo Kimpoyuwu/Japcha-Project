@@ -67,4 +67,24 @@ class addAddons extends Dbh {
         }
     
 }
+        public function getAddons(){
+            try {
+                $addons = array();
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT * FROM addons');
+        
+                // Execute the query
+                if ($stmt->execute()) { // Pass the product_id as an array
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $addons[] = $row;
+                    }
+                }
+                return $addons;
+        
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location:../customerSHOP.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
 }

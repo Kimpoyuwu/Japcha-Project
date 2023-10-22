@@ -2,6 +2,7 @@
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
+    session_start();
     $username = htmlspecialchars($_POST["userName"], ENT_QUOTES, 'UTF-8');
     $email = htmlspecialchars($_POST["email"], ENT_QUOTES, 'UTF-8');
     $pwd = htmlspecialchars($_POST["pass"], ENT_QUOTES, 'UTF-8');
@@ -9,6 +10,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $address = htmlspecialchars($_POST["address"], ENT_QUOTES, 'UTF-8');
     $contactNum = isset($_POST["contact"]) ? intval($_POST["contact"]) : 0;
 
+    
+    $_SESSION['username'] = $username;
+    $_SESSION['email'] = $email;
+    $_SESSION['pwd'] = $pwd;
+    $_SESSION['pwdConfirm'] = $pwdConfirm;
+    $_SESSION['address'] = $address;
+    $_SESSION['contactNum'] = $contactNum;
+
+    echo  $_SESSION['username'];
     // instantiate signupContr class
     include "../classes/dbh.classes.php";
     include "../classes/signup.classes.php";
@@ -21,10 +31,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $customerId = $signup->fetchCustomerId($username);
     
     // instantiate ProfileInfoContr class
-    // include "../classes/profileinfo.classes.php";
-    // include "../classes/profileinfo-cntrl.classes.php";
-    // $profileInfo = new ProfileInfoContr($customerId, $username);
-    // $profileInfo->defaultProfileInfo();
+    include "../classes/profileinfo.classes.php";
+    include "../classes/profileinfo-cntrl.classes.php";
+    $profileInfo = new ProfileInfoContr($customerId, $username);
+    $profileInfo->defaultProfileInfo();
 
     // Going back to front page
     header("location: ../index.php?error=none");

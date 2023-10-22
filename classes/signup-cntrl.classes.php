@@ -42,7 +42,7 @@ class SignupContr extends Signup{
         }
         if($this->uidTakenCheck() == false) 
         {
-            header("location: ../index.php?error=useroremailtaken");
+            header("location: ../index.php?error=emailalreadyused");
             exit();
         }
 
@@ -96,7 +96,7 @@ class SignupContr extends Signup{
     
     
     private function uidTakenCheck() {
-        return $this->checkUser($this->username, $this->email);
+        return $this->checkUser($this->email);
     }
 
     public function fetchCustomerId($username){

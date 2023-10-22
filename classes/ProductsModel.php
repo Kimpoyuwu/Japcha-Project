@@ -6,7 +6,7 @@
             try {
                 $products = array();
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('SELECT p.*, c.* FROM product p INNER JOIN categories c ON p.category_id = c.category_id WHERE p.isDeleted != 1 AND isHide != 1 ORDER BY product_id DESC');
+                $stmt = $this->connect()->prepare('SELECT p.*, c.* FROM product p INNER JOIN categories c ON p.category_id = c.category_id WHERE p.isDeleted != 1 AND p.isHide != 1 ORDER BY product_id DESC');
                 
                 // Execute the query
                 if ($stmt->execute()) {
@@ -18,8 +18,28 @@
 
             } catch (Exception $e) {
                 // Log the error or handle it appropriately
-                header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                header("location:../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
                 exit();
+            }
+        }
+        public function getProduct($productid){
+            try {
+                $products = array();
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT p.*, c.* FROM product p INNER JOIN categories c ON p.category_id = c.category_id WHERE p.product_id = ?');
+                
+                // Execute the query
+                if ($stmt->execute([$productid])) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $products[] = $row;
+                    }
+                }
+                return $products;
+
+            } catch (Exception $t) {
+                // Log the error or handle it appropriately
+                // header("location:../customerSHOP.php?error=" . urlencode($t->getMessage()));
+                // exit();
             }
         }
         public function getSizeVariation($product_id){
@@ -38,7 +58,7 @@
         
             } catch (Exception $e) {
                 // Log the error or handle it appropriately
-                header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                header("location:../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
@@ -91,7 +111,7 @@
                 // Execute the query
                 if (!$stmt->execute(array($comboName, $ComboDescription, $product1, $product2, $category))) {
                     throw new Exception("Failed to Add Category");
-                    header("location: ../back-end/adminProducts.php?error=addingcategoryfailed");
+                    header("location:../back-end/adminProducts.php?error=addingcategoryfailed");
                    
                 }
 
@@ -99,8 +119,45 @@
 
             } catch (\Throwable $th) {
                 //throw $th;
+                header("location:../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+       public function getPrice($size) {
+            try {
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT price FROM variation WHERE size_id = ?');
+                
+                // Execute the query
+                if ($stmt->execute($size)) {
+                    // Fetch the price value directly (since it's a single value)
+                    $price = $stmt->fetchColumn();
+                    
+                    return $price;
+                }
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
                 header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
-    }
+        public function getOneSize($sizeid) {
+            try {
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT size_name FROM product_sizes WHERE sizes_id = ?');
+                
+                // Execute the query
+                if ($stmt->execute($sizeid)) {
+                    // Fetch the price value directly (since it's a single value)
+                    $size = $stmt->fetchColumn();
+                    
+                    return $size;
+                }
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+
+}

@@ -6,7 +6,9 @@
     require "classes/cms.classes.php";
     $cms = new Cms();
     $data = $cms->getCms();
-
+    include "classes/ProductsModel.php";
+    $productModel = new ProductModel();
+    $products = $productModel->getAllProducts();
 
 ?>
 <!DOCTYPE html>

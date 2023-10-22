@@ -1,6 +1,8 @@
 <?php
     include "c_header.php"; 
     include_once "config/databaseConnection.php"; 
+    // include "classes/dbh.classes.php";
+ 
 ?>
 
     <div class="shopContainer">
@@ -17,32 +19,52 @@
 
             <div id="itemContainer" class="itemContainer">
             <?php
-                $condition = '00017';
-                $sql = "SELECT * FROM product ORDER BY product_id DESC";
-                $res = mysqli_query($con, $sql);
-
-                if (mysqli_num_rows($res) > 0){
-                    while ($row = mysqli_fetch_assoc($res)){ 
-                        $productName = $row['product_name'];
-                        $images = $row['image_url'];
+  
+                foreach ($products as $product):
+                 $productid = $product['product_id']
+                // $_SESSION['prodid'] = $product['product_id'];
+                // $_SESSION['prodname'] = $product['product_name'];
             ?>
-                        
+              
                 <div id="product" class="product">
-                    <a   href="#" style="text-decoration:none; color: black;">
+                    <a   href="ProductDetails.php?productid=<?= $productid ?>" style="text-decoration:none; color: black;">
                     <div id="prodHeader" class="prodHeader">
-                        <img src="upload/<?=$images?>" alt="">
+                        <!-- <img src="upload/" alt=""> -->
+                        <?php
+                    // Assuming $images contains the file path to the image or video
+                    if (strpos($product['image_url'], '.mp4') !== false) {
+                        // If $images contains '.mp4', it's a video
+                        ?>
+                        <video controls style="max-width: 100%">
+                        <source src="upload/<?= $product['image_url']?>" type="video/mp4">
+                        <p>Your browser does not support the video tag</p>
+                        </video>
+                    <?php
+                        } else {
+                    ?>
+                        <img src="upload/<?= $product['image_url']?>" alt="" style="max-width: 100%" >
+                    <?php
+                        }
+                    ?>
                         
                     </div>
                     <div id="prodFooter" class="prodFooter">
                         <div class="nameProd">
-                            <div class="productName"><?=$productName?></div>
-                            <div class="price">P</div>
+                            <div class="productName"><?= $product['product_name']?></div>
+                            <!-- <div class="price">P</div> -->
                         </div>
-                        <button>Buy Now</button>
+                        <button type="submit" data-target="">Buy Now</button>
                     </div>
                     </a>
-                </div>   
-                <?php } } ?>      
+                </div>
+                
+                <?php 
+               
+                // $_SESSION['prodid'] = $product['product_id'];
+
+                // } } 
+                endforeach;
+                ?>      
    
             </div>
  
@@ -96,9 +118,12 @@
                 page[currentValue-1].classList.add("active");
             }
         }
-        document.getElementById("itemContainer").addEventListener("click", function() {
-        window.location.href = "ProductDetails.php"; 
-        });
+    //     document.getElementById("itemContainer").addEventListener("click", function() {
+
+    //         var pid = $productid;
+    //     window.location.href = "ProductDetails.php?productid="+pid; 
+        
+    // });
         
         
     </script>

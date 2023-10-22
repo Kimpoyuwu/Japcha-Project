@@ -56,11 +56,13 @@
                 echo '<script>alert("User not found");</script>';
                 unset($_GET["error"]);
             }
-            else if ($_GET["error"] == "useroremailtaken") {
+            else if ($_GET["error"] == "emailalreadyused") {
                 echo '<script>alert("Email already taken");</script>';
                 unset($_GET["error"]);
             }
+            unset($_GET["error"]);
         }
+        
 
     ?>
 
