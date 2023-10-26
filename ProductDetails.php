@@ -1,11 +1,24 @@
+
+<?php
+
+    include "c_header.php";
+?>
+<?php
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+        if(isset($_POST['buynow'])){
+
+        $prodid = $_POST['buynow'];
+        $getSpecificProduct =  $productModel->getProduct($prodid);
+        foreach($getSpecificProduct as $prods):
+
+?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 <link rel="stylesheet" href="ProductDetails_Front.css">
-<?php
-    include "c_header.php";
-?>
+
 <style>
+
 .container{
     margin-top: 180px;
     bottom: 500; 
@@ -108,14 +121,7 @@ hr.new4 {
 
 </style>
 <!-- Product Details -->
-<?php
-    if(isset($_GET['productid'])){
 
-        $prodid = $_GET['productid'];
-        $getSpecificProduct =  $productModel->getProduct($prodid);
-        foreach($getSpecificProduct as $prods):
-
-?>
 <div class="container">
 <form action="orderCheckout.php" method="POST">
     <div class="row">
@@ -123,20 +129,20 @@ hr.new4 {
         <div class="col-md-4">
             <div class="Productbg p-2">
             <input type="hidden" name ="prodImage" value="<?= $prods['image_url'] ?>">
-            <input type="hidden" name ="prdID" value="<?= $prods['product_id'] ?>">
+            <input type="hidden" name ="prdID" id="hiddenProdId" value="<?= $prods['product_id'] ?>">
             <?php
                     // Assuming $images contains the file path to the image or video
                     if (strpos($prods['image_url'], '.mp4') !== false) {
                         // If $images contains '.mp4', it's a video
                         ?>
-                        <video controls="false" style="max-width: 100%">
+                        <video controls="false" style="max-width: 100%; max-height: 100%;">
                         <source src="upload/<?= $prods['image_url']?>" type="video/mp4">
                         <p>Your browser does not support the video tag</p>
                         </video>
                     <?php
                         } else {
                     ?>
-                        <img src="upload/<?= $prods['image_url']?>" alt="" style="max-width: 100%" >
+                        <img src="upload/<?= $prods['image_url']?>" alt="" style="max-width: 100%; max-height: 100%;" >
                     <?php
                         }
                     ?>
@@ -168,7 +174,7 @@ hr.new4 {
                             <div class="container-list d-flex flex-row gap-2" id="containerList"> 
                                 <div class="con">
                                    
-                                    <select class="form-control" name="sizes[]" id="sizeDropdown">
+                                    <select class="form-control" name="sizes" id="sizeDropdown">
                                     <?php
                                     
                                     $getSize =  $productModel->getSizeVariation($prodid);
@@ -189,8 +195,9 @@ hr.new4 {
                                     </select>
                                   
                                 </div>
-                                <div>
-                                <span id="priceDisplay"></span>
+                                <div class="list-group">
+                                    <span id="priceDisplay"></span>
+                                    <!-- <li class="list-group-item active">Cras justo odio</li> -->
                                 </div>
                                
                                 <!-- <div><input type="number" name="prices[]" class="form-control" value="" required></div>
@@ -208,7 +215,7 @@ hr.new4 {
                     foreach($dataAdds as $addon):
                 ?>
                 <div class="form-check">
-                    <input type="radio" id="pearl" name="addons[]" value="<?= $addon['addons_id'] ?>" class="form-check-input">
+                    <input type="checkbox" id="pearl" name="addons" value="<?= $addon['addons_id'] ?>" class="form-check-input">
                     <label class="form-check-label" for="pearl"><?= $addon['addons_name'] ?></label>
                 </div>
                 <?php
@@ -226,7 +233,7 @@ hr.new4 {
             
             ?>
                 <button class="btn btn-primary btnAddtoCart" style="background-color: #FAFAFA; border-color: #FFD600;"><a href="#id" class="add text-black">Add To Cart</a></button>
-                <button class="btn btn-success buyNow"><a href="#id" class="buy text-black" id="buynow">Buy Now</a></button>
+                <button type="submit" class="btn btn-success buyNow">Buy Now</button>
                 <script>
                     document.getElementById("buynow").addEventListener("click", function() {
                         window.location.href = "orderCheckout.php"; 
@@ -238,7 +245,7 @@ hr.new4 {
                 {
             ?>
                  <button class="btn btn-primary btnAddtoCart" style="background-color: #FAFAFA; border-color: #FFD600;"><a href="#id" class="add text-black">Add To Cart</a></button>
-                <button class="btn btn-success buyNow">Buy Now</button>
+                <button type="button" class="btn btn-success buyNow" >Buy Nows</button>
             <?php 
                 }
             ?>
@@ -277,32 +284,50 @@ hr.new4 {
     </div>
 </div>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    $(document).ready(function () {
-        var sizeDropdown = $("#sizeDropdown");
-        var priceDisplay = $("#priceDisplay");
 
-        sizeDropdown.on("change", function () {
-            var selectedSize = sizeDropdown.val();
+    $(document).ready(function() {
+    var priceSelect = $("#sizeDropdown");
+    var priceDisplay = $("#priceDisplay");
+    // var prodid = $("$hiddenProdId");
+    var prodId = document.getElementById("hiddenProdId").value;
+    var originalPriceOptions = priceDisplay.html();
 
+    priceSelect.on("change", function() {
+        var selectedPrice = $(this).val();
+        // var selectedProd = $(this).val();
+        console.log("Selected Category: " + selectedPrice);
+        console.log("Selected Category: " + prodId);
+
+        priceDisplay.html(originalPriceOptions);
+
+        if (selectedPrice) {
             $.ajax({
-                type: "POST",
-                url: "controller/getPrice.php",
-                data: { size: selectedSize },
-                success: function (data) {
-                    var price = parseFloat(data);
-                    priceDisplay.text("Price: ₱" + price.toFixed(2));
+                url: "controller/DisplayPrice.php?category=" + selectedPrice + "&prodid=" + prodId,
+                type: "GET",
+                success: function(data) {
+                    console.log("Response Data: " + data);
+                    priceDisplay.html(data);
                 },
-                error: function () {
-                    priceDisplay.text("Error fetching price.");
+                error: function() {
+                    priceDisplay.html("Error fetching price.");
                 }
             });
-        });
+        }
     });
+
+    $('input[type="checkbox"]').click(function() {
+        // Uncheck all checkboxes except the one that was clicked
+        $('input[type="checkbox"]').not(this).prop('checked', false);
+    });
+});
+
 </script>
+
 <?php
 endforeach;
+}
 }
 ?>

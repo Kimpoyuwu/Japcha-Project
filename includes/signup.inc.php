@@ -28,13 +28,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     // Runnig error handlers and user signup
     $signup-> signupUser();
     
-    $customerId = $signup->fetchCustomerId($username);
+    // $customerId = $signup->fetchCustomerId($username);
     
     // instantiate ProfileInfoContr class
-    include "../classes/profileinfo.classes.php";
-    include "../classes/profileinfo-cntrl.classes.php";
-    $profileInfo = new ProfileInfoContr($customerId, $username);
-    $profileInfo->defaultProfileInfo();
+    // include "../classes/profileinfo.classes.php";
+    // include "../classes/profileinfo-cntrl.classes.php";
+    // $profileInfo = new ProfileInfoContr($customerId, $username);
+    // $profileInfo->defaultProfileInfo();
 
     // Going back to front page
     header("location: ../index.php?error=none");

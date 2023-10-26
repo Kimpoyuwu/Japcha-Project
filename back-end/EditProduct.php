@@ -81,6 +81,7 @@
                             <input type="hidden" name="PrevCat" value="<?= $product['category_id']?>">
                             <input type="hidden" name="PrevProdName" value="<?= $product['product_id']?>">
                             <input type="hidden" name="PrevDescription" value="<?= $product['description']?>">
+
                             <div id="mediaPreview<?= $prodid ?>" class="mediaPreview" style="max-width: 100%;"></div>
                           
                         </div>
@@ -108,9 +109,10 @@
                                     <input type="hidden" name="varID[]" value="<?= $varSize['variation_id']?>">
                                     <input type="hidden" name="prevSize[]" value="<?= $varSize['size_id']?>">
                                     <input type="hidden" name="prevPrice[]" value="<?= $varSize['price']?>">
+                                    <input type="hidden" class="prodId" value="<?= $prodid ?>">
                                 <div class="con">
                                    
-                                    <select class="form-control" name="sizes[]">
+                                    <select class="form-control" name="sizes[]" id="variationSelect" data-selected-value="<?= $varSize['size_id'] ?>">
                                         
                                             <option selected  value="<?= $varSize['size_id']?>"><?= $varSize['size_name']?></option>
                                             <?php
@@ -127,7 +129,7 @@
                                     </select>
                                 </div>
                                 <div><input type="number" name="prices[]" class="form-control" value="<?= $varSize['price']?>" required></div>
-                                <div><i class="fa fa-minus-circle delete" id="a" style="cursor:pointer;" aria-hidden="true"></i></div>
+                                <div><i class="fa fa-minus-circle deleteICON" data-id="<?= $SizeId?>" style="cursor:pointer;" aria-hidden="true"></i></div>
                                
                             </div>
                             <?php
@@ -148,7 +150,13 @@
         </form>
     </div>
 
-    <script>
+
+    
+  
+<?php endforeach; ?>
+
+
+<script>
    document.getElementById("product_image<?= $prodid ?>").addEventListener("change", function () {
     var fileInput = this;
     var mediaPreview = document.getElementById("mediaPreview<?= $prodid ?>");
@@ -265,4 +273,49 @@ $(document).ready(function() {
 
 
     </script>
-<?php endforeach; ?>
+    
+<script>
+$(document).ready(function() {
+  // Function to handle variation deletion
+  function deleteVariation(selectedValue, prodId) {
+    // Use AJAX to send a request to mark the variation as deleted
+    $.ajax({
+      type: "POST",
+      url: "../controller/mark_variation_deleted.php", // Specify the URL for your server-side script
+      data: { id: selectedValue, prodId: prodId }, // Pass the ID, prodId, and selectedValue
+      success: function(response) {
+        if (response === "success") {
+          // On success, update the select element's options
+          alert("Access to the URL was successful.");
+
+       // Remove the div elements with class "con" inside the container
+
+        //   updateSelectOptions(selectedValue, prodId);
+        } else {
+          alert("Deletion failed: " + response);
+        }
+      }
+    });
+  }
+
+  // Use event delegation to handle click events for dynamically created elements
+  $(document).on("click", ".deleteICON", function() {
+    var id = $(this).data("id");
+    var prodId = $(this).closest(".container-list").find(".prodId").val();
+
+    // Extract the selected value from the corresponding select element
+   var selectedValue = $(this).closest(".container-list").find("select").val();
+   var container = $(this).closest(".container-list");
+    console.log(id);
+    console.log(selectedValue);
+    console.log(prodId);
+    var confirmDeletion = confirm("Are you sure you want to delete this variation?");
+    if (confirmDeletion) {
+      deleteVariation(selectedValue, prodId);
+      container.remove();
+    }
+  });
+});
+
+
+    </script>

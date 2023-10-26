@@ -6,9 +6,9 @@
        .container {
     height: auto;
     width: 100%;
-    padding-left: 280px;
+    padding-left: 180px;
     margin-top: 130px;
-    margin-left: 170px;
+    /* margin-left: 170px; */
     }
 
     .card-img-top {
@@ -81,25 +81,70 @@
     <div class="container text-center">
      <div class="orderbar">
         <div class="row">
-            <ul class="nav nav-tab justify-content-center " style="padding-right: 100px ">
+            <ul class="nav nav-tab justify-content-center ">
+
                 <li class="nav-item  " style="margin-right: 20px ">
-                    <a class="nav-item nav-link active" id="nav-Prepairing-tab" data-toggle="tab" href="#nav-Prepairing" role="tab" aria-controls="nav-Prepairing" aria-selected="true">Preparing</a>
-                    </li>
-                    <li class="nav-item "  style="margin-right: 20px ">
+                    <a class="nav-item nav-link active" id="nav-Pending-tab" data-toggle="tab" href="#nav-Pending" role="tab" aria-controls="nav-Pending" aria-selected="true">Pending</a>
+                </li>
+
+                <li class="nav-item  " style="margin-right: 20px ">
+                    <a class="nav-item nav-link" id="nav-Prepairing-tab" data-toggle="tab" href="#nav-Prepairing" role="tab" aria-controls="nav-Prepairing" aria-selected="true">Preparing</a>
+                </li>
+
+                <li class="nav-item "  style="margin-right: 20px ">
                     <a class="nav-item nav-link" id="nav-ToShip-tab" data-toggle="tab" href="#nav-ToShip" role="tab" aria-controls="nav-ToShip" aria-selected="false">To Ship</a>
-                    </li>
-                    <li class="nav-item "  style="margin-right: 20px ">
+                </li>
+
+                <li class="nav-item "  style="margin-right: 20px ">
                     <a class="nav-item nav-link" id="nav-ToReceive-tab" data-toggle="tab" href="#nav-ToReceive" role="tab" aria-controls="nav-ToReceive" aria-selected="false">To Receive</a>
-                    </li>
-                    <li class="nav-item  "  style="margin-right: 20px ">
+                </li>
+
+                <li class="nav-item  "  style="margin-right: 20px ">
                     <a class="nav-item nav-link" id="nav-ToReview-tab" data-toggle="tab" href="#nav-ToReview" role="tab" aria-controls="nav-ToReview" aria-selected="false">Completed</a>
-                    </li>
+                </li>
+
                     </ul>
                     </div>
                 </div>
             </div>
         <div class="tab-content justify-content-center " id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-Prepairing" role="tabpanel" aria-labelledby="nav-Prepairing-tab">
+
+
+        <div class="tab-pane fade show active" id="nav-Pending" role="tabpanel" aria-labelledby="nav-Pending-tab">
+                <table class="table">
+                    <thead>
+                      <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Order No.</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Item Subtotal</th>
+                                        <th scope="col"></th>
+                        </tr>
+                    </thead>
+                     <tbody>
+                     <tr>
+                                        <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
+                                        <td class="center-content">#00001</td>
+                                        <td class="center-content">₱100.00</td>
+                                        <td class="center-content">
+                                            <select class="form-control" id="exampleFormControlSelect1">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                            </select>
+                                        </td>
+                                        <td class="center-content">₱100.00</td>
+                                        <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td>
+                                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+                            <div class="tab-pane fade" id="nav-Prepairing" role="tabpanel" aria-labelledby="nav-Prepairing-tab">
                                 <table class="table">
                                 <thead>
                                     <tr>
@@ -146,7 +191,7 @@
                         </tr>
                     </tbody>
                 </table>
-                                </div>
+            </div>
                                 <div class="tab-pane fade" id="nav-ToShip" role="tabpanel" aria-labelledby="nav-ToShip-tab">
                                 <table class="table">
                                 <thead>

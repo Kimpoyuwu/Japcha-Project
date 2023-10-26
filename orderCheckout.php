@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 <?php
+  
     include "c_header.php"; 
 ?>
 <style>
@@ -89,17 +90,21 @@
     }
     </style>
 <?php
+ if (isset($_SESSION["userid"])) 
+ {
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
         $prodID = $_POST['prdID'];
         $prodname = $_POST['prdname'];
         $image = $_POST['prodImage'];
         $sizeid = $_POST['sizes'];
+        $uid = $_SESSION["userid"];
+        // var_dump($sizeid);
 ?> 
 <div class="container orderMainCont">
     <form action="includes/OrderInc.php" method ="POST">
-
- 
+    <input type="hidden" name="product_id_data" value="<?= $prodID ?>">
+    <input type="hidden" name="size_data" value="<?= $sizeid ?>">
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="detailsCont">
@@ -108,14 +113,15 @@
                             <div class="name1">
                  
                                 <p>Full Name</p>
-                                <h4>Juan Dela Cruz</h4>
+                                <h4><?= $_SESSION["username"] ?></h4>
+                                <input type="hidden" name="userid" value="<?= $uid ?>">
                             </div>
                         </div>
 
                         <div class="contact mt-3">
                             <div class="cont">
                                 <p>Contact Number</p>
-                                <h4>09123456789</h4>
+                                <h4><?= $_SESSION["contact"] ?></h4>
                             </div>
                             <a href="#" class="btn btn-link" data-toggle="modal" data-target="#changeContactModal">Change</a>
                         </div>
@@ -149,7 +155,7 @@
                     <div class="deliveryCont">
                         <div class="address">
                             <h3>Delivery Address</h3>
-                            <h4>Block 1 Lot 1 Area 1, Dasmarinas, Cavite..</h4>
+                            <h4><?= $_SESSION["address"] ?></h4>
                         </div>
                         <a href="#" class="btn btn-link" data-toggle="modal" data-target="#changeAddressModal">Change</a>
                     </div>
@@ -234,7 +240,16 @@
                 <th scope="col">Size</th>
                 <th scope="col">Price</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Subtotal</th>
+               
+                <?php
+                    if(isset($_POST['addons'])){
+                     ?>
+               <th scope="col">Addons</th>
+
+                <?php
+                    }
+                ?>
+                 <th scope="col">Subtotal</th>
                 <!-- <th scope="col">Action</th> -->
             </tr>
         </thead>
@@ -264,36 +279,55 @@
                         $sizename = $getSizeName;
                 ?>
                 <td class="center-content"><?=  $sizename ?></td>
+              
                 <?php
                     }
                 ?>
                 <?php
-                 $getprice =  $productModel->getPrice($sizeid);
+                 $getprice =  $productModel->getPriceBySize($sizeid, $prodID);
                 
                  if ($getprice !== false) {
                     $price = $getprice;
                 ?>
-                <td class="center-content">₱<span id="price"><?= $price ?></span></td>
-                <?php
-                 }
-                ?>
-                <td class="center-content">
+                <td class="center-content">₱<span id="price"><?=  $price ?></span></td>
                
-                       <input type="number" name="quantity" id="quantity" min="1" step="1" value="1" required style="width:20%;">
-                       
-                 
-                </td>
                 <?php
-                 $getprice =  $productModel->getPrice($sizeid);
+                 }
+                ?>
+                <td class="center-content"><input type="number" name="quantity" id="quantity" min="1" step="1" value="1" required style="width:50px;"></td>
+               
+                 <?php
+                    $ddson = 0;
+                    if(isset($_POST['addons'])){
+                     $ddson = $_POST['addons'];
+                    include_once "classes/add-addons.classes.php";
+                    $addonsModel = new addAddons();
+                    $dataAdds =  $addonsModel->getOneAddons($ddson);
+                    if($dataAdds != false){
+
+                        $addonsid = $dataAdds['addons_id'];
+                        $addonsName = $dataAdds['addons_name'];
+                        $addonsPrice = $dataAdds['price'];
+                     ?>
+                          <td scope="col"><?= $addonsName ?> ₱<span id="addonsPrice"><?= $addonsPrice ?></span></td>
+                          <input type="hidden" name="addons_data" value="<?= $ddson ?>">
+                          <!-- <td></td> -->
+                <?php
+                         }
+                    }
+                ?>
+                 <?php
+                 $getprice =  $productModel->getPriceBySize($sizeid, $prodID);
                 
                  if ($getprice !== false) {
                     $price = $getprice;
                 ?>
-                <td class="center-content" >₱<span id="subtotal"><?= $price ?></span></td>
-                <input type="hidden" name="subtotal1" id="subtotalInput" value="<?= $price ?>">
+                    <td class="center-content" >₱<span id="subtotal"><?= $price ?></span></td>
+                    <input type="hidden" name="subtotal1" id="subtotalInput" value="<?= $price ?>">
                 <?php
                  }
                 ?>
+                  
                 <!-- <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td> -->
             </tr>
         </tbody>
@@ -310,6 +344,7 @@
                 <span id="shippingFee" style="display: none">Shipping Fee: $10.00</span>
                 <h2 class="TP">Total Price:</h2>
                 <h3 class="value">₱<span id="total"><?= $price ?></span></h3>
+                <input type="hidden" name="total_data" id="totalInput" value="<?= $price ?>">
                 <button class="btn btn-primary" type ="submit">Proceed</button>
             </div>
         </div>
@@ -351,32 +386,45 @@
         window.location.href = "orderStatus.php";
     }
  // Get references to the quantity input, price, and subtotal elements
- const quantityInput = document.getElementById("quantity");
-  const priceElement = document.getElementById("price");
-  const subtotalElement = document.getElementById("subtotal");
-  const totalElement = document.getElementById("total");
-  
-  // Function to calculate subtotal
-  function calculateSubtotal() {
-    const quantity = parseInt(quantityInput.value, 10);
+// Get references to the quantity input, price, and subtotal elements
+const quantityInput = document.getElementById("quantity");
+const addonsInput = document.getElementById("addonsPrice"); // Assuming this is the element displaying addons price
+const priceElement = document.getElementById("price");
+const subtotalElement = document.getElementById("subtotal");
+const totalElement = document.getElementById("total");
 
-    // Check if quantity is less than 1 or empty
-    if (quantity < 1 || isNaN(quantity)) {
-      quantityInput.value = 1; // Reset to 1 if less than 1 or empty
-    }
+// Function to calculate subtotal
+function calculateSubtotal() {
+  const quantity = parseInt(quantityInput.value, 10);
 
-    const price = parseFloat(priceElement.innerText);
-    const subtotal = (quantity * price).toFixed(2);
-    subtotalElement.innerText = subtotal;
-    totalElement.innerText = subtotal;
-    document.getElementById("subtotalInput").value = subtotal;
+  // Check if quantity is less than 1 or empty
+  if (quantity < 1 || isNaN(quantity)) {
+    quantityInput.value = 1; // Reset to 1 if less than 1 or empty
   }
 
-  // Calculate and display subtotal when the page loads
-  calculateSubtotal();
+  const price = parseFloat(priceElement.innerText);
+//   const subtotal = (quantity * price).toFixed(2);
+//   subtotalElement.innerText = subtotal;
 
-  // Add an event listener to listen for changes to the input
-  quantityInput.addEventListener("input", calculateSubtotal);
+  // Handle the addons value when it's not set
+  let addonsTotal = 0;
+  if (addonsInput !== null) {
+    addonsTotal = parseFloat(addonsInput.innerText);
+  }
+
+  const total = (quantity * price + addonsTotal).toFixed(2);
+  totalElement.innerText = total;
+  subtotalElement.innerText = total;
+  document.getElementById("subtotalInput").value = total;
+  document.getElementById("totalInput").value = total;
+}
+
+// Calculate and display subtotal when the page loads
+calculateSubtotal();
+
+// Add an event listener to listen for changes to the input
+quantityInput.addEventListener("input", calculateSubtotal);
+
     </script>
 
 
@@ -385,5 +433,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <?php
 
+}
 }
 ?>

@@ -7,7 +7,7 @@
     <div class="profile">
         <div class="profileHeader">
             <div class="profilePic">
-                <img src="image/user.jpg" alt="">
+                <img src="image/sample1.png" alt="">
             </div>
             <div class="username">
                 <div class="profile_name">

@@ -90,4 +90,26 @@ class addSize extends Dbh {
             }
         
     }
+
+    protected function getSizeName($size_id) {
+        try {
+
+            $stmt = $this->connect()->prepare('SELECT size_name FROM product_sizes WHERE sizes_id = ?');
+
+            // Execute the query
+            if (!$stmt->execute(array($size_id))) {
+                throw new Exception("Failed to Add Size");
+                header("location: ../back-end/adminProducts.php?error=addingcategoryfailed");
+            
+            }
+
+    $stmt = null;
+
+        } catch (\Throwable $th) {
+            //throw $th;
+            header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+            exit();
+        }
+    
+}
 }

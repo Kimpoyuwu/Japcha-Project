@@ -122,12 +122,12 @@
                     <div class="input_box">
                         <input type="password" placeholder="Create password" name="pass" required />
                         <i class="uil uil-lock password"></i>
-                        <i class="uil uil-eye-slash pw_hide"></i>
+                        <!-- <i class="uil uil-eye-slash pw_hide"></i> -->
                     </div>
                     <div class="input_box">
                         <input type="password" placeholder="Confirm password" name="confirm_pass" required />
                         <i class="uil uil-lock password"></i>
-                        <i class="uil uil-eye-slash pw_hide"></i>
+                        <!-- <i class="uil uil-eye-slash pw_hide"></i> -->
                     </div>
                     <div class="input_box">
                         <input type="text" placeholder="Default Address" name="address" required />
@@ -140,7 +140,7 @@
                     </div>
                     <div class="option_field">
                         <span class="checkbox">
-                            <input type="checkbox" id="terms">
+                            <input type="checkbox" id="terms" required>
                             <label for="terms">I aggree to the <span style="color: #B4A30D; text-decoration: underline;">Term of Service</span> & 
                                 <span style="color: #B4A30D; text-decoration: underline;">Privacy Policy</span></label>
                         </span>  
@@ -244,9 +244,7 @@
                             <h2>What is JapCha?</h2>
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
-                            <div class="paragraph-desc">
-                                    <textarea name="" id="" cols="10" rows="5" >  </textarea>
-                            </div>
+                            <div class="paragraph-desc"><?php echo $data['japcha']; ?></div>
                         </div>
                     </div>
                     <div class="container-description">
@@ -255,9 +253,7 @@
                             <h2>How to Order</h2>
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
-                            <div class="paragraph-desc">         
-                                <textarea name="" id="" cols="10" rows="5" >  </textarea>
-                            </div>
+                            <div class="paragraph-desc"><?php echo $data['order_note']; ?></div>
                         </div>
                     </div>
                     <div class="container-description">
@@ -266,10 +262,7 @@
                             <h2>Our Socials</h2>
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
-                            <div class="paragraph-desc">
-                                
-                                    <textarea name="" id="" cols="10" rows="5" >  </textarea>
-                            </div>
+                            <div class="paragraph-desc"><?php echo $data['socials']; ?></div>
                         </div>
                     </div>
             </div>
@@ -280,9 +273,7 @@
                             <h2>Policy</h2>
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
-                            <div class="paragraph-desc">
-                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit   </textarea>
-                            </div>
+                            <div class="paragraph-desc"><?php echo $data['policy']; ?></div>
                         </div>
                     </div>
                     <div class="container-description">
@@ -291,10 +282,7 @@
                             <h2>Our Location</h2>
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
-                            <div class="paragraph-desc">
-                                    
-                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id reprehenderit cupiditate est mollitia magni voluptatibus animi totam fugit doloribus quia, perspiciatis quidem excepturi obcaecati quisquam fugiat veniam. Cumque, accusamus?</textarea>
-                            </div>
+                            <div class="paragraph-desc"><?php echo $data['location']; ?></div>
                         </div>
                     </div>
                     <div class="container-description">
@@ -303,10 +291,7 @@
                             <h2>Contact Us</h2>
                             <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
                             </div>
-                            <div class="paragraph-desc">
-                                
-                                    <textarea name="" id="" cols="10" rows="5" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores id reprehenderit cupiditate est mollitia magni voluptatibus animi totam fugit doloribus quia, perspiciatis quidem excepturi obcaecati quisquam fugiat veniam. Cumque, accusamus?</textarea>
-                            </div>
+                            <div class="paragraph-desc"><?php echo $data['contact']; ?></div>
                         </div>
                     </div>
             </div>

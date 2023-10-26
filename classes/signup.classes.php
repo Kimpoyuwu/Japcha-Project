@@ -2,15 +2,15 @@
 
 class Signup extends Dbh {
 
-    protected function setUser($username, $pwd, $pwdConfirm, $email, $address, $contactNum) {
+    protected function setUser($username, $pwd, $email, $address, $contactNum) {
             try {
 
                 $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-                $stmt = $this->connect()->prepare('INSERT INTO customer_account (username,  password,  confirm_password, email,  customer_address,  contact_number) VALUES (?, ?, ?, ?, ?, ?)');
+                $stmt = $this->connect()->prepare('INSERT INTO customer_account (username,  password, email,  customer_address,  contact_number) VALUES (?, ?, ?, ?, ?)');
 
                 // Execute the query
-                if (!$stmt->execute(array($username, $hashedPwd, $pwdConfirm, $email, $address, $contactNum))) {
+                if (!$stmt->execute(array($username, $hashedPwd, $email, $address, $contactNum))) {
                     throw new Exception("User registration failed.");
                     header("location: ../index.php?error=userregistrationfailed");
                     exit();
@@ -21,7 +21,7 @@ class Signup extends Dbh {
 
             } catch (\Throwable $th) {
                 //throw $th;
-                header("location: ../index.php?error=" . urlencode($e->getMessage()));
+                header("location: ../index.php?error=sss" . urlencode($th->getMessage()));
                 exit();
             }
         
@@ -30,10 +30,10 @@ class Signup extends Dbh {
     protected function checkUser($email) {
         try {
             // Prepare the SQL query
-            $stmt = $this->connect()->prepare('SELECT username FROM customer_account WHERE username = ? OR email = ?');
+            $stmt = $this->connect()->prepare('SELECT username FROM customer_account WHERE email = ?');
             
             // Execute the query
-            if (!$stmt->execute(array($username, $email))) {
+            if (!$stmt->execute(array($email))) {
                 // throw new Exception("User existence check failed.");
                 $stmt = null;
                 header("location: ../index.php?error=Account does not exist");

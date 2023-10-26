@@ -37,6 +37,7 @@ class SignupContr extends Signup{
         }
         if($this->pwdMatch() == false) 
         {
+            // throw new Exception("Password Don't match");
             header("location: ../index.php?error=passwordmatch");
             exit();
         }
@@ -45,8 +46,16 @@ class SignupContr extends Signup{
             header("location: ../index.php?error=emailalreadyused");
             exit();
         }
+        if($this->validatePassword() == false){
+            header("location: ../index.php?error=passwordshouldbealphanumeric");
+            exit();
+        }
+        if($this->validateContact() == false){
+            header("location: ../index.php?error=invalidcontactnumber");
+            exit();
+        }
 
-        $this->setUser($this ->username,  $this ->pwd,  $this ->pwdConfirm,  $this ->email, $this ->address,  $this ->contactNum );
+        $this->setUser($this ->username,  $this ->pwd,  $this ->email, $this ->address,  $this ->contactNum );
     }
 
     private function emptyInput(){
@@ -82,6 +91,41 @@ class SignupContr extends Signup{
         }
         return $result;
     }
+    private function validateContact(){
+        if (strlen($this->contactNum) < 11) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    private function validatePassword() {
+        // Check if the password is at least 8 characters long
+        if (strlen($this->pwd) < 8) {
+            return false;
+        }
+    
+        // Check if the password contains at least one digit (0-9)
+        if (!preg_match('/\d/', $this->pwd)) {
+            return false;
+        }
+    
+        // Check if the password contains at least one uppercase letter
+        if (!preg_match('/[A-Z]/', $this->pwd)) {
+            return false;
+        }
+    
+        // Check if the password contains at least one lowercase letter
+        if (!preg_match('/[a-z]/', $this->pwd)) {
+            return false;
+        }
+    
+
+    
+        // If all checks pass, the password is valid
+        return true;
+    }
+    
     
     private function pwdMatch() {
         $result;
@@ -103,4 +147,5 @@ class SignupContr extends Signup{
         $customerId = $this->getCustomerId($username);
         return $customerId[0]["customer_id"];
     }
+
 }

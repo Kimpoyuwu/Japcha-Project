@@ -87,4 +87,23 @@ class addAddons extends Dbh {
                 exit();
             }
         }
+        public function getOneAddons($addonsid) {
+            try {
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT addons_id, addons_name, price FROM addons WHERE addons_id = ?');
+            
+                // Execute the query with the addons ID wrapped in an array
+                if ($stmt->execute([$addonsid])) {
+                    // Fetch the row with both columns
+                    $dataAdds = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+                    return $dataAdds;
+                }
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+        
 }

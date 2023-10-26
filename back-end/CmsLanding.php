@@ -22,7 +22,7 @@
     <div class="input-file-container" >
    
       <label for="logo">Logo</label>
-      <button type="button" class="btn btn-link" id="customFileButton">
+      <button type="button" class="btn btn-link" id="customFileButton" data-toggle="modal" data-target="#logo">
           <i class="fa fa-pencil" aria-hidden="true"></i>
       </button>
       <input type="file" id="fileInput" name="logo" style="display: none;">
@@ -40,7 +40,7 @@
     
     </div>
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Landing Image <button type="button" class="btn btn-link"><i class="fa fa-pencil" aria-hidden="true"></i></button></label></label>
+        <label for="exampleFormControlInput1" class="form-label">Landing Image <button type="button" class="btn btn-link" data-toggle="modal" data-target="#landingImage"><i class="fa fa-pencil" aria-hidden="true"></i></button></label></label>
       <div class="input-group mb-3 d-flex ">
                    
         <img src="../image/<?= $cms['landing_image_url']?>" alt="" style="max-width: 100%" >

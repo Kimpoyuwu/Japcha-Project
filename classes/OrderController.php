@@ -5,23 +5,27 @@ class OrderController extends Order{
     private $customerid;
     private $prodid;
     private $sizesid;
+    private $subtotal;
     private $price;
     private $quantity;
-    private $address;
+    // private $address;
+    private $_id;
     private $remark;
-    private $status;
+    // private $status;
 
 
 
-    public function __construct($customerid, $prodid, $sizesid, $price, $quantity, $address, $remark, $status){
+    public function __construct($customerid, $prodid, $sizesid, $subtotal, $price, $quantity, $_id, $remark){
         $this ->customerid = $customerid;
         $this ->prodid = $prodid;
         $this ->sizesid = $sizesid;
+        $this ->subtotal = $subtotal;
         $this ->price = $price;
         $this ->quantity = $quantity;
-        $this ->address = $address;
+        $this ->_id = $_id;
+        // $this ->address = $address;
         $this ->remark = $remark;
-        $this ->status = $status;
+        // $this ->status = $status;
         
     }
 
@@ -32,7 +36,7 @@ class OrderController extends Order{
         //     exit();
         // }
 
-        $this->setOrder($this ->customerid,  $this ->prodid,  $this ->sizesid,  $this ->price, $this ->quantity,  $this ->address, $this ->remark, $this ->status);
+        $this->setOrder($this ->customerid,  $this ->prodid,  $this ->sizesid, $this ->subtotal, $this ->price, $this ->quantity, $this ->_id,  $this ->remark);
     }
 
     // private function emptyInput(){

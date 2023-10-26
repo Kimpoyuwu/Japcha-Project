@@ -16,6 +16,7 @@
             </div>
 
         <div class="productContainer">
+            <form action="ProductDetails.php" method="POST">
 
             <div id="itemContainer" class="itemContainer">
             <?php
@@ -27,7 +28,8 @@
             ?>
               
                 <div id="product" class="product">
-                    <a   href="ProductDetails.php?productid=<?= $productid ?>" style="text-decoration:none; color: black;">
+                    <!-- <a   href="ProductDetails.php?productid=" style="text-decoration:none; color: black;"> -->
+                    <input type="hidden" name="productid" value="<?= $productid ?>">
                     <div id="prodHeader" class="prodHeader">
                         <!-- <img src="upload/" alt=""> -->
                         <?php
@@ -53,7 +55,7 @@
                             <div class="productName"><?= $product['product_name']?></div>
                             <!-- <div class="price">P</div> -->
                         </div>
-                        <button type="submit" data-target="">Buy Now</button>
+                        <button type="submit" name="buynow" value="<?= $productid ?>">Buy Now</button>
                     </div>
                     </a>
                 </div>
@@ -77,6 +79,7 @@
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                 </ul>
             </nav> -->
+            </form>
         </div>
         
             <!-- <div class="paginationContainer">

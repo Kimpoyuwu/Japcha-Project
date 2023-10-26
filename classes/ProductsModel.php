@@ -46,7 +46,7 @@
             try {
                 $products = array();
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('SELECT v.*, ps.* FROM variation v INNER JOIN product_sizes ps ON v.size_id = ps.sizes_id WHERE v.product_id = ?');
+                $stmt = $this->connect()->prepare('SELECT v.*, ps.* FROM variation v INNER JOIN product_sizes ps ON v.size_id = ps.sizes_id WHERE v.product_id = ? AND v.isDeleted != 1');
         
                 // Execute the query
                 if ($stmt->execute([$product_id])) { // Pass the product_id as an array
@@ -145,16 +145,80 @@
             try {
                 // Prepare the SQL query
                 $stmt = $this->connect()->prepare('SELECT size_name FROM product_sizes WHERE sizes_id = ?');
-                
-                // Execute the query
-                if ($stmt->execute($sizeid)) {
-                    // Fetch the price value directly (since it's a single value)
+        
+                // Execute the query with the size ID wrapped in an array
+                if ($stmt->execute([$sizeid])) {
+                    // Fetch the size value directly (since it's a single value)
                     $size = $stmt->fetchColumn();
-                    
+        
                     return $size;
                 }
             } catch (Exception $e) {
                 // Log the error or handle it appropriately
+                header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+        
+        // public function getPriceForSize($size) {
+        //     try {
+        //         // Prepare the SQL query
+        //         $price = array();
+        //         $stmt = $this->connect()->prepare('SELECT price FROM variation WHERE size_id = ?');
+                
+        //         // Execute the query
+        //         if ($stmt->execute([$size])) {
+        //             // Fetch the price value directly (since it's a single value)
+        //             $price[] = $stmt->fetchColumn();
+                    
+        //             return $price;
+        //         }
+        //     } catch (Exception $e) {
+        //         // Log the error or handle it appropriately
+        //         header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+        //         exit();
+        //     }
+        // }
+        public function getPriceBySize($sizeid, $prodid) {
+            try {
+                if (is_array($sizeid)) {
+                    $placeholders = str_repeat('?,', count($sizeid) - 1) . '?';
+                    $query = "SELECT price FROM variation WHERE size_id IN ($placeholders) AND product_id = ?";
+                } else {
+                    $query = "SELECT price FROM variation WHERE size_id = ? AND product_id = ?";
+                }
+        
+                $stmt = $this->connect()->prepare($query);
+        
+                // Execute the query
+                $params = is_array($sizeid) ? array_merge($sizeid, [$prodid]) : [$sizeid, $prodid];
+                if ($stmt->execute($params)) {
+                    // Fetch the price value directly (since it's a single value)
+                    $size = $stmt->fetchColumn();
+        
+                    return $size;
+                }
+            } catch (Exception $e) {
+                return "Error: " . $e->getMessage(); // Handle the error appropriately
+            }
+        }
+    
+
+        public function deleteVariation($sizeid, $prod_id){
+            try {
+
+                $stmt = $this->connect()->prepare('UPDATE variation SET isDeleted = 1 WHERE size_id = ? AND product_id = ?');
+        
+                // Execute the query
+                if (!$stmt->execute(array($sizeid, $prod_id))) {
+                    throw new Exception("Failed to update addons");
+                }
+        
+                // Close the prepared statement
+                $stmt = null;
+    
+            } catch (Exception $e) {
+                //throw $th;
                 header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
                 exit();
             }

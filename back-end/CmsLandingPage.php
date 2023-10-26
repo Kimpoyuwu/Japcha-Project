@@ -42,15 +42,14 @@
         <form id="upload-form" enctype="multipart/form-data">
                 <div class="label-con">
                     <label for="Title">Title:</label>
-                    <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
-                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    <!-- <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
+                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button> -->
                 
                 </div>
             <div class="text-center">
                 <h1><?= $cms['title_data']?></h1>
             </div>
-            <!-- <textarea name="title" id="title"></textarea>
-            <button class="saveJapcha" id="saveTitle">Save</button> -->
+
         </div>
         <div class="EditFieldCon mt-5 mb-5">
                 <div class="label-con">
@@ -62,14 +61,13 @@
                 <div class="text-center">
                     <h2><?= $cms['subtitle']?></h2>
                 </div>
-            <!-- <textarea name="Subtitle" id="Subtitle"></textarea>
-            <button class="saveJapcha" id="saveSubtitle">Save</button> -->
+
         </div>
         <div class="EditFieldCon mt-5 mb-5">
            
                 <div class="label-con">
                     <label for="Logo">Logo:</label>
-                    <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
+                    <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Logo"
                     data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
                     
                 </div>
@@ -77,8 +75,7 @@
                 <div class="text-center">
                     <img src="../image/<?= $cms['logo_url']?>" alt="japcha_logo.png" class="img-fluid">
                 </div>         
-                <!-- <input type="file" id="file-input" name="file" accept ="image/*" >
-                <button class="saveJapcha" id="saveLogo" type="submit">Save</button> -->
+
             </form>
             <div id="result"></div>
         </div>
@@ -86,15 +83,14 @@
             
                 <div class="label-con">
                     <label for="landingPage">Landing Page Image:</label>
-                    <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
-                    data-toggle="modal" data-target="#edit"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Langing Page"
+                    data-toggle="modal" data-target="#landingImage"><i class="fa fa-edit" aria-hidden="true"></i></button>
                 
                 </div>
                 <div class="text-center">
                     <img src="../image/<?= $cms['landing_image_url']?>" alt="image hand" class="img-fluid">
                 </div>
-                <!-- <input type="file" id="file-input" name="file" accept ="image/*" >
-                <button class="saveJapcha" id="saveImage" type="submit">Save</button> -->
+
             </form>
             <div id="result"></div>
         </div>

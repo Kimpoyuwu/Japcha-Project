@@ -1,7 +1,5 @@
 <?php
-    include "customerProfileHeader.php";
-    include "classes/profileinfo.classes.php";
-    include "classes/profileinfo-cntrl.classes.php";
+    include_once "customerProfileHeader.php";
 
 ?>
 <div class="rightContainer">

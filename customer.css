@@ -660,6 +660,8 @@ section {
     display: none;
     font-family: 'Inter';
     width: 100%;
+    max-height: 250px;
+    overflow: auto;
 }
 #about-us-container #left-div .container-description .description-japcha.show  .paragraph-desc {
     display: flex;
