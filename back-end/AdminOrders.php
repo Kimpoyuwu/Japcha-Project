@@ -111,40 +111,16 @@
         <button class="complete">Complete</button>
       </div>
     </div>
-    <div class="order">
-      <div class="order-details">
-        <p>Order No. #00002</p>
-        <p>₱200</p>
-      </div>
-      <div class="order-actions">
-        <button class="complete">Complete</button>
-      </div>
+   
+
+
   </div>
-  <div class="order">
-      <div class="order-details">
-        <p>Order No. #00003</p>
-        <p>₱200</p>
-      </div>
-      <div class="order-actions">
-        <button class="complete">Complete</button>
-      </div>
-      </div>
-      <div class="order">
-      <div class="order-details">
-        <p>Order No. #00004</p>
-        <p>₱200</p>
-      </div>
-      <div class="order-actions">
-        <button class="complete">Complete</button>
-      </div>
-      </div>
-      </div>
   
   <div class="order-list" id="completeOrders" style="display: none;">
     <!-- Clear All Button (Initially Hidden) -->
     <!-- Sample order -->
     <div>
-     <button class="clear-all-button" id="clearAllButton" style="display: none;">Clear All</button>
+     <!-- <button class="clear-all-button" id="clearAllButton" style="display: none;">Clear All</button> -->
      </div>
     <div class="order">
       <p>Order #00001</p>
@@ -153,34 +129,8 @@
       </div>
       <button class="remove-button">Remove</button>
     </div>
-    <div class="order">
-      <p>Order #00002</p>
-      <div class="order1">
-      <p>Complete</p>
-      </div>
-      <button class="remove-button">Remove</button>
-    </div>
-    <div class="order">
-      <p>Order #00003</p>
-      <div class="order1">
-      <p>Complete</p>
-      </div>
-      <button class="remove-button">Remove</button>
-    </div>
-    <div class="order">
-      <p>Order #00004</p>
-      <div class="order1">
-      <p>Complete</p>
-      </div>
-      <button class="remove-button">Remove</button>
-    </div>
-    <div class="order">
-      <p>Order #00005</p>
-      <div class="order1">
-      <p>Complete</p>
-      </div>
-      <button class="remove-button">Remove</button>
-    </div>
+
+    
     </div>
     <!-- Add more orders following the same structure -->
     </div>
@@ -188,13 +138,14 @@
 
     <script>
       // JavaScript to toggle the display of the New Orders List
-    document.getElementById("newStatus").addEventListener("click", function() {
       var newOrders = document.getElementById("newOrders");
       var preparingOrders = document.getElementById("preparingOrders");
       var orderInfo = document.getElementById("orderInfo");
       var buttons = document.getElementById("buttons");
       var deliveryOrders = document.getElementById("deliveryOrders");
       var completeOrders = document.getElementById("completeOrders");
+    document.getElementById("newStatus").addEventListener("click", function() {
+     
   
   
       newOrders.style.display = "block";
@@ -207,13 +158,7 @@
   
     // JavaScript to toggle the display of the Preparing Orders List
     document.getElementById("preparingStatus").addEventListener("click", function() {
-        var newOrders = document.getElementById("newOrders");
-        var preparingOrders = document.getElementById("preparingOrders");
-        var orderInfo = document.getElementById("orderInfo");
-        var buttons = document.getElementById("buttons"); // Get the buttons div
-        var deliveryOrders = document.getElementById("deliveryOrders");
-        var completeOrders = document.getElementById("completeOrders");
-  
+ 
         newOrders.style.display = "none";
         preparingOrders.style.display = "block";
         orderInfo.style.display = "none"; // Hide order info when "Preparing" is clicked
@@ -223,13 +168,7 @@
       });
   
       document.getElementById("deliveryStatus").addEventListener("click", function() {
-        var newOrders = document.getElementById("newOrders");
-        var preparingOrders = document.getElementById("preparingOrders");
-        var orderInfo = document.getElementById("orderInfo");
-        var buttons = document.getElementById("buttons"); // Get the buttons div
-        var deliveryOrders = document.getElementById("deliveryOrders");
-        var completeOrders = document.getElementById("completeOrders");
-  
+ 
         newOrders.style.display = "none";
         preparingOrders.style.display = "none";
         orderInfo.style.display = "none"; // Hide order info when "Preparing" is clicked
@@ -240,13 +179,6 @@
       });
   
       document.getElementById("completeStatus").addEventListener("click", function() {
-        var newOrders = document.getElementById("newOrders");
-        var preparingOrders = document.getElementById("preparingOrders");
-        var orderInfo = document.getElementById("orderInfo");
-        var buttons = document.getElementById("buttons"); // Get the buttons div
-        var deliveryOrders = document.getElementById("deliveryOrders");
-        var completeOrders = document.getElementById("completeOrders");
-        var clearAllButton = document.getElementById("clearAllButton");
   
         newOrders.style.display = "none";
         preparingOrders.style.display = "none";

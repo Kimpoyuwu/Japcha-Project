@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Edit Title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Update Title</h5>
             <button type="button" class="form_close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -27,7 +27,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Edit Subtitle</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Update Subtitle</h5>
             <button type="button" class="form_close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -51,7 +51,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Update Logo</h5>
             <button type="button" class="form_close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -59,12 +59,12 @@
 
         <div class="modal-body">
             <label for="product_image">Logo:</label>
-            <input class="form-control-file" type="file" accept="image/*, video/*" name="product_image" id="product_image">
+            <input class="form-control-file" type="file" accept="image/*" name="logoInput" id="logo_image">
         </div>
         
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary" name="update_logo">Save changes</button>
         </div>
 
     </div>
@@ -77,7 +77,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Update Landing Image</h5>
             <button type="button" class="form_close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -85,12 +85,12 @@
 
         <div class="modal-body">
             <label for="product_image">Logo:</label>
-            <input class="form-control-file" type="file" accept="image/*, video/*" name="product_image" id="product_image">
+            <input class="form-control-file" type="file" accept="image/*" name="Landing_image" id="Landing_image">
         </div>
         
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="submit" class="btn btn-primary" name="update_landing_img">Save changes</button>
         </div>
 
     </div>
@@ -105,6 +105,4 @@
             initializeSummernote('#subtitleModal');
             
         });
-
-   
 </script>

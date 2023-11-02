@@ -30,7 +30,7 @@
                 <thead>
                   <tr>
                     <th>id</th>
-                    <th>Profile</th>
+                    <!-- <th>Profile</th> -->
                     <th>Username</th>
                     <th>User Level</th>
                     <?php
@@ -55,7 +55,7 @@
                         ?>
                             <tr>
                                 <td><?= $count ?></td>
-                                <td><img src='../image/user.jpg' alt='user image'></td>
+                                <!-- <td><img src='../image/user.jpg' alt='user image'></td> -->
                                 <td><?= $admin['username'] ?></td>
                                 <td><?= $admin['user_level_name'] ?></td>
                                 <?php

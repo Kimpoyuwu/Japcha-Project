@@ -69,7 +69,7 @@ section .section-title {
 						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Media Link</a>	
 					</div>
                 </div>
-                <form action="../classes/save_note.php" method="POST">
+                <form action="../classes/save_note.php" method="POST" enctype="multipart/form-data">
 				<div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent" style="padding-right: 10px !important;">
                    
                         <?php

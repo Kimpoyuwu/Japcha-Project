@@ -51,7 +51,7 @@
                         $categoryName = $row['category_name'];
                         echo '<option value="' . $categoryId . '">' . $categoryName . '</option>';
                     }
-            ?> 
+                     ?> 
         </select>
     </div>
 
@@ -87,22 +87,7 @@
                         </div>
                             
                         <div class="card-footer d-flex justify-content-center gap-2" style="background-color: transparent; height:50%;">
-                        <?php
-                            //    if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
-                            //         echo'<div class="editContainer" >
-                            //                 <img src="../image/editIcon.png" alt="">
-                            //                 <a href="#" class ="Edit" data-product-id=' . $product['product_id'] . '>Edit</a>
-                            //             </div>';
-                            //    }
-                   
-                            //    if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1){
-                            //         echo '<div class="removeContainer">
-                            //                 <img src="../image/removeIcon.png" alt="">
-                            //                 <a href="../controller/remove.php?deleteid=' . $product['product_id'] . '" class="Remove">Remove</a>
-                            //              </div>';
-                            
-                            //     }
-                        ?> 
+                
                         <?php
                                if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
                         ?>
@@ -180,15 +165,7 @@ if (isset($_SESSION['error'])) {
             include "ProductModal2.php";
        ?>
 
-<!-- <div class="container mt-4 d-flex" style="flex-direction: column;">
-    <div class="header">
-         <h1>Add Div Containers Horizontally</h1>
-        <button class="btn btn-primary" id="addButton">Add</button>
-    </div>
-    <div class="body">
-        <div class="container-list" id="containerList"></div>
-    </div>
-</div> -->
+
 
 <!--END MODAL FOR MEALS -->
 <?php

@@ -334,7 +334,7 @@ section {
     pointer-events: auto;
 }
 .form-container {
-    position: absolute;
+    position: fixed;
     max-width: 320px;
     width: 100%;
     top: 50%;
@@ -349,7 +349,7 @@ section {
     pointer-events: none;
     transition: all 0.4s ease-out;
 }
-.home.show .form-container{
+.form-container.show{
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
@@ -801,26 +801,23 @@ footer #social-media-footer ul li:hover a .fa-instagram {
     overflow: auto;
 }
 .shopContainer .filterContainer{
-    position: relative;
     height: 40px;
-    width: 90%;
+    width: 100%;
     margin-bottom: 30px;
     margin-top: 120px;
+    padding-right: 100px;
 
 }
 .shopContainer .filterContainer .filter{
-    position: absolute;
     display: flex;
-    right: 0;
     height: 100%;
-    width: 200px;
+    width: auto;
     align-items: end;
     justify-content: end;
     
 }
 .shopContainer .filterContainer .filterField{
-    height: 70%;
-    width: 50%;
+    height: 100%;
     background: none;
     border: none;
     font-size: 18px;

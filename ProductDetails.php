@@ -232,8 +232,9 @@ hr.new4 {
                 {
             
             ?>
-                <button class="btn btn-primary btnAddtoCart" style="background-color: #FAFAFA; border-color: #FFD600;"><a href="#id" class="add text-black">Add To Cart</a></button>
-                <button type="submit" class="btn btn-success buyNow">Buy Now</button>
+                <input type="hidden" name="user" value="<?= $_SESSION["userid"] ?>">
+                <button type="button" class="btn btn-primary btnAddtoCart" id="addToCartButton" style="background-color: #FAFAFA; border-color: #FFD600; color: black; font-weight: bold;">Add To Cart</button>
+                <button type="submit" class="btn btn-success buyNow" id="buynow" name="buynow">Buy Now</button>
                 <script>
                     document.getElementById("buynow").addEventListener("click", function() {
                         window.location.href = "orderCheckout.php"; 
@@ -244,8 +245,8 @@ hr.new4 {
                 else 
                 {
             ?>
-                 <button class="btn btn-primary btnAddtoCart" style="background-color: #FAFAFA; border-color: #FFD600;"><a href="#id" class="add text-black">Add To Cart</a></button>
-                <button type="button" class="btn btn-success buyNow" >Buy Nows</button>
+                <button class="btn btn-primary btnAddtoCart" style="background-color: #FAFAFA; border-color: #FFD600;"><a href="#id" class="add text-black">Add To Cart</a></button>
+                <button type="button" class="btn btn-success buyNow">Buy Nows</button>
             <?php 
                 }
             ?>
@@ -298,8 +299,6 @@ hr.new4 {
     priceSelect.on("change", function() {
         var selectedPrice = $(this).val();
         // var selectedProd = $(this).val();
-        console.log("Selected Category: " + selectedPrice);
-        console.log("Selected Category: " + prodId);
 
         priceDisplay.html(originalPriceOptions);
 
@@ -308,7 +307,7 @@ hr.new4 {
                 url: "controller/DisplayPrice.php?category=" + selectedPrice + "&prodid=" + prodId,
                 type: "GET",
                 success: function(data) {
-                    console.log("Response Data: " + data);
+                    // console.log("Response Data: " + data);
                     priceDisplay.html(data);
                 },
                 error: function() {
@@ -331,3 +330,42 @@ endforeach;
 }
 }
 ?>
+
+<script>
+$(document).ready(function() {
+    $("#addToCartButton").click(function() {
+        // Gather data from form fields
+        var user_id = $("input[name='user']").val();
+        var prodid = $("input[name='prdID']").val();
+        var size_id = $("#sizeDropdown").val();
+        var addons_id = $("input[name='addons']:checked").val() || null;
+
+        // Create an object to send via AJAX
+        var data = {
+            customer_id: user_id,
+            prod__id: prodid,
+            size_id: size_id,
+            addons_id: addons_id
+        };
+
+        // Send the data using AJAX
+        $.ajax({
+            type: "POST",
+            url: "controller/AddToCartFunction.php", // Specify the URL to your server-side script
+            data: data,
+            success: function(response) {
+                // Handle the response from the server, e.g., show a success message
+                console.log(response);
+
+                // Optionally, you can show an alert message with the response
+                alert("Item added to cart! " + response.message);
+            },
+            error: function() {
+                // Handle errors, e.g., show an error message
+                alert("An error occurred while adding to the cart.");
+            }
+        });
+    });
+});
+
+</script>

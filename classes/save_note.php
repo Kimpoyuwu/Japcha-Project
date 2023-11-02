@@ -117,15 +117,94 @@ if(isset($_POST['subtitle_data'])){
         exit;
     }
 }
+
+if(isset($_POST['update_logo'])){
+    if(isset($_FILES['logoInput'])) {
+        $file = $_FILES['logoInput'];
+
+        // Check if there was no error during the file upload
+        if($file['error'] === 0) {
+            $fileType = $file['type'];
+
+            // Define allowed image MIME types
+            $allowedImageTypes = array('image/jpeg', 'image/png', 'image/gif');
+
+            if (in_array($fileType, $allowedImageTypes)) {
+                // The uploaded file is an image
+                echo 'File is an image. You can process it here.';
+                $uploadDirectory = '../upload-content/';
+                $uploadPath = $uploadDirectory . $_FILES['logoInput']['name'];
+                $tmp_name = $_FILES['logoInput']['tmp_name'];
+                move_uploaded_file($tmp_name, $uploadPath);
+
+                $logo_name = $_FILES['logoInput']['name'];
+                $savs = $samplemodel->setLogo($logo_name);
+
+                if ($savs === false) {
+                    // Handle the database error here
+                    echo "Error saving order to the database";
+                } else {
+                    // Specify the directory to move the file to
+                }
+            } else {
+                echo 'File is not an image. Please upload a valid image.';
+            }
+        } else {
+            echo 'Error during file upload. Please try again.';
+        }
+    } else {
+        echo 'No file was uploaded.';
+    }
+}
+
+if(isset($_POST['update_landing_img'])){
+    if(isset($_FILES['Landing_image'])) {
+        $file = $_FILES['Landing_image'];
+
+        // Check if there was no error during the file upload
+        if($file['error'] === 0) {
+            $fileType = $file['type'];
+
+            // Define allowed image MIME types
+            $allowedImageTypes = array('image/jpeg', 'image/png', 'image/gif');
+
+            if (in_array($fileType, $allowedImageTypes)) {
+                // The uploaded file is an image
+                echo 'File is an image. You can process it here.';
+                $uploadDirectory = '../upload-content/';
+                $uploadPath = $uploadDirectory . $_FILES['Landing_image']['name'];
+                $tmp_name = $_FILES['Landing_image']['tmp_name'];
+                move_uploaded_file($tmp_name, $uploadPath);
+                
+                $landing_img = $_FILES['Landing_image']['name'];
+                $savs = $samplemodel->setLandingImage($landing_img);
+
+                if ($savs === false) {
+                    // Handle the database error here
+                    echo "Error saving order to the database";
+                } else {
+                    // Specify the directory to move the file to
+                }
+            } else {
+                echo 'File is not an image. Please upload a valid image.';
+            }
+        } else {
+            echo 'Error during file upload. Please try again.';
+        }
+    } else {
+        echo 'No file was uploaded.';
+    }
+}
+
+
+
+
 if (isset($_POST['saveLink'])) {
     $fbLink = $_POST['fbLink'];
     $igLink = $_POST['igLink'];
     $ytLink = $_POST['ytLink'];
 
     $fbUpdateResult = $samplemodel->setFbLink($fbLink, $igLink, $ytLink );
-    // $igUpdateResult = $samplemodel->setIgLink($igLink);
-    // $ytUpdateResult = $samplemodel->setYtLink($ytLink);
-
     
 }
 

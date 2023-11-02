@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
 
 <?php
   
@@ -92,19 +92,16 @@
 <?php
  if (isset($_SESSION["userid"])) 
  {
+    $uid = $_SESSION["userid"];
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        $prodID = $_POST['prdID'];
-        $prodname = $_POST['prdname'];
-        $image = $_POST['prodImage'];
-        $sizeid = $_POST['sizes'];
-        $uid = $_SESSION["userid"];
+        
         // var_dump($sizeid);
+       
 ?> 
 <div class="container orderMainCont">
     <form action="includes/OrderInc.php" method ="POST">
-    <input type="hidden" name="product_id_data" value="<?= $prodID ?>">
-    <input type="hidden" name="size_data" value="<?= $sizeid ?>">
+    
         <div class="row mt-4">
             <div class="col-md-6">
                 <div class="detailsCont">
@@ -185,14 +182,14 @@
                     <div class="modcont">
                         <div class="cod">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)">
+                                <input type="checkbox" class="form-check-input" id="cod-checkbox" name="group" id="" onclick="selectOnlyOne(this)">
                                 <p class="form-check-label"> <img src="image/cod.png" alt=""> Cash on Delivery</p>
                             </div>
                         </div>
 
                                                 <div class="gcash">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)">
+                                <input type="checkbox" class="form-check-input" id="gcash-checkbox" name="group" onclick="selectOnlyOne(this)">
                                 <div class="gcashtitle">
                                     <p> <img src="image/gcash.png" alt=""> Gcash </p>
                                 </div>
@@ -231,9 +228,19 @@
         <div class="prodDetails mt-4">
             <hr class="new4"> </hr>
         </div>
-            
+        <?php
+             if(isset($_POST['buynow'])){
+                $prodID = $_POST['prdID'];
+                $prodname = $_POST['prdname'];
+                $image = $_POST['prodImage'];
+                $sizeid = $_POST['sizes'];
+             
+           
+        ?>
+        <input type="hidden" name="product_id_data" value="<?= $prodID ?>">
+        <input type="hidden" name="size_data" value="<?= $sizeid ?>">
             <table class="table">
-        <thead>
+        <thead style="text-align: center;">
             <tr>
                 <th scope="col">Image</th>
                 <th scope="col">Product Name</th>
@@ -333,10 +340,9 @@
         </tbody>
     </table>
 
-
-            <div class="remarks mt-3">
-                <h4 class ="Remarks">Add-ons & Remarks</h4>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <div class="remarks mt-3">
+                <h4 class ="Remarks">Remarks</h4>
+                <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 
             </div>
 
@@ -347,6 +353,177 @@
                 <input type="hidden" name="total_data" id="totalInput" value="<?= $price ?>">
                 <button class="btn btn-primary" type ="submit">Proceed</button>
             </div>
+
+<?php
+  }
+  if(isset($_POST['checkout'])){
+
+?>
+
+<table class="table">
+        <thead style="text-align: center;">
+            <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+               
+                <?php
+                    // if(isset($_POST['addons'])){
+                     ?>
+               <th scope="col">Addons</th>
+
+                <?php
+                    // }
+                ?>
+                 <th scope="col">Subtotal</th>
+                <!-- <th scope="col">Action</th> -->
+            </tr>
+        </thead>
+        <tbody>
+        <?php 
+            require_once "classes/CartModel.php";
+            $ProdModel = new ProductModel();
+            $cartModel = new CartModel();
+            $displayCart = $cartModel->fetchCart($uid);
+
+            foreach ($displayCart as $cart):
+                $addonsid = $cart['addons_id'] ?? null;
+                $fetchDetails = $cartModel->fetchCartDetails($cart['product_id'], $cart['size_id'], $cart['addons_id']);
+                $addonsName = $fetchDetails['addons_name'] ?? "None";
+                $fetchPrize = $cartModel->fetchPrice($cart['size_id'], $cart['product_id']);
+        ?>
+            <tr class="product-row">
+                <input type="hidden" name="cid[]" value="<?= $uid ?>">
+                <td class="center-content">
+                        <?php
+                    // Assuming $images contains the file path to the image or video
+                            if (strpos($fetchDetails['image_url'], '.mp4') !== false) {
+                        // If $images contains '.mp4', it's a video
+                        ?>
+                        <video controls="false" style="max-width: 100px; max-height: 100px;">
+                        <source src="upload/<?= $fetchDetails['image_url'] ?>" type="video/mp4">
+                        <p>Your browser does not support the video tag</p>
+                        </video>
+                    <?php
+                        } else {
+                    ?>
+                        <img src="upload/<?= $fetchDetails['image_url'] ?>" alt="" style="max-width: 100px; max-height: 100px;" >
+                    <?php
+                        }
+                    ?>
+                </td>
+                <td class="center-content"><?= $fetchDetails['product_name'] ?></td>
+                <input type="hidden" name="product_id_data[]" value="<?= $cart['product_id'] ?>">
+                <td class="center-content"><?= $fetchDetails['size_name'] ?></td>
+                <input type="hidden" name="size_data[]" value="<?= $cart['size_id'] ?>">
+               
+             
+                <td class="center-content"> ₱<span class="product-price" id="product-price"><?= $fetchPrize['price'] ?></span></td>
+               <input type="hidden" name="price[]" value="<?= $fetchPrize['price'] ?>">
+              
+                <td class="center-content"><input type="number" name="quantity[]" class="product-quantity" min="1" step="1" value="1" required style="width:50px;"></td>
+               
+             
+                          <td scope="col"><?= $addonsName ?><span class="product-addons"></span></td>
+                          <input type="hidden" name="addons_data[]" value="<?= $addonsid ?>">
+                          <!-- <td></td> -->
+               
+                
+                    <td class="center-content" ><span class="product-subtotal" id="product-subtotal"></span></td>
+                    <input type="hidden" name="subtotal1[]" class="subtotal-input" id="subtotalInput" value="">
+             
+                  
+                <!-- <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td> -->
+            </tr>
+        <?php
+            endforeach;
+        ?>
+        </tbody>
+    </table>
+
+    <div class="remarks mt-3">
+                <h4 class ="Remarks">Remarks</h4>
+                <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+
+            </div>
+
+            <div class="totalPrice mt-3">
+                <span id="shippingFee" style="display: none">Shipping Fee: ₱10.00</span>
+                <h2 class="TP">Total Price:</h2>
+                <h3 class="value"><span id="total"></span></h3>
+                <input type="hidden" name="total_data" id="totalInput" value="<?= $fetchPrize['price'] ?>">
+                <button class="btn btn-primary" type ="submit" name="proceed2">Proceed</button>
+            </div>
+
+<script>
+$(document).ready(function() {
+  // Function to calculate the total
+  function calculateTotal() {
+    let total = 0;
+
+    // Iterate through each product row
+    $('.product-row').each(function() {
+      const price = parseFloat($(this).find('.product-price').text());
+      const quantity = parseInt($(this).find('.product-quantity').val(), 10);
+      const subtotal = (price * quantity).toFixed(2);
+      $(this).find('.product-subtotal').text('₱' + subtotal);
+     
+      total += parseFloat(subtotal);
+    
+
+      $(this).find('.subtotal-input').val(subtotal);
+    });
+
+    // Check if the "Cash on Delivery" checkbox is checked
+    if ($('#cod-checkbox').is(':checked')) {
+      total += 10; // Add a shipping fee of 10 if the checkbox is checked
+    }
+    if ($('#gcash-checkbox').is(':checked')) {
+      total += 10; // Add a shipping fee of 10 if the checkbox is checked
+    }
+
+    $('#totalInput').val(total);
+ 
+    // Update the total in the HTML
+    $('#total').text('₱' + total.toFixed(2));
+  }
+
+  // Calculate and display the total when the page loads
+  calculateTotal();
+
+  // Add an event listener to listen for changes to the input (quantity)
+  $('.product-quantity').on('input', calculateTotal);
+  $('#cod-checkbox').on('change', calculateTotal);
+  $('#gcash-checkbox').on('change', calculateTotal);
+  
+});
+
+function selectOnlyOne(checkbox) {
+  const shippingFeeElement = $("#shippingFee");
+
+  // Uncheck other checkboxes
+  $('input[name="group"]').not(checkbox).prop('checked', false);
+
+  // Update the visibility of the shipping fee based on the selected checkbox
+  if (checkbox.checked) {
+    shippingFeeElement.css('display', 'inline');
+  } else {
+    shippingFeeElement.css('display', 'none');
+  }
+
+  // Recalculate the total when a checkbox is selected/unselected
+  calculateTotal();
+}
+
+
+
+</script>
+<?php
+ }
+?>
+          
         </div>
 </form>
 
@@ -355,7 +532,7 @@
     <?php
     include "OrderCheckoutModal.php";
     ?>
-    <script>
+    <!-- <script>
     function selectOnlyOne(checkbox) {
         var checkboxes = document.getElementsByName('group');
         const shippingFeeElement = document.getElementById("shippingFee");
@@ -425,12 +602,12 @@ calculateSubtotal();
 // Add an event listener to listen for changes to the input
 quantityInput.addEventListener("input", calculateSubtotal);
 
-    </script>
+    </script> -->
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 <?php
 
 }

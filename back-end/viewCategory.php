@@ -41,7 +41,7 @@
                   </tr>
                   <tbody>
                   <?php
-                     $query = "SELECT * FROM categories LIMIT 6";
+                     $query = "SELECT * FROM categories";
                      $result = mysqli_query($con, $query);
                  
                      if (mysqli_num_rows($result) > 0) {
@@ -107,26 +107,6 @@
     <?php
       include_once "EditCategory.php";
     ?>
-    <!-- <div id="modalupdate">
-    <div class="modal-container2" id="popup2">
-        <div class="modal-header">
-          <h4 class="modal-title">New Add-Ons Item</h4>
-          <button type="button" class="close2" onclick="closePopup()" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form action="../includes/update-category.inc.php" method="post" id="formCategory">
-            <div class="form-group-label">
-              <label for="addons">Add-Ons Name: </label>
-              <input type="hidden" class="form-control" name="categoryid" id="categoryid" >
-              <input type="text" class="form-control" name="categoryname" id="categoryname" required>
-            </div>
-            <div class="form-group-button">
-              <button type="submit" class="btn1" style="height:40px" name="submit">Update</button>
-            </div>
-          </form>
-        </div>
-     </div>
-    </div> -->
     <!-- ################################################################################# -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

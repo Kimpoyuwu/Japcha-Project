@@ -34,7 +34,7 @@
 
       <div class="input-group mb-3 d-flex gap-3" style="height: 70px;">
    
-        <img src="../image/<?= $cms['logo_url']?>" alt="" style="max-width: 100%" >
+        <img src="../upload-content/<?= $cms['logo_url']?>" alt="" style="max-width: 100%;  max-height: 100%;" >
         <img id="imagePreview" src="" alt="Image Preview" style="max-width: 100%; max-height: 100% !important; display: none;">  
       </div>
     
@@ -43,7 +43,7 @@
         <label for="exampleFormControlInput1" class="form-label">Landing Image <button type="button" class="btn btn-link" data-toggle="modal" data-target="#landingImage"><i class="fa fa-pencil" aria-hidden="true"></i></button></label></label>
       <div class="input-group mb-3 d-flex ">
                    
-        <img src="../image/<?= $cms['landing_image_url']?>" alt="" style="max-width: 100%" >
+        <img src="../upload-content/<?= $cms['landing_image_url']?>" alt="" style="max-width: 100%" >
                     
       </div>
     

@@ -22,6 +22,28 @@
                 exit();
             }
         }
+
+        public function getProductShake(){
+            try {
+                $products = array();
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT p.*, c.* FROM product p INNER JOIN categories c ON p.category_id = c.category_id WHERE p.isDeleted != 1 AND p.isHide != 1 AND c.category_id = 3 ORDER BY product_id DESC');
+                
+                // Execute the query
+                if ($stmt->execute()) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $products[] = $row;
+                    }
+                }
+                return $products;
+
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location:../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+
         public function getProduct($productid){
             try {
                 $products = array();
@@ -67,7 +89,7 @@
             try {
                 $products = array();
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare("SELECT * FROM product WHERE category_id = ? ORDER BY product_id DESC");
+                $stmt = $this->connect()->prepare("SELECT * FROM product WHERE category_id = ? AND isDeleted != 1 AND isHide != 1 ORDER BY product_id DESC");
         
                 // Execute the query with the category ID wrapped in an array
                 if ($stmt->execute([$category])) {

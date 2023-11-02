@@ -157,5 +157,50 @@ public function getAddons($addonsid){
             }
         }
 
+        public function insertToOrderHeader($userID, $totalprice, $remark){
+            try {
+                $stmt = $this->connect()->prepare('INSERT INTO `order` (`customer_id`, `total_price`, `remark`) VALUES (?,?,?)');
+        
+                $stmt->bindValue(1, $userID);
+                $stmt->bindValue(2, $totalprice);
+                $stmt->bindValue(3, $remark);
+                if ($stmt->execute()) {
+                    return true; // Successfully inserted
+                } else {
+                    return false; // Failed to insert
+                }
+            } catch (\Throwable $th) {
+                return false; // Failed to insert and caught an exception
+            }
+        }
+
+        public function insertMultipleOrder($InsertOrder) {
+            try {
+                $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`customer_id`, `product_id`, `sizes_id`, `subtotal`, `quantity`, `addons_id`) VALUES (?,?,?,?,?,?)');
+        
+                if ($stmt) { // Check if the statement was prepared successfully
+                    foreach ($InsertOrder as $orderData) {
+                        $stmt->bindValue(1, $orderData['customer_id']);
+                        $stmt->bindValue(2, $orderData['product_id']);
+                        $stmt->bindValue(3, $orderData['sizes_id']);
+                        $stmt->bindValue(4, $orderData['subtotal']); 
+                        $stmt->bindValue(5, $orderData['quantity']);
+                        $stmt->bindValue(6, $orderData['addons_id'], PDO::PARAM_NULL);// Use PDO::PARAM_NULL for null values
+                        
+                        if (!$stmt->execute()) {
+                            return false; // Failed to insert
+                        }
+                    }
+        
+                    return true; // Successfully inserted
+                } else {
+                    return false; // Failed to prepare the statement
+                }
+            } catch (\Throwable $th) {
+                return false; // Failed to insert and caught an exception
+            }
+        }
+        
+
 
 }

@@ -32,13 +32,13 @@ class CouponModel extends Dbh{
         }
     }
 
-    public function insertCoupon($getCouponCode,$getOfferName,$getDiscount,$formattedStartTime,$formattedEndTime){
+    public function insertCoupon($getCouponCode,$getOfferName,$getDiscount,$getQuantity,$formattedStartTime,$formattedEndTime){
         try {
 
-            $stmt = $this->connect()->prepare('INSERT INTO coupons (coupon_code,offer_name,discount_percentage,start_time,end_time) VALUES (?,?,?,?,?)');
+            $stmt = $this->connect()->prepare('INSERT INTO coupons(coupon_code,offer_name,discount_percentage,Quantity,start_time,end_time) VALUES (?,?,?,?,?,?)');
 
             // Execute the query
-            if (!$stmt->execute(array($getCouponCode,$getOfferName,$getDiscount,$formattedStartTime,$formattedEndTime))) {
+            if (!$stmt->execute(array($getCouponCode,$getOfferName,$getDiscount,$getQuantity,$formattedStartTime,$formattedEndTime))) {
                 throw new Exception("Failed to Add Category");
                 header("location: ../back-end/CouponManagement.php?error=addingcouponfailed");
                
@@ -53,13 +53,13 @@ class CouponModel extends Dbh{
         }
     }
 
-    public function editCoupon($editCouponCode,$editOfferName,$editDiscount,$formattedStartTime,$formattedEndTime,$couponID) {
+    public function editCoupon($editCouponCode,$editOfferName,$editDiscount,$editQuantity,$formattedStartTime,$formattedEndTime,$couponID) {
         try {
 
-            $stmt = $this->connect()->prepare('UPDATE coupons SET coupon_code=?,offer_name=?,discount_percentage=?,start_time=?,end_time=? WHERE id = ?');
+            $stmt = $this->connect()->prepare('UPDATE coupons SET coupon_code=?,offer_name=?,discount_percentage=?,Quantity=?,start_time=?,end_time=? WHERE id = ?');
     
             // Execute the query
-            if (!$stmt->execute(array($editCouponCode,$editOfferName,$editDiscount,$formattedStartTime,$formattedEndTime,$couponID))) {
+            if (!$stmt->execute(array($editCouponCode,$editOfferName,$editDiscount,$editQuantity,$formattedStartTime,$formattedEndTime,$couponID))) {
                 throw new Exception("Failed to update category");
             }
     
@@ -72,5 +72,5 @@ class CouponModel extends Dbh{
             exit();
         }
     
-}
+    }
 }

@@ -6,8 +6,8 @@ signupBtn = document.querySelector("#signup"),
 loginBtn = document.querySelector("#login"),
 pwShowHide = document.querySelector(".pw_hide");
 
-formOpenbtn.addEventListener("click", () => home.classList.add("show"))
-formCloseBtn.addEventListener("click", () => home.classList.remove("show"))
+formOpenbtn.addEventListener("click", () => formContainer.classList.add("show"))
+formCloseBtn.addEventListener("click", () => formContainer.classList.remove("show"))
 
 loginBtn.addEventListener("click", (e) =>{
     e.preventDefault();

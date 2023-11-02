@@ -1,3 +1,11 @@
+<!-- HINDI NA SYA KASAMA -->
+<!-- HINDI NA SYA KASAMA -->
+<!-- HINDI NA SYA KASAMA -->
+<!-- HINDI NA SYA KASAMA -->
+<!-- HINDI NA SYA KASAMA -->
+<!-- HINDI NA SYA KASAMA -->
+<!-- HINDI NA SYA KASAMA -->
+<!-- HINDI NA SYA KASAMA -->
 <?php
     include "c_header.php";
 ?>

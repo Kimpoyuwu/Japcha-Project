@@ -186,7 +186,7 @@
                 <div class="profile-details">
 
                     <div class="profile-content">
-                        <img src="../image/user.jpg" alt="profile">
+                        <img src="../image/Boy.png" alt="profile">
                     </div>
 
                     <div class="name-job">

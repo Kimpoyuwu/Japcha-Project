@@ -21,8 +21,8 @@ include_once "adminHeader.php";
   <div class="container mt-5" style="height: 80%; width: 100%; padding-left: 280px;  margin-top: 80px;">
     <h1 class="mb-4">Announcement Management</h1>
 
-    <button type="button" class="btn" style="background-color: #D0BC05; border-color: #D0BC05; color: #ffffff;" data-toggle="modal" data-target="#addCouponModal">
-      Add New
+    <button type="button" class="btn" style="background-color: #D0BC05; border-color: #D0BC05; color: #ffffff;" data-toggle="modal" data-target="#addAnnouncementModal">
+      Add Announcement
     </button>
     
     <div class="table-responsive mt-4">
@@ -36,7 +36,8 @@ include_once "adminHeader.php";
         <thead>
           <tr>
             <th></th>
-            <th>Date</th>
+            <th>Start Date</th>
+            <th>End Date</th>
             <th>Announcement</th>
             <th>Content</th>
             <th>Action</th>
@@ -52,7 +53,8 @@ include_once "adminHeader.php";
           <!-- Sample coupon data -->
           <tr>
             <td><?= $count?></td>
-            <td><?= $gAnnouncement['announcement_date']?></td>
+            <td><?= $gAnnouncement['starting_date']?></td>
+            <td><?= $gAnnouncement['ending_date']?></td>
             <td><?= $gAnnouncement['announcement']?></td>
             <td><?= $gAnnouncement['content']?></td>
             <td><button type="button" class="btn" style="background-color: black; border-color: black; color: #ffffff;" data-toggle="modal" data-target="#editModal <?=$gAnnouncement['id']?>">Edit</button>
@@ -68,11 +70,11 @@ include_once "adminHeader.php";
   </div>
 
       <!-- Add Announcement Modal -->
-      <div class="modal fade" id="addCouponModal" tabindex="-1" role="dialog" aria-labelledby="addCouponModalLabel" aria-hidden="true">
+      <div class="modal fade" id="addAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
               <div class="modal-content">
                   <div class="modal-header">
-                      <h5 class="modal-title" id="addCouponModalLabel">Add Announcement</h5>
+                      <h5 class="modal-title" id="addAnnouncementModalLabel">Add Announcement</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
@@ -81,22 +83,47 @@ include_once "adminHeader.php";
                       <!-- Add a form element with the appropriate method and action attributes -->
                       <form action="../includes/add-announcement.inc.php" method="post">
                           <div class="form-group">
-                              <label for="editStartTime">Date</label>
-                              <input required type="datetime-local" class="form-control" id="editStartTime" name="editStartTime">
+                              <label for="editStartTime">Start Date</label>
+                              <input required type="datetime-local" class="form-control" id="getStartTime" name="editStartTime">
+                          </div>
+                          <div class="form-group">
+                              <label for="editEndTime">End Date</label>
+                              <input required type="datetime-local" class="form-control" id="getEndTime" name="editEndTime">
                           </div>
                           <div class="form-group">
                               <label for="couponCode">Announcement Title</label>
-                              <input required type="text" class="form-control" id="couponCode" name="editTitle" placeholder="Enter Title here...">
+                              <input required type="text" class="form-control" id="editTitle" name="getTitle" placeholder="Enter Title here...">
                           </div>
                           <div class="form-group">
                               <label for="announcementContent">Content</label>
-                              <textarea required class="form-control" id="announcementContent" rows="3" name="editContent" placeholder="Enter content here..."></textarea>
+                              <textarea required class="form-control" id="announcementContent" rows="3" name="getContent" placeholder="Enter content here..."></textarea>
                           </div>
                           <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <!-- Change the button type to "submit" to submit the form -->
-                              <button type="submit" class="btn" style="background-color: #D0BC05; border-color: #D0BC05; color: #ffffff;" name="saveButton">Save</button>
+                              <button type="button" class="btn btn-primary" style="background-color: #D0BC05; border-color: #D0BC05; color: #ffffff;"name ="confirmAddButton"id ="confirmAddAnnouncement" data-toggle="modal" data-target="#confirmationAddModal">Add</button>
                           </div>
+
+                          <!-- Confirmation Modal for Add -->
+
+                          <div class="modal fade" id="confirmationAddModal" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Confirm Announcement</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                              <div class="modal-body">
+                                    Are you sure you want to add this Announcement?
+                              </div>
+                          <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="saveAddAnnouncement"name ="saveAddButton">Add Announcement</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </form>
                   </div>
               </div>
@@ -108,12 +135,13 @@ include_once "adminHeader.php";
         include "EditAnnouncementManagement.php";
       ?>
 
-    
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script> -->
   
 </body>
 </html>
 <?php
-    include_once "adminFooter.php";
+    include "adminFooter.php";
 ?>

@@ -30,7 +30,7 @@
                 <thead>
                   <tr>
                     <th>id</th>
-                    <th>Profile</th>
+                    <!-- <th>Profile</th> -->
                     <th>Name</th>
                     <th>Email</th>
                     <th>Address</th>
@@ -58,7 +58,7 @@ if (empty($data)) {
 ?>
         <tr>
             <td><?= $count ?></td>
-            <td><img src='../image/user.jpg' alt='user image'></td>
+            <!-- <td><img src='../image/user.jpg' alt='user image'></td> -->
             <td><?= $customer['username'] ?></td>
             <td><?= $customer['email'] ?></td>
             <td><?= $customer['customer_address'] ?></td>

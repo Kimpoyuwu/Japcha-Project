@@ -184,6 +184,52 @@
             }
         }
 
+        public function setLogo($logo){
+            try {
+                
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('UPDATE cms SET logo_url = ?');
+                
+                // Execute the query
+                if(!$stmt->execute(array($logo))) {
+                    $stmt = null;
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
+                    exit();
+                }
+                $stmt = null;
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location: ../back-end/admin-cms.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+
+        public function setLandingImage($LandingImage){
+            try {
+                
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('UPDATE cms SET landing_image_url = ?');
+                
+                // Execute the query
+                if(!$stmt->execute(array($LandingImage))) {
+                    $stmt = null;
+                    header("location: ../back-end/admin-cms.php?error=stmtfailed");
+                    exit();
+                }else{
+                    header("location: ../back-end/admin-cms.php?success=successfully");
+                    exit();
+                }
+                $stmt = null;
+            } catch (Exception $e) {
+                // Log the error or handle it appropriately
+                header("location: ../back-end/admin-cms.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+
         public function setFbLink($fbLink, $igLink, $ytLink){
             try {
                 

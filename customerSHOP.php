@@ -2,15 +2,24 @@
     include "c_header.php"; 
     include_once "config/databaseConnection.php"; 
     // include "classes/dbh.classes.php";
- 
+    $products = $productModel->getProductShake();
 ?>
 
     <div class="shopContainer">
             <div class="filterContainer">
                 <div class="filter">
                     <!-- <h2>Sort and Filter</h2> -->
-                    <select name="filterField" class = "filterField" id="filterField">
-                        <option value="">Filter</option>
+                    <select name="filterField" class = "filterField" id="filterByCategory">
+                    <?php
+                        $query = "SELECT category_id, category_name FROM categories";
+                        $result = mysqli_query($con, $query);
+                                   
+                        while ($row = mysqli_fetch_assoc($result)) {
+                        $categoryId = $row['category_id'];
+                        $categoryName = $row['category_name'];
+                        echo '<option value="' . $categoryId . '">' . $categoryName . '</option>';
+                    }
+                     ?> 
                     </select>
                 </div>
             </div>
@@ -23,8 +32,6 @@
   
                 foreach ($products as $product):
                  $productid = $product['product_id']
-                // $_SESSION['prodid'] = $product['product_id'];
-                // $_SESSION['prodname'] = $product['product_name'];
             ?>
               
                 <div id="product" class="product">
@@ -70,15 +77,7 @@
    
             </div>
  
-            <!-- <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav> -->
+
             </form>
         </div>
         
@@ -92,6 +91,8 @@
                 <button class="btnNext" onclick="nextBtn()">next<i class="fa fa-angle-right"></i></button>
             </div> -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
         let page = document.getElementsByClassName("page");
         let currentValue = 1;
@@ -128,8 +129,23 @@
         
     // });
         
-        
+    $(document).ready(function() {
+    $("#filterByCategory").change(function() {
+        var selectedCategory = $(this).val();
+        console.log(selectedCategory);
+        // Make an AJAX request to fetch content based on the selected category
+        $.ajax({
+            url: 'classes/SortByCategoryFunctionFrontEnd.php', // Replace with the actual URL to fetch data
+            method: 'POST',
+            data: { category: selectedCategory },
+            success: function(response) {
+                $(".productContainer").html(response);
+            }
+        });
+    });
+});
     </script>
+
 <?php
   include "c_footer.php";
 ?>

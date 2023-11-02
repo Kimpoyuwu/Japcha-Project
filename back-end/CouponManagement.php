@@ -26,6 +26,7 @@ $getCoupon = $coupon->getAllCoupon();
             <th>Coupon Code</th>
             <th>Offer Name</th>
             <th>Discount (%)</th>
+            <th>Quantity</th>
             <th>Start Time</th>
             <th>End Time</th>
             <th>Action</th>
@@ -44,8 +45,10 @@ $getCoupon = $coupon->getAllCoupon();
             <td><?= $gCoupon['coupon_code']?></td>
             <td><?= $gCoupon['offer_name']?></td>
             <td><?= $gCoupon['discount_percentage']?></td>
+            <td><?= $gCoupon['Quantity']?></td>
             <td><?= $gCoupon['start_time']?></td>
             <td><?= $gCoupon['end_time']?></td>
+            
             <td>
               <button type="button" class="btn" style="background-color: black; border-color: black; color: #ffffff;"
               data-toggle="modal" data-target="#editModal<?= $gCoupon['id'] ?>">Edit </button>
@@ -89,6 +92,10 @@ $getCoupon = $coupon->getAllCoupon();
                   <input required type="text" class="form-control" id="discount" name = "discount"placeholder="Enter discount percentage">
                 </div>
                 <div class="form-group">
+                  <label for="quantity">Quantity</label>
+                  <input required type="text" class="form-control" id="Quantity" name="Quantity" placeholder="Enter quantity">
+                </div>
+                <div class="form-group">
                   <label for="editStartTime">Start Time</label>
                   <input required type="datetime-local" class="form-control" id="editStartTime" name="StartTime">
                 </div>
@@ -97,9 +104,32 @@ $getCoupon = $coupon->getAllCoupon();
                   <input required type="datetime-local" class="form-control" id="editEndTime" name="EndTime">
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal"name="CloseButton">Close</button>
-                  <button type="submit" class="btn" style="background-color: #D0BC05; border-color: #D0BC05; color: #ffffff;"name ="SaveButton">Save</button>
+                <button type="button" class="btn btn-primary" style="background-color: #D0BC05; border-color: #D0BC05; color: #ffffff;"name ="confirmAddButton"id ="confirmAddCoupon" data-toggle="modal" data-target="#confirmationAddModal">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"name="CloseButton">Close</button>
+                  
                 </div>  
+
+                <!-- Confirmation Modal for Adding Coupon -->
+
+                <div class="modal fade" id="confirmationAddModal" tabindex="-1" role="dialog" aria-labelledby="confirmationAddModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="confirmationAddModalLabel">Confirm Coupon</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        Are you sure you want to add this Coupon?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="saveAddCoupon"name ="saveAddButton">Add Coupon</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
@@ -107,51 +137,15 @@ $getCoupon = $coupon->getAllCoupon();
       </div>
 
       <!-- For Editing Modal -->
-      <?php
-        include "EditCouponManagement.php";
-      ?>
+              <?php
+                include "EditCouponManagement.php";
+              ?>
 
 
-  <div class="modal fade" id="addCouponModal" tabindex="-1" role="dialog" aria-labelledby="addCouponModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addCouponModalLabel">Add Coupon</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="couponCode">Coupon Code</label>
-              <input type="text" class="form-control" id="couponCode" placeholder="Enter coupon code">
-            </div>
-            <div class="form-group">
-              <label for="discount">Offer Name</label>
-              <input type="text" class="form-control" id="discount" placeholder="">
-            </div>
-            <div class="form-group">
-              <label for="discount">Discount (%)</label>
-              <input type="text" class="form-control" id="discount" placeholder="Enter discount percentage">
-            </div>
-            <div class="form-group">
-              <label for="dateOfUsage">Start Time</label>
-              <input type="date" class="form-control" id="dateOfUsage" name="dateOfUsage">
-            </div>
-            <div class="form-group">
-              <label for="dateOfUsage">End Time</label>
-              <input type="date" class="form-control" id="dateOfUsage" name="dateOfUsage">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save</button>
-            </div>  
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+
+       
+  
 
   <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script> -->
