@@ -5,11 +5,11 @@ require_once "../classes/CartModel.php";
 $CartModel = new CartMOdel();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $cartId = $_POST['CartId'];
+    // $cartId = $_POST['CartId'];
     $customerId = $_POST['customer_id'];
     $productId = $_POST['product_id'];
     
-    $remove = $CartModel->RemoveFromCart($cartId, $customerId, $productId);
+    $remove = $CartModel->RemoveFromCart($customerId, $productId);
 
     if ($remove != false) {
         $response = ['success' => true];

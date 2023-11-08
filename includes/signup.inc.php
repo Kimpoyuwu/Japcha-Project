@@ -11,14 +11,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $contactNum = isset($_POST["contact"]) ? intval($_POST["contact"]) : 0;
 
     
-    $_SESSION['username'] = $username;
-    $_SESSION['email'] = $email;
-    $_SESSION['pwd'] = $pwd;
-    $_SESSION['pwdConfirm'] = $pwdConfirm;
-    $_SESSION['address'] = $address;
-    $_SESSION['contactNum'] = $contactNum;
+    // $_SESSION['username'] = $username;
+    // $_SESSION['email'] = $email;
+    // $_SESSION['pwd'] = $pwd;
+    // $_SESSION['pwdConfirm'] = $pwdConfirm;
+    // $_SESSION['address'] = $address;
+    // $_SESSION['contactNum'] = $contactNum;
 
-    echo  $_SESSION['username'];
+    // echo  $_SESSION['username'];
     // instantiate signupContr class
     include "../classes/dbh.classes.php";
     include "../classes/signup.classes.php";

@@ -340,9 +340,9 @@
         </tbody>
     </table>
 
-    <div class="remarks mt-3">
-                <h4 class ="Remarks">Remarks</h4>
-                <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div class="remarks mt-3">
+                        <h4 class ="Remarks">Remarks</h4>
+                        <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
 
             </div>
 
@@ -351,8 +351,10 @@
                 <h2 class="TP">Total Price:</h2>
                 <h3 class="value">₱<span id="total"><?= $price ?></span></h3>
                 <input type="hidden" name="total_data" id="totalInput" value="<?= $price ?>">
-                <button class="btn btn-primary" type ="submit">Proceed</button>
+                <button class="btn btn-primary" type ="submit" name="proceed1">Proceed</button>
             </div>
+
+    <script src="assets/js/OrderCheckoutSingleOrder.js"></script>
 
 <?php
   }
@@ -391,7 +393,8 @@
             foreach ($displayCart as $cart):
                 $addonsid = $cart['addons_id'] ?? null;
                 $fetchDetails = $cartModel->fetchCartDetails($cart['product_id'], $cart['size_id'], $cart['addons_id']);
-                $addonsName = $fetchDetails['addons_name'] ?? "None";
+                $addonsDetails = $cartModel->FetchAddons($cart['addons_id']);
+                $addonsName = $addonsDetails['addons_name'] ?? "None";
                 $fetchPrize = $cartModel->fetchPrice($cart['size_id'], $cart['product_id']);
         ?>
             <tr class="product-row">
@@ -457,69 +460,7 @@
                 <button class="btn btn-primary" type ="submit" name="proceed2">Proceed</button>
             </div>
 
-<script>
-$(document).ready(function() {
-  // Function to calculate the total
-  function calculateTotal() {
-    let total = 0;
-
-    // Iterate through each product row
-    $('.product-row').each(function() {
-      const price = parseFloat($(this).find('.product-price').text());
-      const quantity = parseInt($(this).find('.product-quantity').val(), 10);
-      const subtotal = (price * quantity).toFixed(2);
-      $(this).find('.product-subtotal').text('₱' + subtotal);
-     
-      total += parseFloat(subtotal);
-    
-
-      $(this).find('.subtotal-input').val(subtotal);
-    });
-
-    // Check if the "Cash on Delivery" checkbox is checked
-    if ($('#cod-checkbox').is(':checked')) {
-      total += 10; // Add a shipping fee of 10 if the checkbox is checked
-    }
-    if ($('#gcash-checkbox').is(':checked')) {
-      total += 10; // Add a shipping fee of 10 if the checkbox is checked
-    }
-
-    $('#totalInput').val(total);
- 
-    // Update the total in the HTML
-    $('#total').text('₱' + total.toFixed(2));
-  }
-
-  // Calculate and display the total when the page loads
-  calculateTotal();
-
-  // Add an event listener to listen for changes to the input (quantity)
-  $('.product-quantity').on('input', calculateTotal);
-  $('#cod-checkbox').on('change', calculateTotal);
-  $('#gcash-checkbox').on('change', calculateTotal);
-  
-});
-
-function selectOnlyOne(checkbox) {
-  const shippingFeeElement = $("#shippingFee");
-
-  // Uncheck other checkboxes
-  $('input[name="group"]').not(checkbox).prop('checked', false);
-
-  // Update the visibility of the shipping fee based on the selected checkbox
-  if (checkbox.checked) {
-    shippingFeeElement.css('display', 'inline');
-  } else {
-    shippingFeeElement.css('display', 'none');
-  }
-
-  // Recalculate the total when a checkbox is selected/unselected
-  calculateTotal();
-}
-
-
-
-</script>
+<script src="assets/js/OrderCheckoutCart.js"></script>
 <?php
  }
 ?>
@@ -532,77 +473,7 @@ function selectOnlyOne(checkbox) {
     <?php
     include "OrderCheckoutModal.php";
     ?>
-    <!-- <script>
-    function selectOnlyOne(checkbox) {
-        var checkboxes = document.getElementsByName('group');
-        const shippingFeeElement = document.getElementById("shippingFee");
-        
-        // Iterate through the checkboxes
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i] !== checkbox) {
-                // Uncheck other checkboxes
-                checkboxes[i].checked = false;
-            }
-        }
-        
-        // Update the visibility of the shipping fee based on the selected checkbox
-        if (checkbox.checked) {
-            shippingFeeElement.style.display = "inline";
-        } else {
-            shippingFeeElement.style.display = "none";
-        }
-    }
-
-    function goToPage() {
-        // Show confirmation modal
-        $('#confirmationModal').modal('show');
-    }
-
-    function proceedToOrderStatus() {
-        // Proceed to orderStatus.php
-        window.location.href = "orderStatus.php";
-    }
- // Get references to the quantity input, price, and subtotal elements
-// Get references to the quantity input, price, and subtotal elements
-const quantityInput = document.getElementById("quantity");
-const addonsInput = document.getElementById("addonsPrice"); // Assuming this is the element displaying addons price
-const priceElement = document.getElementById("price");
-const subtotalElement = document.getElementById("subtotal");
-const totalElement = document.getElementById("total");
-
-// Function to calculate subtotal
-function calculateSubtotal() {
-  const quantity = parseInt(quantityInput.value, 10);
-
-  // Check if quantity is less than 1 or empty
-  if (quantity < 1 || isNaN(quantity)) {
-    quantityInput.value = 1; // Reset to 1 if less than 1 or empty
-  }
-
-  const price = parseFloat(priceElement.innerText);
-//   const subtotal = (quantity * price).toFixed(2);
-//   subtotalElement.innerText = subtotal;
-
-  // Handle the addons value when it's not set
-  let addonsTotal = 0;
-  if (addonsInput !== null) {
-    addonsTotal = parseFloat(addonsInput.innerText);
-  }
-
-  const total = (quantity * price + addonsTotal).toFixed(2);
-  totalElement.innerText = total;
-  subtotalElement.innerText = total;
-  document.getElementById("subtotalInput").value = total;
-  document.getElementById("totalInput").value = total;
-}
-
-// Calculate and display subtotal when the page loads
-calculateSubtotal();
-
-// Add an event listener to listen for changes to the input
-quantityInput.addEventListener("input", calculateSubtotal);
-
-    </script> -->
+    
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

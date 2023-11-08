@@ -5,7 +5,7 @@ require_once "../classes/OrderModel.php";
 $OrderModel = new Order();
 
 // Assuming you have a method in your OrderModel to get all orders
-$orders = $OrderModel->getOrdersPreparing();
+$orders = $OrderModel->getOrdersCompleted();
 
 if (!empty($orders)) {
     $preparingOrders = [];

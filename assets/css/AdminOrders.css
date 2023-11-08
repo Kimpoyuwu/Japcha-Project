@@ -7,7 +7,7 @@ body {
 
   .container {
     box-sizing: content-box;
-    height: 1100px;
+    max-height: 1100px;
     max-width: 80%;
     margin-right: 80px;
     margin-left: 280px;
@@ -186,6 +186,8 @@ body {
   margin-top: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border: 2px solid #ccc;
+  max-height: 500px;
+  overflow: auto;
 }
 
 /* Style for each Add-on */

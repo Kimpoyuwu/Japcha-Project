@@ -170,7 +170,7 @@
                 <a href="#">Chat</a>
             </li>
             <li>
-                <a href="#">Order</a>
+                <a href="orderstatus.php">Order</a>
             </li>
             <li>
                 <div id="search-icon">
@@ -249,8 +249,8 @@ $(document).ready(function() {
                     <div class="card mb-4">
                         <div class="card-header">${product.product_name}
                             <input type="hidden" name="p__id" value="${product.product_id}">
-                            <input type="hidden" name="cart_id[]" value="${product.cart_id}">
-                            <button class="btn btn-link" style="float: right; border: none; text-decoration: underline;">Remove</button>
+                            <input type="hidden" name="cart_id[]" value="${product.cartid}">
+                            <button type="button" class="btn btn-link" style="float: right; border: none; text-decoration: underline;">Remove</button>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
@@ -335,15 +335,14 @@ $(document).ready(function() {
     fetchAndUpdateContent();
 
 
-function removeProductFromCart(cart_id, customerId, productId) {
+function removeProductFromCart(customerId, productId) {
     // Perform an Ajax request to update the cart with isRemove set to true
     $.ajax({
         type: 'POST',
         url: 'controller/update_remove_cart.php', // Replace with the URL for your update script
         data: {
-            CartId: cart_id,
             customer_id: customerId,
-            product_id: productId
+            product_id: productId,
         },
         success: function(response) {
             // If the update is successful, you can refresh the cart content
@@ -364,9 +363,12 @@ $('#productContainer').on('click', '.btn-link', function() {
     var productContainer = $(this).closest('.card');
     var productId = productContainer.find('input[name="p__id"]').val(); // Get the product ID
     var cart_id = productContainer.find('input[name="cart_id"]').val(); 
-    // console.log(productContainer);
+    console.log(productContainer);
+    console.log(productId);
+    console.log(cart_id);
+    console.log(customerId);
     // Call the removeProductFromCart function
-    removeProductFromCart(cart_id, customerId, productId);
+    removeProductFromCart(customerId, productId);
 });
 
 });

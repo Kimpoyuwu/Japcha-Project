@@ -30,7 +30,7 @@
     }
 
     .table {
-        margin-top: 50px;
+        margin-top: 20px;
         text-align: center;
         
     }
@@ -75,8 +75,10 @@
         justify-content: center;
         width: 100%; 
     }
-
-
+   
+    td.center-content{
+        vertical-align: middle !important;
+    }
     </style>
     <div class="container text-center">
      <div class="orderbar">
@@ -112,10 +114,11 @@
 
         <div class="tab-pane fade show active" id="nav-Pending" role="tabpanel" aria-labelledby="nav-Pending-tab">
                 <table class="table">
+                    <div class="d-flex justify-content-center">ORDER NO. <span></span></div>
                     <thead>
                       <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">Order No.</th>
+                                        <th scope="col">Product Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Item Subtotal</th>
@@ -125,7 +128,7 @@
                      <tbody>
                      <tr>
                                         <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
-                                        <td class="center-content">#00001</td>
+                                        <td class="center-content">Sample</td>
                                         <td class="center-content">₱100.00</td>
                                         <td class="center-content">
                                             <select class="form-control" id="exampleFormControlSelect1">

@@ -338,15 +338,21 @@ $(document).ready(function() {
         var user_id = $("input[name='user']").val();
         var prodid = $("input[name='prdID']").val();
         var size_id = $("#sizeDropdown").val();
-        var addons_id = $("input[name='addons']:checked").val() || null;
+        var addons_id = $("input[name='addons']:checked").val();
+
+        if (addons_id === undefined) {
+            addons_id = null; // Set to null when no addon is checked
+        }
 
         // Create an object to send via AJAX
         var data = {
             customer_id: user_id,
             prod__id: prodid,
             size_id: size_id,
-            addons_id: addons_id
+            addonsid: addons_id
         };
+
+        console.log(data);
 
         // Send the data using AJAX
         $.ajax({
@@ -367,5 +373,4 @@ $(document).ready(function() {
         });
     });
 });
-
 </script>
