@@ -71,7 +71,7 @@
         <div id="banner">
             <h1><?php echo $data['title_data']; ?></h1>
             <h2><?php echo $data['subtitle']; ?></h2>
-            <a href="#" class="btn-Shopnow">SHOP NOW</a>
+            <a href="customerSHOP.php" class="btn-Shopnow">SHOP NOW</a>
         </div>
         <div id="image-right-side">
                 <img src="upload-content/<?php echo $data['landing_image_url']; ?>" alt="Hand holding JapCha">

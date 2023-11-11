@@ -50,6 +50,80 @@ class Order extends Dbh {
     
 }
 
+public function getOrderNumberByCustomer($customerid) {
+    try {
+        $orders = array();
+        $count = 0;
+
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `df`, `total_price`, `remark` FROM `order` WHERE customer_id = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1 ORDER BY order_id ASC');
+
+        // Bind the parameter
+        $stmt->bindParam(1, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $orders[] = $row;
+                $count++;
+            }
+        }
+
+        $stmt->closeCursor();
+        return array('orders' => $orders, 'count' => $count);
+
+    } catch (\Throwable $th) {
+        // Handle the exception (e.g., redirect or log the error)
+        header("location: ../index.php?error=" . urlencode($th->getMessage()));
+        exit();
+    }
+}
+
+public function getOrderNumberOfCustomer($customerid, $totalprice){
+    try {
+
+        $orders = array();
+        $stmt = $this->connect()->prepare('SELECT `order_id` FROM `order` WHERE customer_id = ? AND total_price = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1 ORDER BY order_id ASC');
+
+        // Execute the query
+        if ($stmt->execute([$customerid, $totalprice])) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $orders[] = $row;
+            }
+        }
+        $stmt->closeCursor();
+        return $orders;
+    
+    } catch (\Throwable $th) {
+        //throw $th;
+        header("location: ../index.php?errorsada=" . urlencode($th->getMessage()));
+        exit();
+    }
+
+}
+
+
+public function getOrderByCustomer($customerid) {
+    try {
+        $orders = array();
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE customer_id = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 AND removed != 1 AND cancel != 1 ORDER BY order_id ASC');
+
+        // Execute the query with parameters
+        if ($stmt->execute([$customerid])) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $orders[] = $row;
+            }
+        }
+
+        $stmt->closeCursor();
+        return $orders;
+    } catch (\Throwable $th) {
+        // Handle exceptions appropriately, for now redirecting to an error page
+        header("location: ../index.php?error=" . urlencode($th->getMessage()));
+        exit();
+    }
+}
+
+
     public function getOrders() {
         try {
 
@@ -164,6 +238,59 @@ public function getOrder($customer_Id) {
     }
 }
 
+public function getOrderPrearpingFrontEnd($customer_Id) {
+    try {
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing = 1 AND shipping != 1 AND delivered != 1 AND removed != 1 ORDER BY order_id DESC');
+        
+        $stmt->bindValue(1, $customer_Id);
+        $stmt->execute();
+        $order_data = $stmt->fetchAll(PDO::FETCH_ASSOC); // Use fetchAll to get all matching rows
+
+        if (!empty($order_data)) {
+            return $order_data;
+        } else {
+            return false; // No matching data found
+        }
+    } catch (PDOException $e) {
+        return false; // Error occurred
+    }
+}
+
+public function getOrderDeliveryFrontEnd($customer_Id) {
+    try {
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing != 1 AND shipping = 1 AND delivered != 1 AND removed != 1 ORDER BY order_id DESC');
+        
+        $stmt->bindValue(1, $customer_Id);
+        $stmt->execute();
+        $order_data = $stmt->fetchAll(PDO::FETCH_ASSOC); // Use fetchAll to get all matching rows
+
+        if (!empty($order_data)) {
+            return $order_data;
+        } else {
+            return false; // No matching data found
+        }
+    } catch (PDOException $e) {
+        return false; // Error occurred
+    }
+}
+
+public function getOrderCompletedFrontEnd($customer_Id) {
+    try {
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND `delivered` = 1 AND removed != 1 ORDER BY order_id DESC');
+        
+        $stmt->bindValue(1, $customer_Id);
+        $stmt->execute();
+        $order_data = $stmt->fetchAll(PDO::FETCH_ASSOC); // Use fetchAll to get all matching rows
+
+        if (!empty($order_data)) {
+            return $order_data;
+        } else {
+            return false; // No matching data found
+        }
+    } catch (PDOException $e) {
+        return false; // Error occurred
+    }
+}
 // public function getOrder($customerId) {
 //     try {
 //         $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE customer_id = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 ORDER BY order_id DESC');
@@ -208,7 +335,7 @@ public function getData($productid, $sizesid, $customerid) {
 public function getAddons($addonsid){
     try {
        
-            $stmt = $this->connect()->prepare('SELECT addons_id, addons_name FROM addons WHERE addons_id = ?');
+            $stmt = $this->connect()->prepare('SELECT addons_id, addons_name, price FROM addons WHERE addons_id = ?');
 
             // Execute the query
             if ($stmt->execute([$addonsid])) {
@@ -227,6 +354,31 @@ public function getAddons($addonsid){
 
     return null; // Return null in case of an error or no data found
 }
+
+public function getPriceBySize($sizeid, $prodid) {
+    try {
+        if (is_array($sizeid)) {
+            $placeholders = str_repeat('?,', count($sizeid) - 1) . '?';
+            $query = "SELECT price FROM variation WHERE size_id IN ($placeholders) AND product_id = ? AND isDeleted != 1";
+        } else {
+            $query = "SELECT price FROM variation WHERE size_id = ? AND product_id = ? AND isDeleted != 1";
+        }
+
+        $stmt = $this->connect()->prepare($query);
+
+        // Execute the query
+        $params = is_array($sizeid) ? array_merge($sizeid, [$prodid]) : [$sizeid, $prodid];
+        if ($stmt->execute($params)) {
+            // Fetch the price value directly (since it's a single value)
+            $price = $stmt->fetchColumn();
+
+            return $price;
+        }
+    } catch (Exception $e) {
+        return "Error: " . $e->getMessage(); // Handle the error appropriately
+    }
+}
+
 
 
 public function getCustomerDetails($customerid){

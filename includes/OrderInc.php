@@ -84,30 +84,35 @@ if(isset($_POST['proceed2'])){
 
     $number_of_rows = count($customerid); 
 
-    for ($i = 0; $i < $number_of_rows; $i++) {
-
-        $addons_id = !empty($addons[$i]) ? $addons[$i] : null;
-
-        $InsertOrder[] = [
-            'customer_id' => $customerid[$i],
-            'product_id' => $prodid[$i],
-            'sizes_id' => $sizesid[$i],
-            'addons_id' => $addons_id, // Set to null or provide actual values
-            'quantity' => $quantity[$i],
-            'subtotal' => $subtotals[$i],
-        ];
-    }
 
     // var_dump($InsertOrder);
     $UpdateCart = $cartmodel->updateCart($userID);
 
     if($order->insertToOrderHeader($userID,  $totalprice, $remark)){
-        if ($order->insertMultipleOrder($InsertOrder)) {
-            header("location: ../customerSHOP.php?error=none");
-            exit();
-        } else {
-            echo "Failed to insert multiple records.";
-        }
+        
+        $getOrderNumber = $order->getOrderNumberOfCustomer($userID, $totalprice);
+
+        // for ($i = 0; $i < $number_of_rows; $i++) {
+
+        //     $addons_id = !empty($addons[$i]) ? $addons[$i] : null;
+    
+        //     $InsertOrder[] = [
+        //         'customer_id' => $customerid[$i],
+        //         'product_id' => $prodid[$i],
+        //         'sizes_id' => $sizesid[$i],
+        //         'addons_id' => $addons_id, // Set to null or provide actual values
+        //         'quantity' => $quantity[$i],
+        //         'subtotal' => $subtotals[$i],
+        //     ];
+        // }
+
+        var_dump($getOrderNumber);
+        // if ($order->insertMultipleOrder($InsertOrder)) {
+        //     header("location: ../customerSHOP.php?error=none");
+        //     exit();
+        // } else {
+        //     echo "Failed to insert multiple records.";
+        // }
     }else{
         echo "Failed to insert records.";
     }

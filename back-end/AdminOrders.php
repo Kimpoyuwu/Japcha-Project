@@ -19,10 +19,10 @@
         <h2>Manage Order</h2>
       </div>
       <div class="status-bar">
-        <button class="New" id="newStatus">New</button>
-        <button class="Preparing" id="preparingStatus">Preparing</button>
-        <button class="Delivery" id="deliveryStatus">Delivery</button>
-        <button class="Complete" id="completeStatus">Complete</button>
+        <button class="New" id="newStatus">New <span class="badge badge-success">4</span></button>
+        <button class="Preparing" id="preparingStatus">Preparing <span class="badge badge-success">4</span></button>
+        <button class="Delivery" id="deliveryStatus">Delivery <span class="badge badge-success">4</span></button>
+        <button class="Complete" id="completeStatus">Complete <span class="badge badge-success">4</span></button>
       </div>
       <!-- New Orders List Section -->
       <div class="order-list d-flex" id="newOrders" style="gap: 5px;">

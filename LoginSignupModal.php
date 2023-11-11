@@ -10,7 +10,7 @@
                     <div class="input_box">
                         <input type="password" placeholder="Enter your password" name="pass" required/>
                         <i class="uil uil-lock password"></i>
-                        <i class="uil uil-eye-slash pw_hide"></i>
+                        <!-- <i class="uil uil-eye-slash pw_hide"></i> -->
                     </div>
                     <!-- <div class="option_field">
                         <span class="checkbox">
@@ -66,7 +66,7 @@
                         </span>  
                     </div>
                     <!-- <input type="submit" class="btnLogin btn-primary"> -->
-                    <button class="btnSignup" type="submit" name="submit">Signup Now</button>
+                    <button class="btnSignup" type="submit" name="signup_now">Signup Now</button>
                     <div class="login_signup">
                         Already have an account? <a href="#" id="login">Login</a>
                     </div>

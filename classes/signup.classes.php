@@ -2,7 +2,7 @@
 
 class Signup extends Dbh {
 
-    protected function setUser($username, $pwd, $email, $address, $contactNum) {
+    public function setUser($username, $pwd, $email, $address, $contactNum) {
             try {
 
                 $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
@@ -30,7 +30,7 @@ class Signup extends Dbh {
     protected function checkUser($email) {
         try {
             // Prepare the SQL query
-            $stmt = $this->connect()->prepare('SELECT username FROM customer_account WHERE email = ?');
+            $stmt = $this->connect()->prepare('SELECT username FROM customer_account WHERE email = ? AND isDeleted != 1');
             
             // Execute the query
             if (!$stmt->execute(array($email))) {

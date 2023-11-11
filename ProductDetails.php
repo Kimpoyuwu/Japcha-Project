@@ -21,9 +21,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 
 .container{
     margin-top: 180px;
-    bottom: 500; 
-    left: 0; 
-    right: 0; 
     width: 100%; 
     height: 75vh;
     
@@ -245,8 +242,9 @@ hr.new4 {
                 else 
                 {
             ?>
-                <button class="btn btn-primary btnAddtoCart" style="background-color: #FAFAFA; border-color: #FFD600;"><a href="#id" class="add text-black">Add To Cart</a></button>
-                <button type="button" class="btn btn-success buyNow">Buy Nows</button>
+                <button type="button" class="btn btn-primary btnAddtoCart" style="background-color: #FAFAFA; border-color: #FFD600;" id="LoginAddtocart"><a href="#id" class="add ">Add To Cart</a></button>
+                <button type="button" class="btn btn-success buyNow" id="LoginBuynow" >Buy Now</button>
+              
             <?php 
                 }
             ?>
@@ -321,6 +319,23 @@ hr.new4 {
         // Uncheck all checkboxes except the one that was clicked
         $('input[type="checkbox"]').not(this).prop('checked', false);
     });
+
+
+    $("#LoginAddtocart").click(function() {
+
+        $(".form-container").addClass("show");
+    });
+
+    $("#LoginBuynow").click(function() {
+
+        $(".form-container").addClass("show");
+    });
+
+    $(".form_close").click(function() {
+
+        $(".form-container").removeClass("show");
+    });
+    
 });
 
 </script>

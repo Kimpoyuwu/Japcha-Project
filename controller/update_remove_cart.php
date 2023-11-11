@@ -7,9 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // $cartId = $_POST['CartId'];
     $customerId = $_POST['customer_id'];
-    $productId = $_POST['product_id'];
+    $cartid = $_POST['cartid'];
     
-    $remove = $CartModel->RemoveFromCart($customerId, $productId);
+    $remove = $CartModel->RemoveFromCart($customerId, $cartid);
 
     if ($remove != false) {
         $response = ['success' => true];

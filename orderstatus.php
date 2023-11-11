@@ -109,42 +109,17 @@
                     </div>
                 </div>
             </div>
+
+        
         <div class="tab-content justify-content-center " id="nav-tabContent">
 
-
         <div class="tab-pane fade show active" id="nav-Pending" role="tabpanel" aria-labelledby="nav-Pending-tab">
-                <table class="table">
-                    <div class="d-flex justify-content-center">ORDER NO. <span></span></div>
-                    <thead>
-                      <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">Product Name</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Item Subtotal</th>
-                                        <th scope="col"></th>
-                        </tr>
-                    </thead>
-                     <tbody>
-                     <tr>
-                                        <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
-                                        <td class="center-content">Sample</td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td>
-                                    </tr>
-                    </tbody>
-                </table>
-            </div>
+            <!-- <div class="d-flex justify-content-center">ORDER NO. <span></span></div>     -->
+
+            <div id="accordion"></div>
+            <button id="loadOrders">Load Orders</button>
+            
+        </div>
 
 
                             <div class="tab-pane fade" id="nav-Prepairing" role="tabpanel" aria-labelledby="nav-Prepairing-tab">
@@ -152,46 +127,48 @@
                                 <thead>
                                     <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">Order No.</th>
+                                        <th scope="col">Product Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
+                                        <th scope="col">Addons</th>
                                         <th scope="col">Item Subtotal</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
-                                        <td class="center-content">#00001</td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap "></td>
-                                        <td class="center-content">#00002</td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </td>
-                            <td class="center-content">₱100.00</td>
-                            <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td>
-                        </tr>
+                                     <?php
+                                            require_once "classes/OrderModel.php";
+                                            require_once "classes/ProductsModel.php";
+                                            $product_Model = new ProductModel();
+                                            $orderModel = new Order();
+
+                                            $order = $orderModel->getOrderPrearpingFrontEnd($_SESSION["userid"]);
+                                            if($order != false){
+
+                                           
+                                            foreach ($order as $order_info):
+                                                $order_details = $orderModel->getData($order_info['product_id'], $order_info['sizes_id'], $_SESSION["userid"]);
+                                                $addons_details = $orderModel->getAddons($order_info['addons_id']);
+                                                $addons_name = $addons_details['addons_name'] ?? "None";
+                                                $addons_price = $addons_details['price'] ?? "";
+
+                                                $product_details = $orderModel->getPriceBySize($order_info['sizes_id'], $order_info['product_id']);
+                                                
+                                        ?>
+                                                <tr>
+                                                            <td class="center-content"><img class="card-img-top" src="upload/<?= $order_details['image_url'] ?>" alt="Card image cap" style=""></td>
+                                                            <td class="center-content"><?= $order_details['product_name'] ?></td>
+                                                            <td class="center-content"><?= $product_details ?></td>
+                                                            <td class="center-content"><span><?= $order_info['quantity'] ?></span> </td>
+                                                                <td class="center-content"><?= $addons_name ?> <span><?= $addons_price ?></span></td>
+                                                            <td class="center-content"><?= $order_info['subtotal'] ?></td>
+                                                            <!-- <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td> -->
+                                                </tr>
+                                        <?php
+                                            endforeach;
+                                        }
+                                        ?>
+                                            
                     </tbody>
                 </table>
             </div>
@@ -200,30 +177,45 @@
                                 <thead>
                                     <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">Order No.</th>
+                                        <th scope="col">Product Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
+                                        <th scope="col">Addons</th>
                                         <th scope="col">Item Subtotal</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
-                                        <td class="center-content">#00001</td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td>
-                                    </tr>
+                                      <?php
+                                            require_once "classes/OrderModel.php";
+                                            require_once "classes/ProductsModel.php";
+                                            $product_Model = new ProductModel();
+                                            $orderModel = new Order();
+
+                                            $order = $orderModel->getOrderDeliveryFrontEnd($_SESSION["userid"]);
+                                            if($order != false){
+                                            foreach ($order as $order_info):
+                                                $order_details = $orderModel->getData($order_info['product_id'], $order_info['sizes_id'], $_SESSION["userid"]);
+                                                $addons_details = $orderModel->getAddons($order_info['addons_id']);
+                                                $addons_name = $addons_details['addons_name'] ?? "None";
+                                                $addons_price = $addons_details['price'] ?? "";
+
+                                                $product_details = $orderModel->getPriceBySize($order_info['sizes_id'], $order_info['product_id']);
+                                                
+                                        ?>
+                                                <tr>
+                                                            <td class="center-content"><img class="card-img-top" src="upload/<?= $order_details['image_url'] ?>" alt="Card image cap" style=""></td>
+                                                            <td class="center-content"><?= $order_details['product_name'] ?></td>
+                                                            <td class="center-content"><?= $product_details ?></td>
+                                                            <td class="center-content"><span><?= $order_info['quantity'] ?></span> </td>
+                                                                <td class="center-content"><?= $addons_name ?> <span><?= $addons_price ?></span></td>
+                                                            <td class="center-content"><?= $order_info['subtotal'] ?></td>
+                                                            <!-- <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td> -->
+                                                </tr>
+                                        <?php
+                                            endforeach;
+                                        }
+                                        ?>
                     </tbody>
                 </table>
 					</div>
@@ -232,30 +224,45 @@
                                 <thead>
                                     <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">Order No.</th>
+                                        <th scope="col">Product Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
+                                        <th scope="col">Addons</th>
                                         <th scope="col">Item Subtotal</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
-                                        <td class="center-content">#00001</td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td>
-                                    </tr>
+                                      <?php
+                                            require_once "classes/OrderModel.php";
+                                            require_once "classes/ProductsModel.php";
+                                            $product_Model = new ProductModel();
+                                            $orderModel = new Order();
+
+                                            $order = $orderModel->getOrderDeliveryFrontEnd($_SESSION["userid"]);
+                                            if($order != false){
+                                            foreach ($order as $order_info):
+                                                $order_details = $orderModel->getData($order_info['product_id'], $order_info['sizes_id'], $_SESSION["userid"]);
+                                                $addons_details = $orderModel->getAddons($order_info['addons_id']);
+                                                $addons_name = $addons_details['addons_name'] ?? "None";
+                                                $addons_price = $addons_details['price'] ?? "";
+
+                                                $product_details = $orderModel->getPriceBySize($order_info['sizes_id'], $order_info['product_id']);
+                                                
+                                        ?>
+                                                <tr>
+                                                            <td class="center-content"><img class="card-img-top" src="upload/<?= $order_details['image_url'] ?>" alt="Card image cap" style=""></td>
+                                                            <td class="center-content"><?= $order_details['product_name'] ?></td>
+                                                            <td class="center-content"><?= $product_details ?></td>
+                                                            <td class="center-content"><span><?= $order_info['quantity'] ?></span> </td>
+                                                                <td class="center-content"><?= $addons_name ?> <span><?= $addons_price ?></span></td>
+                                                            <td class="center-content"><?= $order_info['subtotal'] ?></td>
+                                                            <!-- <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td> -->
+                                                </tr>
+                                        <?php
+                                            endforeach;
+                                        }
+                                        ?>
                                    
                     </tbody>
                 </table>
@@ -265,30 +272,45 @@
                                 <thead>
                                     <tr>
                                         <th scope="col"></th>
-                                        <th scope="col">Order No.</th>
+                                        <th scope="col">Product Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
+                                        <th scope="col">Addons</th>
                                         <th scope="col">Item Subtotal</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="center-content"><img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap" style=""></td>
-                                        <td class="center-content">#00001</td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content">
-                                            <select class="form-control" id="exampleFormControlSelect1">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </td>
-                                        <td class="center-content">₱100.00</td>
-                                        <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td>
-                                    </tr>
+                                      <?php
+                                            require_once "classes/OrderModel.php";
+                                            require_once "classes/ProductsModel.php";
+                                            $product_Model = new ProductModel();
+                                            $orderModel = new Order();
+
+                                            $order = $orderModel->getOrderCompletedFrontEnd($_SESSION["userid"]);
+                                            if($order != false){
+                                            foreach ($order as $order_info):
+                                                $order_details = $orderModel->getData($order_info['product_id'], $order_info['sizes_id'], $_SESSION["userid"]);
+                                                $addons_details = $orderModel->getAddons($order_info['addons_id']);
+                                                $addons_name = $addons_details['addons_name'] ?? "None";
+                                                $addons_price = $addons_details['price'] ?? "";
+
+                                                $product_details = $orderModel->getPriceBySize($order_info['sizes_id'], $order_info['product_id']);
+                                                
+                                        ?>
+                                                <tr>
+                                                            <td class="center-content"><img class="card-img-top" src="upload/<?= $order_details['image_url'] ?>" alt="Card image cap" style=""></td>
+                                                            <td class="center-content"><?= $order_details['product_name'] ?></td>
+                                                            <td class="center-content"><?= $product_details ?></td>
+                                                            <td class="center-content"><span><?= $order_info['quantity'] ?></span> </td>
+                                                                <td class="center-content"><?= $addons_name ?> <span><?= $addons_price ?></span></td>
+                                                            <td class="center-content"><?= $order_info['subtotal'] ?></td>
+                                                            <!-- <td class="center-content"> <button type="button" class="btn" data-toggle="modal" data-target="#addCouponModal">Cancel</button></td> -->
+                                                </tr>
+                                        <?php
+                                            endforeach;
+                                        }
+                                        ?>
                                   
                     </tbody>
                 </table>
@@ -301,13 +323,89 @@
 
     <div class="terms">
     <p>If you wish to cancel an order Please Read our Cancellation</p> <br>
-    <a href="#">Terms & Condition</a>
+    <a href="terms_and_conditions.php" target="_blank">Terms & Conditions</a>
     <br>
   </div>
   <div class="terms">
   
   </div>
-  
+  <script>
+    var userId = <?php echo json_encode($_SESSION["userid"]); ?>; 
+    $(document).ready(function() {
+    $("#loadOrders").click(function() {
+        $.ajax({
+            url: "controller/get_orders_front_end.php?userId=" + userId, // Replace with your server-side script that retrieves orders
+            type: "GET",
+            dataType: "json",
+            success: function(data) {
+                if (data.length > 0) {
+                    $("#accordion").empty(); // Clear existing accordion content
+
+                    // Iterate through the orders and create an accordion item for each
+                    data.forEach(function(order, index) {
+                        var orderId = order.orderID;
+                        var orderContent = createOrderTable(order);
+
+                        var accordionItem = $(
+                            '<div class="card">' +
+                            '<div class="card-header" id="heading' + orderId + '">' +
+                            '<h5 class="mb-0">' +
+                            '<button class="btn btn-link" data-toggle="collapse" data-target="#collapse' + orderId + '" aria-expanded="true" aria-controls="collapse' + orderId + '">' +
+                            'ORDER #' + orderId +
+                            '</button>' +
+                            '</h5>' +
+                            '</div>' +
+                            '<div id="collapse' + orderId + '" class="collapse" aria-labelledby="heading' + orderId + '" data-parent="#accordion">' +
+                            '<div class="card-body">' +
+                            orderContent +
+                            '</div>' +
+                            '</div>' +
+                            '</div>'
+                        );
+
+                        accordionItem.appendTo("#accordion");
+                    });
+                }
+            },
+            error: function() {
+                console.log("Failed to load orders.");
+            }
+        });
+    });
+
+    function createOrderTable(order) {
+        var table = '<table class="table">' +
+            '<thead>' +
+            '<tr>' +
+            '<th scope="col"></th>' +
+            '<th scope="col">Product Name</th>' +
+            '<th scope="col">Price</th>' +
+            '<th scope="col">Quantity</th>' +
+            '<th scope="col">Addons</th>' +
+            '<th scope="col">Item Subtotal</th>' +
+            '<th scope="col"></th>' +
+            '</tr>' +
+            '</thead>' +
+            '<tbody>';
+
+        order.products.forEach(function(product) {
+            // Add rows for each product
+            table += '<tr>' +
+                '<td class="center-content"><img class="card-img-top" src="' + product.image_url + '" alt="Card image cap" style=""></td>' +
+                '<td class="center-content">' + product.product_name + '</td>' +
+                '<td class="center-content">' + product.price + '</td>' +
+                '<td class="center-content"><span>' + product.quantity + '</span></td>' +
+                '<td class="center-content">' + product.addons_name + ' <span>' + product.addons_price + '</span></td>' +
+                '<td class="center-content">' + product.subtotal + '</td>' +
+                '</tr>';
+        });
+
+        table += '</tbody></table>';
+        return table;
+    }
+});
+
+  </script>
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

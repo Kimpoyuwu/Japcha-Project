@@ -54,8 +54,8 @@ class SignupContr extends Signup{
             header("location: ../index.php?error=invalidcontactnumber");
             exit();
         }
-
-        $this->setUser($this ->username,  $this ->pwd,  $this ->email, $this ->address,  $this ->contactNum );
+        
+        // $this->setUser($this ->username,  $this ->pwd,  $this ->email, $this ->address,  $this ->contactNum );
     }
 
     private function emptyInput(){

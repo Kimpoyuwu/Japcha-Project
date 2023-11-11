@@ -95,7 +95,7 @@
                     <div class="icon-link">
                         <a href="AdminOrders.php">
                             <i class="fa fa-list"></i>
-                            <span class="link_name">Orders</span>
+                            <span class="link_name">Orders <span class="badge badge-success">4</span></span>
                         </a>
                         <i class="fa fa-caret-down arrow"></i>
                     </div>

@@ -26,6 +26,9 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <title>Document</title>
     <style>
+        body{
+            background-color: #f4f1ec !important;
+        }
         .success-message {
             background-color: #dff0d8;
             color: #3c763d;
@@ -169,9 +172,18 @@
             <li>
                 <a href="#">Chat</a>
             </li>
+            <?php
+                if (isset($_SESSION["userid"])) 
+                {
+            
+            ?>
             <li>
                 <a href="orderstatus.php">Order</a>
             </li>
+            <?php
+                }
+                
+            ?>
             <li>
                 <div id="search-icon">
                     <i class="fa fa-bell bell"></i>
@@ -211,12 +223,11 @@
         <?php include_once "AddToCart.php";?>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<!-- <script src="assets/js/customer.js"></script> -->
 <script>
 $(document).ready(function() {
     // Get the customer ID from the input element or your session
     var customerId = <?= $_SESSION["userid"] ?>; // Replace with the actual way you store the customer ID
-
     // Function to fetch and update content
     function fetchAndUpdateContent() {
         // Perform an Ajax request to fetch product data
@@ -226,6 +237,13 @@ $(document).ready(function() {
             data: { customer_id: customerId },
             success: function(data) {
                 // Update the product container with new data
+                var total = 0;
+                data.forEach(function(product) {
+                    total += parseFloat(product.price);
+                });
+
+                $('#totalPrice').text('Sub Total: ₱' + total.toFixed(2));
+
                 updateContent(data);
             },
             error: function(xhr, status, error) {
@@ -249,7 +267,7 @@ $(document).ready(function() {
                     <div class="card mb-4">
                         <div class="card-header">${product.product_name}
                             <input type="hidden" name="p__id" value="${product.product_id}">
-                            <input type="hidden" name="cart_id[]" value="${product.cartid}">
+                            <input type="hidden" name="cart_id" value="${product.cartids}">
                             <button type="button" class="btn btn-link" style="float: right; border: none; text-decoration: underline;">Remove</button>
                         </div>
                         <div class="card-body">
@@ -261,10 +279,7 @@ $(document).ready(function() {
                                     <p class="form-control-static" style="float: left;"><span style="color: blue;">Addons:</span> ${product.addonsname}</p>
                                 </div>
                                 <div class="col-sm-6">
-                                    <p class="form-control-static" style="float: left;">${product.price}</p>
-                                </div>
-                                <div class="col-sm-6">
-                                    <input type="number" name="quantity" min="1" step="1" value="1" required style="width: 50px;">
+                                    <p class="form-control-static" style="float: left;">₱ ${product.price}</p>
                                 </div>
                             </div>
                         </div>
@@ -275,7 +290,11 @@ $(document).ready(function() {
 
         // Update the container with the new content
         $('#productContainer').html(productContent);
+
+        
     }
+
+    
 
 //     $('#checkoutButton').click(function() {
 //     // Initialize arrays to store cart items
@@ -335,14 +354,14 @@ $(document).ready(function() {
     fetchAndUpdateContent();
 
 
-function removeProductFromCart(customerId, productId) {
+function removeProductFromCart(customerId, cart_id) {
     // Perform an Ajax request to update the cart with isRemove set to true
     $.ajax({
         type: 'POST',
         url: 'controller/update_remove_cart.php', // Replace with the URL for your update script
         data: {
             customer_id: customerId,
-            product_id: productId,
+            cartid: cart_id,
         },
         success: function(response) {
             // If the update is successful, you can refresh the cart content
@@ -366,9 +385,9 @@ $('#productContainer').on('click', '.btn-link', function() {
     console.log(productContainer);
     console.log(productId);
     console.log(cart_id);
-    console.log(customerId);
+    // console.log(customerId);
     // Call the removeProductFromCart function
-    removeProductFromCart(customerId, productId);
+    removeProductFromCart(customerId, cart_id);
 });
 
 });

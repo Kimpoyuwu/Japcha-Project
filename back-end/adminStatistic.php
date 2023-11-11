@@ -1,5 +1,8 @@
 <?php
     include "adminHeader.php";
+    require_once "../classes/dbh.classes.php";
+    require_once "../classes/StatisticsModel.php";
+    $Stat = new StatisticsModel();
 ?>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
@@ -95,12 +98,12 @@
 
                     <div class="data-box">
                         <p class = "data-tag">Total Products</p>
-                        <h2 class = "data-value" id = "total-product">70</h2>
+                        <h2 class = "data-value" id = "total-product"><?= $Stat->getProductsCount(); ?></h2>
                     </div>
 
                     <div class="data-box">
                         <p class = "data-tag">Total Categories</p>
-                        <h2 class = "data-value" id = "total-category">7</h2>
+                        <h2 class = "data-value" id = "total-category"><?= $Stat->getCategoryCount(); ?></h2>
                     </div>
 
                     <div class="data-box">
@@ -110,12 +113,12 @@
 
                     <div class="data-box">
                         <p class = "data-tag">Total Sizes</p>
-                        <h2 class = "data-value" id = "total-size">5</h2>
+                        <h2 class = "data-value" id = "total-size"><?= $Stat->getSizesCount(); ?></h2>
                     </div>
 
                     <div class="data-box">
-                        <p class = "data-tag">Total Ad-ons</p>
-                        <h2 class = "data-value" id = "total-adson">7</h2>
+                        <p class = "data-tag">Total Add-ons</p>
+                        <h2 class = "data-value" id = "total-adson"><?= $Stat->getAddonsCount(); ?></h2>
                     </div>
 
                 </div>

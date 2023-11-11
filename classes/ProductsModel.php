@@ -205,9 +205,9 @@
             try {
                 if (is_array($sizeid)) {
                     $placeholders = str_repeat('?,', count($sizeid) - 1) . '?';
-                    $query = "SELECT price FROM variation WHERE size_id IN ($placeholders) AND product_id = ?";
+                    $query = "SELECT price FROM variation WHERE size_id IN ($placeholders) AND product_id = ? AND isDeleted != 1";
                 } else {
-                    $query = "SELECT price FROM variation WHERE size_id = ? AND product_id = ?";
+                    $query = "SELECT price FROM variation WHERE size_id = ? AND product_id = ? AND isDeleted != 1";
                 }
         
                 $stmt = $this->connect()->prepare($query);

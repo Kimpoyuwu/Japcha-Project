@@ -166,13 +166,13 @@ class CartModel extends Dbh {
     
     
 
-    public function RemoveFromCart($customerId, $productId){
+    public function RemoveFromCart($customerId, $cartid){
         try {
 
-            $stmt = $this->connect()->prepare('UPDATE cart SET isRemove = 1 WHERE customer_id = ? AND product_id = ? AND isCheckout != 1');
+            $stmt = $this->connect()->prepare('UPDATE cart SET isRemove = 1 WHERE customer_id = ? AND cart_id = ? AND isCheckout != 1');
     
             // Execute the query
-            if (!$stmt->execute(array($customerId, $productId))) {
+            if (!$stmt->execute(array($customerId, $cartid))) {
                 return false;
             }
                 return true;
