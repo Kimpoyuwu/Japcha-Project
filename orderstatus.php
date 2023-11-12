@@ -115,9 +115,9 @@
 
         <div class="tab-pane fade show active" id="nav-Pending" role="tabpanel" aria-labelledby="nav-Pending-tab">
             <!-- <div class="d-flex justify-content-center">ORDER NO. <span></span></div>     -->
-
+            <button type="button" class="btn btn-link" id="loadOrders">Load Orders</button>
             <div id="accordion"></div>
-            <button id="loadOrders">Load Orders</button>
+            
             
         </div>
 
@@ -128,6 +128,7 @@
                                     <tr>
                                         <th scope="col"></th>
                                         <th scope="col">Product Name</th>
+                                        <th scope="col">Size</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Addons</th>
@@ -158,6 +159,7 @@
                                                 <tr>
                                                             <td class="center-content"><img class="card-img-top" src="upload/<?= $order_details['image_url'] ?>" alt="Card image cap" style=""></td>
                                                             <td class="center-content"><?= $order_details['product_name'] ?></td>
+                                                            <td class="center-content"></td>
                                                             <td class="center-content"><?= $product_details ?></td>
                                                             <td class="center-content"><span><?= $order_info['quantity'] ?></span> </td>
                                                                 <td class="center-content"><?= $addons_name ?> <span><?= $addons_price ?></span></td>
@@ -333,11 +335,13 @@
     var userId = <?php echo json_encode($_SESSION["userid"]); ?>; 
     $(document).ready(function() {
     $("#loadOrders").click(function() {
+        console.log(userId);
         $.ajax({
             url: "controller/get_orders_front_end.php?userId=" + userId, // Replace with your server-side script that retrieves orders
             type: "GET",
             dataType: "json",
             success: function(data) {
+                console.log(data);
                 if (data.length > 0) {
                     $("#accordion").empty(); // Clear existing accordion content
 
@@ -345,7 +349,7 @@
                     data.forEach(function(order, index) {
                         var orderId = order.orderID;
                         var orderContent = createOrderTable(order);
-
+                        var totalprice = order.total_price;
                         var accordionItem = $(
                             '<div class="card">' +
                             '<div class="card-header" id="heading' + orderId + '">' +
@@ -353,6 +357,7 @@
                             '<button class="btn btn-link" data-toggle="collapse" data-target="#collapse' + orderId + '" aria-expanded="true" aria-controls="collapse' + orderId + '">' +
                             'ORDER #' + orderId +
                             '</button>' +
+                            '<ul class="list-group float-right"><li class="list-group-item d-flex justify-content-between align-items-center">Total Price: <span class="badge badge-primary badge-pill ml-2">₱ '+ totalprice +'</span></li></ul>' +
                             '</h5>' +
                             '</div>' +
                             '<div id="collapse' + orderId + '" class="collapse" aria-labelledby="heading' + orderId + '" data-parent="#accordion">' +
@@ -379,6 +384,7 @@
             '<tr>' +
             '<th scope="col"></th>' +
             '<th scope="col">Product Name</th>' +
+            '<th scope="col">Size</th>' +
             '<th scope="col">Price</th>' +
             '<th scope="col">Quantity</th>' +
             '<th scope="col">Addons</th>' +
@@ -393,6 +399,7 @@
             table += '<tr>' +
                 '<td class="center-content"><img class="card-img-top" src="' + product.image_url + '" alt="Card image cap" style=""></td>' +
                 '<td class="center-content">' + product.product_name + '</td>' +
+                '<td class="center-content">' + product.size_name + '</td>' +
                 '<td class="center-content">' + product.price + '</td>' +
                 '<td class="center-content"><span>' + product.quantity + '</span></td>' +
                 '<td class="center-content">' + product.addons_name + ' <span>' + product.addons_price + '</span></td>' +

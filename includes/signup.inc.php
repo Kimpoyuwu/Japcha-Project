@@ -28,6 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_now']))
     // Runnig error handlers and user signup
     $signup-> signupUser();
     if($signup != false){
+        echo '<script>alert("A verification code has been sent to your email: ' . $email . '");</script>';
 
         $_SESSION['register_CustomerName'] = $username;
         $_SESSION['register_CustomerPass'] = $pwd;
@@ -40,7 +41,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_now']))
     $mailer = new YourEmailClass();
     $mailer->get_email($email, $username);
     // $customerId = $signup->fetchCustomerId($username);
-    
+    if($mailer != false){
+
+   
     // instantiate ProfileInfoContr class
     // include "../classes/profileinfo.classes.php";
     // include "../classes/profileinfo-cntrl.classes.php";
@@ -120,7 +123,13 @@ $(document).ready(function() {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <?php
  }else{
+    echo '<script>alert("Could not send verification code to email: ' . $email . '");</script>';
+    header("location: ../index.php?error=couldnotsendcode");
+    exit();
+ }
+ }else{
     header("location: ../index.php?error=somethingswrong");
+    exit();
  }
 }
 ?>

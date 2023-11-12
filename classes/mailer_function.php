@@ -23,7 +23,7 @@ class YourEmailClass {
             $mail->Port       = 587;                                    // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             // Recipients
-            $mail->setFrom('adnerdevila23@gmail.com', 'Mailer');
+            $mail->setFrom('adnerdevila23@gmail.com', 'JapCha');
             $mail->addAddress($email, $username);     // Add a recipient
 
             $mail->isHTML(true);

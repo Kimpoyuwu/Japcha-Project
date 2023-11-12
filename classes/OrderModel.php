@@ -1,5 +1,4 @@
 <?php
-
 class Order extends Dbh {
 
     public function setOrder($customerid, $prodid, $sizesid, $subtotal, $totalprice, $quantity, $addson_id, $remark) {
@@ -53,62 +52,78 @@ class Order extends Dbh {
 public function getOrderNumberByCustomer($customerid) {
     try {
         $orders = array();
+        $totalPrices = array();
         $count = 0;
 
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `df`, `total_price`, `remark` FROM `order` WHERE customer_id = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1 ORDER BY order_id ASC');
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `total_price` FROM `order` WHERE customer_id = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1');
 
         // Bind the parameter
         $stmt->bindParam(1, $customerid, PDO::PARAM_INT);
 
         // Execute the query
         if ($stmt->execute()) {
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $orders[] = $row;
-                $count++;
+            // Fetch all order_ids and total_prices directly into arrays
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($result as $row) {
+                $orders[] = $row['order_id'];
+                $totalPrices[] = $row['total_price'];
             }
+
+            $count = count($orders);
         }
 
-        $stmt->closeCursor();
-        return array('orders' => $orders, 'count' => $count);
+        return array('orders' => $orders, 'total_prices' => $totalPrices, 'count' => $count);
 
     } catch (\Throwable $th) {
-        // Handle the exception (e.g., redirect or log the error)
-        header("location: ../index.php?error=" . urlencode($th->getMessage()));
-        exit();
+        // Log the error or rethrow the exception for higher-level handling
+        error_log('Error in getOrderNumberByCustomer: ' . $th->getMessage());
+
+        // Rethrow the exception
+        throw $th;
     }
 }
 
-public function getOrderNumberOfCustomer($customerid, $totalprice){
+public function getOrderNumberOfCustomer($customerid, $totalprice) {
     try {
+        $stmt = $this->connect()->prepare('SELECT `order_id` FROM `order` WHERE customer_id = ? AND total_price = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1');
 
-        $orders = array();
-        $stmt = $this->connect()->prepare('SELECT `order_id` FROM `order` WHERE customer_id = ? AND total_price = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1 ORDER BY order_id ASC');
+        // Bind parameters
+        $stmt->bindParam(1, $customerid);
+        $stmt->bindParam(2, $totalprice);
 
         // Execute the query
-        if ($stmt->execute([$customerid, $totalprice])) {
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $orders[] = $row;
-            }
+        if ($stmt->execute()) {
+            // Fetch the result
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Close the cursor
+            $stmt->closeCursor();
+
+            // Return the single value
+            return $result['order_id'] ?? null;
+        } else {
+            return null; // or handle the case when the query fails
         }
-        $stmt->closeCursor();
-        return $orders;
-    
     } catch (\Throwable $th) {
-        //throw $th;
+        // Handle exceptions, you may want to log the error or redirect to an error page
         header("location: ../index.php?errorsada=" . urlencode($th->getMessage()));
         exit();
     }
-
 }
 
 
-public function getOrderByCustomer($customerid) {
+public function getOrderByCustomerV2($ordersid, $customerid) {
     try {
         $orders = array();
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE customer_id = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 AND removed != 1 AND cancel != 1 ORDER BY order_id ASC');
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `product_name`, `sizes_id`, `size_name`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `addons_name`, `addons_price`, `product_remark` FROM `customer_orders` WHERE orders_id = ? AND customer_id = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 AND removed != 1 AND cancel != 1');
 
-        // Execute the query with parameters
-        if ($stmt->execute([$customerid])) {
+        // Bind the parameters
+        $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
+        $stmt->bindParam(2, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $orders[] = $row;
             }
@@ -122,6 +137,31 @@ public function getOrderByCustomer($customerid) {
         exit();
     }
 }
+
+
+public function getOrderByCustomer($customerid) {
+    try {
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark` FROM `customer_orders` WHERE customer_id = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 AND removed != 1 AND cancel != 1 ORDER BY order_id ASC');
+
+        // Bind the parameter
+        $stmt->bindParam(1, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            // Fetch all rows at once into an array
+            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $orders;
+        }
+
+        $stmt->closeCursor();
+        return array(); // Return an empty array if no data is found
+    } catch (\Throwable $th) {
+        // Handle exceptions appropriately, for now redirecting to an error page
+        header("location: ../index.php?error=" . urlencode($th->getMessage()));
+        exit();
+    }
+}
+
 
 
     public function getOrders() {
@@ -659,37 +699,48 @@ public function getCustomerDetails($customerid){
 
         public function insertMultipleOrder($InsertOrder) {
             try {
-                $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`customer_id`, `product_id`, `sizes_id`, `subtotal`, `quantity`, `addons_id`) VALUES (?,?,?,?,?,?)');
+                $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         
                 if ($stmt) { // Check if the statement was prepared successfully
                     foreach ($InsertOrder as $orderData) {
-                        $stmt->bindValue(1, $orderData['customer_id']);
-                        $stmt->bindValue(2, $orderData['product_id']);
-                        $stmt->bindValue(3, $orderData['sizes_id']);
-                        $stmt->bindValue(4, $orderData['subtotal']); 
-                        $stmt->bindValue(5, $orderData['quantity']);
-                        
+                        $stmt->bindValue(1, $orderData['orders_id']);
+                        $stmt->bindValue(2, $orderData['customer_id']);
+                        $stmt->bindValue(3, $orderData['product_id']);
+                        $stmt->bindValue(4, $orderData['product_name']);
+                        $stmt->bindValue(5, $orderData['sizes_id']);
+                        $stmt->bindValue(6, $orderData['size_name']);
+                        $stmt->bindValue(7, $orderData['subtotal']);
+                        $stmt->bindValue(8, $orderData['quantity']);
+        
                         if ($orderData['addons_id'] === "") {
-                            $stmt->bindValue(6, null, PDO::PARAM_NULL);
+                            $stmt->bindValue(9, null, PDO::PARAM_NULL);
                         } else {
-                            $stmt->bindValue(6, $orderData['addons_id'], PDO::PARAM_INT); // Assuming addons_id is an integer
+                            $stmt->bindValue(9, $orderData['addons_id'], PDO::PARAM_INT); // Assuming addons_id is an integer
                         }
-            
-                        // $stmt->bindValue(6, $orderData['addons_id'], PDO::PARAM_NULL);// Use PDO::PARAM_NULL for null values
-                        
+        
+                        $stmt->bindValue(10, $orderData['addons_name']);
+                        $stmt->bindValue(11, $orderData['addons_price']);
+                        $stmt->bindValue(12, $orderData['product_remark']);
+        
                         if (!$stmt->execute()) {
+                            // Print or log the error details
+                            $errorInfo = $stmt->errorInfo();
+                            error_log("Error executing statement: " . $errorInfo[2]);
                             return false; // Failed to insert
                         }
                     }
-        
+                    
                     return true; // Successfully inserted
                 } else {
                     return false; // Failed to prepare the statement
                 }
             } catch (\Throwable $th) {
+                // Print or log the exception details
+                error_log("Exception caught: " . $th->getMessage());
                 return false; // Failed to insert and caught an exception
             }
         }
+        
         
 
 

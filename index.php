@@ -63,8 +63,12 @@
             unset($_GET["error"]);
         }
         
+        
+
+       
 
     ?>
+<!-- The Alert (styled like a modal) -->
 
     <!-- HOME -->
     <div class="home">

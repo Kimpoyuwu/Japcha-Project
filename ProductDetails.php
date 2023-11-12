@@ -127,6 +127,7 @@ hr.new4 {
             <div class="Productbg p-2">
             <input type="hidden" name ="prodImage" value="<?= $prods['image_url'] ?>">
             <input type="hidden" name ="prdID" id="hiddenProdId" value="<?= $prods['product_id'] ?>">
+            <input type="hidden" name="p_name" value="<?= $prods['product_name'] ?>">
             <?php
                     // Assuming $images contains the file path to the image or video
                     if (strpos($prods['image_url'], '.mp4') !== false) {
@@ -196,13 +197,19 @@ hr.new4 {
                                     <span id="priceDisplay"></span>
                                     <!-- <li class="list-group-item active">Cras justo odio</li> -->
                                 </div>
-                               
+                                
                                 <!-- <div><input type="number" name="prices[]" class="form-control" value="" required></div>
                                 <div><i class="fa fa-minus-circle delete" id="a" style="cursor:pointer;" aria-hidden="true"></i></div>
                                 -->
                             </div>
                           
-                        </div>
+                </div>
+
+                <div class="container-list d-flex flex-column mt-2 mb-2" style="gap:10px;">
+                <h3 class="adsTitle">Quantity:</h3>
+                <input type="number" name="quantity" class="product-quantity" min="1" step="1" value="1" required style="width:50px;">
+                </div>
+
                 <h3 class="adsTitle">Add ons:</h3>
             <form>
                 <?php
@@ -214,6 +221,7 @@ hr.new4 {
                 <div class="form-check">
                     <input type="checkbox" id="pearl" name="addons" value="<?= $addon['addons_id'] ?>" class="form-check-input">
                     <label class="form-check-label" for="pearl"><?= $addon['addons_name'] ?></label>
+                   
                 </div>
                 <?php
                     endforeach;
@@ -354,6 +362,9 @@ $(document).ready(function() {
         var prodid = $("input[name='prdID']").val();
         var size_id = $("#sizeDropdown").val();
         var addons_id = $("input[name='addons']:checked").val();
+        var p_name = $("input[name='p_name']").val();
+        var quantity = $("input[name='quantity']").val();
+     
 
         if (addons_id === undefined) {
             addons_id = null; // Set to null when no addon is checked
@@ -364,7 +375,9 @@ $(document).ready(function() {
             customer_id: user_id,
             prod__id: prodid,
             size_id: size_id,
-            addonsid: addons_id
+            addonsid: addons_id,
+            p_name: p_name,
+            quantity: quantity
         };
 
         console.log(data);

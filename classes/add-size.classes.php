@@ -112,4 +112,37 @@ class addSize extends Dbh {
         }
     
 }
+
+public function getSizeNameCart($size_id) {
+    try {
+        // Assuming $this->connect() returns a PDO instance
+        $conn = $this->connect();
+
+        $stmt = $conn->prepare('SELECT size_name FROM product_sizes WHERE sizes_id = :size_id');
+
+        // Bind the parameter
+        $stmt->bindParam(':size_id', $size_id, PDO::PARAM_INT);
+
+        // Execute the query
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to fetch Size Name");
+        }
+
+        // Fetch the result
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Close the statement
+        $stmt->closeCursor();
+
+        // Return the size name
+        return $result['size_name'];
+
+    } catch (Exception $e) {
+        // Handle exceptions, you may want to log the error or redirect to an error page
+        header("location: ../back-end/adminProducts.php?error=" . urlencode($e->getMessage()));
+        exit();
+    }
+}
+
+
 }

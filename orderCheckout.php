@@ -257,6 +257,7 @@
                     }
                 ?>
                  <th scope="col">Subtotal</th>
+                 <th scope="col">Remarks</th>
                 <!-- <th scope="col">Action</th> -->
             </tr>
         </thead>
@@ -334,7 +335,7 @@
                 <?php
                  }
                 ?>
-                  
+                  <td class="center-content" ><textarea name="prd_remark" id="" rows="2" placeholder="Optional..." style="padding: 5px;"></textarea></td>
                 <!-- <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td> -->
             </tr>
         </tbody>
@@ -342,12 +343,12 @@
 
             <div class="remarks mt-3">
                         <h4 class ="Remarks">Remarks</h4>
-                        <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Optional..."></textarea>
 
             </div>
 
             <div class="totalPrice mt-3">
-                <span id="shippingFee" style="display: none">Shipping Fee: $10.00</span>
+                <span id="shippingFee" style="display: none">Shipping Fee: ₱10.00</span>
                 <h2 class="TP">Total Price:</h2>
                 <h3 class="value">₱<span id="total"><?= $price ?></span></h3>
                 <input type="hidden" name="total_data" id="totalInput" value="<?= $price ?>">
@@ -358,7 +359,7 @@
 
 <?php
   }
-  if(isset($_POST['checkout'])){
+  if(isset($_POST['buyNowFromCart'])){
 
 ?>
 
@@ -380,6 +381,7 @@
                     // }
                 ?>
                  <th scope="col">Subtotal</th>
+                 <th scope="col">Product Remarks</th>
                 <!-- <th scope="col">Action</th> -->
             </tr>
         </thead>
@@ -393,9 +395,9 @@
             foreach ($displayCart as $cart):
                 $addonsid = $cart['addons_id'] ?? null;
                 $fetchDetails = $cartModel->fetchCartDetails($cart['product_id'], $cart['size_id'], $cart['addons_id']);
-                $addonsDetails = $cartModel->FetchAddons($cart['addons_id']);
-                $addonsName = $addonsDetails['addons_name'] ?? "None";
-                $addonsPrice = $addonsDetails['price'];
+                // $addonsDetails = $cartModel->FetchAddons($cart['addons_id']);
+                $addonsName = $cart['addons_name'] ?? "";
+                $addonsPrice = $cart['addons_price'] ?? "";
                 $fetchPrize = $cartModel->fetchPrice($cart['size_id'], $cart['product_id']);
         ?>
             <tr class="product-row">
@@ -418,26 +420,30 @@
                         }
                     ?>
                 </td>
-                <td class="center-content"><?= $fetchDetails['product_name'] ?></td>
+                <td class="center-content"><?= $cart['product_name'] ?></td>
                 <input type="hidden" name="product_id_data[]" value="<?= $cart['product_id'] ?>">
+                <input type="hidden" name="p_name[]" value="<?= $cart['product_name'] ?>">
                 <td class="center-content"><?= $fetchDetails['size_name'] ?></td>
+                <input type="hidden" name="size_name[]" value="<?= $fetchDetails['size_name'] ?>">
                 <input type="hidden" name="size_data[]" value="<?= $cart['size_id'] ?>">
                
              
                 <td class="center-content"> ₱<span class="product-price" id="product-price"><?= $fetchPrize['price'] ?></span></td>
                <input type="hidden" name="price[]" value="<?= $fetchPrize['price'] ?>">
               
-                <td class="center-content"><input type="number" name="quantity[]" class="product-quantity" min="1" step="1" value="1" required style="width:50px;"></td>
+                <td class="center-content"><input type="number" name="quantity[]" class="product-quantity" min="1" step="1" value="<?= $cart['quantity'] ?>" required style="width:50px;"></td>
                
              
-                          <td scope="col"><?= $addonsName ?> ₱<span class="addons-price" id="addonsPrice"><?= $addonsPrice ?></td>
+                          <td scope="col"><?= $addonsName ?> <span class="addons-price" id="addonsPrice"><?= $addonsPrice ?></td>
                           <input type="hidden" name="addons_data[]" value="<?= $addonsid ?>">
+                          <input type="hidden" name="addons_name[]" value="<?= $addonsName ?>">
+                          <input type="hidden" name="addons_price[]" value="<?= $addonsPrice ?>">
                           <!-- <td></td> -->
                
                 
                     <td class="center-content" ><span class="product-subtotal" id="product-subtotal"></span></td>
                     <input type="hidden" name="subtotal1[]" class="subtotal-input" id="subtotalInput" value="">
-             
+                    <td class="center-content" ><textarea name="prd_remark[]" id="" rows="2" placeholder="Optional..." style="padding: 5px;"></textarea></td>
                   
                 <!-- <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td> -->
             </tr>
@@ -449,7 +455,7 @@
 
     <div class="remarks mt-3">
                 <h4 class ="Remarks">Remarks</h4>
-                <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea name="remarks" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Optional..."></textarea>
 
             </div>
 

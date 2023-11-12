@@ -215,7 +215,19 @@
             ?>
         </ul>
     </nav>
-
+    <?php
+if(isset($_SESSION["order_placed"])){
+?>
+<div class="alert alert-success alert-dismissible fade show" role="alert" style="position: fixed; top: 5%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+    Order Placed Successfully
+    <button type="button" class="btn btn-link close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<?php
+ unset($_SESSION["order_placed"]);
+ }
+?>
 
 <!-- LOGIN FORM MODAL -->
         <?php include_once "LoginSignupModal.php";?>
@@ -237,12 +249,12 @@ $(document).ready(function() {
             data: { customer_id: customerId },
             success: function(data) {
                 // Update the product container with new data
-                var total = 0;
-                data.forEach(function(product) {
-                    total += parseFloat(product.price);
-                });
+                // var total = 0;
+                // data.forEach(function(product) {
+                //     total += parseFloat(product.subtotal);
+                // });
 
-                $('#totalPrice').text('Sub Total: ₱' + total.toFixed(2));
+                // $('#totalPrice').text('Sub Total: ₱' + total.toFixed(2));
 
                 updateContent(data);
             },
@@ -253,48 +265,66 @@ $(document).ready(function() {
     }
 
     // Function to update the product container with new data
-    function updateContent(data) {
-        // Initialize an empty product content variable
-        var productContent = '';
+ // Function to update the product container with new data
+function updateContent(data) {
+    // Initialize an empty product content variable
+    var productContent = '';
+    var total = 0; 
+    // Iterate over each product and append its HTML content
+    data.forEach(function(product) {
+        // Assuming product.price and product.quantity are numeric values
+        var price = parseFloat(product.price);
+        var quantity = parseInt(product.quantity);
 
-        // Iterate over each product and append its HTML content
-        data.forEach(function(product) {
-            productContent += `
-                <div class="col-md-4 Shopping">
-                    <img src="${product.image_url}" class="card-img-top" alt="Product Image" style="height: 100px; width: 70px;">
-                </div>
-                <div class="col-md-6">
-                    <div class="card mb-4">
-                        <div class="card-header">${product.product_name}
-                            <input type="hidden" name="p__id" value="${product.product_id}">
-                            <input type="hidden" name="cart_id" value="${product.cartids}">
-                            <button type="button" class="btn btn-link" style="float: right; border: none; text-decoration: underline;">Remove</button>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-sm-6">
-                                    <p class="form-control-static" style="float: left;">${product.sizename}</p>
-                                </div>
-                                <div class="col-sm-6">
-                                    <p class="form-control-static" style="float: left;"><span style="color: blue;">Addons:</span> ${product.addonsname}</p>
-                                </div>
-                                <div class="col-sm-6">
-                                    <p class="form-control-static" style="float: left;">₱ ${product.price}</p>
-                                </div>
+        // Calculate subtotal
+        var subtotal = price * quantity;
+        total += subtotal;
+
+        productContent += `
+            <div class="col-md-4 Shopping">
+                <img src="${product.image_url}" class="card-img-top" alt="Product Image" style="height: 100px; width: 70px;">
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">${product.product_name}
+                        <input type="hidden" name="p_name[]" value="${product.product_name}">
+                        <input type="hidden" name="p__id" value="${product.product_id}">
+                        <input type="hidden" name="cart_id" value="${product.cartids}">
+                        <button type="button" class="btn btn-link" style="float: right; border: none; text-decoration: underline;">Remove</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <p class="form-control-static" style="float: left;">${product.sizename}</p>
+                                <input type="hidden" name="size_name[]" value="${product.sizename}">
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="form-control-static" style="float: left;"><span style="color: blue;">Addons:</span> ${product.addonsname}</p>
+                                <input type="hidden" name="addons_name[]" value="${product.addonsname}">
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="form-control-static price" style="float: left;">₱ ${product.price}</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="form-control-static quantity" style="float: left;"><span style="color: blue;">Quantity:</span> ${product.quantity}</p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p class="form-control-static subtotal" style="float: left;"><span style="color: blue;">Subtotal:</span> ₱ ${subtotal.toFixed(2)}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            `;
-        });
+            </div>
+        `;
+    });
 
-        // Update the container with the new content
-        $('#productContainer').html(productContent);
+    // Update the container with the new content
+    $('#productContainer').html(productContent);
+    $('#totalPrice').text('Sub Total: ₱' + total.toFixed(2));
+}
 
-        
-    }
 
-    
+         // Assuming you want two decimal places
 
 //     $('#checkoutButton').click(function() {
 //     // Initialize arrays to store cart items
@@ -389,6 +419,7 @@ $('#productContainer').on('click', '.btn-link', function() {
     // Call the removeProductFromCart function
     removeProductFromCart(customerId, cart_id);
 });
+        
 
 });
 

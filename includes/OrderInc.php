@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../classes/dbh.classes.php";
 include "../classes/OrderModel.php";
 include "../classes/OrderController.php";
@@ -75,6 +76,14 @@ if(isset($_POST['proceed2'])){
     $addons = $_POST['addons_data'];
     $remark = htmlspecialchars($_POST["remarks"], ENT_QUOTES, 'UTF-8');
 
+    $array = $_POST['prd_remark']; // Example, replace with your actual variable
+    $product_remark = array_map('htmlspecialchars', $array);
+
+    $addons_name = $_POST['addons_name'];
+    $addons_price = $_POST['addons_price'];
+    $p_name = $_POST['p_name'];
+    $size_name = $_POST['size_name'];
+    // $product_remark = $_POST['addons_data'];
     // echo $userID;
     // echo '<br>';
     // echo $totalprice;
@@ -85,34 +94,43 @@ if(isset($_POST['proceed2'])){
     $number_of_rows = count($customerid); 
 
 
-    // var_dump($InsertOrder);
+   
     $UpdateCart = $cartmodel->updateCart($userID);
 
     if($order->insertToOrderHeader($userID,  $totalprice, $remark)){
-        
-        $getOrderNumber = $order->getOrderNumberOfCustomer($userID, $totalprice);
+        $getOrderNumber = $order->getOrderNumberOfCustomer($userID,  $totalprice);
 
-        // for ($i = 0; $i < $number_of_rows; $i++) {
+        for ($i = 0; $i < $number_of_rows; $i++) {
 
-        //     $addons_id = !empty($addons[$i]) ? $addons[$i] : null;
-    
-        //     $InsertOrder[] = [
-        //         'customer_id' => $customerid[$i],
-        //         'product_id' => $prodid[$i],
-        //         'sizes_id' => $sizesid[$i],
-        //         'addons_id' => $addons_id, // Set to null or provide actual values
-        //         'quantity' => $quantity[$i],
-        //         'subtotal' => $subtotals[$i],
-        //     ];
-        // }
+            $addons_id = !empty($addons[$i]) ? $addons[$i] : null;
+            $AddonsName = !empty($addons_name[$i]) ? $addons_name[$i] : null;
+            $AddonsPrice = !empty($addons_price[$i]) ? $addons_price[$i] : null;
+            $InsertOrder[] = [
+                'orders_id' => (int)$getOrderNumber,
+                'customer_id' => $customerid[$i],
+                'product_id' => $prodid[$i],
+                'product_name' => $p_name[$i],
+                'sizes_id' => $sizesid[$i],
+                'size_name' => $size_name[$i],
+                'addons_id' => $addons_id,
+                'addons_name' => $AddonsName, 
+                'addons_price' => $AddonsPrice,  // Set to null or provide actual values
+                'quantity' => $quantity[$i],
+                'subtotal' => $subtotals[$i],
+                'product_remark' => $product_remark[$i],
+                
+            ];
+        }
 
-        var_dump($getOrderNumber);
-        // if ($order->insertMultipleOrder($InsertOrder)) {
-        //     header("location: ../customerSHOP.php?error=none");
-        //     exit();
-        // } else {
-        //     echo "Failed to insert multiple records.";
-        // }
+        // var_dump($getOrderNumber);
+        // var_dump($InsertOrder);
+        if ($order->insertMultipleOrder($InsertOrder)) {
+            $_SESSION['order_placed'] = "successful_order";
+            header("location: ../customerSHOP.php?error=none");
+            exit();
+        } else {
+            echo "Failed to insert multiple records.";
+        }
     }else{
         echo "Failed to insert records.";
     }

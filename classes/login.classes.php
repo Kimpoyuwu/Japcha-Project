@@ -5,7 +5,7 @@ class Login extends Dbh {
     public function getUser($email, $pwd) {
         try {
             // Prepare SQL query using named placeholders
-            $stmt = $this->connect()->prepare('SELECT * FROM customer_account WHERE email = :email');
+            $stmt = $this->connect()->prepare('SELECT * FROM customer_account WHERE email = :email AND isDeleted != 1');
             $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     
             // Execute the query
