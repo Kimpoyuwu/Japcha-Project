@@ -13,7 +13,7 @@
 <body>
  
 
-<div class="container mt-5">
+<div class="container mt-5 pb-4">
     <h2 class="text-center mb-4">Sample Website Terms and Conditions</h2>
 
     <div class="card">

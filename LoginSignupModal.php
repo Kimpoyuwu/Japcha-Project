@@ -61,8 +61,8 @@
                     <div class="option_field">
                         <span class="checkbox">
                             <input type="checkbox" id="terms" required>
-                            <label for="terms">I aggree to the <span style="color: #B4A30D; text-decoration: underline;">Term of Service</span> & 
-                                <span style="color: #B4A30D; text-decoration: underline;">Privacy Policy</span></label>
+                            <label for="terms">I aggree to the <span style="color: #B4A30D; text-decoration: underline;"><a href="terms_and_conditions.php" target="_blank">Term of Service</a></span> & 
+                                <span style="color: #B4A30D; text-decoration: underline;"><a href="terms_and_conditions.php" target="_blank">Privacy Policy</a></span></label>
                         </span>  
                     </div>
                     <!-- <input type="submit" class="btnLogin btn-primary"> -->

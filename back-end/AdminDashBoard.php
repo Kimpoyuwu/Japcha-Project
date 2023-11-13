@@ -7,50 +7,84 @@
 <?php
         if(isset($_SESSION["dashboardview"]) && $_SESSION["dashboardview"] == 1){                 
 ?>    
+<style>
+
+  .card-header{
+    background-color: pink;
+  }
+
+  .more-info{
+    font-size: 20px;
+  }
+
+  .Products{
+    background-color: #0091d5;
+  }
+
+  .Sales {
+    background-color: #6ab187;
+  }
+
+  .Orders{
+    background-color: #4cb5f5;
+  }
+
+  .Deliveries{
+    background-color: #b3c100;
+  }
+
+  </style>
 <div class="container mt-4 mr-0 mb-0 pd-0 pl-0  float: right;" >
-    <p class="Dashboard text-left">Dashboard</p>
+    <p class="Dashboard text-left"  style="margin-top: 50px;">Dashboard</p>
       <div class="row">
         <div class="col-md-3">
-          <div class="card" style="width: 200px; margin-left: auto;">
-            <div class="card-header py-3 text-center ">
-              <p class="label font-weight-bold"> <i class="fa-solid fa-box fa-xl"></i> TOTAL PRODUCTS</p>
-              <h2 class="data font-weight-bold">200</h2>
-              <div class="more-info">
+          <div class="card" style="width: 270px; margin-left: 20px;">
+            <div class="card-header Products py-3 text-center ">
+            <h5 class="card-header Products">TOTAL PRODUCTS</h5>
+                <div class="card-body">
+                <h1 class="card-title">43</h1>
+                  <div class="more-info">
                 <a href="#" id="#">More Info</a>
+              </div>
               </div>
             </div>
           </div>
         </div>
     
         <div class="col-md-3">
-          <div class="card" style="width: 200px; margin-left: auto;">
-            <div class="card-header py-3 text-center">
-              <p class="label font-weight-bold"> <i class="fa-solid fa-chart-line fa-xl"></i> TOTAL SALES</p>
-              <h2 class="data font-weight-bold">30,000</h2>
-              <div class="more-info">
+          <div class="card" style="width: 270px; ">
+            <div class="card-header Sales py-3 text-center">
+            <h5 class="card-header Sales">TOTAL SALES </h5>
+                <div class="card-body">
+                <h1 class="card-title">43</h1>
+                  <div class="more-info">
                 <a href="#" id="#">More Info</a>
+              </div>
               </div>
             </div>
           </div>
         </div>
     
         <div class="col-md-3">
-          <div class="card" style="width: 200px; margin-left: auto;">
-            <div class="card-header py-3 text-center">
-              <p class="label font-weight-bold"> <i class="fa-solid fa-cart-shopping fa-xl"></i> TOTAL ORDERS</p>
-              <h2 class="data font-weight-bold">200</h2>
+          <div class="card" style="width: 270px;">
+            <div class="card-header Orders py-3 text-center">
+            <h5 class="card-header Orders">TOTAL ORDERS </h5>
+                <div class="card-body">
+                  <h1 class="card-title">43</h1>
               <div class="more-info">
                 <a href="#" id="#">More Info</a>
               </div>
             </div>
           </div>
         </div>
+        </div>
     
         <div class="col-md-3">
-          <div class="card" style="width: 200px; margin-left: auto;">
-            <div class="card-header py-3 text-center">
-              <p class="label font-weight-bold"> <i class="fa-solid fa-truck-fast fa-xl"></i></i> TOTAL DELIVERIES</p>
-              <h2 class="data font-weight-bold">20</h2>
+          <div class="card" style="width: 270px;">
+            <div class="card-header Deliveries py-3 text-center">
+            <h5 class="card-header Deliveries">TOTAL DELIVERIES</h5>
+                <div class="card-body">
+                <h1 class="card-title">43</h1>
               <div class="more-info">
                 <a href="#" id="#">More Info</a>
               </div>
@@ -60,44 +94,65 @@
         
       </div>
       <div class="row2">
-      <div class="card shadow float: right;"  style="width: 400px; margin-left: 50px;">
-          <div class="card-header py-3 text-center float">
-              <h6 class="m-0 font-weight-bold text-center">Active Orders</h6>
-          </div>
-          <div class="card-body">
-              <h4 class="small font-weight-bold"><span
-                      class="float-right"></span></h4>
-              <div class="progress mb-4">
-                  <div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
-                      aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <h4 class="small font-weight-bold"><span
-                      class="float-right"></span></h4>
-              <div class="progress mb-4">
-                  <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <h4 class="small font-weight-bold"><span
-                      class="float-right"></span></h4>
-              <div class="progress mb-4">
-                  <div class="progress-bar" role="progressbar" style="width: 60%"
-                      aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <h4 class="small font-weight-bold"><span
-                      class="float-right"></span></h4>
-              <div class="progress mb-4">
-                  <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                      aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-              <h4 class="small font-weight-bold"><span
-                      class="float-right"></span></h4>
-              <div class="progress">
-                  <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
-                      aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-          </div>
-      </div>
-      <!-- Add similar card elements for other tiles -->
+      <div class="col-12 col-xl-8 mb-4 mb-lg-0">
+            <div class="card">
+                <h5 class="card-header" style="background-color: white;">Active Orders</h5>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th scope="col">Order</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Customer</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Date</th>
+                                <th scope="col"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th scope="row">17371705</th>
+                                <td>Fruit Tea</td>
+                                <td>johndoe@gmail.com</td>
+                                <td>€61.11</td>
+                                <td>Aug 31 2020</td>
+                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">17370540</th>
+                                <td>Milk Tea</td>
+                                <td>jacob.monroe@company.com</td>
+                                <td>$153.11</td>
+                                <td>Aug 28 2020</td>
+                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">17371705</th>
+                                <td>Fruit Tea</td>
+                                <td>johndoe@gmail.com</td>
+                                <td>€61.11</td>
+                                <td>Aug 31 2020</td>
+                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                              </tr>
+                              <tr>
+                                <th scope="row">17370540</th>
+                                <td>Fruit Tea</td>
+                                <td>jacob.monroe@company.com</td>
+                                <td>$153.11</td>
+                                <td>Aug 28 2020</td>
+                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                      <a href="#" class="btn btn-block btn-light">View all</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-xl-4">
+            <!-- Another widget will go here -->
+        </div>
     
 </div>
 <?php

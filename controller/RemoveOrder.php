@@ -9,7 +9,7 @@ if (isset($_POST['customer_id']) && isset($_POST['orderId'])){
     $customerid  = $_POST['customer_id'];
 
     if($OrderModel->UpdateRemoveOrder($orderid)){
-        if($OrderModel->RemoveOrder($customerid)){
+        if($OrderModel->RemoveOrder($orderid, $customerid)){
             $response = "Order #" . $orderid . " is removed";
             echo $response;
         }else{

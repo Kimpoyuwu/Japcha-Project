@@ -125,6 +125,24 @@
        #cart-toggle{
             width: auto !important;
        }
+       #search-icon{
+        position: relative;
+       }
+        #search-icon .badge-top {
+        position: absolute;
+        top: 0;
+        right: 3px;
+        font-size: 10px;
+        }
+        .cart{
+            position: relative;
+        }
+        .cart .badge-top {
+        position: absolute;
+        top: 0;
+        right: 3px;
+        font-size: 10px;
+        }
     </style>
 </head>
 <body>
@@ -187,6 +205,7 @@
             <li>
                 <div id="search-icon">
                     <i class="fa fa-bell bell"></i>
+                    <span class="badge badge-danger badge-top">9</span>
                 </div>
             </li>
             
@@ -199,7 +218,11 @@
                 {
             
             ?>
-                    <li><button class="btn" id="cart-toggle" style="background-color: transparent;"><i class="fa-solid fa-cart-shopping fa-lg"></i></button></li>
+                    <li>
+                        <div class="cart">
+                            <button class="btn" id="cart-toggle" style="background-color: transparent;"><i class="fa-solid fa-cart-shopping fa-lg"></i></button><span class="badge badge-danger badge-top">2</span>
+                        </div>
+                    </li>
                     <li><div id="user-icon"><a href="myProfile.php"><i class='fa fa-user-circle user'></a></i></div></li>
                     <li><a href="includes/logout.inc.php">Logout</a></li>
 

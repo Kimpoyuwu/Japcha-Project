@@ -255,7 +255,7 @@ orders.forEach(function(order) {
     // Attach a click event handler to this order item
     orderItem.addEventListener('click', function() {
       var customerId = order.customerid; // Change from orderId to customerId
-        console.log(customerId); // Lo
+       // Lo
         var orderId = order.orderId;
         selectedOrderId = orderId;
         SelectedCustomerid = customerId;
@@ -263,12 +263,17 @@ orders.forEach(function(order) {
         selectedCustomerAddress = order.customer_address;
         selectedCustomerEmail = order.customer_email;
         totalprice = order.price;
-        
+        console.log(selectedOrderId);
+        console.log(customerId);
         // Make an AJAX request to fetch order details
         $.ajax({
             url: '../controller/get_order_details.php', // Replace with the actual URL to fetch order details
             type: 'GET',
-            data: { customerId: customerId},
+            data: { 
+                customerId: customerId,
+                order_id: selectedOrderId
+
+            },
             success: function(response) {
                 var orderDetails = JSON.parse(response);
                 // console.log("Received order details:", orderDetails);
@@ -484,7 +489,7 @@ function deliverOrder(orderId, customerid) {
         url: '../controller/DeliverOrder.php', // Replace with your server's URL for delivering orders
         type: 'POST',
         data: { customer_id: customerid,
-                orderId: orderId,        
+                orderId: orderId        
         },
         success: function (response) {
             if (response.success) {
@@ -570,11 +575,12 @@ function fetchDeliveryOrderDetails() {
 }
 
 function completeOrder(orderId, customerid) {
+
     $.ajax({
         url: '../controller/CompleteOrder.php', // Replace with your server's URL for delivering orders
         type: 'POST',
         data: { customer_id: customerid,
-                orderId: orderId,        
+                orderId: orderId        
         },
         success: function (response) {
             if (response.success) {

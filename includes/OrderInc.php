@@ -11,20 +11,58 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(isset($_POST['proceed1'])){ 
          // echo 'connected';
     // echo '<br>';
-    $customerid = htmlspecialchars($_POST["userid"], ENT_QUOTES, 'UTF-8');
-    $prodid = htmlspecialchars($_POST["product_id_data"], ENT_QUOTES, 'UTF-8');
-    $sizesid = htmlspecialchars($_POST["size_data"], ENT_QUOTES, 'UTF-8');
-    $subtotal = htmlspecialchars($_POST["subtotal1"], ENT_QUOTES, 'UTF-8');
-    $totalprice = htmlspecialchars($_POST["total_data"], ENT_QUOTES, 'UTF-8');
-    $quantity = htmlspecialchars($_POST["quantity"], ENT_QUOTES, 'UTF-8');
-    $remark = htmlspecialchars($_POST["remarks"], ENT_QUOTES, 'UTF-8');
-    // $remark = "sample remarks muna";
-    $status = 'In Progress';
+
     
-    $addson_id = null;
-    if(isset($_POST['addons_data'])){
-        $addson_id = htmlspecialchars($_POST["addons_data"], ENT_QUOTES, 'UTF-8');
+    $totalprice = htmlspecialchars($_POST["total_data"], ENT_QUOTES, 'UTF-8');
+    $remark = htmlspecialchars($_POST["remarks"], ENT_QUOTES, 'UTF-8');
+    
+
+    $customerid = htmlspecialchars($_POST["userid"], ENT_QUOTES, 'UTF-8');
+
+    $prodid = htmlspecialchars($_POST["product_id_data"], ENT_QUOTES, 'UTF-8');
+
+    $product_name = htmlspecialchars($_POST["p_name"], ENT_QUOTES, 'UTF-8');
+
+
+    $sizesid = htmlspecialchars($_POST["size_data"], ENT_QUOTES, 'UTF-8');
+    $size_name = htmlspecialchars($_POST["size_name"], ENT_QUOTES, 'UTF-8');
+
+    $subtotal = htmlspecialchars($_POST["subtotal1"], ENT_QUOTES, 'UTF-8');
+
+
+
+    $quantity = htmlspecialchars($_POST["quantity"], ENT_QUOTES, 'UTF-8');
+
+
+    
+
+    $addons_id = $_POST['addons_data'] ?? null;
+    $addons_name = $_POST["addons_name"] ?? "";
+    $addons_price = $_POST["addons_price"] ?? null;
+
+    $product_remark = htmlspecialchars($_POST["prd_remark"], ENT_QUOTES, 'UTF-8');
+
+
+    if($order->insertToOrderHeader($customerid,  $totalprice, $remark)){
+        $getOrderNumber = $order->getOrderNumberOfCustomer($customerid,  $totalprice);
+
+        if($order->setOrder((int)$getOrderNumber, $customerid, $prodid, $product_name, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark)){
+            $_SESSION['order_placed'] = "successful_order";
+            header("location: ../customerSHOP.php?error=none");
+            exit();
+        } else {
+            echo "Failed to insert records.";
+        }
+
     }
+    // $remark = "sample remarks muna";
+    // $status = 'In Progress';
+    
+ 
+    // $addson_id = null;
+    // if(isset($_POST['addons_data']))
+        // $addson_id = htmlspecialchars($_POST["addons_data"], ENT_QUOTES, 'UTF-8');
+    
     
 
     // $order->setOrder($customerid, $prodid, $sizesid, $subtotal, $price, $quantity, $_id, $remark);
@@ -34,32 +72,56 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // }else{
     //     echo "not updated";
     // }
-    if($order->insertToOrderHeader($customerid,  $totalprice, $remark)){
-        if($order->setOrder($customerid, $prodid, $sizesid, $subtotal, $totalprice, $quantity, $addson_id, $remark)){
-            header("location: ../customerSHOP.php?error=none");
-            exit();
-        } else {
-            echo "Failed to insert records.";
-        }
-    }else{
-        echo "Failed to insert records.";
-    }
+    // if($order->insertToOrderHeader($customerid,  $totalprice, $remark)){
+    //     if($order->setOrder($customerid, $prodid, $sizesid, $subtotal, $totalprice, $quantity, $addson_id, $remark)){
+    //         header("location: ../customerSHOP.php?error=none");
+    //         exit();
+    //     } else {
+    //         echo "Failed to insert records.";
+    //     }
+    
     // $size = json_decode($_POST['size_data'], true);
-    // echo $_POST['total_data'];
+    // echo 'total_price:';
+    // echo $totalprice;
     // echo '<br>';
-    // echo $_POST['userid'];
+    // echo 'userid:';
+    // echo $customerid;
     // echo '<br>';
-    // echo $_POST['size_data'];
+    // echo 'size_id:';
+    // echo $sizesid;
     // echo '<br>';
-    // echo $_POST['quantity'];
+    // echo 'quantity:';
+    // echo $quantity;
     // echo '<br>';
-    // echo $_POST['subtotal1'];
+    // echo 'subtotal:';
+    // echo $subtotal;
     // echo '<br>';
-    // echo $_POST['addons_data'];
+    // echo 'addons_data:';
+    // echo $addons_id;
     // echo '<br>';
-    // echo $_POST['product_id_data'];
+    // echo 'product_id:';
+    // echo $prodid;
     // echo '<br>';
-    // echo $_POST['remarks'];
+    // echo 'remarks:';
+    // echo $remark;
+    // echo '<br>';
+    // echo 'addons_name:';
+    // echo $addons_name;
+    // echo '<br>';
+    // echo 'addons_price:';
+    // echo $addons_price;
+    // echo '<br>';
+    // echo 'size_name:';
+    // echo $size_name;
+    // echo '<br>';
+    // echo 'product_remark:';
+    // echo $product_remark;
+    // echo '<br>';
+    // echo 'product_name:';
+    // echo $product_name;
+
+  
+
 
     }
    

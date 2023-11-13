@@ -1,30 +1,51 @@
 <?php
 class Order extends Dbh {
 
-    public function setOrder($customerid, $prodid, $sizesid, $subtotal, $totalprice, $quantity, $addson_id, $remark) {
-            try {
-
-                $stmt = $this->connect()->prepare('INSERT INTO customer_orders (customer_id, product_id, sizes_id, subtotal, price, quantity, addons_id, remark ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
-
-                // Execute the query
-                if (!$stmt->execute(array($customerid, $prodid, $sizesid, $subtotal, $totalprice, $quantity, $addson_id, $remark))) {
-                    throw new Exception("order failed.");
-                    header("location: ../index.php?error=userregistrationfailed");
-                    exit();
-                    return false;
-                }
-                
-
-                // $stmt = null;
-                return true;
-
-            } catch (\Throwable $th) {
-                //throw $th;
-                header("location: ../index.php?error=" . urlencode($th->getMessage()));
-                exit();
+    public function setOrder($getOrderNumber, $customerid, $prodid, $product_name, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark) {
+        try {
+            $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    
+            // Assuming addons_id can be NULL
+            $addons_id_value = ($addons_id !== "") ? $addons_id : null;
+    
+            $stmt->bindValue(1, $getOrderNumber, PDO::PARAM_INT);
+            $stmt->bindValue(2, $customerid, PDO::PARAM_INT);
+            $stmt->bindValue(3, $prodid, PDO::PARAM_INT);
+            $stmt->bindValue(4, $product_name, PDO::PARAM_STR);
+            $stmt->bindValue(5, $sizesid, PDO::PARAM_INT);
+            $stmt->bindValue(6, $size_name, PDO::PARAM_STR);
+            $stmt->bindValue(7, $subtotal, PDO::PARAM_STR);
+            $stmt->bindValue(8, $quantity, PDO::PARAM_INT);
+            
+            // Bind addons_id accordingly
+            if ($addons_id_value !== null) {
+                $stmt->bindValue(9, $addons_id_value, PDO::PARAM_INT);
+            } else {
+                $stmt->bindValue(9, null, PDO::PARAM_NULL);
             }
-        
+    
+            $stmt->bindValue(10, $addons_name, PDO::PARAM_STR);
+            $stmt->bindValue(11, $addons_price, PDO::PARAM_STR);
+            $stmt->bindValue(12, $product_remark, PDO::PARAM_STR);
+    
+            // Execute the query
+            $success = $stmt->execute();
+    
+            // Check if the query was successful
+            if (!$success) {
+                throw new Exception("Order failed.");
+            }
+    
+            return true;
+    
+        } catch (\Throwable $th) {
+            // Log or handle the exception appropriately
+            error_log("Error in setOrder: " . $th->getMessage());
+            return false;
+        }
     }
+    
+    
 
     public function getOrdersV2() {
         try {
@@ -56,6 +77,109 @@ public function getOrderNumberByCustomer($customerid) {
         $count = 0;
 
         $stmt = $this->connect()->prepare('SELECT `order_id`, `total_price` FROM `order` WHERE customer_id = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1');
+
+        // Bind the parameter
+        $stmt->bindParam(1, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            // Fetch all order_ids and total_prices directly into arrays
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($result as $row) {
+                $orders[] = $row['order_id'];
+                $totalPrices[] = $row['total_price'];
+            }
+
+            $count = count($orders);
+        }
+
+        return array('orders' => $orders, 'total_prices' => $totalPrices, 'count' => $count);
+
+    } catch (\Throwable $th) {
+        // Log the error or rethrow the exception for higher-level handling
+        error_log('Error in getOrderNumberByCustomer: ' . $th->getMessage());
+
+        // Rethrow the exception
+        throw $th;
+    }
+}
+
+public function getOrderNumberByCustomerPreparing($customerid) {
+    try {
+        $orders = array();
+        $totalPrices = array();
+        $count = 0;
+
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `total_price` FROM `order` WHERE customer_id = ? AND preparing = 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1');
+
+        // Bind the parameter
+        $stmt->bindParam(1, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            // Fetch all order_ids and total_prices directly into arrays
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($result as $row) {
+                $orders[] = $row['order_id'];
+                $totalPrices[] = $row['total_price'];
+            }
+
+            $count = count($orders);
+        }
+
+        return array('orders' => $orders, 'total_prices' => $totalPrices, 'count' => $count);
+
+    } catch (\Throwable $th) {
+        // Log the error or rethrow the exception for higher-level handling
+        error_log('Error in getOrderNumberByCustomer: ' . $th->getMessage());
+
+        // Rethrow the exception
+        throw $th;
+    }
+}
+public function getOrderNumberByCustomerDelivery($customerid) {
+    try {
+        $orders = array();
+        $totalPrices = array();
+        $count = 0;
+
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `total_price` FROM `order` WHERE customer_id = ? AND preparing != 1 AND delivery = 1 AND completed != 1 AND cancel != 1 AND removed != 1');
+
+        // Bind the parameter
+        $stmt->bindParam(1, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            // Fetch all order_ids and total_prices directly into arrays
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($result as $row) {
+                $orders[] = $row['order_id'];
+                $totalPrices[] = $row['total_price'];
+            }
+
+            $count = count($orders);
+        }
+
+        return array('orders' => $orders, 'total_prices' => $totalPrices, 'count' => $count);
+
+    } catch (\Throwable $th) {
+        // Log the error or rethrow the exception for higher-level handling
+        error_log('Error in getOrderNumberByCustomer: ' . $th->getMessage());
+
+        // Rethrow the exception
+        throw $th;
+    }
+}
+public function getOrderNumberByCustomerComplete($customerid) {
+    try {
+        $orders = array();
+        $totalPrices = array();
+        $count = 0;
+
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `total_price` FROM `order` WHERE customer_id = ? AND preparing != 1 AND delivery != 1 AND completed = 1 AND cancel != 1 AND removed != 1');
 
         // Bind the parameter
         $stmt->bindParam(1, $customerid, PDO::PARAM_INT);
@@ -116,7 +240,82 @@ public function getOrderNumberOfCustomer($customerid, $totalprice) {
 public function getOrderByCustomerV2($ordersid, $customerid) {
     try {
         $orders = array();
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `product_name`, `sizes_id`, `size_name`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `addons_name`, `addons_price`, `product_remark` FROM `customer_orders` WHERE orders_id = ? AND customer_id = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 AND removed != 1 AND cancel != 1');
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
+
+        // Bind the parameters
+        $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
+        $stmt->bindParam(2, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $orders[] = $row;
+            }
+        }
+
+        $stmt->closeCursor();
+        return $orders;
+    } catch (\Throwable $th) {
+        // Handle exceptions appropriately, for now redirecting to an error page
+        header("location: ../index.php?error=" . urlencode($th->getMessage()));
+        exit();
+    }
+}
+
+public function getOrderByCustomerPrepaing($ordersid, $customerid) {
+    try {
+        $orders = array();
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing = 1 AND co.shipping != 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
+
+        // Bind the parameters
+        $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
+        $stmt->bindParam(2, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $orders[] = $row;
+            }
+        }
+
+        $stmt->closeCursor();
+        return $orders;
+    } catch (\Throwable $th) {
+        // Handle exceptions appropriately, for now redirecting to an error page
+        header("location: ../index.php?error=" . urlencode($th->getMessage()));
+        exit();
+    }
+}
+
+public function getOrderByCustomerDelivery($ordersid, $customerid) {
+    try {
+        $orders = array();
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping = 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
+
+        // Bind the parameters
+        $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
+        $stmt->bindParam(2, $customerid, PDO::PARAM_INT);
+
+        // Execute the query
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $orders[] = $row;
+            }
+        }
+
+        $stmt->closeCursor();
+        return $orders;
+    } catch (\Throwable $th) {
+        // Handle exceptions appropriately, for now redirecting to an error page
+        header("location: ../index.php?error=" . urlencode($th->getMessage()));
+        exit();
+    }
+}
+
+public function getOrderByCustomerComplete($ordersid, $customerid) {
+    try {
+        $orders = array();
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered = 1 AND co.removed != 1 AND co.cancel != 1');
 
         // Bind the parameters
         $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
@@ -168,7 +367,7 @@ public function getOrderByCustomer($customerid) {
         try {
 
             $orders = array();
-            $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark`FROM `customer_orders` WHERE accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 ORDER BY order_id ASC');
+            $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark`FROM `customer_orders` WHERE accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 ORDER BY order_id ASC');
 
             // Execute the query
             if ($stmt->execute()) {
@@ -260,13 +459,14 @@ public function getOrdersCompleted() {
 }
 
 
-public function getOrder($customer_Id) {
+public function getOrder($orderid, $customer_Id) {
     try {
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND delivered != 1 AND removed != 1 ORDER BY order_id DESC');
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark` FROM `customer_orders` WHERE `orders_id` = ? AND `customer_id` = ? AND `accepted` != 1 AND `preparing` != 1 AND `shipping` != 1 AND `delivered` != 1 AND `removed` != 1 ORDER BY `order_id` DESC');
         
-        $stmt->bindValue(1, $customer_Id);
+        $stmt->bindValue(1, $orderid);
+        $stmt->bindValue(2, $customer_Id);
         $stmt->execute();
-        $order_data = $stmt->fetchAll(PDO::FETCH_ASSOC); // Use fetchAll to get all matching rows
+        $order_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if (!empty($order_data)) {
             return $order_data;
@@ -278,9 +478,10 @@ public function getOrder($customer_Id) {
     }
 }
 
+
 public function getOrderPrearpingFrontEnd($customer_Id) {
     try {
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing = 1 AND shipping != 1 AND delivered != 1 AND removed != 1 ORDER BY order_id DESC');
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing = 1 AND shipping != 1 AND delivered != 1 AND removed != 1 ORDER BY order_id DESC');
         
         $stmt->bindValue(1, $customer_Id);
         $stmt->execute();
@@ -298,7 +499,7 @@ public function getOrderPrearpingFrontEnd($customer_Id) {
 
 public function getOrderDeliveryFrontEnd($customer_Id) {
     try {
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing != 1 AND shipping = 1 AND delivered != 1 AND removed != 1 ORDER BY order_id DESC');
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing != 1 AND shipping = 1 AND delivered != 1 AND removed != 1 ORDER BY order_id DESC');
         
         $stmt->bindValue(1, $customer_Id);
         $stmt->execute();
@@ -316,7 +517,7 @@ public function getOrderDeliveryFrontEnd($customer_Id) {
 
 public function getOrderCompletedFrontEnd($customer_Id) {
     try {
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND `delivered` = 1 AND removed != 1 ORDER BY order_id DESC');
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark` FROM `customer_orders` WHERE `customer_id` = ? AND accepted != 1 AND preparing != 1 AND shipping != 1 AND `delivered` = 1 AND removed != 1 ORDER BY order_id DESC');
         
         $stmt->bindValue(1, $customer_Id);
         $stmt->execute();
@@ -465,32 +666,37 @@ public function getCustomerDetails($customerid){
             }
         }
 
-        public function AcceptOrderV2($customerid){
+        public function AcceptOrderV2($orderid, $customerid) {
             try {
-
-                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET preparing = 1  WHERE customer_id = ? AND shipping != 1 AND delivered != 1 AND  cancel != 1 AND removed != 1');
-
+                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET preparing = 1 WHERE orders_id = ? AND customer_id = ? AND shipping != 1 AND delivered != 1 AND cancel != 1 AND removed != 1');
+        
                 // Execute the query
-                if (!$stmt->execute(array($customerid))) {
+                if (!$stmt->execute(array($orderid, $customerid))) {
                     throw new Exception("Failed to update orders");
                 }
-
+        
                 // Close the prepared statement
                 $stmt = null;
-
+        
             } catch (Exception $e) {
-                //throw $th;
+                // Handle the exception and log the error
+                error_log("Error in AcceptOrderV2: " . $e->getMessage());
                 header("location: ../back-end/AdminOrders.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
+        
 
-        public function DeliverOrder($customerid) {
+        public function DeliverOrder($orderid, $customerid) {
             try {
-                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET shipping = 1, preparing = 0 WHERE customer_id = ? AND preparing = 1 AND delivered != 1 AND cancel != 1');
+                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET preparing = 0, shipping = 1 WHERE orders_id = :orderid AND customer_id = :customerid AND preparing = 1 AND delivered != 1 AND cancel != 1 AND shipping != 1');
+        
+                // Bind the parameters
+                $stmt->bindParam(':orderid', $orderid);
+                $stmt->bindParam(':customerid', $customerid);
         
                 // Execute the query
-                if (!$stmt->execute(array($customerid))) {
+                if (!$stmt->execute()) {
                     $errorInfo = $stmt->errorInfo();
                     error_log("Database error: " . $errorInfo[2]);
                     throw new Exception("Failed to update orders");
@@ -507,13 +713,18 @@ public function getCustomerDetails($customerid){
                 exit();
             }
         }
+        
 
-        public function CompleteOrder($customerid) {
+        public function CompleteOrder($orderid, $customerid) {
             try {
-                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET delivered = 1, shipping = 0 WHERE customer_id = ? AND shipping = 1 AND preparing != 1 AND shipping != 1');
+                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET shipping = 0, delivered = 1  WHERE orders_id = :orderid AND customer_id = :customerid AND shipping = 1 AND preparing != 1 AND cancel != 1 AND delivered != 1');
+        
+                // Bind the parameters
+                $stmt->bindParam(':orderid', $orderid);
+                $stmt->bindParam(':customerid', $customerid);
         
                 // Execute the query
-                if (!$stmt->execute(array($customerid))) {
+                if (!$stmt->execute()) {
                     $errorInfo = $stmt->errorInfo();
                     error_log("Database error: " . $errorInfo[2]);
                     throw new Exception("Failed to update orders");
@@ -530,13 +741,14 @@ public function getCustomerDetails($customerid){
                 exit();
             }
         }
+        
 
-        public function RemoveOrder($customerid) {
+        public function RemoveOrder($orderid, $customerid) {
             try {
-                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET cancel = 1, preparing = 0 WHERE customer_id = ? AND preparing = 1 AND delivered != 1 AND shipping != 1');
+                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET removed = 1, preparing = 0 WHERE orders_id = ? AND customer_id = ? AND preparing = 1 AND delivered != 1 AND shipping != 1 AND cancel != 1 AND removed != 1');
         
                 // Execute the query
-                if (!$stmt->execute(array($customerid))) {
+                if (!$stmt->execute(array($orderid, $customerid))) {
                     $errorInfo = $stmt->errorInfo();
                     error_log("Database error: " . $errorInfo[2]);
                     throw new Exception("Failed to update orders");
@@ -548,11 +760,12 @@ public function getCustomerDetails($customerid){
                 return true;
             } catch (Exception $e) {
                 // Handle the exception and log the error
-                error_log("Error in DeliverOrder: " . $e->getMessage());
+                error_log("Error in RemoveOrder: " . $e->getMessage());
                 header("location: ../back-end/AdminOrders.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
+        
 
         public function DeleteOrder($customerid) {
             try {

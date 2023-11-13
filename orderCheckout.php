@@ -97,6 +97,7 @@
     {
         
         // var_dump($sizeid);
+
        
 ?> 
 <div class="container orderMainCont">
@@ -234,7 +235,7 @@
                 $prodname = $_POST['prdname'];
                 $image = $_POST['prodImage'];
                 $sizeid = $_POST['sizes'];
-             
+                $quantity = $_POST['quantity'];
            
         ?>
         <input type="hidden" name="product_id_data" value="<?= $prodID ?>">
@@ -249,12 +250,12 @@
                 <th scope="col">Quantity</th>
                
                 <?php
-                    if(isset($_POST['addons'])){
+                
                      ?>
                <th scope="col">Addons</th>
 
                 <?php
-                    }
+                    
                 ?>
                  <th scope="col">Subtotal</th>
                  <th scope="col">Remarks</th>
@@ -281,13 +282,14 @@
                     ?>
                 </td>
                 <td class="center-content"><?=  $prodname ?></td>
+                <input type="hidden" name="p_name" value="<?=  $prodname ?>">
                 <?php
                     $getSizeName =  $productModel->getOneSize($sizeid);
                     if ($getSizeName !== false) {
                         $sizename = $getSizeName;
                 ?>
                 <td class="center-content"><?=  $sizename ?></td>
-              
+                <input type="hidden" name="size_name" value="<?=  $sizename ?>">
                 <?php
                     }
                 ?>
@@ -298,43 +300,39 @@
                     $price = $getprice;
                 ?>
                 <td class="center-content">₱<span id="price"><?=  $price ?></span></td>
+                <input type="hidden" name="product_price" value="<?=  $price ?>">
                
                 <?php
                  }
                 ?>
-                <td class="center-content"><input type="number" name="quantity" id="quantity" min="1" step="1" value="1" required style="width:50px;"></td>
+                <td class="center-content"><input type="number" name="quantity" id="quantity" min="1" step="1" value="<?=  $quantity ?>" required style="width:50px;"></td>
                
                  <?php
-                    $ddson = 0;
-                    if(isset($_POST['addons'])){
-                     $ddson = $_POST['addons'];
+                    // $ddson = 0;
+                   
+                     $ddson = $_POST['addons'] ?? null;
                     include_once "classes/add-addons.classes.php";
                     $addonsModel = new addAddons();
                     $dataAdds =  $addonsModel->getOneAddons($ddson);
-                    if($dataAdds != false){
-
-                        $addonsid = $dataAdds['addons_id'];
-                        $addonsName = $dataAdds['addons_name'];
-                        $addonsPrice = $dataAdds['price'];
+               
+                        $addonsName = $dataAdds['addons_name'] ?? "none";
+                        $addonsPrice = $dataAdds['price']?? null;
+                    
                      ?>
-                          <td scope="col"><?= $addonsName ?> ₱<span id="addonsPrice"><?= $addonsPrice ?></span></td>
+                          <td scope="col"><?= $addonsName ?><span id="addonsPrice"><?= $addonsPrice ?></span></td>
                           <input type="hidden" name="addons_data" value="<?= $ddson ?>">
+                          <input type="hidden" name="addons_name" value="<?= $addonsName ?>">
+                          <input type="hidden" name="addons_price" value="<?= $addonsPrice ?>">
                           <!-- <td></td> -->
-                <?php
-                         }
-                    }
-                ?>
-                 <?php
-                 $getprice =  $productModel->getPriceBySize($sizeid, $prodID);
-                
-                 if ($getprice !== false) {
-                    $price = $getprice;
-                ?>
-                    <td class="center-content" >₱<span id="subtotal"><?= $price ?></span></td>
-                    <input type="hidden" name="subtotal1" id="subtotalInput" value="<?= $price ?>">
-                <?php
-                 }
-                ?>
+                <!-- <?php
+                         
+                    
+                ?> -->
+            
+            
+                    <td class="center-content" >₱<span id="subtotal"></span></td>
+                    <input type="hidden" name="subtotal1" id="subtotalInput">
+              
                   <td class="center-content" ><textarea name="prd_remark" id="" rows="2" placeholder="Optional..." style="padding: 5px;"></textarea></td>
                 <!-- <td class="center-content"><input type="checkbox" class="form-check-input" name="group" onclick="selectOnlyOne(this)"></td> -->
             </tr>
@@ -351,11 +349,64 @@
                 <span id="shippingFee" style="display: none">Shipping Fee: ₱10.00</span>
                 <h2 class="TP">Total Price:</h2>
                 <h3 class="value">₱<span id="total"><?= $price ?></span></h3>
-                <input type="hidden" name="total_data" id="totalInput" value="<?= $price ?>">
+                <input type="hidden" name="total_data" id="totalInput">
                 <button class="btn btn-primary" type ="submit" name="proceed1">Proceed</button>
             </div>
 
-    <script src="assets/js/OrderCheckoutSingleOrder.js"></script>
+    <!-- <script src="assets/js/OrderCheckoutSingleOrder.js"></script> -->
+    <script>
+     $(document).ready(function() {
+    // Get references to the quantity input, price, and subtotal elements
+    const quantityInput = $("#quantity");
+    const addonsInput = $("#addonsPrice"); // Assuming this is the element displaying addons price
+    const priceElement = $("#price");
+    const subtotalElement = $("#subtotal");
+    const totalElement = $("#total");
+  
+    // Function to calculate subtotal
+    function calculateSubtotal() {
+      const quantity = parseInt(quantityInput.val(), 10);
+      let subtotal = 0;
+    
+      if (quantity < 1 || isNaN(quantity)) {
+        quantityInput.val(1); // Reset to 1 if less than 1 or empty
+      }
+  
+      const price = parseFloat(priceElement.text());
+  
+      let addonsTotal = 0;
+      if (addonsInput !== null) {
+        addonsTotal = parseFloat(addonsInput.text()) || 0;
+      }
+  
+      subtotal = (quantity * price + addonsTotal).toFixed(2);
+      subtotalElement.text(subtotal);
+      $("#subtotalInput").val(subtotal);
+  
+      let total = parseFloat(subtotal);
+  
+      if ($('#cod-checkbox').is(':checked')) {
+        total = (total + 10).toFixed(2); // Add a shipping fee of 10 if the checkbox is checked
+      }
+      if ($('#gcash-checkbox').is(':checked')) {
+        total = (total + 10).toFixed(2); // Add a shipping fee of 10 if the checkbox is checked
+      }
+  
+      // Update the total again after adding shipping fees
+      totalElement.text(total);
+      $("#totalInput").val(total);
+    }
+  
+    // Calculate and display subtotal when the page loads
+    calculateSubtotal();
+  
+    // Add event listeners to listen for changes to the inputs
+    quantityInput.on("input", calculateSubtotal);
+    $('#cod-checkbox').on('change', calculateSubtotal);
+    $('#gcash-checkbox').on('change', calculateSubtotal);
+});
+
+    </script>
 
 <?php
   }

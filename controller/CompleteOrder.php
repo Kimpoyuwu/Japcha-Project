@@ -9,7 +9,8 @@ if (isset($_POST['customer_id']) && isset($_POST['orderId'])){
     $customerid  = $_POST['customer_id'];
 
     if($OrderModel->UpdateCompleteOrder($orderid)){
-        if($OrderModel->CompleteOrder($customerid)){
+        
+        if($OrderModel->CompleteOrder($orderid, $customerid)){
             $response = "Order #" . $orderid . " is completed";
             echo $response;
         }else{

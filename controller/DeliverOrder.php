@@ -9,7 +9,7 @@ if (isset($_POST['customer_id']) && isset($_POST['orderId'])){
     $customerid  = $_POST['customer_id'];
 
     if($OrderModel->UpdateDeliverOrder($orderid)){
-        if($OrderModel->DeliverOrder($customerid)){
+        if($OrderModel->DeliverOrder($orderid, $customerid)){
             $response = "Order #" . $orderid . " is up for delivery.";
             echo $response;
         }else{

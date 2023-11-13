@@ -10,8 +10,9 @@ $OrderModel = new Order();
 
 if (isset($_GET['customerId'])) {
     $customer_Id = $_GET['customerId'];
-
-    $order_data = $OrderModel->getOrder($customer_Id);
+    $orderid = $_GET['order_id'];
+    
+    $order_data = $OrderModel->getOrder($orderid, $customer_Id);
 
     if (!empty($order_data)) { // Check if orders were found
         $orderDetails = [];

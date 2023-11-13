@@ -6,7 +6,7 @@ require_once "../classes/OrderModel.php";
 $OrderModel = new Order();
 $userid = $_GET['userId'];
 
-$result = $OrderModel->getOrderNumberByCustomer($userid);
+$result = $OrderModel->getOrderNumberByCustomerPreparing($userid);
 $orders = $result['orders'];
 $total_price = $result['total_prices'];
 $count = $result['count'];
@@ -19,7 +19,7 @@ for ($i = 0; $i < $count; $i++) {
     // $order_id = $order[$i]['id'];
     $order_id = $orders[$i];
 
-    $product = $OrderModel->getOrderByCustomerV2($order_id, $userid);
+    $product = $OrderModel->getOrderByCustomerPrepaing($order_id, $userid);
     // var_dump($product);
     // $prod_sizw = $OrderModel->getOrderByCustomerV2($product[], $userid);
     $rowData = array(
