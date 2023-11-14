@@ -264,7 +264,7 @@ fetchAndDisplayOrders(<?php echo json_encode($_SESSION["userid"]); ?>);
                 '<td class="center-content"><img class="card-img-top" src="upload/' + product.image_url + '" alt="Card image cap" style=""></td>' +
                 '<td class="center-content">' + product.product_name + '</td>' +
                 '<td class="center-content">' + product.size_name + '</td>' +
-                '<td class="center-content">' + product.price + '</td>' +
+                '<td class="center-content">' + product.product_price + '</td>' +
                 '<td class="center-content"><span>' + product.quantity + '</span></td>' +
                 '<td class="center-content">' + product.addons_name + ' <span>' + product.addons_price + '</span></td>' +
                 '<td class="center-content">' + product.subtotal + '</td>' +

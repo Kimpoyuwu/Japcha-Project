@@ -2,35 +2,39 @@
 
 class CartModel extends Dbh {
 
-    public function insertToCart($customer_id, $product_id, $p_name, $size_id, $size_name, $addons_id, $addos_name, $addos_price, $quantity) {
+    public function insertToCart($customer_id, $product_id, $p_name, $product_price, $size_id, $size_name, $addons_id, $addos_name, $addos_price, $quantity) {
         try {
-            $stmt = $this->connect()->prepare('INSERT INTO `cart`(`customer_id`, `product_id`, `product_name`, `size_id`, `size_name`, `addons_id`, `addons_name`, `addons_price`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $this->connect()->prepare('INSERT INTO `cart`(`customer_id`, `product_id`, `product_name`, `product_price`, `size_id`, `size_name`, `addons_id`, `addons_name`, `addons_price`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
     
-            $stmt->bindValue(1, $customer_id, PDO::PARAM_INT);
-            $stmt->bindValue(2, $product_id, PDO::PARAM_INT);
-            $stmt->bindValue(3, $p_name);
-            $stmt->bindValue(4, $size_id, PDO::PARAM_INT);
-            $stmt->bindValue(5, $size_name);
-            
+            $stmt->bindParam(1, $customer_id, PDO::PARAM_INT);
+            $stmt->bindParam(2, $product_id, PDO::PARAM_INT);
+            $stmt->bindParam(3, $p_name, PDO::PARAM_STR);
+            $stmt->bindParam(4, $product_price, PDO::PARAM_STR); // Assuming price is a decimal
+            $stmt->bindParam(5, $size_id, PDO::PARAM_INT);
+            $stmt->bindParam(6, $size_name, PDO::PARAM_STR);
+    
             if ($addons_id === "") {
-                $stmt->bindValue(6, null, PDO::PARAM_NULL);
+                $stmt->bindValue(7, null, PDO::PARAM_NULL);
             } else {
-                $stmt->bindValue(6, $addons_id, PDO::PARAM_INT); // Assuming addons_id is an integer
+                $stmt->bindParam(7, $addons_id, PDO::PARAM_INT); // Assuming addons_id is an integer
             }
     
-            $stmt->bindValue(7, $addos_name);
-            $stmt->bindValue(8, $addos_price, PDO::PARAM_STR);  // Bind as string assuming price is a decimal
-            $stmt->bindValue(9, $quantity, PDO::PARAM_INT);
+            $stmt->bindParam(8, $addos_name, PDO::PARAM_STR);
+            $stmt->bindParam(9, $addos_price, PDO::PARAM_STR); // Assuming price is a decimal
+            $stmt->bindParam(10, $quantity, PDO::PARAM_INT);
     
             if ($stmt->execute()) {
                 return true; // Successfully inserted
             } else {
+                // You might want to log or handle the error here
                 return false; // Failed to insert
             }
-        } catch (\Throwable $th) {
+        } catch (\PDOException $e) {
+            // Handle the exception, log, or return an error message
             return false; // Failed to insert and caught an exception
         }
     }
+    
     
  
     public function insertMultipleOrder($InsertOrder) {
@@ -77,7 +81,7 @@ class CartModel extends Dbh {
     public function fetchCart($customer_id) {
         try {
             // Prepare the SQL query
-            $stmt = $this->connect()->prepare('SELECT `cart_id`, `customer_id`, `product_id`,`product_name`,  `size_id`, `size_name`,  `addons_id`, `addons_name`, `addons_price`,  `quantity`, `subtotal` FROM `cart` WHERE customer_id = ? AND isCheckout != 1 AND isRemove != 1');
+            $stmt = $this->connect()->prepare('SELECT `cart_id`, `customer_id`, `product_id`,`product_name`, `product_price`, `size_id`, `size_name`,  `addons_id`, `addons_name`, `addons_price`,  `quantity`, `subtotal` FROM `cart` WHERE customer_id = ? AND isCheckout != 1 AND isRemove != 1');
             
             // Execute the query with an array containing $customer_id
             if ($stmt->execute([$customer_id])) {

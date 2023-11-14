@@ -16,6 +16,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="image/japcha_logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -185,19 +186,45 @@
                 </div> -->
             </div>
             <li>
-                <a href="#">About</a>
+                <a href="index.php#about-us" class="scroll-link">About</a>
             </li>
             <li>
-                <a href="#">Chat</a>
+                <a href="chatFront.php">Chat</a>
             </li>
             <?php
                 if (isset($_SESSION["userid"])) 
                 {
-            
+                    $customerId = $_SESSION["userid"];
             ?>
-            <li>
-                <a href="orderstatus.php">Order</a>
+            <li style="position: relative;">
+                <a href="orderstatus.php"  id="insertCounter">Order<span class="badge badge-danger" style="position: absolute; top:0; right:3px; font-size: 10px;"></span></a>
             </li>
+
+            <script>
+                var customerid = <?php echo json_encode($customerId); ?>;
+                
+                function checkForNewInserts(customerId) {
+                    var xhr = new XMLHttpRequest();
+
+                    xhr.open('GET', 'controller/CountNewInsertedOrderFrontEnd.php?customerid=' + customerId, true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var response = JSON.parse(xhr.responseText);
+                            document.getElementById('insertCounter').innerHTML = 'Orders <span class="badge badge-danger" style="position: absolute; top:0; right:3px; font-size: 10px;">' + response.new_insert_count + '</span>';
+                        }
+                    };
+
+                    xhr.send();
+                }
+
+                // Initial check
+                checkForNewInserts(customerid);
+
+                // Periodically check for new inserts (e.g., every 5 seconds)
+                setInterval(function () {
+                    checkForNewInserts(customerid);
+                }, 5000);
+            </script>
             <?php
                 }
                 
@@ -468,6 +495,32 @@ $('#productContainer').on('click', '.btn-link', function() {
         cartDrawer.classList.remove('open');
     });
 </script>
+<script>
+        $(document).ready(function() {
+            // Smooth scrolling for anchor links
+            $(".scroll-link").on('click', function(event) {
+                // Check if the link is pointing to the current page
+                if (this.pathname === window.location.pathname) {
+                    if (this.hash !== "") {
+                        event.preventDefault();
 
+                        // Store hash
+                        var hash = this.hash;
+
+                        // Using jQuery's animate() method to add smooth page scroll
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 800, function(){
+                            // Add hash (#) to URL when done scrolling (default click behavior)
+                            window.location.hash = hash;
+                        });
+                    }
+                } else {
+                    // If the link is pointing to another page, navigate to that page
+                    window.location.href = this.href;
+                }
+            });
+        });
+    </script>
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

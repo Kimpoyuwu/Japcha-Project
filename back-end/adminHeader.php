@@ -7,6 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../image/japcha_logo.png">
     <link rel="stylesheet" href="../assets/css/Admin.css">
     <link rel="stylesheet" href="../assets/css/AdminOrders.css">  
     <link rel="stylesheet" href="../assets/css/adminStat.css">
@@ -91,20 +92,71 @@
         <?php
                 if(isset($_SESSION["orderManagement_view"]) && $_SESSION["orderManagement_view"] == 1){
         ?>       
-                <li>
+                <!-- <li>
                     <div class="icon-link">
                         <a href="AdminOrders.php">
                             <i class="fa fa-list"></i>
-                            <span class="link_name">Orders <span class="badge badge-success">4</span></span>
+                            <span id="insertCounter" class="link_name">Orders <span class="badge badge-success">0</span></span>
                         </a>
                         <i class="fa fa-caret-down arrow"></i>
                     </div>
                     <ul class="sub-menu">
-                        <li><a class="link_name" href="#">Orders</a></li>
-                        <li><a href="AdminOrders.php">Orders</a></li>
+                        <li style="position: relative;"><a class="link_name" href="#">Orders</a></li>
+                        <li><a href="AdminOrders.php">Orders</a><span id="insertCounter" class="badge badge-success" style="position: absolute; right: 60%; top:0;">0</span></li>
                         <li><a href="#">Archive</a></li>
                     </ul>  
+                </li> -->
+                <li>
+                    <a href="AdminOrders.php">
+                        <i class="fa fa-list"></i>
+                        <span id="insertCounter" class="link_name">Orders <span class="badge badge-success"></span></span>
+                    </a>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="AdminOrders.php">Statistics</a></li>
+                    </ul> 
                 </li>
+                <script>
+                    // let lastCheckTimestamp = '1970-01-01 00:00:00'; // Initial timestamp
+
+                    // function checkForNewInserts() {
+                    //     // Poll the PHP file for the total number of new inserts since the last check
+                    //     fetch(`../controller/CountNewInsertedOrder.php?lastCheck=${lastCheckTimestamp}`)
+                    //     .then(response => response.json())
+                    //     .then(data => {
+                    //         // Update the counter
+                    //         document.getElementById('insertCounter').innerHTML = `Orders <span class="badge badge-success">${data.new_insert_count}</span>`;
+                    //         // document.getElementById('insertCounter').innerText = ${data.new_insert_count};
+                    //     })
+                    //     .catch(error => console.error('Error checking for new inserts:', error));
+                    // }
+
+                    // // Periodically check for new inserts (e.g., every 5 seconds)
+                    // setInterval(() => {
+                    //     checkForNewInserts();
+                    //     // Update the last check timestamp
+                    //     lastCheckTimestamp = new Date().toISOString().slice(0, 19).replace("T", " ");
+                    // }, 5000);
+
+                    // // Initial check
+                    // checkForNewInserts();
+                    function checkForNewInserts() {
+                        var xhr = new XMLHttpRequest();
+
+                        xhr.open('GET', '../controller/CountNewInsertedOrder.php', true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                var response = JSON.parse(xhr.responseText); // Parse the response
+                                document.getElementById('insertCounter').innerHTML = 'Orders <span class="badge badge-success">' + response.new_insert_count + '</span>';
+                                // document.getElementById('numberAppointments').textContent = response.count;
+                            }
+                        };
+
+                        xhr.send();
+                    }
+                    setInterval(checkForNewInserts, 5000);
+                    checkForNewInserts();
+            
+                </script>
         <?php
             }
         ?>
@@ -130,7 +182,7 @@
                         <li><a class="link_name" href="adminMessage.php">Message</a></li>
                     </ul> 
                 </li>
-                <li>
+                <!-- <li>
                     <a href="ChatbotManagement.php">
                         <i class="fa fa-comments" aria-hidden="true"></i>
                         <span class="link_name">Chatbot</span>
@@ -138,7 +190,7 @@
                     <ul class="sub-menu blank">
                         <li><a class="link_name" href="adminMessage.php">Chatbot</a></li>
                     </ul> 
-                </li>
+                </li> -->
         <?php
             }
         ?>

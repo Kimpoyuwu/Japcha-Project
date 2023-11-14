@@ -1,9 +1,9 @@
 <?php
 class Order extends Dbh {
 
-    public function setOrder($getOrderNumber, $customerid, $prodid, $product_name, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark) {
+    public function setOrder($getOrderNumber, $customerid, $prodid, $product_name, $product_price, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark) {
         try {
-            $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `product_price`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
     
             // Assuming addons_id can be NULL
             $addons_id_value = ($addons_id !== "") ? $addons_id : null;
@@ -12,21 +12,22 @@ class Order extends Dbh {
             $stmt->bindValue(2, $customerid, PDO::PARAM_INT);
             $stmt->bindValue(3, $prodid, PDO::PARAM_INT);
             $stmt->bindValue(4, $product_name, PDO::PARAM_STR);
-            $stmt->bindValue(5, $sizesid, PDO::PARAM_INT);
-            $stmt->bindValue(6, $size_name, PDO::PARAM_STR);
-            $stmt->bindValue(7, $subtotal, PDO::PARAM_STR);
-            $stmt->bindValue(8, $quantity, PDO::PARAM_INT);
+            $stmt->bindValue(5, $product_price, PDO::PARAM_STR);
+            $stmt->bindValue(6, $sizesid, PDO::PARAM_INT);
+            $stmt->bindValue(7, $size_name, PDO::PARAM_STR);
+            $stmt->bindValue(8, $subtotal, PDO::PARAM_STR);
+            $stmt->bindValue(9, $quantity, PDO::PARAM_INT);
             
             // Bind addons_id accordingly
             if ($addons_id_value !== null) {
-                $stmt->bindValue(9, $addons_id_value, PDO::PARAM_INT);
+                $stmt->bindValue(10, $addons_id_value, PDO::PARAM_INT);
             } else {
-                $stmt->bindValue(9, null, PDO::PARAM_NULL);
+                $stmt->bindValue(10, null, PDO::PARAM_NULL);
             }
     
-            $stmt->bindValue(10, $addons_name, PDO::PARAM_STR);
-            $stmt->bindValue(11, $addons_price, PDO::PARAM_STR);
-            $stmt->bindValue(12, $product_remark, PDO::PARAM_STR);
+            $stmt->bindValue(11, $addons_name, PDO::PARAM_STR);
+            $stmt->bindValue(12, $addons_price, PDO::PARAM_STR);
+            $stmt->bindValue(13, $product_remark, PDO::PARAM_STR);
     
             // Execute the query
             $success = $stmt->execute();
@@ -240,7 +241,7 @@ public function getOrderNumberOfCustomer($customerid, $totalprice) {
 public function getOrderByCustomerV2($ordersid, $customerid) {
     try {
         $orders = array();
-        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`product_price`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
 
         // Bind the parameters
         $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
@@ -461,7 +462,7 @@ public function getOrdersCompleted() {
 
 public function getOrder($orderid, $customer_Id) {
     try {
-        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark` FROM `customer_orders` WHERE `orders_id` = ? AND `customer_id` = ? AND `accepted` != 1 AND `preparing` != 1 AND `shipping` != 1 AND `delivered` != 1 AND `removed` != 1 ORDER BY `order_id` DESC');
+        $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `product_id`, `sizes_id`, `subtotal`, `price`, `quantity`, `address`, `addons_id`, `product_remark` FROM `customer_orders` WHERE `orders_id` = ? AND `customer_id` = ? AND isActive = 1  AND `accepted` != 1 AND `preparing` != 1 AND `shipping` != 1 AND `delivered` != 1 AND `removed` != 1 ORDER BY `order_id` DESC');
         
         $stmt->bindValue(1, $orderid);
         $stmt->bindValue(2, $customer_Id);
@@ -555,7 +556,7 @@ public function getOrderCompletedFrontEnd($customer_Id) {
 
 public function getData($productid, $sizesid, $customerid) {
     try {
-        $stmt = $this->connect()->prepare('SELECT p.product_name, p.image_url, ps.size_name, ca.username, ca.customer_address, ca.email FROM `customer_orders` co INNER JOIN `product` p  ON co.product_id = p.product_id INNER JOIN `product_sizes` ps ON co.sizes_id = ps.sizes_id INNER JOIN customer_account ca ON co.customer_id = ca.customer_id WHERE co.product_id = ? AND co.sizes_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered != 1 AND co.cancel != 1 AND co.removed != 1');
+        $stmt = $this->connect()->prepare('SELECT p.product_name, p.image_url, ps.size_name, ca.username, ca.customer_address, ca.email FROM `customer_orders` co INNER JOIN `product` p  ON co.product_id = p.product_id INNER JOIN `product_sizes` ps ON co.sizes_id = ps.sizes_id INNER JOIN customer_account ca ON co.customer_id = ca.customer_id WHERE co.product_id = ? AND co.sizes_id = ? AND co.customer_id = ? AND isActive = 1 AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered != 1 AND co.cancel != 1 AND co.removed != 1');
 
         // Execute the query
         if ($stmt->execute([$productid, $sizesid, $customerid])) {
@@ -767,12 +768,12 @@ public function getCustomerDetails($customerid){
         }
         
 
-        public function DeleteOrder($customerid) {
+        public function DeleteOrder($orderid, $customerid) {
             try {
-                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET removed = 1, delivered = 0 WHERE customer_id = ? AND preparing != 1 AND delivered = 1 AND shipping != 1 AND cancel != 1');
+                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET removed = 1, isActive = 0 WHERE orders_id = ? AND customer_id = ? AND preparing != 1 AND delivered = 1 AND shipping != 1 AND cancel != 1 AND removed != 1');
         
                 // Execute the query
-                if (!$stmt->execute(array($customerid))) {
+                if (!$stmt->execute(array($orderid, $customerid))) {
                     $errorInfo = $stmt->errorInfo();
                     error_log("Database error: " . $errorInfo[2]);
                     throw new Exception("Failed to update orders");
@@ -784,11 +785,12 @@ public function getCustomerDetails($customerid){
                 return true;
             } catch (Exception $e) {
                 // Handle the exception and log the error
-                error_log("Error in DeliverOrder: " . $e->getMessage());
+                error_log("Error in DeleteOrder: " . $e->getMessage());
                 header("location: ../back-end/AdminOrders.php?error=" . urlencode($e->getMessage()));
                 exit();
             }
         }
+        
 
 
         public function UpdatePrepareOrder($orderid){
@@ -875,7 +877,7 @@ public function getCustomerDetails($customerid){
         public function UpdateDeleteOrder($orderid){
             try {
 
-                $stmt = $this->connect()->prepare('UPDATE `order` SET removed = 1, completed = 0 WHERE order_id = ? AND preparing != 1 AND completed = 1 AND delivery != 1 AND cancel != 1');
+                $stmt = $this->connect()->prepare('UPDATE `order` SET removed = 1, isActive = 0 WHERE order_id = ? AND preparing != 1 AND completed = 1 AND delivery != 1 AND cancel != 1 AND removed != 1');
 
                 // Execute the query
                 if (!$stmt->execute(array($orderid))) {
@@ -912,7 +914,7 @@ public function getCustomerDetails($customerid){
 
         public function insertMultipleOrder($InsertOrder) {
             try {
-                $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `product_price`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         
                 if ($stmt) { // Check if the statement was prepared successfully
                     foreach ($InsertOrder as $orderData) {
@@ -920,20 +922,21 @@ public function getCustomerDetails($customerid){
                         $stmt->bindValue(2, $orderData['customer_id']);
                         $stmt->bindValue(3, $orderData['product_id']);
                         $stmt->bindValue(4, $orderData['product_name']);
-                        $stmt->bindValue(5, $orderData['sizes_id']);
-                        $stmt->bindValue(6, $orderData['size_name']);
-                        $stmt->bindValue(7, $orderData['subtotal']);
-                        $stmt->bindValue(8, $orderData['quantity']);
+                        $stmt->bindValue(5, $orderData['product_price']);
+                        $stmt->bindValue(6, $orderData['sizes_id']);
+                        $stmt->bindValue(7, $orderData['size_name']);
+                        $stmt->bindValue(8, $orderData['subtotal']);
+                        $stmt->bindValue(9, $orderData['quantity']);
         
                         if ($orderData['addons_id'] === "") {
-                            $stmt->bindValue(9, null, PDO::PARAM_NULL);
+                            $stmt->bindValue(10, null, PDO::PARAM_NULL);
                         } else {
-                            $stmt->bindValue(9, $orderData['addons_id'], PDO::PARAM_INT); // Assuming addons_id is an integer
+                            $stmt->bindValue(10, $orderData['addons_id'], PDO::PARAM_INT); // Assuming addons_id is an integer
                         }
         
-                        $stmt->bindValue(10, $orderData['addons_name']);
-                        $stmt->bindValue(11, $orderData['addons_price']);
-                        $stmt->bindValue(12, $orderData['product_remark']);
+                        $stmt->bindValue(11, $orderData['addons_name']);
+                        $stmt->bindValue(12, $orderData['addons_price']);
+                        $stmt->bindValue(13, $orderData['product_remark']);
         
                         if (!$stmt->execute()) {
                             // Print or log the error details
@@ -953,7 +956,48 @@ public function getCustomerDetails($customerid){
                 return false; // Failed to insert and caught an exception
             }
         }
+
+        public function CountNewInserts() {
+            try {
+                date_default_timezone_set('Asia/Manila');
         
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 AND `preparing` != 1 AND `delivery` != 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+                
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        
+        
+        public function CountNewInsertsFrontEnd($customerid) {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND customer_id = :customerid AND isActive = 1 AND `preparing` != 1 AND `delivery` != 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+        
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                $stmt->bindParam(':customerid', $customerid, PDO::PARAM_INT);
+        
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
         
 
 

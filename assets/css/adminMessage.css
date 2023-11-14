@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .mainContainer{
     height: 100vh;
@@ -112,6 +112,7 @@
     flex-direction: column-reverse;
     width: 50%;
     height: 100%;
+    overflow-y: scroll;
 }
 
 .mainContainer .rightCont .inputCont{
@@ -225,8 +226,219 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-  
+}
+
+.mainContainer .rightCont .chatbot-cont {
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    overflow-x: scroll;
+    width: 650px;
+    max-height: 130px;
+    padding: 10px;
+    margin-left: 30px;
+    cursor: pointer;
+    align-self: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
 
 
+.mainContainer .rightCont .chatbot-cont i{
+    display: flex;
+    margin-right: 5px;  
+    align-items: center;
+    margin-left: 5px;
 
 }
+
+.mainContainer .rightCont .chatbot-cont .questionCont{
+    display: inline-block;
+    border-radius: 5px;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 13px;
+    margin: 6px;
+    padding: 2px;
+    background-color: rgb(182, 179, 179);
+    min-width: 200px;
+    height: 80px;
+}
+.mainContainer .rightCont .chatbot-cont .questionCont p{
+    padding: 5px;
+}
+
+
+
+
+
+.mainContainer .Chatbot-edit-Modal{
+    display: none;
+    position: absolute;
+    width: 621px;
+    height: 360px;
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    background: #FFF;
+    padding: 10px;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.mainContainer .Chatbot-edit-Modal form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainContainer .Chatbot-edit-Modal form .typeQuestion{
+    width: 326px;
+    height: 91px;
+    border-radius: 11px;
+    border: 3px solid #699BF7;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: #000000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: nomral;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+
+}
+
+.mainContainer .Chatbot-edit-Modal form .typeAnswer{
+    width: 326px;
+    height: 91px;
+    border-radius: 11px;
+    border: 3px solid #699BF7;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: #000000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: nomral;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+input:focus{
+    outline: none;
+}
+
+textarea:focus{
+    outline: none;
+}
+
+textarea{
+    resize:none;
+}
+
+.mainContainer .Chatbot-edit-Modal form .buttonModal{
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-top:20px;
+
+}
+
+.mainContainer .Chatbot-edit-Modal form .buttonModal .answerEdit{
+    width: 130.006px;
+    height: 38.472px;
+    border-radius: 5px;
+    border: 1px solid #ECECEC;
+    background: #1A16FA;
+    color: white;
+    cursor: pointer;
+}
+
+.mainContainer .Chatbot-edit-Modal form .buttonModal .answerCancel{
+    width: 130.006px;
+    height: 38.472px;
+    border-radius: 5px;
+    border: 1px solid #F00;
+    background: #FFF;
+    color: red;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* FOR ADD MODAL */
+.mainContainer .Chatbot-add-Modal {
+    display: none;
+    position: absolute;
+    width: 621px;
+    height: 360px;
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    background: #FFF;
+    padding: 10px;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+}
+
+.mainContainer .Chatbot-add-Modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainContainer .Chatbot-add-Modal form .typeQuestion,
+.mainContainer .Chatbot-add-Modal form .typeAnswer {
+    width: 326px;
+    height: 91px;
+    border-radius: 11px;
+    border: 3px solid #699BF7;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: #000000;
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.mainContainer .Chatbot-add-Modal form .buttonModal {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-top:20px;
+}
+
+.mainContainer .Chatbot-add-Modal form .buttonModal .answerAdd {
+    width: 130.006px;
+    height: 38.472px;
+    border-radius: 5px;
+    border: 1px solid #ECECEC;
+    background: #1A16FA;
+    color: white;
+    cursor: pointer;
+}
+
+.mainContainer .Chatbot-add-Modal form .buttonModal .answerCancel {
+    width: 130.006px;
+    height: 38.472px;
+    border-radius: 5px;
+    border: 1px solid #F00;
+    background: #FFF;
+    color: red;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+
+

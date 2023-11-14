@@ -22,7 +22,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $prodid = htmlspecialchars($_POST["product_id_data"], ENT_QUOTES, 'UTF-8');
 
     $product_name = htmlspecialchars($_POST["p_name"], ENT_QUOTES, 'UTF-8');
-
+    $product_price = htmlspecialchars($_POST["product_price"], ENT_QUOTES, 'UTF-8');
+    
 
     $sizesid = htmlspecialchars($_POST["size_data"], ENT_QUOTES, 'UTF-8');
     $size_name = htmlspecialchars($_POST["size_name"], ENT_QUOTES, 'UTF-8');
@@ -42,11 +43,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $product_remark = htmlspecialchars($_POST["prd_remark"], ENT_QUOTES, 'UTF-8');
 
-
+    
     if($order->insertToOrderHeader($customerid,  $totalprice, $remark)){
         $getOrderNumber = $order->getOrderNumberOfCustomer($customerid,  $totalprice);
 
-        if($order->setOrder((int)$getOrderNumber, $customerid, $prodid, $product_name, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark)){
+        if($order->setOrder((int)$getOrderNumber, $customerid, $prodid, $product_name, $product_price, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark)){
             $_SESSION['order_placed'] = "successful_order";
             header("location: ../customerSHOP.php?error=none");
             exit();
@@ -138,6 +139,7 @@ if(isset($_POST['proceed2'])){
     $addons = $_POST['addons_data'];
     $remark = htmlspecialchars($_POST["remarks"], ENT_QUOTES, 'UTF-8');
 
+    $prod_price =$_POST["product_price"];
     $array = $_POST['prd_remark']; // Example, replace with your actual variable
     $product_remark = array_map('htmlspecialchars', $array);
 
@@ -152,7 +154,7 @@ if(isset($_POST['proceed2'])){
     // echo '<br>';
     // echo $remark;
     // echo '<br>';
-
+    // var_dump($prod_price);
     $number_of_rows = count($customerid); 
 
 
@@ -172,6 +174,7 @@ if(isset($_POST['proceed2'])){
                 'customer_id' => $customerid[$i],
                 'product_id' => $prodid[$i],
                 'product_name' => $p_name[$i],
+                'product_price' => $prod_price[$i], 
                 'sizes_id' => $sizesid[$i],
                 'size_name' => $size_name[$i],
                 'addons_id' => $addons_id,

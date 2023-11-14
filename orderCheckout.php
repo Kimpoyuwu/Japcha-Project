@@ -479,8 +479,8 @@
                 <input type="hidden" name="size_data[]" value="<?= $cart['size_id'] ?>">
                
              
-                <td class="center-content"> ₱<span class="product-price" id="product-price"><?= $fetchPrize['price'] ?></span></td>
-               <input type="hidden" name="price[]" value="<?= $fetchPrize['price'] ?>">
+                <td class="center-content"> ₱<span class="product-price" id="product-price"><?= $cart['product_price'] ?></span></td>
+               <input type="hidden" name="product_price[]" value="<?= $fetchPrize['price'] ?>">
               
                 <td class="center-content"><input type="number" name="quantity[]" class="product-quantity" min="1" step="1" value="<?= $cart['quantity'] ?>" required style="width:50px;"></td>
                

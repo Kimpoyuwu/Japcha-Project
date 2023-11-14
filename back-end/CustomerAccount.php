@@ -66,7 +66,7 @@ if (empty($data)) {
             <?php
             if (isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1) {
             ?>
-                <td><button class="btn btn-danger"><a style="text-decoration: none; color:#ffffff;" href="../controller/remove-admin.php?deleteidadmin=<?= $id ?>"><i class="fa fa-trash" aria-hidden="true"></i></a></button></td>
+                <td><button class="btn btn-danger"><a style="text-decoration: none; color:#ffffff;" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a></button></td>
             <?php
             }
             ?>

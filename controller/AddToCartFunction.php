@@ -4,9 +4,12 @@ require_once "../classes/dbh.classes.php";
 require_once "../classes/CartModel.php";
 require_once "../classes/add-size.classes.php";
 require_once "../classes/add-addons.classes.php";
+require_once "../classes/ProductsModel.php";
+
 $cart = new CartModel();
 $sizeModel = new addSize();
 $addonsModel = new addAddons();
+$productModel = new ProductModel();
 // ... (previous code)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -17,6 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // $addons_id = isset($_POST['addonsid']) ? $_POST['addonsid'] : null;
     $p_name = isset($_POST['p_name']) ? $_POST['p_name'] : null;
     
+    $product_price = $productModel->getPriceBySize($size_id, $product_id);
     // $addons_name = isset($_POST['addons_name']) ? $_POST['addons_name'] : null;
 
     $addons_id = isset($_POST['addonsid']) ? $_POST['addonsid'] : null;
@@ -36,14 +40,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Perform cart update operations here, including database interactions
         
         // Example: Insert the selected product, size, and addons into the cart table
-        $cart->insertToCart($customer_id, $product_id, $p_name, $size_id, $size_name, $addons_id,  $addos_name, $addos_price, $quantity);
+        $cart->insertToCart($customer_id, $product_id, $p_name, $product_price, $size_id, $size_name, $addons_id,  $addos_name, $addos_price, $quantity);
         
         // Check if the cart update was successful
         if ($cart != false) {
-            $response = array('success' => true, 'message' => 'Item added to cart.');
+            $response = array('success' => true, 'message' => 'Item added to cart.' );
         } else {
             $response = array('success' => false, 'message' => 'Failed to add item to cart.');
         }
+
+        // $response = "name: " . $product_price;
+        // header('Content-Type: application/json');
+        // echo json_encode($response);
    
 } else {
     $response = array('success' => false, 'message' => 'Invalid request method.');

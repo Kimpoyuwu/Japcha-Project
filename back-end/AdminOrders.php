@@ -14,18 +14,18 @@
 
   }
 </style>
-    <div class="container" style="margin-left: 300px; max-height: 100vh;">
+    <div class="container" style="margin-left: 300px; height: 100vh;">
       <div class="manage-order">
         <h2>Manage Order</h2>
       </div>
       <div class="status-bar">
-        <button class="New" id="newStatus">New <span class="badge badge-success">4</span></button>
-        <button class="Preparing" id="preparingStatus">Preparing <span class="badge badge-success">4</span></button>
-        <button class="Delivery" id="deliveryStatus">Delivery <span class="badge badge-success">4</span></button>
-        <button class="Complete" id="completeStatus">Complete <span class="badge badge-success">4</span></button>
+        <button class="New" id="newStatus" style="height: 50px;">New <span class="badge badge-success">4</span></button>
+        <button class="Preparing" id="preparingStatus" style="height: 50px;">Preparing <span class="badge badge-success">4</span></button>
+        <button class="Delivery" id="deliveryStatus" style="height: 50px;">Delivery <span class="badge badge-success">4</span></button>
+        <button class="Complete" id="completeStatus" style="height: 50px;">Complete <span class="badge badge-success">4</span></button>
       </div>
       <!-- New Orders List Section -->
-      <div class="order-list d-flex" id="newOrders" style="gap: 5px;">
+      <div class="order-list d-flex" id="newOrders" style="gap: 5px; height: 500px; overflow: auto;">
         <h3>List of Orders</h3>
     
       </div>
@@ -39,7 +39,7 @@
         <p>₱200</p>
       </div>
     </div> -->
-    <div class="order-list" id="preparingOrders" style="display: none; max-height: 600px; overflow: auto;">
+    <div class="order-list" id="preparingOrders" style="display: none; height: 500px; overflow: auto;">
       <div class="order">
         <div class="order-details">
           <p class="order-no"></p>
@@ -53,7 +53,7 @@
     <!-- Add more preparing order items here -->
   </div>
       <!-- Order Info Section -->
-      <div class="order-info" id="orderInfo" style="display:none;">
+      <div class="order-info" id="orderInfo" style="display:none; ">
         <h3>Order Info</h3>
         <table>
           <tr>
@@ -101,7 +101,7 @@
       // include_once "AdminOrderModal.php";
     ?>
     
-    <div class="order-list" id="deliveryOrders" style="display: none;">
+    <div class="order-list" id="deliveryOrders" style="display: none; ">
     <div class="order">
       <div class="order-details">
           <p class="order-no"></p>

@@ -162,68 +162,72 @@
                 </div>
             </div>
         </section>
-        <a href="#" class="heading1">
-            <h2 class="section-heading">ABOUT US</h2>
-        </a>
-        <section id="about-us-container">
-                <div id="left-div">
-                    <div class="container-description">
-                        <div class="description-japcha">
-                            <div class="header">
-                            <h2>What is JapCha?</h2>
-                            <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+        <section  id="about-us">
+
+       
+            <a href="#" class="heading1">
+                <h2 class="section-heading">ABOUT US</h2>
+            </a>
+            <section id="about-us-container">
+                    <div id="left-div">
+                        <div class="container-description">
+                            <div class="description-japcha">
+                                <div class="header">
+                                <h2>What is JapCha?</h2>
+                                <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                                </div>
+                                <div class="paragraph-desc"><?php echo $data['japcha']; ?></div>
                             </div>
-                            <div class="paragraph-desc"><?php echo $data['japcha']; ?></div>
                         </div>
-                    </div>
-                    <div class="container-description">
-                        <div class="description-japcha">
-                            <div class="header">
-                            <h2>How to Order</h2>
-                            <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                        <div class="container-description">
+                            <div class="description-japcha">
+                                <div class="header">
+                                <h2>How to Order</h2>
+                                <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                                </div>
+                                <div class="paragraph-desc"><?php echo $data['order_note']; ?></div>
                             </div>
-                            <div class="paragraph-desc"><?php echo $data['order_note']; ?></div>
                         </div>
-                    </div>
-                    <div class="container-description">
-                        <div class="description-japcha">
-                            <div class="header">
-                            <h2>Our Socials</h2>
-                            <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                        <div class="container-description">
+                            <div class="description-japcha">
+                                <div class="header">
+                                <h2>Our Socials</h2>
+                                <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                                </div>
+                                <div class="paragraph-desc"><?php echo $data['socials']; ?></div>
                             </div>
-                            <div class="paragraph-desc"><?php echo $data['socials']; ?></div>
                         </div>
-                    </div>
-            </div>
-            <div id="right-div">
-            <div class="container-description">
-                        <div class="description-japcha">
-                            <div class="header">
-                            <h2>Policy</h2>
-                            <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                </div>
+                <div id="right-div">
+                <div class="container-description">
+                            <div class="description-japcha">
+                                <div class="header">
+                                <h2>Policy</h2>
+                                <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                                </div>
+                                <div class="paragraph-desc"><?php echo $data['policy']; ?></div>
                             </div>
-                            <div class="paragraph-desc"><?php echo $data['policy']; ?></div>
                         </div>
-                    </div>
-                    <div class="container-description">
-                        <div class="description-japcha">
-                            <div class="header">
-                            <h2>Our Location</h2>
-                            <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                        <div class="container-description">
+                            <div class="description-japcha">
+                                <div class="header">
+                                <h2>Our Location</h2>
+                                <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                                </div>
+                                <div class="paragraph-desc"><?php echo $data['location']; ?></div>
                             </div>
-                            <div class="paragraph-desc"><?php echo $data['location']; ?></div>
                         </div>
-                    </div>
-                    <div class="container-description">
-                        <div class="description-japcha">
-                            <div class="header">
-                            <h2>Contact Us</h2>
-                            <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                        <div class="container-description">
+                            <div class="description-japcha">
+                                <div class="header">
+                                <h2>Contact Us</h2>
+                                <button class="btnCaretdown" onclick=""><i id="caret_down" class="fa fa-caret-down arrow"></i></button>
+                                </div>
+                                <div class="paragraph-desc"><?php echo $data['contact']; ?></div>
                             </div>
-                            <div class="paragraph-desc"><?php echo $data['contact']; ?></div>
                         </div>
-                    </div>
-            </div>
+                </div>
+            </section>
         </section>
      </main>
      <script>
