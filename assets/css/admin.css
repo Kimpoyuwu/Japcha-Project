@@ -217,7 +217,7 @@ nav
     position: fixed;
     font-family: 'Roboto Condensed', sans-serif;
     font-size: 20px;
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
     padding: 0 10px 0 0;
     box-sizing: border-box;
@@ -653,12 +653,11 @@ flex-direction: column;
     width: 100%;
     font-size: 20px;
     flex-direction: column;
-    padding-left: 17px;
     justify-content: center;
 }
 .form-group-label input
 {
-    width: 90%;
+    width: 100%;
     font-size: 15px;
     border: 1.5px solid #aaaaaa;;
     outline: none;
@@ -681,7 +680,6 @@ flex-direction: column;
     flex-wrap: wrap;
     width: 100%;
     align-items: center;
-    padding-left: 17px;
 }
 
 /* Admin account css */

@@ -35,19 +35,15 @@ class ChatbotModel extends Dbh
 
 
 
-      public function editChatbot($chatbotID, $editQuestion, $editAnswer) {
-         try {
-             $stmt = $this->connect()->prepare('UPDATE chatbot SET chatQuestion=?, chatAnswer=? WHERE id=?');
-    
-            if (!$stmt->execute(array($editQuestion, $editAnswer, $chatbotID))) {
-                 throw new Exception("Failed to update Announcement");
-             }
-    
-             $stmt = null;
+    public function editChatbot($chatbot_id, $editQuestion, $editAnswer) {
+        try {
+            $stmt = $this->connect()->prepare('UPDATE chatbot SET chatQuestion=?, chatAnswer=? WHERE id=?');
+            if (!$stmt->execute(array($editQuestion, $editAnswer, $chatbot_id))) {
+                throw new Exception("Failed to update Chatbot");
+            }
         } catch (Exception $e) {
-             header("location: ../back-end/adminMessage.php?error=" . urlencode($e->getMessage()));
-             exit();
-         }
-     }
+            throw new Exception("Error updating Chatbot: " . $e->getMessage());
+        }
+    }
     
 }

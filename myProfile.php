@@ -1,6 +1,5 @@
 <?php
     include_once "customerProfileHeader.php";
-
 ?>
 <div class="rightContainer">
     <div class="addressField"><h2>My Profile</h2></div>

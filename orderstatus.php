@@ -11,7 +11,7 @@
     justify-content: center;
     }
 
-    .card-img-top {
+    .OrderStatusImg {
         border: 2px solid gray;
         max-width: 100px;
         max-height: 100px;
@@ -78,6 +78,9 @@
     td.center-content{
         vertical-align: middle !important;
     }
+    .statusBadge{
+        position: absolute; top:20px; font-size: 10px;
+    }
     </style>
     <div class="container text-center">
      <div class="orderbar">
@@ -85,11 +88,11 @@
             <ul class="nav nav-tab d-flex justify-content-center gap-3" style="gap: 50px;">
 
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" id="nav-Pending-tab" data-toggle="tab" href="#nav-Pending" role="tab" aria-controls="nav-Pending" aria-selected="true">Pending</a>
+                    <a class="nav-item nav-link active" id="nav-Pending-tab" data-toggle="tab" href="#nav-Pending" role="tab" aria-controls="nav-Pending" aria-selected="true" > <span class="badge badge-danger statusBadge"></span></a>
                 </li>
 
                 <li class="nav-item  ">
-                    <a class="nav-item nav-link" id="nav-Prepairing-tab" data-toggle="tab" href="#nav-Prepairing" role="tab" aria-controls="nav-Prepairing" aria-selected="true">Preparing</a>
+                    <a class="nav-item nav-link" id="nav-Prepairing-tab" data-toggle="tab" href="#nav-Prepairing" role="tab" aria-controls="nav-Prepairing" aria-selected="true"> <span class="badge badge-danger statusBadge"></span></a>
                 </li>
 
                 <!-- <li class="nav-item " >
@@ -97,11 +100,11 @@
                 </li> -->
 
                 <li class="nav-item " >
-                    <a class="nav-item nav-link" id="nav-ToReceive-tab" data-toggle="tab" href="#nav-ToReceive" role="tab" aria-controls="nav-ToReceive" aria-selected="false">To Receive</a>
+                    <a class="nav-item nav-link" id="nav-ToReceive-tab" data-toggle="tab" href="#nav-ToReceive" role="tab" aria-controls="nav-ToReceive" aria-selected="false"> <span class="badge badge-danger statusBadge"></span></a>
                 </li>
 
                 <li class="nav-item  " >
-                    <a class="nav-item nav-link" id="nav-ToReview-tab" data-toggle="tab" href="#nav-ToReview" role="tab" aria-controls="nav-ToReview" aria-selected="false">Completed</a>
+                    <a class="nav-item nav-link" id="nav-ToReview-tab" data-toggle="tab" href="#nav-ToReview" role="tab" aria-controls="nav-ToReview" aria-selected="false"> <span class="badge badge-danger statusBadge"></span></a>
                 </li>
 
                     </ul>
@@ -109,6 +112,103 @@
                 </div>
             </div>
 
+            <script>
+                 var customerId = <?php echo json_encode($_SESSION["userid"]); ?>;
+
+function CheckPendingOrder(customerId) {
+    fetch('controller/CountPendingOrderFront.php?customerid=' + customerId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var badgeContent = data.new_insert_count !== 0
+                ? '<span class="badge badge-danger statusBadge">' + data.new_insert_count + '</span>'
+                : ''; // If count is 0, set an empty string
+
+            document.getElementById('nav-Pending-tab').innerHTML = 'Pending ' + badgeContent;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+function CheckPreparingOrder(customerId) {
+    fetch('controller/CountPreparingOrderFront.php?customerid=' + customerId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var badgeContent = data.new_insert_count !== 0
+                ? '<span class="badge badge-danger statusBadge">' + data.new_insert_count + '</span>'
+                : ''; // If count is 0, set an empty string
+
+            document.getElementById('nav-Prepairing-tab').innerHTML = 'Preparing ' + badgeContent;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+function CheckToReceiveOrder(customerId) {
+    fetch('controller/CountToReceiveOrderFront.php?customerid=' + customerId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var badgeContent = data.new_insert_count !== 0
+                ? '<span class="badge badge-danger statusBadge">' + data.new_insert_count + '</span>'
+                : ''; // If count is 0, set an empty string
+
+            document.getElementById('nav-ToReceive-tab').innerHTML = 'To Receive ' + badgeContent;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+function CheckCompletedOrder(customerId) {
+    fetch('controller/CountCompleteOrderFront.php?customerid=' + customerId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var badgeContent = data.new_insert_count !== 0
+                ? '<span class="badge badge-danger statusBadge">' + data.new_insert_count + '</span>'
+                : ''; // If count is 0, set an empty string
+
+            document.getElementById('nav-ToReview-tab').innerHTML = 'Completed ' + badgeContent;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+// Initial check
+CheckPendingOrder(customerId);
+CheckPreparingOrder(customerId);
+CheckToReceiveOrder(customerId);
+CheckCompletedOrder(customerId);
+// Periodically check for new inserts (e.g., every 5 seconds)
+setInterval(function () {
+    CheckPendingOrder(customerId);
+    CheckPreparingOrder(customerId);
+    CheckToReceiveOrder(customerId);
+    CheckCompletedOrder(customerId);
+}, 5000);
+
+            </script>
         
         <div class="tab-content justify-content-center " id="nav-tabContent">
 
@@ -192,6 +292,16 @@
                     );
 
                     accordionItem.appendTo("#accordion");
+                                    // Attach click event listener to the cancel button
+                     accordionItem.find('.cancel-btn').on('click', function() {
+                            var orderIdToCancel = $(this).data('orderid');
+                            var customerIdToCancel = $(this).data('customerid');
+                            // console.log("order id " + orderIdToCancel);
+                            // Call your cancel order function here, passing orderIdToCancel and customerIdToCancel
+                            cancelOrder(orderIdToCancel, customerIdToCancel);
+                        });
+
+
 
                     // Check if the order has been cancelled
                     if (cancelledOrders[orderId] && Date.now() < cancelledOrders[orderId].expiryTime) {
@@ -230,7 +340,46 @@
             console.log("Failed to load orders.");
         }
     });
+   
 }
+
+function cancelOrder(orderId, customerId) {
+    // Display a confirmation dialog
+    var confirmation = confirm("Are you sure you want to cancel this order?");
+
+    if (confirmation) {
+        console.log("Cancel Order:", orderId, "Customer ID:", customerId);
+
+        $.ajax({
+            url: 'controller/CancelOrderFront.php', // Replace with your server-side endpoint
+            type: 'POST',
+            data: {
+                order_id: orderId,
+                customer_id: customerId
+            },
+            dataType: 'json',
+            success: function (response) {
+                // Handle success response
+                console.log(response.message);
+                if (response.status === 'success') {
+                    alert(response.message);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (error) {
+                // Handle error response
+                console.error('Error Request Cancellation order:');
+                // Optionally, display an error message or perform any other actions
+            }
+        });
+    } else {
+        // User clicked "Cancel" in the confirmation dialog
+        console.log("Cancellation aborted.");
+        // Optionally, you can perform some action if the user decides not to cancel
+    }
+}
+
 
 // Call the function with the userId
 fetchAndDisplayOrders(<?php echo json_encode($_SESSION["userid"]); ?>);
@@ -261,7 +410,7 @@ fetchAndDisplayOrders(<?php echo json_encode($_SESSION["userid"]); ?>);
         order.products.forEach(function(product) {
             // Add rows for each product
             table += '<tr>' +
-                '<td class="center-content"><img class="card-img-top" src="upload/' + product.image_url + '" alt="Card image cap" style=""></td>' +
+                '<td class="center-content"><img class="card-img-top OrderStatusImg" src="upload/' + product.image_url + '" alt="Card image cap" style=""></td>' +
                 '<td class="center-content">' + product.product_name + '</td>' +
                 '<td class="center-content">' + product.size_name + '</td>' +
                 '<td class="center-content">' + product.product_price + '</td>' +

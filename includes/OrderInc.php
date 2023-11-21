@@ -11,8 +11,56 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(isset($_POST['proceed1'])){ 
          // echo 'connected';
     // echo '<br>';
-
+    $payment_pickup = isset($_POST["group"]["payment"]["pickup"]) ? 1 : 0;
+    $payment_cod = isset($_POST["group"]["payment"]["cod"]) ? 1 : 0;
+    $payment_gcash = isset($_POST["group"]["payment"]["gcash"]) ? 1 : 0;
+    $gcash_upload = null;
+    if($payment_gcash != 0){
+        if(isset($_FILES['gcash_payment_upload'])) {
+            $file = $_FILES['gcash_payment_upload'];
+            // Check if there was no error during the file upload
+            if($file['error'] === 0) {
+                $fileType = $file['type'];
     
+                // Define allowed image MIME types
+                $allowedImageTypes = array('image/jpeg', 'image/png');
+    
+                if (in_array($fileType, $allowedImageTypes)) {
+                    // The uploaded file is an image
+                    // echo 'File is an image. You can process it here.';
+                    $uploadDirectory = '../upload-content/';
+                    $uploadPath = $uploadDirectory . $_FILES['gcash_payment_upload']['name'];
+                    $tmp_name = $_FILES['gcash_payment_upload']['tmp_name'];
+                    move_uploaded_file($tmp_name, $uploadPath);
+    
+                    $gcash_upload = $_FILES['gcash_payment_upload']['name'];
+                   
+                    // $savs = $samplemodel->setLogo($logo_name);
+                    
+                    // if ($savs === false) {
+                    //     // Handle the database error here
+                    //     echo "Error saving order to the database";
+                    // } else {
+                    //     // Specify the directory to move the file to
+                    // }
+                } else {
+                    echo 'File is not an image. Please upload a valid image.';
+                }
+            } else {
+                echo 'Error during file upload. Please try again.';
+            }
+        } else {
+            echo 'No file was uploaded.';
+        }
+    }
+
+    // echo  $logo_name;
+    // echo ' pickup: ';
+    // echo $payment_pickup ;
+    // echo ' cod: ';
+    // echo $payment_cod ;
+    // echo ' gcas:';
+    // echo $payment_gcash;
     $totalprice = htmlspecialchars($_POST["total_data"], ENT_QUOTES, 'UTF-8');
     $remark = htmlspecialchars($_POST["remarks"], ENT_QUOTES, 'UTF-8');
     
@@ -44,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $product_remark = htmlspecialchars($_POST["prd_remark"], ENT_QUOTES, 'UTF-8');
 
     
-    if($order->insertToOrderHeader($customerid,  $totalprice, $remark)){
+    if($order->insertToOrderHeader($customerid,  $totalprice, $remark, $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload)){
         $getOrderNumber = $order->getOrderNumberOfCustomer($customerid,  $totalprice);
 
         if($order->setOrder((int)$getOrderNumber, $customerid, $prodid, $product_name, $product_price, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark)){
@@ -62,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
  
     // $addson_id = null;
     // if(isset($_POST['addons_data']))
-        // $addson_id = htmlspecialchars($_POST["addons_data"], ENT_QUOTES, 'UTF-8');
+    //     $addson_id = htmlspecialchars($_POST["addons_data"], ENT_QUOTES, 'UTF-8');
     
     
 
@@ -128,6 +176,48 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
    
 
 if(isset($_POST['proceed2'])){
+    $payment_pickup = isset($_POST["group"]["payment"]["pickup"]) ? 1 : 0;
+    $payment_cod = isset($_POST["group"]["payment"]["cod"]) ? 1 : 0;
+    $payment_gcash = isset($_POST["group"]["payment"]["gcash"]) ? 1 : 0;
+    $gcash_upload = null;
+    if($payment_gcash != 0){
+        if(isset($_FILES['gcash_payment_upload'])) {
+            $file = $_FILES['gcash_payment_upload'];
+            // Check if there was no error during the file upload
+            if($file['error'] === 0) {
+                $fileType = $file['type'];
+    
+                // Define allowed image MIME types
+                $allowedImageTypes = array('image/jpeg', 'image/png');
+    
+                if (in_array($fileType, $allowedImageTypes)) {
+                    // The uploaded file is an image
+                    // echo 'File is an image. You can process it here.';
+                    $uploadDirectory = '../upload-content/';
+                    $uploadPath = $uploadDirectory . $_FILES['gcash_payment_upload']['name'];
+                    $tmp_name = $_FILES['gcash_payment_upload']['tmp_name'];
+                    move_uploaded_file($tmp_name, $uploadPath);
+    
+                    $gcash_upload = $_FILES['gcash_payment_upload']['name'];
+                   
+                    // $savs = $samplemodel->setLogo($logo_name);
+                    
+                    // if ($savs === false) {
+                    //     // Handle the database error here
+                    //     echo "Error saving order to the database";
+                    // } else {
+                    //     // Specify the directory to move the file to
+                    // }
+                } else {
+                    echo 'File is not an image. Please upload a valid image.';
+                }
+            } else {
+                echo 'Error during file upload. Please try again.';
+            }
+        } else {
+            echo 'No file was uploaded.';
+        }
+    }
 
     $userID = $_POST["userid"];
     $customerid = $_POST["cid"];
@@ -147,21 +237,19 @@ if(isset($_POST['proceed2'])){
     $addons_price = $_POST['addons_price'];
     $p_name = $_POST['p_name'];
     $size_name = $_POST['size_name'];
-    // $product_remark = $_POST['addons_data'];
-    // echo $userID;
-    // echo '<br>';
-    // echo $totalprice;
-    // echo '<br>';
-    // echo $remark;
-    // echo '<br>';
-    // var_dump($prod_price);
+    $product_remark = $_POST['addons_data'];
+    // // echo $userID;
+    // // echo '<br>';
+    // // echo $totalprice;
+    // // echo '<br>';
+    // // echo $remark;
+    // // echo '<br>';
+    // // var_dump($prod_price);
     $number_of_rows = count($customerid); 
-
-
    
     $UpdateCart = $cartmodel->updateCart($userID);
 
-    if($order->insertToOrderHeader($userID,  $totalprice, $remark)){
+    if($order->insertToOrderHeader($userID,  $totalprice, $remark, $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload)){
         $getOrderNumber = $order->getOrderNumberOfCustomer($userID,  $totalprice);
 
         for ($i = 0; $i < $number_of_rows; $i++) {

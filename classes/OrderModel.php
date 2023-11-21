@@ -47,13 +47,32 @@ class Order extends Dbh {
     }
     
     
-
     public function getOrdersV2() {
         try {
-
-            $orders = array();
-            $stmt = $this->connect()->prepare('SELECT `order_id`, `customer_id`, `df`, `total_price`, `remark` FROM `order` WHERE preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1 AND removed != 1 ORDER BY order_id ASC');
-
+            // Set timezone
+            date_default_timezone_set('Asia/Manila');
+    
+            // Get today's date
+            $currentDate = date('Y-m-d');
+            
+            // Get orders
+            $orders = [];
+            $stmt = $this->connect()->prepare('
+                SELECT `order_id`, `customer_id`, `df`, `total_price`, `remark`, `payment_pickup`, `payment_cod`, `payment_gcash`,`gcash_upload`
+                FROM `order`
+                WHERE DATE(`order_date`) = :today
+                    AND isActive = 1
+                    AND preparing != 1
+                    AND delivery != 1
+                    AND completed != 1
+                    AND cancel != 1
+                    AND removed != 1
+                ORDER BY order_id ASC
+            ');
+    
+            // Bind parameters
+            $stmt->bindParam(':today', $currentDate, PDO::PARAM_STR);
+    
             // Execute the query
             if ($stmt->execute()) {
                 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -61,15 +80,60 @@ class Order extends Dbh {
                 }
             }
             $stmt->closeCursor();
+    
             return $orders;
-        
+            
         } catch (\Throwable $th) {
-            //throw $th;
+            // Handle the exception
             header("location: ../index.php?error=" . urlencode($th->getMessage()));
             exit();
         }
+    }
+
+    public function AlertNewOrder() {
+        try {
+            // Set timezone
+            date_default_timezone_set('Asia/Manila');
     
-}
+            // Get today's date
+            $currentDate = date('Y-m-d');
+            
+            // Get orders
+            $orders = [];
+            $stmt = $this->connect()->prepare('
+                SELECT `order_id`, `customer_id`, `df`, `total_price`, `remark`
+                FROM `order`
+                WHERE DATE(`order_date`) = :today
+                    AND isSeen != 1
+                    AND isActive = 1
+                    AND preparing != 1
+                    AND delivery != 1
+                    AND completed != 1
+                    AND cancel != 1
+                    AND removed != 1
+                ORDER BY order_id ASC
+            ');
+    
+            // Bind parameters
+            $stmt->bindParam(':today', $currentDate, PDO::PARAM_STR);
+    
+            // Execute the query
+            if ($stmt->execute()) {
+                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $orders[] = $row;
+                }
+            }
+            $stmt->closeCursor();
+    
+            return $orders;
+            
+        } catch (\Throwable $th) {
+            // Handle the exception
+            header("location: ../index.php?error=" . urlencode($th->getMessage()));
+            exit();
+        }
+    }
+    
 
 public function getOrderNumberByCustomer($customerid) {
     try {
@@ -266,7 +330,7 @@ public function getOrderByCustomerV2($ordersid, $customerid) {
 public function getOrderByCustomerPrepaing($ordersid, $customerid) {
     try {
         $orders = array();
-        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing = 1 AND co.shipping != 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`product_price`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing = 1 AND co.shipping != 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
 
         // Bind the parameters
         $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
@@ -291,7 +355,7 @@ public function getOrderByCustomerPrepaing($ordersid, $customerid) {
 public function getOrderByCustomerDelivery($ordersid, $customerid) {
     try {
         $orders = array();
-        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping = 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`product_price`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping = 1 AND co.delivered != 1 AND co.removed != 1 AND co.cancel != 1');
 
         // Bind the parameters
         $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
@@ -316,7 +380,7 @@ public function getOrderByCustomerDelivery($ordersid, $customerid) {
 public function getOrderByCustomerComplete($ordersid, $customerid) {
     try {
         $orders = array();
-        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered = 1 AND co.removed != 1 AND co.cancel != 1');
+        $stmt = $this->connect()->prepare('SELECT co.`order_id`, co.`customer_id`, co.`product_id`, co.`product_name`, co.`product_price`, co.`sizes_id`, co.`size_name`, co.`subtotal`, co.`price`, co.`quantity`, co.`address`, co.`addons_id`, co.`addons_name`, co.`addons_price`, co.`product_remark`, p.image_url FROM `customer_orders` co INNER JOIN product p ON co.`product_id` = p.`product_id` WHERE co.orders_id = ? AND co.customer_id = ? AND co.accepted != 1 AND co.preparing != 1 AND co.shipping != 1 AND co.delivered = 1 AND co.removed != 1 AND co.cancel != 1');
 
         // Bind the parameters
         $stmt->bindParam(1, $ordersid, PDO::PARAM_INT);
@@ -626,7 +690,7 @@ public function getPriceBySize($sizeid, $prodid) {
 public function getCustomerDetails($customerid){
     try {
        
-            $stmt = $this->connect()->prepare('SELECT email, username, customer_address FROM customer_account WHERE customer_id = ?');
+            $stmt = $this->connect()->prepare('SELECT email, username, last_name, customer_address, postal_code, city, region, address_id FROM customer_account WHERE customer_id = ?');
 
             // Execute the query
             if ($stmt->execute([$customerid])) {
@@ -670,6 +734,21 @@ public function getCustomerDetails($customerid){
         public function AcceptOrderV2($orderid, $customerid) {
             try {
                 $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET preparing = 1 WHERE orders_id = ? AND customer_id = ? AND shipping != 1 AND delivered != 1 AND cancel != 1 AND removed != 1');
+        
+                // Execute the query
+                if (!$stmt->execute(array($orderid, $customerid))) {
+                    throw new Exception("Failed to update orders");
+                }
+        
+                // Close the prepared statement
+                $stmt = null;
+        
+            } catch (Exception $e) {
+                // Handle the exception and log the error
+                error_log("Error in AcceptOrderV2: " . $e->getMessage());
+                header("location: ../back-end/AdminOrders.php?error=" . urlencode($e->getMessage()));
+                exit();
+                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET cancel = 1, isActive = 0 WHERE orders_id = ? AND customer_id = ? AND shipping != 1 AND delivered != 1 AND cancel != 1 AND removed != 1 AND preparing != 1');
         
                 // Execute the query
                 if (!$stmt->execute(array($orderid, $customerid))) {
@@ -793,6 +872,44 @@ public function getCustomerDetails($customerid){
         
 
 
+        public function UpdateToCancelOrder($orderid, $reason){
+            try {
+                $stmt = $this->connect()->prepare('UPDATE `order` SET cancel = 1, isActive = 0, cancellation_reason = ?  WHERE order_id = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1');
+        
+                // Execute the query
+                $stmt->execute(array($reason, $orderid));
+        
+                // Close the prepared statement
+                $stmt = null;
+                return true;
+            } catch (Exception $e) {
+                // Handle the exception
+                header("location: ../back-end/AdminOrders.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+        
+        public function UpdateToCancelOrderFront($orderid){
+            try {
+                $stmt = $this->connect()->prepare('UPDATE `order` SET cancel = 1, isActive = 0 WHERE order_id = ? AND preparing != 1 AND delivery != 1 AND completed != 1 AND cancel != 1');
+            
+                // Execute the query
+                $stmt->execute(array($orderid));
+            
+                // Close the prepared statement
+                $stmt = null;
+                return true;
+            } catch (Exception $e) {
+                // Log the exception
+                error_log('Exception in UpdateToCancelOrderFront: ' . $e->getMessage());
+        
+                // Redirect with an error message
+                header("location: ../orderstatus.php?error=" . urlencode("An error occurred. Please try again."));
+                exit();
+            }
+        }
+        
+
         public function UpdatePrepareOrder($orderid){
             try {
 
@@ -833,11 +950,31 @@ public function getCustomerDetails($customerid){
                 exit();
             }
         }
-
+     
         public function UpdateCompleteOrder($orderid){
             try {
 
                 $stmt = $this->connect()->prepare('UPDATE `order` SET delivery = 0, completed = 1  WHERE order_id = ? AND preparing != 1 AND delivery = 1 AND cancel != 1');
+
+                // Execute the query
+                if (!$stmt->execute(array($orderid))) {
+                    throw new Exception("Failed to update orders");
+                }
+
+                // Close the prepared statement
+                $stmt = null;
+                return true;
+            } catch (Exception $e) {
+                //throw $th;
+                header("location: ../back-end/AdminOrders.php?error=" . urlencode($e->getMessage()));
+                exit();
+            }
+        }
+
+        public function UpdateSeenOrder($orderid){
+            try {
+
+                $stmt = $this->connect()->prepare('UPDATE `order` SET isSeen = 1 WHERE order_id = ? AND preparing != 1 AND delivery != 1 AND cancel != 1 AND removed != 1');
 
                 // Execute the query
                 if (!$stmt->execute(array($orderid))) {
@@ -893,15 +1030,38 @@ public function getCustomerDetails($customerid){
                 exit();
             }
         }
-
-
-        public function insertToOrderHeader($userID, $totalprice, $remark){
+        public function CancelOrder($orderid){
             try {
-                $stmt = $this->connect()->prepare('INSERT INTO `order` (`customer_id`, `total_price`, `remark`) VALUES (?,?,?)');
+                $stmt = $this->connect()->prepare('UPDATE `customer_orders` SET cancel = 1, isActive = 0 WHERE orders_id = ? AND preparing != 1 AND delivered != 1 AND shipping != 1 AND cancel != 1');
+            
+                // Execute the query
+                $stmt->execute(array($orderid));
+            
+                // Close the prepared statement
+                $stmt = null;
+                return true;
+            } catch (Exception $e) {
+                // Log the exception
+                error_log('Exception in UpdateToCancelOrderFront: ' . $e->getMessage());
+        
+                // Redirect with an error message
+                header("location: ../orderstatus.php?error=" . urlencode("An error occurred. Please try again."));
+                exit();
+            }
+        }
+
+
+        public function insertToOrderHeader($userID, $totalprice, $remark,  $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload){
+            try {
+                $stmt = $this->connect()->prepare('INSERT INTO `order` (`customer_id`, `total_price`, `remark`, `payment_pickup`, `payment_cod`, `payment_gcash`, `gcash_upload`) VALUES (?,?,?,?,?,?,?)');
         
                 $stmt->bindValue(1, $userID);
                 $stmt->bindValue(2, $totalprice);
                 $stmt->bindValue(3, $remark);
+                $stmt->bindValue(4, $payment_pickup);
+                $stmt->bindValue(5, $payment_cod);
+                $stmt->bindValue(6, $payment_gcash);
+                $stmt->bindValue(7, $gcash_upload);
                 if ($stmt->execute()) {
                     return true; // Successfully inserted
                 } else {
@@ -964,6 +1124,26 @@ public function getCustomerDetails($customerid){
                 // Get today's date
                 $today = date('Y-m-d');
         
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 OR (DATE(`order_date`) = :today AND `preparing` = 1 AND isActive = 1) OR (DATE(`order_date`) = :today AND `delivery` = 1  AND isActive = 1) OR (DATE(`order_date`) = :today AND `completed` = 1  AND isActive = 1) AND `cancel` != 1 AND `removed` != 1');
+                
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        public function CountNewOrder() {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get today's date
+                $today = date('Y-m-d');
+        
                 $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 AND `preparing` != 1 AND `delivery` != 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
                 
                 $stmt->bindParam(':today', $today, PDO::PARAM_STR);
@@ -976,9 +1156,90 @@ public function getCustomerDetails($customerid){
                 throw $th;
             }
         }
+
+        public function CountPreparingOrder() {
+            try {
+                date_default_timezone_set('Asia/Manila');
         
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 AND `preparing` = 1 AND `delivery` != 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+                
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        
+        public function CountDeliveryOrder() {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 AND `preparing` != 1 AND `delivery` = 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+                
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        public function CountCompleteOrder() {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 AND `preparing` != 1 AND `delivery` != 1 AND `completed` = 1 AND `cancel` != 1 AND `removed` != 1');
+                
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
         
         public function CountNewInsertsFrontEnd($customerid) {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND customer_id = :customerid AND isActive = 1 AND `preparing` = 1 OR `delivery` = 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+        
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                $stmt->bindParam(':customerid', $customerid, PDO::PARAM_INT);
+        
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        public function CountPending($customerid) {
             try {
                 date_default_timezone_set('Asia/Manila');
         
@@ -998,6 +1259,97 @@ public function getCustomerDetails($customerid){
                 throw $th;
             }
         }
+
+        
+        public function CountPreparing($customerid) {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND customer_id = :customerid AND isActive = 1 AND `preparing` = 1 AND `delivery` != 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+        
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                $stmt->bindParam(':customerid', $customerid, PDO::PARAM_INT);
+        
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        public function CountToReceive($customerid) {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get today's date
+                $today = date('Y-m-d');
+        
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND customer_id = :customerid AND `isActive` = 1  AND `delivery` = 1 AND `preparing` != 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+        
+                $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+                $stmt->bindParam(':customerid', $customerid, PDO::PARAM_INT);
+        
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        public function CountComplete($customerid) {
+            try {
+
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE customer_id = :customerid AND isActive = 1 AND `preparing` != 1 AND `delivery` != 1 AND `completed` = 1 AND `cancel` != 1 AND `removed` != 1');
+        
+                $stmt->bindParam(':customerid', $customerid, PDO::PARAM_INT);
+        
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        
+        public function CheckInsertOrder()
+        {
+            try {
+                date_default_timezone_set('Asia/Manila');
+        
+                // Get the current date and time
+                $now = date('Y-m-d H:i:s');
+        
+                // Prepare the SQL query
+                $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE `order_date` >= :now - INTERVAL 5 SECOND AND isActive = 1 AND `preparing` != 1 AND `delivery` != 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+        
+                // Bind parameters
+                $stmt->bindParam(':now', $now, PDO::PARAM_STR);
+        
+                // Execute the query
+                $stmt->execute();
+        
+                // Fetch the result
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                return $result['new_insert_count'];
+            } catch (\Throwable $th) {
+                // Log the exception (you might want to use a proper logging system)
+                error_log('Exception in CheckInsertOrder: ' . $th->getMessage());
+        
+                // Return 0 or another default value instead of throwing the exception again
+                return 0;
+            }
+        }
+        
+        
         
 
 

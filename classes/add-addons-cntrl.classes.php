@@ -3,10 +3,11 @@
 class AddAddonsContr extends addAddons{
 
     private $addons;
+    private $addons_price;
 
-    public function __construct($addons){
+    public function __construct($addons, $addons_price){
         $this ->addons = $addons;
-        
+        $this ->addons_price = $addons_price;
     }
 
     public function addAddons(){
@@ -26,12 +27,12 @@ class AddAddonsContr extends addAddons{
             exit();
         }
 
-        $this->setAddons($this ->addons );
+        $this->setAddons($this ->addons,  $this ->addons_price);
     }
 
     private function emptyInput(){
         $result;
-        if(empty($this ->addons)) 
+        if(empty($this ->addons) || empty($this ->addons_price)) 
         {
             $result = false;
         }

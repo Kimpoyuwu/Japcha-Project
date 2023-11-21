@@ -192,6 +192,36 @@ class CartModel extends Dbh {
             exit();
         }
     }
+
+    public function CountCartItem($customerid) {
+        try {
+            // Get today's date (not currently used in the query)
+            // $today = date('Y-m-d');
+    
+            $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `cart` WHERE customer_id = :customerid AND isCheckout != 1 AND `isRemove` != 1');
+    
+            // Bind the customer ID parameter
+            $stmt->bindParam(':customerid', $customerid, PDO::PARAM_INT);
+    
+            // Execute the query
+            $stmt->execute();
+    
+            // Fetch the result
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Close the database connection (optional)
+            // $stmt = null;
+    
+            // Return the count
+            return $result['new_insert_count'];
+        } catch (\Throwable $th) {
+            // Log or handle the error
+            // For testing, you can echo the error message
+            echo 'Error: ' . $th->getMessage();
+        }
+    }
+    
+    
     
 }
 

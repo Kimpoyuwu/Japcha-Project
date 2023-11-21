@@ -2,13 +2,13 @@
 
 class addAddons extends Dbh {
 
-    protected function setAddons($addons) {
+    protected function setAddons($addons, $addons_price) {
             try {
 
-                $stmt = $this->connect()->prepare('INSERT INTO addons (addons_name) VALUES (?)');
+                $stmt = $this->connect()->prepare('INSERT INTO addons (addons_name, price) VALUES (?,?)');
 
                 // Execute the query
-                if (!$stmt->execute(array($addons))) {
+                if (!$stmt->execute(array($addons, $addons_price))) {
                     throw new Exception("Failed to Add Size");
                     header("location: ../back-end/admin-add-ons.php?error=addingaddonsfailed");
                    
@@ -71,7 +71,7 @@ class addAddons extends Dbh {
             try {
                 $addons = array();
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('SELECT * FROM addons');
+                $stmt = $this->connect()->prepare('SELECT * FROM addons WHERE isDeleted != 1 AND isHide != 1');
         
                 // Execute the query
                 if ($stmt->execute()) { // Pass the product_id as an array

@@ -3,18 +3,26 @@
 class SignupContr extends Signup{
 
     private $username;
+    private $lname;
     private $pwd;
     private $pwdConfirm;
     private $email;
     private $address;
+    private $PostalCode;
+    private $City;
+    private $Region;
     private $contactNum;
 
-    public function __construct($username, $pwd, $pwdConfirm, $email, $address, $contactNum){
+    public function __construct($username, $lname, $pwd, $pwdConfirm, $email, $address, $PostalCode,  $City, $Region, $contactNum){
         $this ->username = $username;
+        $this ->lname = $lname;
         $this ->pwd = $pwd;
         $this ->pwdConfirm = $pwdConfirm;
         $this ->email = $email;
         $this ->address = $address;
+        $this ->PostalCode = $PostalCode;
+        $this ->City = $City;
+        $this ->Region = $Region;
         $this ->contactNum = $contactNum;
         
     }
@@ -54,7 +62,10 @@ class SignupContr extends Signup{
             header("location: ../index.php?error=invalidcontactnumber");
             exit();
         }
-        
+        if($this->validatePostalCode() == false){
+            header("location: ../index.php?error=invalidPostalCode");
+            exit();
+        }
         // $this->setUser($this ->username,  $this ->pwd,  $this ->email, $this ->address,  $this ->contactNum );
     }
 
@@ -70,16 +81,16 @@ class SignupContr extends Signup{
         return $result;
     }
 
-    private function invalidName(){
+    private function invalidName() {
         $result;
-        if(preg_match("/^[a-zA-Z0-9]*$/", $this ->username)) {
-            $result = false;
-        }
-        else {
+        if (preg_match("/^[a-zA-Z0-9]+$/", $this->username) || preg_match("/^[a-zA-Z0-9]+$/", $this->lname)) {
             $result = true;
+        } else {
+            $result = false;
         }
         return $result;
     }
+    
 
     private function invalidEmail() {
         $result;
@@ -96,6 +107,13 @@ class SignupContr extends Signup{
             return false;
         }
         
+        return true;
+    }
+
+    private function validatePostalCode(){
+        if (strlen($this->PostalCode) > 4) {
+            return false;
+        }
         return true;
     }
 

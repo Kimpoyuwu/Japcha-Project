@@ -98,11 +98,11 @@ if(isset($_POST['category'])){
                 <button class="btn btn-info" data-tooltip="tooltip" data-placement="top" title="View Userlevel"
                     data-toggle="modal" data-target="#viewProd' . $item['product_id'].'"><i class="fa fa-eye" aria-hidden="true"></i></button>
                 <button class="btn btn-secondary" data-tooltip="tooltip" data-placement="top" title="Edit Userlevel"
-                    data-toggle="modal" data-target=""><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    data-toggle="modal" data-target="#edit' . $item['product_id'].'"><i class="fa fa-edit" aria-hidden="true"></i></button>
                 <button class="btn btn-warning" data-tooltip="tooltip" data-placement="top" title="Archive Userlevel"
-                    data-toggle="modal" data-target=""><i class="fa fa-archive" aria-hidden="true"></i></button>
+                    data-toggle="modal" data-target="#archiveProduct' . $item['product_id'].'"><i class="fa fa-archive" aria-hidden="true"></i></button>
                 <button class="btn btn-danger" data-tooltip="tooltip" data-placement="top" title="Delete Userlevel"
-                    data-toggle="modal" data-target=""><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                    data-toggle="modal" data-target="#deleteProduct' . $item['product_id'].'"><i class="fa fa-trash" aria-hidden="true"></i></button>';
         }
 
         $out .= '

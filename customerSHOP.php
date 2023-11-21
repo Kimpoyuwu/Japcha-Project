@@ -4,6 +4,15 @@
     // include "classes/dbh.classes.php";
     $products = $productModel->getProductShake();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JapCha Shop</title>
+</head>
+<body>
+    
 
     <div class="shopContainer">
             <div class="filterContainer">
@@ -145,7 +154,8 @@
     });
 });
     </script>
-
+</body>
+</html>
 <?php
   include "c_footer.php";
 ?>

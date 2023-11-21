@@ -100,7 +100,8 @@
 
 
 <script>
-    $(document).ready(function () {
+    var $j = jQuery.noConflict();
+    $j(document).ready(function () {
             initializeSummernote('#titleModal');
             initializeSummernote('#subtitleModal');
             

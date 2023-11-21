@@ -101,7 +101,7 @@
        
 ?> 
 <div class="container orderMainCont">
-    <form action="includes/OrderInc.php" method ="POST">
+    <form action="includes/OrderInc.php" method ="POST"  enctype="multipart/form-data" id="FormCheckout">
     
         <div class="row mt-4">
             <div class="col-md-6">
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <!-- Add any other buttons you need in the modal footer -->
+                    
                                     </div>
                                 </div>
                             </div>
@@ -181,23 +181,37 @@
 
                     <h3 class="moptitle mt-3">Mode of Payment</h3>
                     <div class="modcont">
-                        <div class="cod">
+                        <div class="pickup">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="cod-checkbox" name="group" id="" onclick="selectOnlyOne(this)">
-                                <p class="form-check-label"> <img src="image/cod.png" alt=""> Cash on Delivery</p>
+                                <input type="checkbox" class="form-check-input" id="pickup-checkbox" name="group[payment][pickup]" >
+                                <i class="fa fa-street-view" aria-hidden="true"></i>
+                                <p class="form-check-label">Pick Up</p>
                             </div>
                         </div>
 
-                                                <div class="gcash">
+                        <div class="cod">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="gcash-checkbox" name="group" onclick="selectOnlyOne(this)">
-                                <div class="gcashtitle">
-                                    <p> <img src="image/gcash.png" alt=""> Gcash </p>
-                                </div>
-                                <a href="#" id="gcashCode" data-toggle="modal" data-target="#gcashQRCodeModal">Show Gcash Code</a>
+                                <input type="checkbox" class="form-check-input" id="cod-checkbox" name="group[payment][cod]"  onclick="selectOnlyOne(this)">
+                                <!-- <img src="image/cod.png" alt=""> -->
+                                <i class="fa fa-truck" aria-hidden="true"></i>
+                                <p class="form-check-label">Cash on Delivery</p>
                             </div>
                         </div>
-                        <div class="modal fade" id="gcashQRCodeModal" tabindex="-1" role="dialog" aria-labelledby="gcashQRCodeModalLabel" aria-hidden="true">
+
+                        <div class="gcash">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="gcash-checkbox" name="group[payment][gcash]" onclick="selectOnlyOne(this)">
+                                <div class="gcashtitle">
+                                    <strong>G-CASH</strong>
+                                    
+                                    <input class="form-control-file" type="file" accept="image/*" name="gcash_payment_upload" id="gcash_payment">
+                                </div>
+                               
+
+                                <!-- <input class="form-control-file" type="file" accept="image/*" name="gcash_payment_upload" id="gcash_payment"> -->
+                            </div>
+                        </div>
+                        <!-- <div class="modal fade" id="gcashQRCodeModal" tabindex="-1" role="dialog" aria-labelledby="gcashQRCodeModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -207,18 +221,18 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <!-- Add the QR code image here -->
-                                        <img src="path/to/your/qr_code.png" alt="GCash QR Code">
+                                        Add the QR code image here -->
+                                        <!-- <input class="form-control-file" type="file" accept="image/*" name="gcash_payment_upload" id="gcash_payment">
                                     </div>
                                     <div class="modal-body">
-                                    <a class="modal-gcash" id="changeModalLabel">How to pay using Gcash?</a>
+                                    <a class="modal-gcash" id="changeModalLabel">Upload Proof of Payment Here</a>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-secondary" >Send</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>  -->
                     </div>
                 </div>
             </div>
@@ -362,7 +376,20 @@
     const priceElement = $("#price");
     const subtotalElement = $("#subtotal");
     const totalElement = $("#total");
-  
+    
+    $('#gcash-checkbox').on('click', function() {
+    // Get the file input element
+    const gcashPaymentUpload = $('#gcash_payment');
+
+    // Check if the checkbox is checked
+    if (this.checked) {
+        // Set the 'required' attribute for the file input
+        gcashPaymentUpload.attr('required', 'required');
+    } else {
+        // Remove the 'required' attribute for the file input
+        gcashPaymentUpload.removeAttr('required');
+    }
+});
     // Function to calculate subtotal
     function calculateSubtotal() {
       const quantity = parseInt(quantityInput.val(), 10);
@@ -404,7 +431,39 @@
     quantityInput.on("input", calculateSubtotal);
     $('#cod-checkbox').on('change', calculateSubtotal);
     $('#gcash-checkbox').on('change', calculateSubtotal);
+
+    $('#FormCheckout').submit(function (event) {
+        // Check if at least one checkbox is checked
+        const atLeastOneChecked = $('input[name="group[payment][gcash]"]:checked, input[name="group[payment][cod]"]:checked,input[name="group[payment][pickup]"]:checked').length > 0;
+
+        // If none are checked, prevent form submission
+        if (!atLeastOneChecked) {
+            alert('Please select at least one payment method.');
+            event.preventDefault(); // Prevent the form from being submitted
+        }
+        // Otherwise, the form will be submitted
+    });
+    
+
 });
+
+function selectOnlyOne(checkbox) {
+    const shippingFeeElement = $("#shippingFee");
+
+    // Uncheck other checkboxes
+    $('input[name="group[payment][gcash]"], input[name="group[payment][cod]"]').not(checkbox).prop('checked', false);
+
+    // Update the visibility of the shipping fee based on the selected checkbox
+    if (checkbox.checked) {
+        shippingFeeElement.css('display', 'inline');
+    } else {
+        shippingFeeElement.css('display', 'none');
+    }
+
+    // Recalculate the total when a checkbox is selected/unselected
+    calculateTotal();
+}
+  
 
     </script>
 
@@ -521,6 +580,20 @@
 <!-- <script src="assets/js/OrderCheckoutCart.js"></script> -->
 <script>
     $(document).ready(function() {
+
+        $('#gcash-checkbox').on('click', function() {
+    // Get the file input element
+    const gcashPaymentUpload = $('#gcash_payment');
+
+    // Check if the checkbox is checked
+    if (this.checked) {
+        // Set the 'required' attribute for the file input
+        gcashPaymentUpload.attr('required', 'required');
+    } else {
+        // Remove the 'required' attribute for the file input
+        gcashPaymentUpload.removeAttr('required');
+    }
+});
     // Function to calculate the total
     function calculateTotal() {
       let total = 0;
@@ -560,25 +633,37 @@
     $('.product-quantity').on('input', calculateTotal);
     $('#cod-checkbox').on('change', calculateTotal);
     $('#gcash-checkbox').on('change', calculateTotal);
+
+    $('#FormCheckout').submit(function (event) {
+        // Check if at least one checkbox is checked
+        const atLeastOneChecked = $('input[name="group[payment][gcash]"]:checked, input[name="group[payment][cod]"]:checked').length > 0;
+
+        // If none are checked, prevent form submission
+        if (!atLeastOneChecked) {
+            alert('Please select at least one payment method.');
+            event.preventDefault(); // Prevent the form from being submitted
+        }
+        // Otherwise, the form will be submitted
+    });
     
   });
   
   function selectOnlyOne(checkbox) {
     const shippingFeeElement = $("#shippingFee");
-  
+
     // Uncheck other checkboxes
-    $('input[name="group"]').not(checkbox).prop('checked', false);
-  
+    $('input[name="group[payment][gcash]"], input[name="group[payment][cod]"]').not(checkbox).prop('checked', false);
+
     // Update the visibility of the shipping fee based on the selected checkbox
     if (checkbox.checked) {
-      shippingFeeElement.css('display', 'inline');
+        shippingFeeElement.css('display', 'inline');
     } else {
-      shippingFeeElement.css('display', 'none');
+        shippingFeeElement.css('display', 'none');
     }
-  
+
     // Recalculate the total when a checkbox is selected/unselected
     calculateTotal();
-  }
+}
   
   
 </script>

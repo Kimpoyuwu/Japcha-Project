@@ -4,7 +4,7 @@
     require '../classes/save_note_Model.php';
     require_once '../classes/save_note_View.php';
     $AboutUsInfo = new SampleView();
-    // $summerCon = $summerNote->getContent();
+    $summerCon = $summerNote->getContent();
 ?>
 <?php
     include_once "CmsHeader.php";
@@ -18,7 +18,7 @@
                 <textarea name="whatisjapcha" id="japcha"></textarea>
                 <button class="saveJapcha" id="saveJapcha">Save</button>
             </div>
-            <!-- <div class="EditFieldCon">
+            <div class="EditFieldCon">
                 <label for="japcha">How to Order?</label>
                 <textarea name="whatisjapcha" id="order"></textarea>
                 <button class="saveJapcha" id="saveOrder">Save</button>
@@ -42,7 +42,7 @@
                 <label for="japcha">Contact Us</label>
                 <textarea name="whatisjapcha" id="contact"></textarea>
                 <button class="saveJapcha" id="saveContact">Save</button>
-            </div> -->
+            </div>
         </form>
    
     </div>

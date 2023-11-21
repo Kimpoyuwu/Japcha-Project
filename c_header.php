@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="Customer.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-    <title>Document</title>
+    <!-- <title>Document</title> -->
     <style>
         body{
             background-color: #f4f1ec !important;
@@ -129,9 +129,9 @@
        #search-icon{
         position: relative;
        }
-        #search-icon .badge-top {
+        #search-icon .BellBadge {
         position: absolute;
-        top: 0;
+        top: -5px;
         right: 3px;
         font-size: 10px;
         }
@@ -139,10 +139,9 @@
             position: relative;
         }
         .cart .badge-top {
-        position: absolute;
-        top: 0;
-        right: 3px;
-        font-size: 10px;
+        position: absolute !important;
+        right: 3px !important;
+        font-size: 10px !important;
         }
     </style>
 </head>
@@ -158,33 +157,12 @@
         </div>
         <ul class="navigation__main_ul">
             <li>
-                <a class="" href="index.php">Home</a>
+                <a class="active" href="index.php">Home</a>
             </li>
-            <div class="subnav">
+            <li class="subnav">
                 <a class="subnavbtn" href="customerSHOP.php">Shop</a>
-                <!-- <li>
-                    <a href="customerSHOP.php">Shop</a>
-                </li> -->
-                <!-- <div class="subnav-content">
-                    <ul class="navigation__links_ul">
-                        <a href="customerSHOP.php" title>Shake</a>
-                        <a href="ShopFrappe.php" title>Frappe</a>
-                        <a href="ShopMilktea.php" title>Milktea</a>
-                        <a href="ShopCheesetea.php" title>Cheesetea</a>
-                        <a href="ShopFruittea.php" title>Fruit Tea</a>
-                        <a href="ShopLemonade.php" title>Lemonade</a>
-                        <a href="ShopCoffee.php" title>Coffee</a>
-                        <a href="ShopCreamcheese.php" title>Rocksalt CreamCheese</a>
-                        <a href="ShopWingsFries.php" title>Wings & Fries</a>
-                        <a href="ShopRiceMeal.php" title>Rice Meal</a>
-                        <a href="ShopRiceBowl.php" title>Rice Bowl</a>
-                        <a href="ShopPasta.php" title>Pasta</a>
-                        <a href="ShopBurgerSandwich.php" title>Burger and Sandwiches</a>
-                        <a href="#" >Fries and Snacks</a>
-                        <a href="ShopSalad.php" title>Salad</a>
-                    </ul>
-                </div> -->
-            </div>
+            </li>
+            
             <li>
                 <a href="index.php#about-us" class="scroll-link">About</a>
             </li>
@@ -201,29 +179,36 @@
             </li>
 
             <script>
-                var customerid = <?php echo json_encode($customerId); ?>;
-                
+           var customerId = <?php echo json_encode($_SESSION["userid"]); ?>;
+
                 function checkForNewInserts(customerId) {
-                    var xhr = new XMLHttpRequest();
+                    fetch('controller/CountNewInsertedOrderFrontEnd.php?customerid=' + customerId)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            var badgeContent = data.new_insert_count !== 0
+                                ? '<span class="badge badge-danger" style="position: absolute; top:0; right:3px; font-size: 10px;">' + data.new_insert_count + '</span>'
+                                : ''; // If count is 0, set an empty string
 
-                    xhr.open('GET', 'controller/CountNewInsertedOrderFrontEnd.php?customerid=' + customerId, true);
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            document.getElementById('insertCounter').innerHTML = 'Orders <span class="badge badge-danger" style="position: absolute; top:0; right:3px; font-size: 10px;">' + response.new_insert_count + '</span>';
-                        }
-                    };
-
-                    xhr.send();
+                            document.getElementById('insertCounter').innerHTML = 'Orders ' + badgeContent;
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        });
                 }
 
                 // Initial check
-                checkForNewInserts(customerid);
+                checkForNewInserts(customerId);
 
                 // Periodically check for new inserts (e.g., every 5 seconds)
                 setInterval(function () {
-                    checkForNewInserts(customerid);
+                    checkForNewInserts(customerId);
                 }, 5000);
+
             </script>
             <?php
                 }
@@ -232,7 +217,7 @@
             <li>
                 <div id="search-icon">
                     <i class="fa fa-bell bell"></i>
-                    <span class="badge badge-danger badge-top">9</span>
+                    <span class="badge badge-danger badge-top BellBadge">9</span>
                 </div>
             </li>
             
@@ -247,11 +232,12 @@
             ?>
                     <li>
                         <div class="cart">
-                            <button class="btn" id="cart-toggle" style="background-color: transparent;"><i class="fa-solid fa-cart-shopping fa-lg"></i></button><span class="badge badge-danger badge-top">2</span>
+                           <button class="btn" id="cart-toggle" style="background-color: transparent;"><i class="fa-solid fa-cart-shopping fa-lg"></i></button><span class="badge badge-danger badge-top"></span>
                         </div>
                     </li>
                     <li><div id="user-icon"><a href="myProfile.php"><i class='fa fa-user-circle user'></a></i></div></li>
                     <li><a href="includes/logout.inc.php">Logout</a></li>
+
 
             <?php
                 }
@@ -265,10 +251,11 @@
             ?>
         </ul>
     </nav>
+
     <?php
 if(isset($_SESSION["order_placed"])){
 ?>
-<div class="alert alert-success alert-dismissible fade show" role="alert" style="position: fixed; top: 5%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
+<div class="alert alert-success alert-dismissible fade show animated fadeInUp" role="alert" style="position: fixed; top: 5%; left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
     Order Placed Successfully
     <button type="button" class="btn btn-link close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -421,7 +408,63 @@ function updateContent(data) {
 //     window.location.href = 'includes/CheckoutCart.php'; // Redirect to the PHP file
 // });
 
+function fetchOrdersAlertDiv() {
+            $.ajax({
+                url: '../controller/AlertOrderComplete.php',
+                type: 'GET',
+                data: {customer_id: customerId},
+                dataType: 'json',
+                success: function (response) {
+                    // Clear the existing alertContainer
+                    $('#alertContainer').empty();
 
+                    // Iterate over orders and append new order alerts
+                    response.orders.forEach(function (order) {
+                        // Create the alertDiv for the current order
+                        var alertDiv = $('<div>', {
+                            class: 'alert alert-warning alert-dismissible fade show',
+                            role: 'alert',
+                            html: '<strong>Alert!</strong> A new order has been placed.' +
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                '<span aria-hidden="true">&times;</span></button>' +
+                                '<div class="mt-2 orderText"><p>Order #' + order.orderId + '</p></div>'
+                        });
+
+                        // Append the alertDiv to the alertContainer
+                        $('#alertContainer').append(alertDiv);
+
+                        $('#alertContainer').on('click', '.close', function () {
+                            // Get the orderId from the parent alertDiv
+                            var orderId = $(this).closest('.alert').find('.orderText p').text().match(/\d+/)[0];
+
+                            // Call the updateDatabase function
+                            UpdateSeenOrder(orderId);
+
+                        });
+
+                        $('#alertContainer').on('click', '.alert', function () {
+                            // Get the orderId from the clicked alertDiv
+                            var orderId = $(this).find('.orderText p').text().match(/\d+/)[0];
+                            // Redirect to another page (replace 'your_page_url' with the actual URL)
+                            UpdateSeenOrder(orderId);
+                            window.location.href = 'AdminOrders.php';
+                        });
+                    });
+
+                    // Set the newOrders variable based on the number of new orders
+                 
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        }
+
+        // Call the function to start fetching orders
+        setInterval(fetchOrdersAlertDiv, 5000);
+
+        // Initial fetch when the page loads
+        fetchOrdersAlertDiv();
 
 
     // Attach a click event handler to the button
@@ -522,5 +565,38 @@ $('#productContainer').on('click', '.btn-link', function() {
             });
         });
     </script>
+
+<script>
+              var customerId = <?php echo json_encode($_SESSION["userid"]); ?>;
+
+                function CheckCart(customerId) {
+                    fetch('controller/CountCustomerCarts.php?customerid=' + customerId)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            var badgeContent = data.new_insert_count !== 0
+                                ? '<span class="badge badge-danger badge-top">' + data.new_insert_count + '</span>'
+                                : '<span class="badge badge-danger badge-top"></span>'; // If count is 0, set an empty string
+
+                            document.getElementById('cart-toggle').innerHTML = '<i class="fa-solid fa-cart-shopping fa-lg"></i>' + badgeContent;
+                        })
+                        .catch(error => {
+                            console.error('There was a problem with the fetch operation:', error);
+                        });
+                }   
+
+                // Initial check
+                CheckCart(customerId);
+
+                // Periodically check for new inserts (e.g., every 5 seconds)
+                setInterval(function () {
+                    CheckCart(customerId);
+                }, 5000);
+
+            </script>
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

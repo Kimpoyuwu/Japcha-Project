@@ -34,6 +34,7 @@ if (isset($_GET['customerId'])) {
                     'sample' => 'x' . $order['quantity'],
                     'addonsid' =>  $addonsNAME,
                     'price' => $order['subtotal'],
+                    'product_remark' => $order['product_remark']
                 ],
                 'cashOnDelivery' => $order['price'],
             ];

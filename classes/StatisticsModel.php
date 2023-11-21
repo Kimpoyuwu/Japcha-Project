@@ -80,4 +80,43 @@ class StatisticsModel extends Dbh {
         }
     }
 
+    public function CountNewInserts() {
+        try {
+            date_default_timezone_set('Asia/Manila');
+    
+            // Get today's date
+            $today = date('Y-m-d');
+    
+            $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 OR (DATE(`order_date`) = :today AND `preparing` = 1 AND isActive = 1) OR (DATE(`order_date`) = :today AND `delivery` = 1  AND isActive = 1) OR (DATE(`order_date`) = :today AND `completed` = 1  AND isActive = 1) AND `cancel` != 1 AND `removed` != 1');
+            
+            $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+            
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            return $result['new_insert_count'];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function CountOrderDeliveries() {
+        try {
+            date_default_timezone_set('Asia/Manila');
+    
+            // Get today's date
+            $today = date('Y-m-d');
+    
+            $stmt = $this->connect()->prepare('SELECT COUNT(*) as new_insert_count FROM `order` WHERE DATE(`order_date`) = :today AND isActive = 1 AND `preparing` != 1 AND `delivery` = 1 AND `completed` != 1 AND `cancel` != 1 AND `removed` != 1');
+            
+            $stmt->bindParam(':today', $today, PDO::PARAM_STR);
+            
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            return $result['new_insert_count'];
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 }

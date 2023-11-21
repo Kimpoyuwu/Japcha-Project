@@ -1,51 +1,42 @@
 <?php
-
- if(isset($_POST['editChatbot'])){
-     $chatbotID = intval($_POST['chatbotID']);
-     $editQuestion = htmlspecialchars($_POST["typeQuestion"]);
-     $editAnswer = htmlspecialchars($_POST["typeAnswer"]);
-
-     
-
-     include "../classes/dbh.classes.php";
-     include "../classes/ChatbotModel.php";
-     $chatbot = new ChatbotModel();
-
-     try{
-         $chatbot->editChatbot($chatbotID,$editQuestion,$editAnswer);
-         echo "Chatbot updated successfully";
-        header("location: ../back-end/adminMessage.php?success=chatbotupdated");
-        exit();
-
-     } catch(Exception $e){
-         header("HTTP/1.1 500 Internal Server Error");
-         echo "Error: " . $e->getMessage();
-         header("location://back-end/adminMessage.php?error=" . urlencode($e->getMessage()));
-          exit();
-     }
-
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-}
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){
-    if(isset($_POST['addQuestion']) && isset($_POST['addAnswer'])){
-        $getQuestion = $_POST["addQuestion"];
-        $getAnswer = $_POST["addAnswer"];
+    if (isset($_POST['addChatbot'])) {
+        $getQuestion = htmlspecialchars($_POST["addQuestion"], ENT_QUOTES, 'UTF-8');
+        $getAnswer = htmlspecialchars($_POST["addAnswer"], ENT_QUOTES, 'UTF-8');
+
+        include "../classes/dbh.classes.php";
+        include "../classes/ChatbotModel.php";
+        $chatbot = new ChatbotModel();
+
+        try {
+            $chatbot->insertChatbot($getQuestion, $getAnswer);
+            header("location: ../back-end/adminMessage.php?success=chatbotAdded");
+            exit();
+        } catch (Exception $e) {
+            header("location: ../back-end/adminMessage.php?error=" . urlencode($e->getMessage()));
+            exit();
+        }
     }
 
-    include "../classes/dbh.classes.php";
-    include "../classes/ChatbotModel.php";
-    $chatbot = new ChatbotModel();
+    if (isset($_POST['updateChatbot'])) {
+        $chatbot_id = $_POST['chatbot_id'];
+        $editQuestion = htmlspecialchars($_POST['editQuestion'], ENT_QUOTES, 'UTF-8');
+        $editAnswer = htmlspecialchars($_POST['editAnswer'], ENT_QUOTES, 'UTF-8');
 
-    try {
-        
-        $chatbot->insertChatbot($getQuestion, $getAnswer);
-        echo "Chatbot question and answer added successfully to the database";
-        header("Location: {$_SERVER['REQUEST_URI']}");
-        exit();
-    } catch (Exception $e) {
-        header("HTTP/1.1 500 Internal Server Error");
-        echo "Error: " . $e->getMessage();
-        exit();
+        include "../classes/dbh.classes.php";
+        include "../classes/ChatbotModel.php";
+        $chatbot = new ChatbotModel();
+
+        try {
+            $chatbot->editChatbot($chatbot_id, $editQuestion, $editAnswer);
+            header("location: ../back-end/adminMessage.php?success=chatbotUpdated");
+            exit();
+        } catch(Exception $e) {
+            header("location: ../back-end/adminMessage.php?error=" . urlencode($e->getMessage()));
+            exit();
+        }
     }
 }
+?>

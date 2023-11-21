@@ -5,7 +5,7 @@ include "../config/databaseConnection.php";
 try {
    
     // Query to retrieve sizes
-    $query = "SELECT sizes_id, size_name FROM product_sizes";
+    $query = "SELECT sizes_id, size_name FROM product_sizes WHERE isDeleted != 1";
     $result = $con->query($query);
 
     if (!$result) {

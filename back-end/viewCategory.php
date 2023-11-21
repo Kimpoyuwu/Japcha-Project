@@ -32,6 +32,7 @@
             <table>
                 <thead>
                   <tr>
+                    <th>No.</th>
                     <th>Category Name</th>
                     <?php
                             if(isset($_SESSION["fileManagement_delete"]) && $_SESSION["fileManagement_delete"] == 1 && isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){
@@ -43,16 +44,17 @@
                   <?php
                      $query = "SELECT * FROM categories";
                      $result = mysqli_query($con, $query);
-                 
+                     $count = 0;
                      if (mysqli_num_rows($result) > 0) {
                          // Looping through each row and displaying the data
                          while ($row = mysqli_fetch_assoc($result)) {
                           $categoryname = $row['category_name'];
                           $categoryid = $row['category_id'];
                           // $categorytime = $row['time'];
-
+                          $count++;
                      ?>
                     <tr>
+                      <td><?=$count?></td>
                       <td><?=$categoryname?></td>
                       <?php
                           if(isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] == 1){

@@ -1,8 +1,11 @@
 <?php
     include "adminHeader.php";
+    require_once "../classes/dbh.classes.php";
+    require_once "../classes/StatisticsModel.php";
+    $Stat = new StatisticsModel();
 ?>
 <link rel="stylesheet" href="../assets/css/admindashboard.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
 <!-- <link rel="stylesheet" href="adminDashboard.css"> -->
 <?php
         if(isset($_SESSION["dashboardview"]) && $_SESSION["dashboardview"] == 1){                 
@@ -37,14 +40,15 @@
 <div class="container mt-4 mr-0 mb-0 pd-0 pl-0  float: right;" >
     <p class="Dashboard text-left"  style="margin-top: 50px;">Dashboard</p>
       <div class="row">
+
         <div class="col-md-3">
           <div class="card" style="width: 270px; margin-left: 20px;">
             <div class="card-header Products py-3 text-center ">
             <h5 class="card-header Products">TOTAL PRODUCTS</h5>
                 <div class="card-body">
-                <h1 class="card-title">43</h1>
+                <h1 class="card-title prodCount"></h1>
                   <div class="more-info">
-                <a href="#" id="#">More Info</a>
+                <a href="adminProducts.php" id="#">More Info</a>
               </div>
               </div>
             </div>
@@ -58,7 +62,7 @@
                 <div class="card-body">
                 <h1 class="card-title">43</h1>
                   <div class="more-info">
-                <a href="#" id="#">More Info</a>
+                <a href="AdminStatistics_v2.php" id="#">More Info</a>
               </div>
               </div>
             </div>
@@ -70,9 +74,9 @@
             <div class="card-header Orders py-3 text-center">
             <h5 class="card-header Orders">TOTAL ORDERS </h5>
                 <div class="card-body">
-                  <h1 class="card-title">43</h1>
+                  <h1 class="card-title orderCount"></h1>
               <div class="more-info">
-                <a href="#" id="#">More Info</a>
+                <a href="AdminOrders.php" id="#">More Info</a>
               </div>
             </div>
           </div>
@@ -84,9 +88,9 @@
             <div class="card-header Deliveries py-3 text-center">
             <h5 class="card-header Deliveries">TOTAL DELIVERIES</h5>
                 <div class="card-body">
-                <h1 class="card-title">43</h1>
+                <h1 class="card-title DeliveryCount"></h1>
               <div class="more-info">
-                <a href="#" id="#">More Info</a>
+                <a href="AdminStatistics_v2.php" id="#">More Info</a>
               </div>
             </div>
           </div>
@@ -106,8 +110,7 @@
                                 <th scope="col">Product</th>
                                 <th scope="col">Customer</th>
                                 <th scope="col">Total</th>
-                                <th scope="col">Date</th>
-                                <th scope="col"></th>
+                                <!-- <th scope="col"></th> -->
                               </tr>
                             </thead>
                             <tbody>
@@ -116,37 +119,13 @@
                                 <td>Fruit Tea</td>
                                 <td>johndoe@gmail.com</td>
                                 <td>€61.11</td>
-                                <td>Aug 31 2020</td>
-                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                                <!-- <td><a href="#" class="btn btn-sm btn-primary">View</a></td> -->
                               </tr>
-                              <tr>
-                                <th scope="row">17370540</th>
-                                <td>Milk Tea</td>
-                                <td>jacob.monroe@company.com</td>
-                                <td>$153.11</td>
-                                <td>Aug 28 2020</td>
-                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">17371705</th>
-                                <td>Fruit Tea</td>
-                                <td>johndoe@gmail.com</td>
-                                <td>€61.11</td>
-                                <td>Aug 31 2020</td>
-                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">17370540</th>
-                                <td>Fruit Tea</td>
-                                <td>jacob.monroe@company.com</td>
-                                <td>$153.11</td>
-                                <td>Aug 28 2020</td>
-                                <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                              </tr>
+                       
                             </tbody>
                           </table>
                     </div>
-                      <a href="#" class="btn btn-block btn-light">View all</a>
+                      <a href="AdminOrders.php" class="btn btn-block btn-light">View all</a>
                 </div>
             </div>
         </div>
@@ -158,14 +137,84 @@
 <?php
       }
 ?>
+<script>
+  $(document).ready(function() {
+    // Call the function to fetch and display the product count
+    fetchProductCount();
+    fetchTotalOrders();
+    fetchTotalDeliveries();
+    function fetchProductCount() {
+        $.ajax({
+            url: '../controller/get_product_count.php', // Update with the actual path to your PHP file
+            type: 'GET',
+            data:{product: "product"},
+            dataType: 'json',
+            success: function(response) {
+                // Update the card with the fetched product count
+                updateProductCount(response.count);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + error);
+            }
+        });
+    }
+
+    function fetchTotalOrders() {
+        $.ajax({
+            url: '../controller/get_product_count.php', // Update with the actual path to your PHP file
+            type: 'GET',
+            data:{order: "order"},
+            dataType: 'json',
+            success: function(response) {
+                // Update the card with the fetched product count
+                updateOrderCount(response.countOrder)
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + error);
+            }
+        });
+    }
+
+    function fetchTotalDeliveries() {
+        $.ajax({
+            url: '../controller/get_product_count.php', // Update with the actual path to your PHP file
+            type: 'GET',
+            data:{deliveries: "deliveries"},
+            dataType: 'json',
+            success: function(response) {
+                // Update the card with the fetched product count
+                updateDeliveriesCount(response.CountDeliver)
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + error);
+            }
+        });
+    }
 
 
+    function updateProductCount(count) {
+        // Update the content of the card with the product count
+        $('.prodCount').text(count);
+    }
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    function updateOrderCount(count) {
+        // Update the content of the card with the product count
+        $('.orderCount').text(count);
+    }
+
+    function updateDeliveriesCount(count) {
+        // Update the content of the card with the product count
+        $('.DeliveryCount').text(count);
+    }
+});
+</script>
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" ></script> -->
 
 <?php
     include "adminFooter.php";

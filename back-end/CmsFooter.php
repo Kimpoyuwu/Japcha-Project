@@ -1,42 +1,14 @@
 
 </div>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-<script type="text/javascript">
-    // function showLogo(input) {
-    //     if (input.files && input.files[0]) {
-    //         var reader = new FileReader();
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    //         reader.onload = function (e) {
-    //             $('#displaylogo').attr('src', e.target.result);
-    //         }
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
-    //         reader.readAsDataURL(input.files[0]);
-    //     }
-    // }
-    // function showImage(input) {
-    //     if (input.files && input.files[0]) {
-    //         var reader = new FileReader();
-
-    //         reader.onload = function (e) {
-    //             $('#displayimage').attr('src', e.target.result);
-    //         }
-
-    //         reader.readAsDataURL(input.files[0]);
-    //     }
-    // }
-    // function showBg(input) {
-    //     if (input.files && input.files[0]) {
-    //         var reader = new FileReader();
-
-    //         reader.onload = function (e) {
-    //             $('#displaybg').attr('src', e.target.result);
-    //         }
-
-    //         reader.readAsDataURL(input.files[0]);
-    //     }
-    // }
-    
-</script>
 
 <script>
     function initializeSummernote(elementId) {
@@ -66,6 +38,9 @@
     });
 }
 </script>
+
+
+
 <?php
     include "adminFooter.php";
 ?>

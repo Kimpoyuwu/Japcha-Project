@@ -138,7 +138,8 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+      
+      $(document).ready(function () {
             initializeSummernote('#japcha');
             initializeSummernote('#order');
             initializeSummernote('#social');

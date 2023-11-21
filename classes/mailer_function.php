@@ -35,7 +35,16 @@ class YourEmailClass {
             ];
 
             $mail->Subject = 'Email Verification';
-            $mail->Body    = '<p>Your Verification code is: <b style="font-size: 30px; ">'. $verification_code .'</b></p> ';
+            // $mail->Body    = '<p>Your Verification code is: <b style="font-size: 30px; ">'. $verification_code .'</b></p> ';
+            $mail->Body = '<div class="card" style=" width: 400px; height: 200px;">
+            <div class="card-header"  style="border: 1px solid black; background-color: #978d30; width: 100%;padding: 2px; text-align: center;">
+                <b class="card-title" style="font-size: 25px; width: 100%;">Verification Code:</b>
+            </div>
+            <div class="card-body" style="border: 1px solid black; padding: 2px; width:100%; text-align: center;">
+             <b style="font-size: 50px;">'. $verification_code .'</b>
+            </div>
+            </div>
+        </div>';
             $mail->send();
             // echo 'Message has been sent';
         } catch (Exception $e) {
@@ -43,4 +52,4 @@ class YourEmailClass {
         }
     }
 }
-?>
+

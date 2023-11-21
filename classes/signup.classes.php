@@ -2,15 +2,15 @@
 
 class Signup extends Dbh {
 
-    public function setUser($username, $pwd, $email, $address, $contactNum) {
+    public function setUser($username, $lname, $pwd, $email, $address, $PostalCode,  $City, $Region, $contactNum) {
             try {
 
                 $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-                $stmt = $this->connect()->prepare('INSERT INTO customer_account (username,  password, email,  customer_address,  contact_number) VALUES (?, ?, ?, ?, ?)');
+                $stmt = $this->connect()->prepare('INSERT INTO `customer_account` (`username`, `last_name`,  `password`, `email`,  `customer_address`, `postal_code`, `city`, `region`,  `contact_number`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
 
                 // Execute the query
-                if (!$stmt->execute(array($username, $hashedPwd, $email, $address, $contactNum))) {
+                if (!$stmt->execute(array($username,  $lname, $hashedPwd, $email, $address, $PostalCode,  $City, $Region, $contactNum))) {
                     throw new Exception("User registration failed.");
                     header("location: ../index.php?error=userregistrationfailed");
                     exit();
@@ -100,7 +100,7 @@ class Signup extends Dbh {
     }
 
     protected function getCustomerId($username){
-        $stmt = $this->connect()->prepare('SELECT customer_id FROM customer_account WHERE username = ?;');
+        $stmt = $this->connect()->prepare('SELECT customer_id FROM customer_account WHERE username = ? AND isDeleted != 1;');
 
         if(!$stmt->execute(array($username))) {
             $stmt = null;
@@ -147,22 +147,23 @@ class Signup extends Dbh {
         
         try {
             // Calculate the total number of rows
-            $countStmt = $this->connect()->query('SELECT COUNT(*) FROM customer_account');
+            $countStmt = $this->connect()->query('SELECT COUNT(*) FROM customer_account WHERE isDeleted != 1');
             $total_rows = $countStmt->fetchColumn();
-    
-            $stmt = $this->connect()->prepare('SELECT customer_id, username, password, email, customer_address, contact_number FROM customer_account LIMIT :limit OFFSET :offset');
+            
+            $stmt = $this->connect()->prepare('SELECT `customer_id`, `username`, `password`, `email`, `customer_address`, `contact_number` FROM `customer_account` WHERE `isDeleted` != 1 LIMIT :limit OFFSET :offset');
+
             $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
             $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
             
             if (!$stmt->execute()) {
                 // Handle database error here
-                header("location: ../back-end/adminProducts.php?error=stmtfailed");
+                header("location: ../back-end/CustomerAccount.php?error=stmtfailed");
                 exit();
             }
             
             if ($stmt->rowCount() == 0) {
                 // Handle no records found here
-                header("location: ../back-end/adminProducts.php?error=nocmsfound");
+                header("location: ../back-end/CustomerAccount.php?error=nocmsfound");
                 exit();
             }
             
@@ -175,9 +176,9 @@ class Signup extends Dbh {
                 'total_rows' => $total_rows,
                 'limit' => $limit,
             ];
-        } catch (PDOException $e) {
-            // Handle database exception here
-            header("location: ../back-end/adminProducts.php?error=databaseerror");
+        }catch (Exception $e) {
+            // Handle the exception (log, redirect, display an error message, etc.)
+            header("location: ../back-end/CustomerAccount.php?error=" . urlencode($e->getMessage()));
             exit();
         }
     }

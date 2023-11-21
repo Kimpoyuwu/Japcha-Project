@@ -5,6 +5,23 @@
     $UserLevel = new UserLevel();
     $adminData = new Signup();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JapCha</title>
+</head>
+<body>
+    
+
+<style>
+
+    #carouselExampleIndicators{
+        background-image: url("image/bg-sample2.jpg");
+        background-color: #cccccc;
+    }
+</style>
 
 <?php 
         // session_start();
@@ -87,81 +104,119 @@
         <a href="#" class="heading1">
             <h2 class="section-heading">TOP SELLERS</h2>
         </a>
-        <section>
+        <section style="position: relative;">
             <div class="main-scroll-div">
-                <div>
-                    <button class="icon" onclick="scrolll()"><i class="fa fa-angle-left"></i></button>
-                </div>
-                <div class="cover">
-                    <div class="scroll-images">
-                        <div class="child">
-                            <div class="header">
-                                <a href="#">
-                                    <img class="child-img" src="image/Mango-shake.png" alt="coffee image">
-                                </a>
-                                <img class="hot" src="image/hot.png" alt="best seller">
-                            </div>
-                            <div class="body">
-                                <div class="prodName">Sample Product</div>
-                                <button>Buy Now</button>
-                            </div>
-                        </div>
-                        <div class="child">
-                            <div class="header">
-                                <a href="#">
-                                    <img class="child-img" src="image/dark-choco.png" alt="coffee image">
-                                </a>
-                                <img class="hot" src="image/hot.png" alt="best seller">
-                            </div>
-                            <div class="body">
-                                <div class="prodName">Sample Product</div>
-                                <button>Buy Now</button>
-                            </div>
-                        </div>
-                        <div class="child">
-                            <div class="header">
-                                <a href="#">
-                                    <img class="child-img" src="image/macha-oreo.png" alt="coffee image">
-                                </a>
-                                <img class="hot" src="image/hot.png" alt="best seller">
-                            </div>
-                            <div class="body">
-                                <div class="prodName">Sample Product</div>
-                                <button>Buy Now</button>
-                            </div>
-                        </div>
-                        <div class="child">
-                            <div class="header">
-                                <a href="#">
-                                    <img class="child-img" src="image/Mango-shake.png" alt="coffee image">
-                                </a>
-                                <img class="hot" src="image/hot.png" alt="best seller">
-                            </div>
-                            <div class="body">
-                                <div class="prodName">Sample Product</div>
-                                <button>Buy Now</button>
-                            </div>
-                        </div>
-                        <div class="child">
-                            <div class="header">
-                                <a href="#">
-                                    <img class="child-img" src="image/Mango-shake.png" alt="coffee image">
-                                </a>
-                                <img class="hot" src="image/hot.png" alt="best seller">
-                            </div>
-                            <div class="body">
-                                <div class="prodName">Sample Product</div>
-                                <button>Buy Now</button>
+                <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel" >
+                    
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <!-- <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active p-5">
+                            <div class="row justify-content-center gap-4">
+                                <div class="col-sm-3">
+                                    <div class="card">
+
+                                        <div class="card-header" style="background-color: #EFC900;">
+                                            <img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="card">
+                    
+                                        <div class="card-header" style="background-color: #EFC900;">
+                                            <img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap">
+                                        </div>
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="card">
+
+                                        <div class="card-header" style="background-color: #EFC900;">
+                                            <img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
+                        <div class="carousel-item p-5">
+                            <div class="row justify-content-center gap-4">
+                                <div class="col-sm-3">
+                                    <div class="card">
+
+                                        <div class="card-header" style="background-color: #EFC900;">
+                                            <img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="card">
+                    
+                                        <div class="card-header" style="background-color: #EFC900;">
+                                            <img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap">
+                                        </div>
+
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="card">
+
+                                        <div class="card-header" style="background-color: #EFC900;">
+                                            <img class="card-img-top" src="image/Mango-shake.png" alt="Card image cap">
+                                                                            </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <button class="icon" onclick="scrollr()"><i class="fa fa-angle-right"></i></button>
-                </div>
+       
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true" style="color: black !important;"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" >
+                    <span class="carousel-control-next-icon" aria-hidden="true" style="color: black !important;"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
         </section>
+
+
         <section  id="about-us">
 
        
@@ -246,3 +301,6 @@
 <?php
     include "c_footer.php";
 ?>
+
+</body>
+</html>

@@ -57,7 +57,7 @@ if (empty($data)) {
         $id = $customer['customer_id'];
 ?>
         <tr>
-            <td><?= $count ?></td>
+            <td><?= $id ?></td>
             <!-- <td><img src='../image/user.jpg' alt='user image'></td> -->
             <td><?= $customer['username'] ?></td>
             <td><?= $customer['email'] ?></td>

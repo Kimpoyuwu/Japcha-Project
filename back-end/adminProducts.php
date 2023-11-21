@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="../assets/css/AdminProductBootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <div class="adminSection">
 
     <div class="headerSection">
@@ -39,7 +40,7 @@
     </div>
 
     <div class="searchSection">
-        <input type="text" placeholder = "Search">
+        <!-- <input type="text" placeholder = "Search"> -->
         <select name="Category" class = "Category" id="Category">
             <option value="" selected >All Products</option>
                     <?php
@@ -181,7 +182,7 @@ if (isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] 
     $showEdit = false;
 }
 ?>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="../assets/js/admin-products.js">
     </script> 
     <script>

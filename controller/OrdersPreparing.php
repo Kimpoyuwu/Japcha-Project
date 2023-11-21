@@ -4,23 +4,33 @@ require_once "../classes/OrderModel.php";
 
 $OrderModel = new Order();
 
-// Assuming you have a method in your OrderModel to get all orders
-$orders = $OrderModel->getOrdersPreparing();
+try {
+    // Assuming you have a method in your OrderModel to get all orders
+    $orders = $OrderModel->getOrdersPreparing();
 
-if (!empty($orders)) {
-    $preparingOrders = [];
+    if (!empty($orders)) {
+        $preparingOrders = [];
 
-    foreach ($orders as $order) {
-        $preparingOrders[] = [
-            'orderId' => $order['order_id'],
-            'price' => $order['total_price'],
-            'customer_id' => $order['customer_id'],
-            // Add more order details as needed
-        ];
+        foreach ($orders as $order) {
+            $preparingOrders[] = [
+                'orderId' => $order['order_id'],
+                'price' => $order['total_price'],
+                'customer_id' => $order['customer_id'],
+                // Add more order details as needed
+            ];
+        }
+
+        // Send the latest orders as JSON response
+        header('Content-Type: application/json');
+        echo json_encode(['orders' => $preparingOrders]);
+    } else {
+        // Send an empty array if there are no orders
+        header('Content-Type: application/json');
+        echo json_encode(['orders' => []]);
     }
-
-    // Send the latest orders as JSON response
+} catch (\Throwable $th) {
+    // Handle exceptions and return an error response as JSON
     header('Content-Type: application/json');
-    echo json_encode(['orders' => $preparingOrders]);
+    echo json_encode(['error' => $th->getMessage()]);
 }
 ?>

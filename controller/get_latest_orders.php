@@ -23,6 +23,10 @@ if (!empty($orders)) {
             'customer_name' => $orderDetails['username'],
             'customer_address' => $orderDetails['customer_address'],
             'customer_email' => $orderDetails['email'],
+            'payment_pickup'=> $order['payment_pickup'],
+            'payment_cod'=> $order['payment_cod'],
+            'payment_gcash'=> $order['payment_gcash'],
+            'gcash_upload'=> $order['gcash_upload']
             // Add more order details as needed
         ];
     }

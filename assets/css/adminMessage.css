@@ -51,6 +51,11 @@
  
 }
 
+.mainContainer .leftCont .searchCont img{
+   margin-right: 15px;
+}
+
+
 .chatCont{
     display: flex;
     flex-direction: row;  
@@ -269,7 +274,49 @@
 
 
 
+.mainContainer .Chatbot-Manager{
+    display: none;
+    position: absolute;
+    width: 1000px;
+    height: 600px;
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    padding: 10px;
+    top: 55%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    background:#FFF;
+}
 
+.mainContainer .Chatbot-Manager .Chat-title-cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    
+}
+
+
+.mainContainer .Chatbot-Manager p{
+    color: #000;
+    font-family: Poppins;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+}
+
+.mainContainer .Chatbot-Manager .chatbot-add {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.mainContainer .Chatbot-Manager .chatbot-add i {
+    margin-left: 30px; 
+    color: #000; 
+}
 
 .mainContainer .Chatbot-edit-Modal{
     display: none;

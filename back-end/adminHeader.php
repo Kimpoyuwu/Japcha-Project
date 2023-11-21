@@ -16,7 +16,54 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <title>Document</title>
-    
+    <style>
+        /* Custom CSS for animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animated-alert {
+            animation: fadeIn 0.5s ease-in-out;
+        
+        }
+        .badge-top {
+        position: absolute !important;
+        right: -3px !important;
+        top: -4px;
+        font-size: 10px !important;
+        }
+        #bell-icon {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .bell {
+            color: #D0BC05;
+        }
+
+        /* Style for the notification dropdown */
+        .dropdown-menu{
+            min-width: 300px !important;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .notification-item {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,6 +71,11 @@
  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" ></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+
+
+
 <?php
     if(isset($_SESSION["adminID"]) ){
  ?>
@@ -38,12 +90,27 @@
                 <img src="../image/japcha_log.png" alt="Japcha Logo">
             </a>
         </div>
+        
     </div>
+   
+    <!-- <li> -->
+    <div class="dropdown" style="margin: auto; position: relative;">
+    <a id="bell-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fa fa-bell bell"></i>
+        <span class="badge badge-danger badge-top BellBadge"></span>
+    </a>
+
+    <!-- Notification Dropdown -->
+    <div id="notificationDropdown"  class="dropdown-menu" aria-labelledby="bell-icon">
+    </div>
+</div>
+    <!-- </li> -->
             <!-- <li>
             <button class="btnCaretdown" ><i id="caret_down" class="fa fa-caret-down"></i></button>
             </li> -->
 
 </nav>
+
     <div class="sidebar" id="mySidebar"> 
          <ul class="nav-links">
          <?php
@@ -111,68 +178,60 @@
                         <i class="fa fa-list"></i>
                         <span id="insertCounter" class="link_name">Orders <span class="badge badge-success"></span></span>
                     </a>
-                    <ul class="sub-menu blank">
-                        <li><a class="link_name" href="AdminOrders.php">Statistics</a></li>
-                    </ul> 
                 </li>
                 <script>
-                    // let lastCheckTimestamp = '1970-01-01 00:00:00'; // Initial timestamp
+           function checkForNewInserts() {
+                fetch('../controller/CountNewInsertedOrder.php')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        var badgeContent = data.new_insert_count !== 0
+                            ? '<span class="badge badge-danger">' + data.new_insert_count + '</span>'
+                            : ''; // If count is 0, set an empty string
 
-                    // function checkForNewInserts() {
-                    //     // Poll the PHP file for the total number of new inserts since the last check
-                    //     fetch(`../controller/CountNewInsertedOrder.php?lastCheck=${lastCheckTimestamp}`)
-                    //     .then(response => response.json())
-                    //     .then(data => {
-                    //         // Update the counter
-                    //         document.getElementById('insertCounter').innerHTML = `Orders <span class="badge badge-success">${data.new_insert_count}</span>`;
-                    //         // document.getElementById('insertCounter').innerText = ${data.new_insert_count};
-                    //     })
-                    //     .catch(error => console.error('Error checking for new inserts:', error));
-                    // }
+                        document.getElementById('insertCounter').innerHTML = 'Orders ' + badgeContent;
+                        // document.getElementById('numberAppointments').textContent = data.count;
+                    })
+                    .catch(error => {
+                        console.error('There was a problem with the fetch operation:', error);
+                    });
+            }
 
-                    // // Periodically check for new inserts (e.g., every 5 seconds)
-                    // setInterval(() => {
-                    //     checkForNewInserts();
-                    //     // Update the last check timestamp
-                    //     lastCheckTimestamp = new Date().toISOString().slice(0, 19).replace("T", " ");
-                    // }, 5000);
-
-                    // // Initial check
-                    // checkForNewInserts();
-                    function checkForNewInserts() {
-                        var xhr = new XMLHttpRequest();
-
-                        xhr.open('GET', '../controller/CountNewInsertedOrder.php', true);
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === 4 && xhr.status === 200) {
-                                var response = JSON.parse(xhr.responseText); // Parse the response
-                                document.getElementById('insertCounter').innerHTML = 'Orders <span class="badge badge-success">' + response.new_insert_count + '</span>';
-                                // document.getElementById('numberAppointments').textContent = response.count;
-                            }
-                        };
-
-                        xhr.send();
-                    }
                     setInterval(checkForNewInserts, 5000);
                     checkForNewInserts();
-            
                 </script>
         <?php
             }
         ?>
+                <!-- <li>
+                    <ul class="sub-menu blank">
+                        <li><a class="link_name" href="AdminOrders.php">Statistics</a></li>
+                    </ul> 
+                </li> -->
 
         <?php
                 if(isset($_SESSION["statisticsManagement_view"]) && $_SESSION["statisticsManagement_view"] == 1){
         ?>  
                 <li>
-                    <a href="adminStatistic.php">
+                    <a href="AdminStatistics_v2.php">
                         <i class="fa fa-bar-chart"></i>
                         <span class="link_name">Statistics</span>
                     </a>
                     <ul class="sub-menu blank">
-                        <li><a class="link_name" href="adminStatistic.php">Statistics</a></li>
+                        <li><a class="link_name" href="AdminStatistics_v2.php">Statistics</a></li>
                     </ul> 
                 </li>
+        <?php
+            }
+        ?>
+
+         <?php
+                if(isset($_SESSION["chatManagement_view"]) && $_SESSION["chatManagement_view"] == 1){
+        ?> 
                 <li>
                     <a href="adminMessage.php">
                         <i class="fa fa-commenting" aria-hidden="true"></i>
@@ -182,6 +241,9 @@
                         <li><a class="link_name" href="adminMessage.php">Message</a></li>
                     </ul> 
                 </li>
+        <?php
+            }
+        ?>
                 <!-- <li>
                     <a href="ChatbotManagement.php">
                         <i class="fa fa-comments" aria-hidden="true"></i>
@@ -191,9 +253,7 @@
                         <li><a class="link_name" href="adminMessage.php">Chatbot</a></li>
                     </ul> 
                 </li> -->
-        <?php
-            }
-        ?>
+        
 
                <?php
                 if(isset($_SESSION["contentManagement_view"]) && $_SESSION["contentManagement_view"] == 1){
@@ -256,7 +316,175 @@
             
         </ul>
     </div>
+<!-- Alert-like Div -->
 
+<div id="alertContainer" style="z-index: 9999; position: fixed !important; bottom: 0; right: 0; display: block;"></div>
+
+<script>
+//     function acceptAction() {
+//     console.log("Accept button clicked");
+//     // Add any other actions you want to perform
+// }
+
+// function cancelAction() {
+//     console.log("Cancel button clicked");
+//     // Add any other actions you want to perform
+// }
+
+</script>
+
+<script>
+    $(document).ready(function(){
+        // Variable to track if there are new orders
+     
+
+        function fetchOrdersAlertDiv() {
+            $.ajax({
+                url: '../controller/AlertNewOrder.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    // Clear the existing alertContainer
+                    $('#alertContainer').empty();
+
+                    // Iterate over orders and append new order alerts
+                    response.orders.forEach(function (order) {
+                        // Create the alertDiv for the current order
+                        var alertDiv = $('<div>', {
+                            class: 'alert alert-warning alert-dismissible fade show',
+                            role: 'alert',
+                            html: '<strong>Alert!</strong> A new order has been placed.' +
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                '<span aria-hidden="true">&times;</span></button>' +
+                                '<div class="mt-2 orderText"><p>Order #' + order.orderId + '</p></div>'
+                        });
+
+                        // Append the alertDiv to the alertContainer
+                        $('#alertContainer').append(alertDiv);
+
+                        $('#alertContainer').on('click', '.close', function () {
+                            // Get the orderId from the parent alertDiv
+                            var orderId = $(this).closest('.alert').find('.orderText p').text().match(/\d+/)[0];
+
+                            // Call the updateDatabase function
+                            UpdateSeenOrder(orderId);
+
+                        });
+
+                        $('#alertContainer').on('click', '.alert', function () {
+                            // Get the orderId from the clicked alertDiv
+                            var orderId = $(this).find('.orderText p').text().match(/\d+/)[0];
+                            // Redirect to another page (replace 'your_page_url' with the actual URL)
+                            UpdateSeenOrder(orderId);
+                            window.location.href = 'AdminOrders.php';
+                        });
+                    });
+
+                    // Set the newOrders variable based on the number of new orders
+                 
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error: " + error);
+                }
+            });
+        }
+
+        // Call the function to start fetching orders
+        setInterval(fetchOrdersAlertDiv, 10000); // 10 seconds interval
+
+        // Initial fetch when the page loads
+        fetchOrdersAlertDiv();
+
+
+        function UpdateSeenOrder(orderId) {
+
+            $.ajax({
+                url: '../controller/SeenOrder.php', // Replace with your server's URL for delivering orders
+                type: 'POST',
+                data: { orderId: orderId        
+                },
+                success: function (response) {
+                    console.log(response);
+                   
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error: ' + error);
+                }
+            });
+        }
+
+    });
+</script>
+
+
+
+    <script>
+      // Fetch new orders and update the bell icon
+      function checkForNewOrdersNotificationBell() {
+    fetch('../controller/CountNewOrdersPending.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            var badgeContent = data.new_insert_count !== 0
+                ? '<span class="badge badge-danger badge-top BellBadge">' + data.new_insert_count + '</span>'
+                : ''; // If count is 0, set an empty string
+
+            document.getElementById('bell-icon').innerHTML = ' <i class="fa fa-bell bell"></i>' + badgeContent;
+            // document.getElementById('numberAppointments').textContent = data.count;
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+    // Call the function to check for new orders
+  
+    function fetchOrdersNotificationBell() {
+    $.ajax({
+        url: '../controller/get_latest_orders.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            // Clear the existing dropdown items
+            $('#notificationDropdown').empty();
+
+            // Iterate over orders and append dropdown items
+            response.orders.forEach(function(order) {
+                var dropdownItem = $('<a>', {
+                    class: 'dropdown-item',
+                    href: 'AdminOrders.php',
+                    text: 'New Order #' + order.orderId,
+                });
+
+                // Append the dropdown item to the notification dropdown
+                $('#notificationDropdown').append(dropdownItem);
+            });
+
+        },
+        error: function(xhr, status, error) {
+            console.log("Error: " + error);
+        }
+    });
+}
+
+// Initial fetch when the page loads
+fetchOrdersNotificationBell();
+checkForNewOrdersNotificationBell();
+// Set interval after the initial fetch
+setInterval(function () {
+    fetchOrdersNotificationBell();
+    checkForNewOrdersNotificationBell();
+}, 5000);
+
+
+
+
+</script>
+<script src="../assets/js/admin.js"></script>
     <?php
             
         }

@@ -1,8 +1,17 @@
 <?php
     include "c_header.php";
     // include_once "config/databaseConnection.php";
-
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JapCha Profile</title>
+</head>
+<body>
+    
+
 <div class="profileContainer">
     <div class="profile">
         <div class="profileHeader">

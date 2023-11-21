@@ -9,11 +9,15 @@ session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_now']))
 {
     // session_start();
-    $username = htmlspecialchars($_POST["userName"], ENT_QUOTES, 'UTF-8');
+    $fname = htmlspecialchars($_POST["fname"], ENT_QUOTES, 'UTF-8');
+    $lname = htmlspecialchars($_POST["lname"], ENT_QUOTES, 'UTF-8');
     $email = htmlspecialchars($_POST["email"], ENT_QUOTES, 'UTF-8');
     $pwd = htmlspecialchars($_POST["pass"], ENT_QUOTES, 'UTF-8');
     $pwdConfirm = htmlspecialchars($_POST["confirm_pass"], ENT_QUOTES, 'UTF-8');
     $address = htmlspecialchars($_POST["address"], ENT_QUOTES, 'UTF-8');
+    $PostalCode = htmlspecialchars($_POST["Postal"], ENT_QUOTES, 'UTF-8');
+    $City = htmlspecialchars($_POST["City"], ENT_QUOTES, 'UTF-8');
+    $Region = htmlspecialchars($_POST["Region"], ENT_QUOTES, 'UTF-8');
     $contactNum = isset($_POST["contact"]) ? intval($_POST["contact"]) : 0;
 
     
@@ -23,23 +27,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_now']))
     include "../classes/dbh.classes.php";
     include "../classes/signup.classes.php";
     include "../classes/signup-cntrl.classes.php";
-    $signup = new SignupContr($username, $pwd, $pwdConfirm, $email, $address, $contactNum);
+    $signup = new SignupContr($fname,  $lname, $pwd, $pwdConfirm, $email, $address, $PostalCode,  $City, $Region, $contactNum);
 
     // Runnig error handlers and user signup
     $signup-> signupUser();
     if($signup != false){
         echo '<script>alert("A verification code has been sent to your email: ' . $email . '");</script>';
 
-        $_SESSION['register_CustomerName'] = $username;
+        $_SESSION['register_CustomerName'] = $fname;
+        $_SESSION['register_CustomerLastName'] = $lname;
         $_SESSION['register_CustomerPass'] = $pwd;
         $_SESSION['register_CustomerEmail'] = $email;
         $_SESSION['register_CustomerAddress'] = $address;
+        $_SESSION['register_CustomerPostalCode'] = $PostalCode;
+        $_SESSION['register_CustomerCity'] = $City;
+        $_SESSION['register_CustomerRegion'] = $Region;
         $_SESSION['register_CustomerContact'] = $contactNum;
 
 
     require_once "../classes/mailer_function.php";
     $mailer = new YourEmailClass();
-    $mailer->get_email($email, $username);
+    $mailer->get_email($email, $fname);
     // $customerId = $signup->fetchCustomerId($username);
     if($mailer != false){
 
@@ -54,25 +62,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup_now']))
     // header("location: ../index.php?error=none");
     ?>
 
-<div class="container-fluid vh-100" style="background-color: #FDE402;">
+<div class="container-fluid vh-100" style="background-color: #978d30;">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-md-4">
-            <div class="card">
+            <div class="card" style="box-shadow: -1px 2px 4px 1px rgba(0, 0, 0, 0.25);">
                 <div class="card-header">
-                    <h5 class="card-title">Verify Email to Continue With Signup</h5>
+                    <h5 class="card-title">Verification Code:</h5>
                 </div>
                 <div class="card-body">
                     <form method="POST" id="otpForm">
                         <div class="form-group mt-3 position-relative">
-                            <label for="otp">Enter OTP</label>
+                            <label for="otp">Enter Code</label>
                             <div class="input-group input-group-sm mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fa fa-key" aria-hidden="true"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="otp" id="otp" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter the OTP" required>
+                                <input type="text" class="form-control" name="otp" id="otp" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Enter the code" required>
                             </div>
                         </div>
                         <button type="button" id="verifyBtn" class="btn btn-success">Verify</button>
+                        <button type="button" id="verifyBtn" class="btn btn-warning">Resend</button>
                     </form>
                     <div id="verificationResult"></div>
                 </div>

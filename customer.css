@@ -320,7 +320,8 @@ section {
 .section-heading {
     font-weight: bold;
     margin-top: 85px;
-    margin-bottom: 116px;
+    margin-bottom: 30px;
+    /* margin-bottom: 116px; */
 }
 
 .Wij{
@@ -346,8 +347,7 @@ section {
 }
 .form-container {
     position: fixed;
-    max-width: 320px;
-    width: 100%;
+    width: auto;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1.2);
@@ -484,6 +484,7 @@ section {
 }
 .form-container.active .signup_form {
     display: block;
+    /* width: 800px; */
 }
 .form-container.active .login_form {
     display: none;
