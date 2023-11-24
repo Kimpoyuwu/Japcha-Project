@@ -14,7 +14,6 @@
     <div class="mb-3">
       <label for="exampleFormControlInput1" class="form-label">Subtitle <button type="button" class="btn btn-link" data-toggle="modal" data-target="#subtitle"><i class="fa fa-pencil" aria-hidden="true"></i></button></label></label>
       <p class="cmsDetailCon"><?= $cms['subtitle']?></p>
-      <!-- <input type="text" class="form-control" id="exampleFormControlInput1" value="<?= $cms['subtitle']?>"> -->
     </div>
     <div class="mb-3">
  

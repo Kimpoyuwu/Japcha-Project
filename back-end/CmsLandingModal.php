@@ -34,12 +34,12 @@
         </div>
 
         <div class="modal-body">
-            <textarea name="subtitleInput" id="subtitleModal"><?= $cms['subtitle']?></textarea>
+            <textarea name="subInput" id="subtitleModal"><?= $cms['subtitle']?></textarea>
         </div>
         
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary" name="subtitle_data">Save changes</button>
+            <button type="submit" class="btn btn-primary" name="sub">Save changes</button>
         </div>
 
     </div>

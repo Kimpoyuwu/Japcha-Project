@@ -6,6 +6,10 @@ include "../classes/OrderController.php";
 require_once "../classes/CartModel.php";
 $cartmodel = new CartModel();
 $order = new Order();
+date_default_timezone_set('Asia/Manila');
+$order_date = date('Y-m-d H:i:s');
+echo $today;
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(isset($_POST['proceed1'])){ 
@@ -92,10 +96,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $product_remark = htmlspecialchars($_POST["prd_remark"], ENT_QUOTES, 'UTF-8');
 
     
-    if($order->insertToOrderHeader($customerid,  $totalprice, $remark, $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload)){
+    if($order->insertToOrderHeader($customerid,  $totalprice, $remark, $order_date, $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload)){
         $getOrderNumber = $order->getOrderNumberOfCustomer($customerid,  $totalprice);
 
-        if($order->setOrder((int)$getOrderNumber, $customerid, $prodid, $product_name, $product_price, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark)){
+        if($order->setOrder((int)$getOrderNumber, $customerid, $prodid, $product_name, $product_price, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark, $order_date)){
             $_SESSION['order_placed'] = "successful_order";
             header("location: ../customerSHOP.php?error=none");
             exit();
@@ -249,7 +253,7 @@ if(isset($_POST['proceed2'])){
    
     $UpdateCart = $cartmodel->updateCart($userID);
 
-    if($order->insertToOrderHeader($userID,  $totalprice, $remark, $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload)){
+    if($order->insertToOrderHeader($userID,  $totalprice, $remark, $order_date, $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload)){
         $getOrderNumber = $order->getOrderNumberOfCustomer($userID,  $totalprice);
 
         for ($i = 0; $i < $number_of_rows; $i++) {
@@ -271,6 +275,7 @@ if(isset($_POST['proceed2'])){
                 'quantity' => $quantity[$i],
                 'subtotal' => $subtotals[$i],
                 'product_remark' => $product_remark[$i],
+                'order_date' => $order_date,
                 
             ];
         }

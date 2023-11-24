@@ -57,7 +57,7 @@
                         <label for="quantity">Quantity:</label>
                         <input type="number" class="form-control" name="quantity" step="1" min="0" placeholder="0" value="<?= $productVariation['quantity']; ?>" required />
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Update Variation</button>
+                    <button type="submit" class="btn1" name="submit">Update Variation</button>
                 </form>
             </div>
         </div>

@@ -321,15 +321,6 @@
 <div id="alertContainer" style="z-index: 9999; position: fixed !important; bottom: 0; right: 0; display: block;"></div>
 
 <script>
-//     function acceptAction() {
-//     console.log("Accept button clicked");
-//     // Add any other actions you want to perform
-// }
-
-// function cancelAction() {
-//     console.log("Cancel button clicked");
-//     // Add any other actions you want to perform
-// }
 
 </script>
 
@@ -354,8 +345,8 @@
                             class: 'alert alert-warning alert-dismissible fade show',
                             role: 'alert',
                             html: '<strong>Alert!</strong> A new order has been placed.' +
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                                '<span aria-hidden="true">&times;</span></button>' +
+                                '<div style="position: absolute; right: 0; top: 0;"><button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+                                '<span aria-hidden="true">&times;</span></button></div>' +
                                 '<div class="mt-2 orderText"><p>Order #' + order.orderId + '</p></div>'
                         });
 
@@ -390,7 +381,7 @@
         }
 
         // Call the function to start fetching orders
-        setInterval(fetchOrdersAlertDiv, 10000); // 10 seconds interval
+        setInterval(fetchOrdersAlertDiv, 5000); // 10 seconds interval
 
         // Initial fetch when the page loads
         fetchOrdersAlertDiv();

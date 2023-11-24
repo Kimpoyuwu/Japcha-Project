@@ -24,12 +24,19 @@
 </style>
     <div class="container" style="margin-left: 300px; height: 100vh;">
       <div class="manage-order">
-        <h2>Manage Order</h2>
+        <div class="row m-auto">
+            <h2>Manage Order</h2>
 
-        <label for="timerInput">Set Timer Interval <span>(in seconds or add m for minutes):</span></label>
+            <button type="button" class="SetTimerButton" data-toggle="modal" data-target="#exampleModal" data-toggle="tooltip" title="Set Timer Interval" style="border:none; background:none; cursor: pointer; focus: none; outline: none;">
+                <i class="fa fa-cog" aria-hidden="true" style="font-size:30px; color: #D0BC05;"></i>
+            </button>
+
+        </div>
+
+        <!-- <label for="timerInput">Set Timer Interval <span>(in seconds or add m for minutes):</span></label>
         <input type="text" id="timerInput" placeholder="1 (second) / 1m (minute)">
 
-        <button type="button" class="btn btn-primary" id="setTimerBtn" data-toggle="tooltip" data-placement="top" title="use m at the end of number for minutes">Set Timer</button>
+        <button type="button" class="btn btn-primary" id="setTimerBtn" data-toggle="tooltip" data-placement="top" title="use m at the end of number for minutes">Set Timer</button> -->
 
       </div>
       <div class="status-bar">
@@ -38,12 +45,19 @@
         <button class="Delivery" id="deliveryStatus" style="height: 50px;">Delivery <span class="badge badge-success">4</span></button>
         <button class="Complete" id="completeStatus" style="height: 50px;">Complete <span class="badge badge-success">4</span></button>
       </div>
+      
       <!-- New Orders List Section -->
       <div class="order-list d-flex" id="newOrders" style="gap: 5px; height: 500px; overflow: auto;">
         <!-- <h3>List of Orders</h3> -->
     
       </div>
       
+
+      <!-- Modal -->
+        <?php
+            include_once "SetTimerInterval.php";
+        ?>
+
     <script>
  function checkForNewOrders() {
     fetch('../controller/CountNewOrdersPending.php')
@@ -157,6 +171,7 @@
           <p class="order-price"></p>
         </div>
         <div class="order-actions">
+        <button class="view-button"></button>    
         <button class="remove-button"></button>
         <button class="deliver-button"></button>
       </div>
@@ -629,6 +644,22 @@ orderDetails.forEach(function(order, index) {
                 var orderActionsDiv = document.createElement('div');
                 orderActionsDiv.classList.add('order-actions');
 
+                var viewButton = document.createElement('button');
+                viewButton.classList.add('view-button');
+                viewButton.textContent = 'View';
+                
+
+                // Add a data-toggle and data-target attributes for Bootstrap modal
+                viewButton.setAttribute('data-toggle', 'modal');
+                viewButton.setAttribute('data-target', '#orderModal' + order.orderId);
+
+                // Add click event listener to populate modal content
+                viewButton.addEventListener('click', function () {
+                    populateModal(order);
+                });
+
+                
+
                 // Create and populate "Remove" button
                 var removeButton = document.createElement('button');
                 removeButton.classList.add('remove-button');
@@ -666,6 +697,7 @@ orderDetails.forEach(function(order, index) {
                 orderDetailsDiv.appendChild(orderNoP);
                 orderDetailsDiv.appendChild(orderPriceP);
 
+                orderActionsDiv.appendChild(viewButton);
                 orderActionsDiv.appendChild(removeButton);
                 orderActionsDiv.appendChild(deliverButton);
 
@@ -683,6 +715,95 @@ orderDetails.forEach(function(order, index) {
     });
 
 }
+
+// Function to populate the modal content
+function populateModal(order) {
+    // Create a modal element
+    var modal = document.createElement('div');
+    modal.classList.add('modal', 'fade');
+    modal.id = 'orderModal' + order.orderId;
+
+    // Create a modal dialog with a larger size
+    var modalDialog = document.createElement('div');
+    modalDialog.classList.add('modal-dialog', 'modal-lg');
+
+    // Create a modal content
+    var modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+
+    // Create a modal header
+    var modalHeader = document.createElement('div');
+    modalHeader.classList.add('modal-header');
+    modalHeader.innerHTML = '<h4 class="modal-title">Order Details</h4><button type="button" class="close" data-dismiss="modal">&times;</button>';
+
+    // Create a modal body
+    var modalBody = document.createElement('div');
+    modalBody.classList.add('modal-body');
+    
+    // Add the order details to the modal body
+    modalBody.innerHTML = '<p>Order No. #' + order.orderId + '</p>' +
+                          '<p>Price: ₱' + order.price + '</p>';
+
+    // Create an HTML table for the order details
+    var tableData = [
+    { productName: 'Fruit Tea', size: 'Medium', price: '$5', quantity: 2, addons: 'None', itemSubtotal: '$10' },
+    { productName: 'Iced Tea', size: 'Large', price: '$7', quantity: 1, addons: 'Lemon', itemSubtotal: '$7' }
+];
+
+var tableContent = '<table class="table">' +
+                    '<thead>' +
+                        '<tr>' +
+                            '<th></th>' +
+                            '<th>Product Name</th>' +
+                            '<th>Size</th>' +
+                            '<th>Price</th>' +
+                            '<th>Quantity</th>' +
+                            '<th>Addons</th>' +
+                            '<th>Item Subtotal</th>' +
+                        '</tr>' +
+                    '</thead>' +
+                    '<tbody>';
+
+// Populate the table rows with data
+tableData.forEach(function (row) {
+    tableContent += '<tr>' +
+                        '<td>' + + '</td>' +
+                        '<td>' + row.productName + '</td>' +
+                        '<td>' + row.size + '</td>' +
+                        '<td>' + row.price + '</td>' +
+                        '<td>' + row.quantity + '</td>' +
+                        '<td>' + row.addons + '</td>' +
+                        '<td>' + row.itemSubtotal + '</td>' +
+                    '</tr>';
+});
+
+// Close the table body and table tags
+tableContent += '</tbody></table>';
+
+
+    // Close the table body and table tags
+    tableContent += '</tbody></table>';
+
+    // Append the table to the modal body
+    modalBody.innerHTML += tableContent;
+
+    // Append modal header and body to modal content
+    modalContent.appendChild(modalHeader);
+    modalContent.appendChild(modalBody);
+
+    // Append modal content to modal dialog
+    modalDialog.appendChild(modalContent);
+
+    // Append modal dialog to modal
+    modal.appendChild(modalDialog);
+
+    // Append modal to body
+    document.body.appendChild(modal);
+
+    // Show the modal
+    $(modal).modal('show');
+}
+
 
 
 
@@ -906,8 +1027,8 @@ function DeleteOrder(orderId, customerid) {
     });
 }
 
-setInterval(fetchOrders, 5000);
-fetchOrders();
+// setInterval(fetchOrders, 5000);
+// fetchOrders();
 // Call the fetchOrderDetails function to initially populate orders
 fetchOrderDetails();
 fetchDeliveryOrderDetails();

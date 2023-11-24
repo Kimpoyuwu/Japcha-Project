@@ -47,7 +47,7 @@
                         <label for="quantity">Quantity:</label>
                         <input type="number" class="form-control" name="quantity" step="1" min="0" placeholder="0" required />
                     </div>
-                    <button type="submit" class="btn btn-primary" name="submit">Add Variation</button>
+                    <button type="submit" class="btn1" name="submit">Add Variation</button>
                 </form>
             </div>
         </div>

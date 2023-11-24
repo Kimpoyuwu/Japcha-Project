@@ -5,8 +5,8 @@ $samplemodel = new SampleModel();
 
 if(isset($_POST['japcha_data'])){
     $japcha = $_POST['japchaInput']; // Assuming you are using { content: orders } in your AJAX request
-    $save = $samplemodel->setContent($japcha);
-    if ($save === false) {
+    $saveJapcha = $samplemodel->setContent($japcha);
+    if ($saveJapcha === false) {
         // Handle the database error here
         echo "Error saving content to the database";
         exit;
@@ -18,8 +18,8 @@ if(isset($_POST['japcha_data'])){
 
 if(isset($_POST['order_data'])){
     $orders = $_POST['orderInput'];
-    $savs = $samplemodel->setOrder($orders);
-    if ($savs === false) {
+    $saveOrder = $samplemodel->setOrder($orders);
+    if ($saveOrder === false) {
         // Handle the database error here
         echo "Error saving order to the database";
         exit;
@@ -32,8 +32,8 @@ if(isset($_POST['order_data'])){
 
 if(isset($_POST['socials_data'])){
     $social = $_POST['socialsInput'];
-    $savs = $samplemodel->setSocials($social);
-    if ($savs === false) {
+    $saveSocial = $samplemodel->setSocials($social);
+    if ($saveSocial === false) {
         // Handle the database error here
         echo "Error saving order to the database";
         exit;
@@ -46,8 +46,8 @@ if(isset($_POST['socials_data'])){
 
 if(isset($_POST['policy_data'])){
     $policy = $_POST['policyInput'];
-    $savs = $samplemodel->setPolicy($policy);
-    if ($savs === false) {
+    $savePolicy = $samplemodel->setPolicy($policy);
+    if ($savePolicy === false) {
         // Handle the database error here
         echo "Error saving order to the database";
         exit;
@@ -60,8 +60,8 @@ if(isset($_POST['policy_data'])){
 
 if(isset($_POST['location_data'])){
     $location = $_POST['locationInput'];
-    $savs = $samplemodel->setLocation($location);
-    if ($savs === false) {
+    $saveLocation = $samplemodel->setLocation($location);
+    if ($saveLocation === false) {
         // Handle the database error here
         echo "Error saving order to the database";
         exit;
@@ -74,8 +74,8 @@ if(isset($_POST['location_data'])){
 
 if(isset($_POST['contact_data'])){
     $contact = $_POST['contactInput'];
-    $savs = $samplemodel->setContact($contact);
-    if ($savs === false) {
+    $saveContact = $samplemodel->setContact($contact);
+    if ($saveContact === false) {
         // Handle the database error here
         echo "Error saving order to the database";
         exit;
@@ -88,10 +88,9 @@ if(isset($_POST['contact_data'])){
 
 if(isset($_POST['title_data'])){
     $title_data = $_POST['titleInput'];
-    echo 'connected';
-    echo  $title_data;
-    $savs = $samplemodel->setTitle($title_data);
-    if ($savs === false) {
+
+    $saveTitle = $samplemodel->setTitle($title_data);
+    if ($saveTitle === false) {
         // Handle the database error here
         echo "Error saving order to the database";
         exit;
@@ -102,12 +101,12 @@ if(isset($_POST['title_data'])){
     }
 }
 
-if(isset($_POST['subtitle_data'])){
-    $subtitle = $_POST['subtitleInput'];
-    echo 'connected';
-    echo $subtitle;
-    $savs = $samplemodel->setSubtitle($subtitle);
-    if ($savs === false) {
+
+if (isset($_POST['sub'])) {
+    $subt = $_POST['subInput'];
+
+    $saveSub = $samplemodel->setSub($subt);
+    if ($saveSub === false) {
         // Handle the database error here
         echo "Error saving order to the database";
         exit;
@@ -117,6 +116,7 @@ if(isset($_POST['subtitle_data'])){
         exit;
     }
 }
+
 
 if(isset($_POST['update_logo'])){
     if(isset($_FILES['logoInput'])) {

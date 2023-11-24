@@ -29,10 +29,11 @@
 <div class="adminSection">
 
     <div class="headerSection">
-        <p>Product List</p>
+        <h3>Product List  <span class="badge badge-warning">TOTAL: <span class="totalProduct"></span></span></h3>
+           
         <?php
           if(isset($_SESSION["fileManagement_create"]) && $_SESSION["fileManagement_create"] == 1){
-                echo'<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</button>';
+                echo'<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New</button>';
           }
         ?>
        
@@ -193,20 +194,45 @@ if (isset($_SESSION["fileManagement_edit"]) && $_SESSION["fileManagement_edit"] 
     </script>
 
 <script>
-$(document).ready(function() {
-    $("#Category").change(function() {
+$(document).ready(async function() {
+    await fetchProductCount();
+    
+    $("#Category").change(async function() {
         var selectedCategory = $(this).val();
 
         // Make an AJAX request to fetch content based on the selected category
-        $.ajax({
-            url: '../classes/SortByCategoryFunction.php', // Replace with the actual URL to fetch data
-            method: 'POST',
-            data: { category: selectedCategory },
-            success: function(response) {
-                $(".productSection").html(response);
-            }
+        new Promise((resolve) =>{
+                $.ajax({
+                url: '../classes/SortByCategoryFunction.php', // Replace with the actual URL to fetch data
+                method: 'POST',
+                data: { category: selectedCategory },
+                success: function(response) {
+                    $(".productSection").html(response);
+                }
+            });
         });
     });
+
+
+   
+    function fetchProductCount() {
+      new Promise((resolve) =>{
+        $.ajax({
+            url: '../controller/get_product_count.php', // Update with the actual path to your PHP file
+            type: 'GET',
+            data:{product: "product"},
+            dataType: 'json',
+            success: function(response) {
+                $(".totalProduct").text(response.count)
+            },
+            error: function(xhr, status, error) {
+                console.error("Error: " + error);
+            }
+        });
+      });
+      
+    }
+
 });
 </script>
 

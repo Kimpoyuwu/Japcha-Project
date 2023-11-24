@@ -7,8 +7,7 @@ $OrderModel = new Order();
 // Assuming you have a method in your OrderModel to get all orders
 $orders = $OrderModel->getOrdersV2();
 
-
-if (!empty($orders)) {
+if (!empty($orders) && count($orders) > 0) {
     $latestOrders = [];
 
     foreach ($orders as $order) {
@@ -21,7 +20,12 @@ if (!empty($orders)) {
             'customerid' => $order['customer_id'],
             'remark' => $order['remark'],
             'customer_name' => $orderDetails['username'],
+            'customer_lname' => $orderDetails['last_name'],
             'customer_address' => $orderDetails['customer_address'],
+            'customer_postal_code' => $orderDetails['postal_code'],
+            'customer_city' => $orderDetails['city'],
+            'customer_region' => $orderDetails['region'],
+            'customer_address_id' => $orderDetails['address_id'],
             'customer_email' => $orderDetails['email'],
             'payment_pickup'=> $order['payment_pickup'],
             'payment_cod'=> $order['payment_cod'],
@@ -30,8 +34,11 @@ if (!empty($orders)) {
             // Add more order details as needed
         ];
     }
-
-    // Send the latest orders as JSON response
-    header('Content-Type: application/json');
-    echo json_encode(['orders' => $latestOrders]);
+} else {
+    $latestOrders = [];
 }
+
+// Send the latest orders as JSON response
+header('Content-Type: application/json');
+echo json_encode(['orders' => $latestOrders]);
+

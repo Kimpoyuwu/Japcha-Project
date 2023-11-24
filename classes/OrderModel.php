@@ -1,9 +1,9 @@
 <?php
 class Order extends Dbh {
 
-    public function setOrder($getOrderNumber, $customerid, $prodid, $product_name, $product_price, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark) {
+    public function setOrder($getOrderNumber, $customerid, $prodid, $product_name, $product_price, $sizesid, $size_name, $subtotal, $quantity, $addons_id, $addons_name, $addons_price, $product_remark, $order_date) {
         try {
-            $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `product_price`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+            $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `product_price`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`, `order_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
     
             // Assuming addons_id can be NULL
             $addons_id_value = ($addons_id !== "") ? $addons_id : null;
@@ -28,7 +28,7 @@ class Order extends Dbh {
             $stmt->bindValue(11, $addons_name, PDO::PARAM_STR);
             $stmt->bindValue(12, $addons_price, PDO::PARAM_STR);
             $stmt->bindValue(13, $product_remark, PDO::PARAM_STR);
-    
+            $stmt->bindValue(14, $order_date, PDO::PARAM_STR);
             // Execute the query
             $success = $stmt->execute();
     
@@ -1051,17 +1051,18 @@ public function getCustomerDetails($customerid){
         }
 
 
-        public function insertToOrderHeader($userID, $totalprice, $remark,  $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload){
+        public function insertToOrderHeader($userID, $totalprice, $remark,  $order_date,  $payment_pickup , $payment_cod , $payment_gcash,  $gcash_upload){
             try {
-                $stmt = $this->connect()->prepare('INSERT INTO `order` (`customer_id`, `total_price`, `remark`, `payment_pickup`, `payment_cod`, `payment_gcash`, `gcash_upload`) VALUES (?,?,?,?,?,?,?)');
+                $stmt = $this->connect()->prepare('INSERT INTO `order` (`customer_id`, `total_price`, `remark`, `order_date`, `payment_pickup`, `payment_cod`, `payment_gcash`, `gcash_upload`) VALUES (?,?,?,?,?,?,?,?)');
         
                 $stmt->bindValue(1, $userID);
                 $stmt->bindValue(2, $totalprice);
-                $stmt->bindValue(3, $remark);
-                $stmt->bindValue(4, $payment_pickup);
-                $stmt->bindValue(5, $payment_cod);
-                $stmt->bindValue(6, $payment_gcash);
-                $stmt->bindValue(7, $gcash_upload);
+                $stmt->bindValue(3, $remark);   
+                $stmt->bindValue(4, $order_date);   
+                $stmt->bindValue(5, $payment_pickup);
+                $stmt->bindValue(6, $payment_cod);
+                $stmt->bindValue(7, $payment_gcash);
+                $stmt->bindValue(8, $gcash_upload);
                 if ($stmt->execute()) {
                     return true; // Successfully inserted
                 } else {
@@ -1074,7 +1075,7 @@ public function getCustomerDetails($customerid){
 
         public function insertMultipleOrder($InsertOrder) {
             try {
-                $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `product_price`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+                $stmt = $this->connect()->prepare('INSERT INTO `customer_orders` (`orders_id`, `customer_id`, `product_id`, `product_name`, `product_price`, `sizes_id`, `size_name`, `subtotal`, `quantity`, `addons_id`, `addons_name`, `addons_price`, `product_remark`, `order_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         
                 if ($stmt) { // Check if the statement was prepared successfully
                     foreach ($InsertOrder as $orderData) {
@@ -1097,7 +1098,7 @@ public function getCustomerDetails($customerid){
                         $stmt->bindValue(11, $orderData['addons_name']);
                         $stmt->bindValue(12, $orderData['addons_price']);
                         $stmt->bindValue(13, $orderData['product_remark']);
-        
+                        $stmt->bindValue(14, $orderData['order_date']);
                         if (!$stmt->execute()) {
                             // Print or log the error details
                             $errorInfo = $stmt->errorInfo();
@@ -1217,6 +1218,7 @@ public function getCustomerDetails($customerid){
             }
         }
 
+    
         
         public function CountNewInsertsFrontEnd($customerid) {
             try {

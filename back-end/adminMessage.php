@@ -72,7 +72,7 @@
         
     </div>
 
-    <div class = Chatbot-Manager>
+    <div class = "Chatbot-Manager">
             <div class="Chat-title-cont">
                 <p>Chatbot Manager</p>
                 <div class="chatbot-add">

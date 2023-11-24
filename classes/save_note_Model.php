@@ -160,29 +160,29 @@
                 exit();
             }
         }
-
-        public function setSubtitle($subtitle){
+        public function setSub($sub){
             try {
-                
                 // Prepare the SQL query
-                $stmt = $this->connect()->prepare('UPDATE cms SET subtitle = ?');
+                $stmt = $this->connect()->prepare('UPDATE cms SET `subtitle` = ?');
                 
                 // Execute the query
-                if(!$stmt->execute(array($subtitle))) {
+                if (!$stmt->execute(array($sub))) {
                     $stmt = null;
                     header("location: ../back-end/admin-cms.php?error=stmtfailed");
                     exit();
-                }else{
-                    header("location: ../back-end/admin-cms.php?success=successfully");
+                } else {
+                    // Omitting the $stmt = null; here as it's unnecessary after exit()
+                    header("location: ../back-end/admin-cms.php");
                     exit();
                 }
-                $stmt = null;
-            } catch (Exception $e) {
+            } catch (Exception $tq) {
                 // Log the error or handle it appropriately
-                header("location: ../back-end/admin-cms.php?error=" . urlencode($e->getMessage()));
+                header("location: ../back-end/admin-cms.php?error=" . urlencode($tq->getMessage()));
                 exit();
             }
         }
+        
+        
 
         public function setLogo($logo){
             try {

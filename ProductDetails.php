@@ -278,13 +278,13 @@ hr.new4 {
     </div>
     </form>
     <div class="col-md-9 text-center">
-    <h3 class="Reviews"> <img src="image/User.png" alt="Juan Dela Cruz" class="img-Profile"> Juan Dela Cruz <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i></h3>
+    <h3 class="Reviews"> <img src="image/Boy.png" alt="Juan Dela Cruz" class="img-Profile"> Juan Dela Cruz <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i></h3>
     <p class="prodRev">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
                     printer took a galley of type and scrambled it to make a type specimen book
     </p>
     </div>
     <div class="col-md-9 text-center">
-    <h3 class="Reviews"> <img src="image/User.png" alt="Juan Dela Cruz" class="img-Profile"> Juan Dela Cruz <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i></h3>
+    <h3 class="Reviews"> <img src="image/Boy.png" alt="Juan Dela Cruz" class="img-Profile"> Juan Dela Cruz <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i> <i class="fa-regular fa-star fa-2xs"></i></h3>
     <p class="prodRev">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown 
                     printer took a galley of type and scrambled it to make a type specimen book
     </p>
