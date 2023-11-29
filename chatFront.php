@@ -19,41 +19,51 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
         <div class="chat-area">
             
             <div class="chat-box-cont" id="scrollableContainer">
-
-            <!-- container for chat area -->
-            <div class="admin-chat-cont" style="margin-bottom: -10px;">
-                <!-- admin icon -->
-                <i class="fa fa-user-circle" aria-hidden="true"></i>
-                <!-- admin message -->
-                <div class="admin-message" id="admin-message">
-                    <p>Hello and welcome to JapCha, your one-stop destination for delightful beverages and foods! How can we assist you today?</p>
+                
+                <!-- container for chat area -->
+                <div class="client-chat-cont">
+                    <!-- client icon -->
+                    <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    <!-- client message -->
+                    <div class="client-message" id="client-message">
+                        <p></p>
+                    </div>
                 </div>
 
-            </div>
-            <div class="chat-bot-cont">
                 
-                <?php
-                        $count = 1;
-                        foreach (($getChatQuestions ?? []) as $gchatbot):
-                ?>
+                <div class="admin-chat-cont" style="margin-bottom: -10px;">
+                    <!-- admin icon -->
+                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                    <!-- admin message -->
+                    <div class="admin-message" id="admin-message">
+                        <p>Hello and welcome to JapCha, your one-stop destination for delightful beverages and foods! How can we assist you today?</p>
+                    </div>
 
-                <div class="question-cont" data-chatbot-id="<?= $gchatbot['id']?>">
-                
-                    <p><?= $gchatbot['chatQuestion']?> </p>
-                    <p style="display: none;"><?= $gchatbot['chatAnswer']?></p>
+                </div>
+                <div class="chat-bot-cont">
+                    
+                    <?php
+                            $count = 1;
+                            foreach (($getChatQuestions ?? []) as $gchatbot):
+                    ?>
+
+                    <div class="question-cont" data-chatbot-id="<?= $gchatbot['id']?>">
+                    
+                        <p><?= $gchatbot['chatQuestion']?> </p>
+                        <p style="display: none;"><?= $gchatbot['chatAnswer']?></p>
+                        
+                    </div>
+                    
+
+                    <?php
+                        $count++; 
+                        endforeach;
+
+                    ?>
+
+
                     
                 </div>
-                
-
-                <?php
-                    $count++; 
-                    endforeach;
-
-                ?>
-
-
-                
-            </div>
 
             </div>
         </div>
@@ -61,9 +71,8 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
         
 
         <div class="chat-input-cont">
-            <input type="text" placeholder="(Type something)" name="" id="chat-input-text">
-            <i class="fa fa-file-image-o" aria-hidden="true"></i>
-            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            <textarea name="" id="chat-input" placeholder="Type a Message" rows="1"></textarea>
+            <input type="submit" value="Send" id="send">
         </div>
 
         
@@ -133,22 +142,18 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
 
 <script>
     // Get the scrollable container
-const container = document.getElementById('scrollableContainer');
+    const container = document.getElementById('scrollableContainer');
 
 
-// Call the function to scroll to the bottom when the content loads
-window.addEventListener('load', scrollToBottom);
+    
+    window.addEventListener('load', scrollToBottom);
 
-// Call the function whenever new content is added to the container
-// For example, after appending new content dynamically
-// scrollToBottom();
+    function scrollToBottom() {
+        var chatBox = document.querySelector('.chat-box-cont');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
 
-function scrollToBottom() {
-    var chatBox = document.querySelector('.chat-box-cont');
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-window.addEventListener('load', scrollToBottom);
+    window.addEventListener('load', scrollToBottom);
 
 </script>
 
