@@ -8,17 +8,16 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
 
 <div class="chat-main-cont">
 
-    <form action="" class="chat-form">
-
-
-        <div class="chat-title-cont">
-            <h2>CHAT WITH US</h2>
-        </div>
+    <div class="chat-form">
 
         
         <div class="chat-area">
+
+            <div class="chat-title-cont">
+                <h2>CHAT WITH US</h2>
+            </div>
             
-            <div class="chat-box-cont" id="scrollableContainer">
+            <div class="chat-box-cont" id="scrollableContainer" ">
                 
                 <!-- container for chat area -->
                 <div class="client-chat-cont">
@@ -26,7 +25,7 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
                     <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     <!-- client message -->
                     <div class="client-message" id="client-message">
-                        <p></p>
+                        <p>Hello and welcome to JapCha, your one-stop destination for delightful beverages and foods! How can we assist you today?</p>
                     </div>
                 </div>
 
@@ -66,20 +65,25 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
                 </div>
 
             </div>
-        </div>
-        
-        
-
-        <div class="chat-input-cont">
-            <textarea name="" id="chat-input" placeholder="Type a Message" rows="1"></textarea>
-            <input type="submit" value="Send" id="send">
-        </div>
-
-        
             
+            <div class="chat-input-cont">
+                <textarea name="" id="chat-input" placeholder="Type a Message" rows="1"></textarea>
+                <input type="submit" value="Send" id="send">
+            </div>
+
+            
+        </div>
+        
+
+        
+        <div class="msg-icon-cont">
+            <img src="image/message-circle-text-solid-svgrepo-com.svg" alt="nameasd">
+        </div> 
       
             
-    </form>
+    </div>
+
+    
 
 </div>
 
