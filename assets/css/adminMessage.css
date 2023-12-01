@@ -4,7 +4,7 @@
 .mainContainer{
     height: 100vh;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     display: flex;
     flex-direction: row;
 }
@@ -114,125 +114,100 @@
 
 .mainContainer .rightCont{
     display: flex;
-    flex-direction: column-reverse;
+    
     width: 50%;
     height: 100%;
-    overflow-y: scroll;
+    
 }
 
-.mainContainer .rightCont .inputCont{
+.mainContainer .chat-area{
     display: flex;
-    flex-direction: row;  
+    align-items: center;
+    flex-direction: column;
+    margin-top: 60px;
+
+}
+
+.mainContainer .rightCont .chat-area .chatScrollable{
+    display: flex;
+    flex-direction: column;
+    height: 580px;
     width: 100%;
-    height: auto;
-    justify-content: center;
-    align-items: flex-end;
-    padding-top: 20px;
-    padding-bottom: 20px;     
+    overflow-y: auto;
 }
 
-.mainContainer .rightCont .inputCont ::placeholder{
-    color: rgba(0, 0, 0, 0.57);
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-.mainContainer .rightCont .inputCont input[type=text]{
-    width: 680px;
-    height: 49px;
-    border-radius: 9px;
-    border: 1px solid rgba(0, 0, 0, 0.26);
-    background: #FFF;
-}
-
-.mainContainer .rightCont .inputCont .clipButton{
-    margin-right: 15px;
-    margin-bottom: 10px;
-    margin-left: 15px;
-}
-
-.mainContainer .rightCont .inputCont .sendButton{
-    margin-left: 15px;
-    margin-bottom: 8px;
-    margin-right: 8px;
-}
-
-.mainContainer .rightCont .convoCont{
+.mainContainer .rightCont .chat-area .chatScrollable .client-chat-Container{
     display: flex;
-    flex-direction: row;
-    margin-left: 440px;
-    
+    flex-direction: row-reverse;
+    align-items: center;
 }
 
-.mainContainer .rightCont .convoCont .sampleMessageCont{
-    justify-content: center;
-    align-items: center;
-    width: 65%; 
+.mainContainer .rightCont .chat-area .chatScrollable .client-chat-Container .clientMess{
+    display: flex;
+    max-width: 400px;
+    width: auto;
     height: auto;
-    border-radius: 10px;
-    background-color: #699BF7;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    margin-right: 5px;
-}
-
-
-
- .mainContainer .rightCont .convoCont .sampleMess{
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    background: #699BF7;
+    border-radius: 16px;
+    padding: 7px;
+    margin-top: 20px;
+    text-align: left;
     color: #FFF;
-    font-family: Inter;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    
+    font-family: Poppins;
 }
 
-.mainContainer .rightCont .convoCont .chat-profile-Container{
-    width: 50.808px;
-    height: 51.505px;
-}
-
-.mainContainer .rightCont .client-chat-Container{
+.mainContainer .rightCont .chat-area .chatScrollable .admin-chat-Container{
     display: flex;
     flex-direction: row;
-    margin-left: 50px;
-}
-
-.mainContainer .rightCont .client-chat-Container img{
-    width: 61px;
-    height: 61px;
-    margin-right: 5px;
-}
-
-.mainContainer .rightCont .client-chat-Container .clientMessageCont{
-    justify-content: center;
     align-items: center;
-    width: 30%;
+}
+
+.mainContainer .rightCont .chat-area .chatScrollable .adminMess{
+    display: flex;
+    max-width: 400px;
+    width: auto;
     height: auto;
-    border-radius: 11px;
-    background: #e0dfdf;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
+    padding: 7px;
+    border-radius: 16px;
+    background: #A3A2A2;
+    text-align: left;
+    margin-top: 20px;
+    color: #FFF;
+    font-family: Poppins;   
+    font-size: 16px;
+    font-style: normal;
+}
+.mainContainer .rightCont .chat-area .chatScrollable .adminMess p{
+    word-break: break-all;
 }
 
-.mainContainer .rightCont .client-chat-Container .clientMessageCont p{
+
+.mainContainer .rightCont .chat-area .inputCont{
+    display: flex;
+    width: 700px;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    color: #000;
-    font-family: Inter;
-    font-size: 20px;
+}
+
+.mainContainer .rightCont .chat-area .inputCont #chat-input{
+    width: 100%;
+    height: 40px;
+    background-color: #D9D9D9;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    color: rgba(0, 0, 0, 0.58);
+    font-family: Poppins;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
+.mainContainer .rightCont .chat-area .inputCont button{
+    border: none;
+}
 
+
+
+/* asdsadasdsa */
 .mainContainer .rightCont .chatbot-cont {
     display: flex;
     flex-direction: row;

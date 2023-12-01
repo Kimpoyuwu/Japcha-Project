@@ -1,17 +1,24 @@
+
 <?php
-include "c_header.php";
-require_once "classes/chatbotFrontModel.php";
+    require_once "classes/dbh.classes.php";
+?>
+<?php
+include "./classes/chatbotFrontModel.php";
 $chatbot = new chatbotFrontModel();
 $getChatQuestions = $chatbot->getAllChatQuestions();
 ?>
     <link rel="stylesheet" href="frontChat.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="chat-main-cont">
 
     <div class="chat-form">
 
         
-        <div class="chat-area">
+        <div class="chat-area" id="chatArea">
 
             <div class="chat-title-cont">
                 <h2>CHAT WITH US</h2>
@@ -59,30 +66,27 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
                         endforeach;
 
                     ?>
-
-
-                    
                 </div>
 
             </div>
             
             <div class="chat-input-cont">
-                <textarea name="" id="chat-input" placeholder="Type a Message" rows="1"></textarea>
-                <input type="submit" value="Send" id="send">
+                <textarea name="message" id="messageInput" placeholder="Type a Message"></textarea> 
+                <button type="button" id="submitBtn">
+                    <img src="image/send-alt-svgrepo-com.svg" alt="">
+                </button>
+                
             </div>
 
-            
+        
         </div>
         
-
-        
-        <div class="msg-icon-cont">
-            <img src="image/message-circle-text-solid-svgrepo-com.svg" alt="nameasd">
-        </div> 
-      
             
     </div>
 
+    <div class="msg-icon-cont" id="msg-icon">
+            <img src="image/message-circle-text-solid-svgrepo-com.svg" alt="nameasd">
+    </div> 
     
 
 </div>
@@ -147,9 +151,6 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
 <script>
     // Get the scrollable container
     const container = document.getElementById('scrollableContainer');
-
-
-    
     window.addEventListener('load', scrollToBottom);
 
     function scrollToBottom() {
@@ -159,9 +160,105 @@ $getChatQuestions = $chatbot->getAllChatQuestions();
 
     window.addEventListener('load', scrollToBottom);
 
+    document.addEventListener('DOMContentLoaded', function () {
+    const sendButton = document.querySelector('.chat-input-cont img');
+    const chatInput = document.getElementById('chat-input');
+    const chatBoxCont = document.querySelector('.chat-box-cont');
+
+    sendButton.addEventListener('click', function () {
+        sendMessage();
+    });
+
+    function sendMessage() {
+        const message = chatInput.value.trim();
+
+        if (message !== '') {
+            const clientChatContainer = document.createElement('div');
+            clientChatContainer.className = 'client-chat-cont';
+
+            const clientIcon = document.createElement('i');
+            clientIcon.className = 'fa fa-user-circle-o';
+            clientIcon.setAttribute('aria-hidden', 'true');
+            clientChatContainer.appendChild(clientIcon);
+
+            const clientMessage = document.createElement('div');
+            clientMessage.className = 'client-message';
+            clientMessage.innerHTML = '<p>' + message + '</p>';
+            clientChatContainer.appendChild(clientMessage);
+
+            chatBoxCont.appendChild(clientChatContainer);
+            scrollToBottom();
+            chatInput.value = '';
+        }
+    }
+
+    chatInput.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+    function scrollToBottom() {
+        chatBoxCont.scrollTop = chatBoxCont.scrollHeight;
+    }
+}); 
+
 </script>
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const chatArea = document.getElementById('chatArea');
+    const msgIcon = document.getElementById('msg-icon');
+
+    // Function to toggle chat area visibility
+    function toggleChatArea() {
+        const chatAreaStyle = getComputedStyle(chatArea);
+        const currentTransform = chatAreaStyle.getPropertyValue('transform');
+
+        if (currentTransform === 'none' || currentTransform === 'matrix(1, 0, 0, 1, 0, 0)') {
+            // If the chat area is not transformed or translated
+            chatArea.style.transform = 'translateX(999px)';
+        } else {
+            // If the chat area is already translated, reset it
+            chatArea.style.transform = 'none';
+        }
+    }
+
+    // Add click event listener to the msg-icon-cont
+    msgIcon.addEventListener('click', function () {
+        toggleChatArea();
+    });
+});
+
+</script>
+
+<script>
+
+    $(document).ready(function() {
+        $("#submitBtn").click(function(){
+ 
+        var message = $('#messageInput').val();
+        
+        $.ajax({
+                type: 'POST',
+                url: 'includes/frontChat.inc.php',
+                data: {
+                    message: message
+                },
+                success: function(response) {
+                    console.log('Message sent successfully');
+
+                },
+                error: function(xhr, status, error) {
+                    
+                    console.error('Error:', error);
+                }
+            });
+        });
+    
+    });
 
 
-
+</script>

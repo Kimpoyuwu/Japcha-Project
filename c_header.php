@@ -5,6 +5,7 @@
 <?php
     require "classes/dbh.classes.php";
     require "classes/cms.classes.php";
+    
     $cms = new Cms();
     $data = $cms->getCms();
     include "classes/ProductsModel.php";
@@ -12,6 +13,7 @@
     // $products = $productModel->getProductShake();
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -146,6 +148,7 @@
     </style>
 </head>
 <body>
+        
     <nav style="display: flex !important;">
         <div id ="logo-img">
             <a href="index.php" class="logo__image">
@@ -167,7 +170,7 @@
                 <a href="index.php#about-us" class="scroll-link">About</a>
             </li>
             <li>
-                <a href="chatFront.php">Chat</a>
+                <a href="">Chat</a>
             </li>
             <?php
                 if (isset($_SESSION["userid"])) 
@@ -251,6 +254,8 @@
             ?>
         </ul>
     </nav>
+
+    
 
     <?php
 if(isset($_SESSION["order_placed"])){

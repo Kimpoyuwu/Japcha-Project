@@ -6,9 +6,10 @@
 
     $chatbot = new ChatbotModel();
     $getchatQuestions = $chatbot->getAllChatQuestions();
+    
 ?>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="../assets/css/adminMessage.css">
 
 <div class="mainContainer">
@@ -38,37 +39,36 @@
 
     <div class="rightCont">
         
-        <div class="inputCont">
-            <img class="clipButton" src="../image/clipButton.png" alt="">
-            <input type="text" placeholder="Type here..." name="" id="">
-            <img class="sendButton" src="../image/sendButton.png" alt="">
+        <div class="chat-area">
+            <div class="chatScrollable">
+
+                <div class="client-chat-Container">
+                    <img src="../image/sample1.png" alt="" style="transform: scale(.6);">
+                    <div class="clientMess">
+                        <p >Sample Me;lskfjlksadnlksfjwjfe;alksmlasmd;ldkssage</p>
+                    </div>
+                </div>
+
+                <div class="admin-chat-Container">
+                    <img src="../image/japcha_logo.png" alt="" style="transform: scale(.6);">
+                    <div class="adminMess">
+                        <p>Sample Mesasdasdlkasdasdasdasdasdsa saj lkasdj laksdjlaksdj aslkdj aslkd jsage</p>
+                    </div>
+                </div>
+  
+
+            </div>
+
+            <div class="inputCont">
+                    <textarea name="message" id="chat-input" placeholder="Type Message Here..."></textarea>
+                    <button type="button" id="submitButton">
+                        <img class="sendButton" src="../image/sendButton.png" alt="">
+                    </button>
+            </div>
+
         </div>
 
-       
-
-        
-    
-
-        <div class="convoCont">
-            <div class="sampleMessageCont">
-                <p class="sampleMess">Sample Message</p>
-            </div>
-
-            <div class="chat-profile-Container">
-                <img src="../image/japcha_logo.png" alt="">
-            </div>
-        </div>
-
-        <div class="client-chat-Container">
-            <div class="client-profile-Container">
-                <img src="../image/sample1.png" alt="">
-            </div>
-
-            <div class="clientMessageCont">
-                <p>Sample Message</p>
-            </div>
-        </div>
-
+      
         
     </div>
 
@@ -130,7 +130,7 @@
          
     <?php
         include "EditChatbot.php";
-      ?> 
+    ?> 
              
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -192,7 +192,82 @@
     }
 </script>
 
-    
+
+<!-- <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sendButton = document.querySelector('.sendButton');
+            const chatScrollable = document.querySelector('.chatScrollable');
+            const chatInput = document.querySelector('#chat-input');
+
+            // Function to send message
+            function sendMessage() {
+                const message = chatInput.value.trim();
+
+                if (message !== '') {
+                    const adminChatContainer = document.createElement('div');
+                    adminChatContainer.className = 'admin-chat-Container';
+
+                    const adminImage = document.createElement('img');
+                    adminImage.src = '../image/japcha_logo.png';
+                    adminImage.alt = '';
+                    adminImage.style.transform = 'scale(.6)';
+                    adminChatContainer.appendChild(adminImage);
+
+                    const adminMess = document.createElement('div');
+                    adminMess.className = 'adminMess';
+                    adminMess.innerHTML = '<p>' + message + '</p>';
+                    adminChatContainer.appendChild(adminMess);
+
+                    chatScrollable.appendChild(adminChatContainer);
+
+                    // Scroll to the bottom of the chat
+                    chatScrollable.scrollTop = chatScrollable.scrollHeight;
+
+                    // Clear the input field after sending the message
+                    chatInput.value = '';
+                }
+            }
+
+            // Event listener for send button click
+            sendButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                sendMessage();
+            });
+
+            // Event listener for Enter key press in the input field
+            chatInput.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    sendMessage();
+                }
+            });
+        });
+</script> -->
+
+<!-- ... (your existing HTML code) ... -->
+
+<script>
+    $(document).ready(function() {
+        $("#submitButton").click(function(){
+            var message = $('#chat-input').val();
+            
+            $.ajax({
+                type: 'POST',
+                url: 'includes/admin-message.inc.php', 
+                data: {
+                    message: message
+                },
+                success: function(response) {
+                    console.log('Message sent successfully');
+                    
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 
 <?php
     include "adminFooter.php";
